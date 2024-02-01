@@ -1,0 +1,41 @@
+@media screen and (max-width: 768px) {
+        .anuncios-column,
+        .form-column {
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 100%;
+        }
+
+.show-form .form-column {
+            display: flex;
+        }
+
+        .main-content {
+            padding-left: 0;
+        }
+}
+
+
+  /* Agrega estilos específicos para dispositivos móviles */
+  @media (max-width: 767px) {
+    .anuncios-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .anuncio-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .anuncio-buttons {
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+  
+  }
+  

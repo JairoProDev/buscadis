@@ -1,0 +1,15 @@
+#anuncios-list {
+    display: flex;
+    flex-direction: row; /* Cambiado a row para organizar los anuncios horizontalmente */
+    flex-wrap: wrap; /* Añadido para permitir que los anuncios se envuelvan a la siguiente línea */
+    justify-content: space-around; /* Añadido para añadir espacio alrededor de los anuncios */
+    align-items: flex-start;
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 1px;
+    border-radius: 15px;
+    box-shadow: 10px 24px 16px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: 0;
+    gap: 5px; /* Añadido para dar un espacio entre los anuncios */
+}

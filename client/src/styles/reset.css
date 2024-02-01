@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+    /* Include padding and border in size calculation. */
+    box-sizing: border-box;
+    /* Position based on immediate parent and allow adjusting top/right/bottom/left */
+    /* position: relative; */
+    /* Prevent grid and flex items from spilling out of their container. */
+    /* min-width: 0; */
+}
+    
+    body {
+    /* Ensure that the body fills the entire viewport. */
+    min-height: 100dvh;
+    
+    }
+    
+    h1, h2, h3, h4 {
+    /* Balance headings across multiple lines into an ven block. */
+    text-wrap: balance;
+    }
+    p {
+    /* Prevent text orphans (single words on last line. */
+    text-wrap: pretty;
+    }

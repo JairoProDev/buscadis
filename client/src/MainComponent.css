@@ -1,0 +1,30 @@
+
+/* Main Content */
+.main-content {
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 20px 20px 0;
+    z-index: 1;
+    position: relative;
+  }
+  
+  .anuncios-column {
+    flex: 1;
+    justify-content: flex-start;
+  }
+  
+  
+  /* Lista de Anuncios */
+  #anuncios-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    /* Añadido para alinear los elementos al centro */
+    align-items: center;
+  }
+  

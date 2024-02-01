@@ -1,0 +1,139 @@
+/* Header.css */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:  0px 15px;
+    background-color: rgba(51, 51, 51, 0.8);
+    color: #fff;
+    box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.1);
+    position:fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: transform 0.6s ease-in-out;
+    
+}
+
+.header-hidden {
+    transform: translateY(-100%);
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 5px;
+    margin-left: -5px;
+}
+
+.header-title {
+    font-size: 2.0em;
+    margin-right: 10px;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%; 
+    /* 
+    border-radius: 20px;
+    background-color: #29487d;
+    padding: 0 10px;
+    max-width: 240px;
+    */
+}
+
+.search-input {
+    padding: 5px;
+    font-size: 1%;
+    width: 100%;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    position: relative;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-list .nav-item {
+    margin-right: 80px;
+}
+.header-right .nav-item {
+    margin-left: 0px;
+}
+.nav-item span{
+    font-size: 34px;
+    visibility: visible;
+}
+.nav-item a {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px;
+    visibility: hidden;
+    transition: visibility 0.3s ease;
+}
+
+.nav-item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.nav-item:hover a {
+    opacity: 1;
+    visibility: visible;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right a {
+    color: white;
+    text-decoration: none;
+    margin-left: 40px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.header-right a:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    visibility: visible;
+}
+
