@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/PublicAdis-React/static/css/main.42bc8682.css",
+    "main.js": "/PublicAdis-React/static/js/main.653164ca.js",
+    "static/js/787.d5fa4d18.chunk.js": "/PublicAdis-React/static/js/787.d5fa4d18.chunk.js",
+    "static/media/logo.ico": "/PublicAdis-React/static/media/logo.f0864e2630abbcaed06c.ico",
+    "index.html": "/PublicAdis-React/index.html",
+    "main.42bc8682.css.map": "/PublicAdis-React/static/css/main.42bc8682.css.map",
+    "main.653164ca.js.map": "/PublicAdis-React/static/js/main.653164ca.js.map",
+    "787.d5fa4d18.chunk.js.map": "/PublicAdis-React/static/js/787.d5fa4d18.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.42bc8682.css",
+    "static/js/main.653164ca.js"
+  ]
+}
