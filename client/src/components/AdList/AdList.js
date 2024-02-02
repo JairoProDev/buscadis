@@ -1,8 +1,10 @@
 import React from "react";
 import AdCard from "../AdCard/AdCard";
- import "./adList.css";
+import "./adList.css";
 
 function AdList({ anuncios }) {
+  console.log(anuncios);
+
   return (
     <div className="anuncios-column">
       <ul id="anuncios-list">
