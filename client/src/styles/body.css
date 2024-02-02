@@ -1,8 +1,8 @@
 body {
     height: 100vh;
-    background: linear-gradient(270deg, #4c1a57, #00a8aa, #f0f600, #333333);
+    background: linear-gradient(270deg, #4c1a57, #00a8aa, #333333);
     background-size: 600% 600%;
-    animation: AnimationName 30s ease infinite;
+    animation: AnimationName 15s ease infinite;
 }
 
 @keyframes AnimationName {

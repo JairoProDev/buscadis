@@ -7,6 +7,7 @@ function useAds() {
     const reversedAnuncios = useMemo(() => [...anuncios].reverse(), [anuncios]);
 
     const showAds = useCallback((anunciosData) => {
+        console.log('showAds anunciosData:', anunciosData);
         if (Array.isArray(anunciosData)) {
             setAnuncios(anunciosData);
         } else {
@@ -19,6 +20,7 @@ function useAds() {
         setError(null);
         try {
             const respuesta = await fetch("/api/anuncios");
+            console.log('getAds respuesta:', respuesta);
             const anuncios = await respuesta.json();
             if (anuncios) {
                 showAds(anuncios);
