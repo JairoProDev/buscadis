@@ -5,7 +5,7 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 function AdCard({ anuncio }) {
-    console.log(anuncio);
+    console.log('AdCard anuncio:', anuncio)
 
     const { title, description, amount, location, phone } = anuncio;
 
