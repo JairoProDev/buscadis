@@ -20,8 +20,14 @@ function useAds() {
         try {
             const respuesta = await fetch("/api/anuncios");
             const anuncios = await respuesta.json();
-            showAds(anuncios);
+            if (anuncios) {
+                showAds(anuncios);
+            } else {
+                console.error('anuncios is null or undefined:', anuncios);
+                setError('Error: Data received is null or undefined');
+            }
         } catch (error) {
+            console.error('Error al obtener los anuncios:', error);
             setError("Error al obtener los anuncios");
         }
     }, [showAds]);
