@@ -1,4 +1,6 @@
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -21,7 +23,6 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.log('Connected to MongoDB');
 }).catch((err) => {
   console.error('Error connecting to MongoDB', err);
-  process.exit(1); // Detener la aplicación si no se puede conectar a la base de datos
 });
 
 // Routes
