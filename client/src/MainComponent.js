@@ -30,11 +30,6 @@ function MainComponent() {
         <div className="main-content">
           <Sidebar />
           <AdList anuncios={anuncios} />
-          <ul>
-            {anuncios.map((anuncio) => (
-              <li key={anuncio._id}>{anuncio.title}</li>
-            ))}
-          </ul>
           <AdForm agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio} />
           {error && <div className="error">{error}</div>}
         </div>
