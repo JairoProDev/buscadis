@@ -35,11 +35,7 @@ function MainComponent() {
       <div className="container">
         <div className="main-content">
           <Sidebar />
-          <div>
-            {anuncios.map((anuncio) => (
-              <AdCard key={anuncio._id} anuncio={anuncio} /> // Utiliza AdCard para renderizar cada anuncio
-            ))}
-          </div>
+          <AdList anuncios={anuncios} />
           <AdForm agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio} />
           {error && <div className="error">{error}</div>}
         </div>
