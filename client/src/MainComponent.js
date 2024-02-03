@@ -25,6 +25,7 @@ import AdCard from "./components/AdCard/AdCard";
 // import Home from './pages/Home';
 import Header from "./components/Header/Header";
 import useAds from "./hooks/useAds";
+import AdvertisementList from "./components/AdvertisementList/AdvertisementList";
 
 function MainComponent() {
   const { anuncios, agregarAnuncioAlPrincipio, error } = useAds();
@@ -37,6 +38,7 @@ function MainComponent() {
           <Sidebar />
           <AdList anuncios={anuncios} />
           <AdForm agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio} />
+          <AdvertisementList ads={anuncios} />
           {error && <div className="error">{error}</div>}
         </div>
       </div>
