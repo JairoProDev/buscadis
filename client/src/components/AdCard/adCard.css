@@ -13,7 +13,6 @@
 
 .ad-card {
     width: 250px;
-    height: 250px;
     background: var(--primary-color) 0.5;
     border-radius: 20px;
     overflow: hidden;
