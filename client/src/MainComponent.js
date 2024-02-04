@@ -37,7 +37,7 @@ function MainComponent() {
         <div className="main-content">
           <Sidebar />
           <AdList anuncios={anuncios} />
-          <AdvertisementList ads={anuncios} />
+          {/* <AdvertisementList ads={anuncios} /> */}
           <AdForm agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio} />
           {error && <div className="error">{error}</div>}
         </div>
