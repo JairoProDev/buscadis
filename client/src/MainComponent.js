@@ -11,9 +11,9 @@ import "./styles/mainContent.css";
 import "./styles/PublishButton.css";
 import "./components/AdCard/adCard.css";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
-import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 import React, { Fragment } from "react";
 import AdList from "./components/AdList/AdList";
@@ -37,8 +37,8 @@ function MainComponent() {
         <div className="main-content">
           <Sidebar />
           <AdList anuncios={anuncios} />
+          {/* <AdvertisementList ads={anuncios} /> */}
           <AdForm agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio} />
-          <AdvertisementList ads={anuncios} />
           {error && <div className="error">{error}</div>}
         </div>
       </div>

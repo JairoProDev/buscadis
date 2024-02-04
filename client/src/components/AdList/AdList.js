@@ -6,8 +6,8 @@ function AdList({ anuncios }) {
   console.log(anuncios);
 
   return (
-    <div className="anuncios-column">
-      <ul id="anuncios-list">
+    <div className="ad-column">
+      <ul id="ad-list">
         {anuncios.map((anuncio) => (
           <AdCard key={anuncio._id} anuncio={anuncio} />
         ))}
