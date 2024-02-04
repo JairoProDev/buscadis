@@ -68,12 +68,10 @@
 
 .ad-card__buttons {
   position: absolute;
-  bottom: 20px;
-  left: 5%;
+  bottom: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 90%;
 }
 
 .ad-card__buttons a {
@@ -87,21 +85,12 @@
   transition: background-color 0.4s, transform 0.3s;
   box-shadow: 0px 2px 5px var(--shadow-color);
   font-size: 1rem;
-  margin: 0 5px;
 }
 
 .ad-card__buttons a:hover {
   background-color: var(--button-hover-color);
   box-shadow: 0px 4px 15px var(--hover-shadow-color);
   transform: translateY(-6px);
-}
-
-.ad-card__buttons a .fa-whatsapp {
-  font-size: 1.8em;
-}
-
-.ad-card__buttons a .fa-phone {
-  font-size: 1.4em;
 }
 
 .ad-card__buttons a.call-button {
