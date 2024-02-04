@@ -21,13 +21,14 @@ function MainComponent() {
   const { anuncios, agregarAnuncioAlPrincipio, error } = useAds();
   const [filter, setFilter] = useState('');
 
+  const filteredAds = filter ? anuncios.filter(ad => ad.category === filter) : anuncios;
   return (
     <Fragment>
       <Header setFilter={setFilter} />
       <div className="container">
         <div className="main-content">
           <Sidebar />
-          <AdList anuncios={anuncios} />
+          <AdList anuncios={filteredAds} />
           <AdForm agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio} />
           {error && <div className="error">{error}</div>}
         </div>

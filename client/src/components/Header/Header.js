@@ -6,15 +6,15 @@ import './header.css';
 import logo from '../../images/logo.ico';
 import useScroll from '../../hooks/useScroll';
 
-function Header() {
+function Header({ setFilter }) {
     const isHidden = useScroll();
 
     return (
         <header className={`header ${isHidden ? 'header-hidden' : ''}`}>
             <Logo />
             <SearchBar />
-            <NavList />
-            <UserMenu />
+            <NavList setFilter={setFilter} />
+            <UserMenu setFilter={setFilter} />
         </header>
     );
 }
@@ -36,37 +36,37 @@ function SearchBar() {
     );
 }
 
-function NavList() {
+function NavList({ setFilter }) {
     return (
         <nav className="nav">
             <ul className="nav-list">
-                <NavItem icon="work" link="/Empleos" label="Empleos" />
-                <NavItem icon="house" link="/Inmuebles" label="Inmuebles" />
-                <NavItem icon="directions_car" link="/Autos" label="Autos" />
-                <NavItem icon="engineering" link="/Servicios" label="Servicios" />
+                <NavItem icon="work" link="/Empleos" label="Empleos" setFilter={setFilter} />
+                <NavItem icon="house" link="/Inmuebles" label="Inmuebles" setFilter={setFilter} />
+                <NavItem icon="directions_car" link="/Autos" label="Autos" setFilter={setFilter} />
+                <NavItem icon="engineering" link="/Servicios" label="Servicios" setFilter={setFilter} />
             </ul>
         </nav>
     );
 }
 
-function NavItem({ icon, link, label }) {
+function UserMenu({ setFilter }) {
     return (
-        <li className="nav-item">
-            <span className="material-symbols-outlined">{icon}</span>
-            <Link to={link}>{label}</Link>
-        </li>
+        <div className="header-right">
+            <NavItem icon="account_circle" link="/perfil" label="Mi Perfil" setFilter={setFilter} />
+            <NavItem icon="notifications_none" link="/notificaciones" label="Notificaciones" setFilter={setFilter} />
+            <NavItem icon="message" link="/mensajes" label="Mensajes" setFilter={setFilter} />
+            <NavItem icon="settings" link="/configuracion" label="Configuración" setFilter={setFilter} />
+            <NavItem icon="campaign" link="/anunciar" label="Anunciar" setFilter={setFilter} />
+        </div>
     );
 }
 
-function UserMenu() {
+function NavItem({ icon, link, label, setFilter }) {
     return (
-        <div className="header-right">
-            <NavItem icon="account_circle" link="/perfil" label="Mi Perfil" />
-            <NavItem icon="notifications_none" link="/notificaciones" label="Notificaciones" />
-            <NavItem icon="message" link="/mensajes" label="Mensajes" />
-            <NavItem icon="settings" link="/configuracion" label="Configuración" />
-            <NavItem icon="campaign" link="/anunciar" label="Anunciar" />
-        </div>
+        <li className="nav-item">
+            <span className="material-symbols-outlined">{icon}</span>
+            <Link to={link} onClick={() => setFilter(label)}>{label}</Link>
+        </li>
     );
 }
 

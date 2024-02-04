@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import './adForm.css';
 
 function AdForm({ agregarAnuncioAlPrincipio }) {
+    const categoryRef = useRef();
     const titleRef = useRef();
     const descriptionRef = useRef();
     const urlRef = useRef();
@@ -11,6 +12,7 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
     const emailRef = useRef();
 
     const clearForm = () => {
+        categoryRef.current.value = '';
         titleRef.current.value = '';
         descriptionRef.current.value = '';
         amountRef.current.value = '';
@@ -28,6 +30,7 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    category: categoryRef.current.value,
                     title: titleRef.current.value,
                     description: descriptionRef.current.value,
                     amount: amountRef.current.value,
@@ -55,6 +58,14 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
             <form id="adForm" action="/api/anuncios" method="POST" onSubmit={handleSubmit}>
                 <fieldset>
                     <legend>Información del anuncio</legend>
+                    <label htmlFor="category">Categoría:</label>
+                    <select id="category" name="category" required ref={categoryRef}>
+                        <option value="Empleos">Empleos</option>
+                        <option value="Inmuebles">Inmuebles</option>
+                        <option value="Autos">Autos</option>
+                        <option value="Servicios">Servicios</option>
+                        <option value="Otros">Otros</option>
+                    </select>
                     <label htmlFor="title">Título:</label>
                     <input type="text" id="title" name="title" required ref={titleRef} />
                     <label htmlFor="description">Descripción:</label>

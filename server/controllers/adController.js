@@ -2,8 +2,9 @@ const Ad = require("../models/adModel");
 
 const createAd = async (req, res) => {
   try {
-    const { title, description, amount, location, phone, email } = req.body;
+    const { category, title, description, amount, location, phone, email } = req.body;
     const newAd = new Ad({
+      category: category,
       title: title,
       description: description,
       amount: amount,
@@ -61,6 +62,7 @@ const updateAd = async (req, res) => {
       return res.status(404).json({ mensaje: "No se encontró el anuncio" });
     }
 
+    anuncio.category = req.body.category || anuncio.category;
     anuncio.title = req.body.title || anuncio.title;
     anuncio.description = req.body.description || anuncio.description;
     anuncio.amount = req.body.amount || anuncio.amount;
