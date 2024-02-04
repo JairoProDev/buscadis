@@ -10,7 +10,7 @@ import "./styles/PublishButton.css";
 import "./MainComponent.css";
 
 // Components
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import AdList from "./components/AdList/AdList";
 import Sidebar from "./components/Sidebar/Sidebar";
 import AdForm from "./components/AdForm/AdForm";
@@ -19,10 +19,11 @@ import useAds from "./hooks/useAds";
 
 function MainComponent() {
   const { anuncios, agregarAnuncioAlPrincipio, error } = useAds();
+  const [filter, setFilter] = useState('');
 
   return (
     <Fragment>
-      <Header />
+      <Header setFilter={setFilter} />
       <div className="container">
         <div className="main-content">
           <Sidebar />

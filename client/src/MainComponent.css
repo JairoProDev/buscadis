@@ -1,7 +1,7 @@
 /* Main Content */
 .main-content {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   justify-content: space-around;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -11,6 +11,7 @@
 }
 
 .ad-column {
+  padding-top: 10px;
   flex: 1;
   justify-content: flex-start;
 }

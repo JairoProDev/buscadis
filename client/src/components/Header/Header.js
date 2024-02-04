@@ -1,83 +1,72 @@
 // Header.js
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './header.css';
 import logo from '../../images/logo.ico';
+import useScroll from '../../hooks/useScroll';
+
 function Header() {
-    const [lastScrollTop, setLastScrollTop] = useState(0);
-    const [isHidden, setIsHidden] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const st = window.pageYOffset || document.documentElement.scrollTop;
-            if (st > lastScrollTop) {
-                setIsHidden(true);
-            } else {
-                setIsHidden(false);
-            }
-            setLastScrollTop(st <= 0 ? 0 : st);
-        };
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [lastScrollTop]);
+    const isHidden = useScroll();
 
     return (
         <header className={`header ${isHidden ? 'header-hidden' : ''}`}>
-            <div className="header-left">
-                <img src={logo} alt="Logo" className="logo" />
-                <div className="header-title">PublicAdis</div>
-                <div className="search-container">
-                    <input type="text" placeholder="Buscar en PublicAdis" className="search-input" />
-                </div>
-            </div>
-            <nav className="nav">
-                <ul className="nav-list">
-                    <li className="nav-item">
-                    <span className="material-symbols-outlined">work</span>
-                        <a href="/Empleos">Empleos</a>
-                    </li>
-                    <li className="nav-item">
-                    <span className="material-symbols-outlined">house</span>
-                        <a href="/Inmuebles">Inmuebles</a>
-                    </li>
-                    <li className="nav-item">
-                    <span className="material-symbols-outlined">directions_car</span>
-                        <a href="/Autos">Autos</a>
-                    </li>
-                    <li className="nav-item">
-                    <span className="material-symbols-outlined">engineering</span>
-                        <a href="/Servicios">Servicios</a>
-                        </li>
-                </ul>
-            </nav>
-            <div className="header-right">
-            <div className="nav-item">
-                <span className="material-symbols-outlined">account_circle</span>
-                <a href="/perfil">Mi Perfil</a>
-            </div>
-            <div className="nav-item">
-                <span className="material-symbols-outlined">notifications_none</span>
-                <a href="/notificaciones">Notificaciones</a>
-            </div>
-            <div className="nav-item">
-                <span className="material-symbols-outlined">message</span>
-                <a href="/mensajes">Mensajes</a>
-            </div>
-            <div className="nav-item">
-                <span className="material-symbols-outlined">settings</span>
-                <a href="/configuracion">Configuración</a>
-            </div>
-            <div className="nav-item">
-                <span className="material-symbols-outlined">campaign</span>
-                <a href="/anunciar">Anunciar</a>
-            </div>
-        </div>
+            <Logo />
+            <SearchBar />
+            <NavList />
+            <UserMenu />
         </header>
-        
+    );
+}
+
+function Logo() {
+    return (
+        <div className="header-left">
+            <img src={logo} alt="Logo" className="logo" />
+            <div className="header-title">PublicAdis</div>
+        </div>
+    );
+}
+
+function SearchBar() {
+    return (
+        <div className="search-container">
+            <input type="text" placeholder="Buscar en PublicAdis" className="search-input" />
+        </div>
+    );
+}
+
+function NavList() {
+    return (
+        <nav className="nav">
+            <ul className="nav-list">
+                <NavItem icon="work" link="/Empleos" label="Empleos" />
+                <NavItem icon="house" link="/Inmuebles" label="Inmuebles" />
+                <NavItem icon="directions_car" link="/Autos" label="Autos" />
+                <NavItem icon="engineering" link="/Servicios" label="Servicios" />
+            </ul>
+        </nav>
+    );
+}
+
+function NavItem({ icon, link, label }) {
+    return (
+        <li className="nav-item">
+            <span className="material-symbols-outlined">{icon}</span>
+            <Link to={link}>{label}</Link>
+        </li>
+    );
+}
+
+function UserMenu() {
+    return (
+        <div className="header-right">
+            <NavItem icon="account_circle" link="/perfil" label="Mi Perfil" />
+            <NavItem icon="notifications_none" link="/notificaciones" label="Notificaciones" />
+            <NavItem icon="message" link="/mensajes" label="Mensajes" />
+            <NavItem icon="settings" link="/configuracion" label="Configuración" />
+            <NavItem icon="campaign" link="/anunciar" label="Anunciar" />
+        </div>
     );
 }
 
