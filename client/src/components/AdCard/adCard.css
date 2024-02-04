@@ -12,23 +12,21 @@
 }
 
 .ad-card {
-  width: 250px;
-  height: 250px;
+  width: 180px;
+  height: 180px;
   background: var(--primary-color) 0.5;
   border-radius: 20px;
-  overflow: hidden;
   position: relative;
-  padding: 20px;
+  padding: 5px;
   background-color: #fff;
   color: var(--text-color);
-  border-top-left-radius: 20px;
   cursor: pointer;
-  transform: translateY(5%);
+  transform: translateY(16%);
   transition: transform 0.3s;
   max-width: 350px;
-  margin: 10px;
+  margin: 5px;
   box-shadow: -20px 20px 5px var(--shadow-color);
-  box-sizing: border-box;
+  box-sizing: content-box;
   transition: transform 0.3s;
 }
 
@@ -38,15 +36,15 @@
 
 .ad-card__title {
   font-weight: bold;
-  padding-bottom: 10px;
-  font-size: 20px;
+  padding-bottom: 0px;
+  font-size: 18px;
   color: #000000;
 }
 
 .ad-card__description {
   color: var(--text-color);
   flex-grow: 1;
-  line-height: 1.6;
+  line-height: 1;
   margin-bottom: 1rem;
 }
 

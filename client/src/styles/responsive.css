@@ -5,25 +5,18 @@
     align-items: flex-start;
     max-width: 100%;
   }
-
-  .show-form .form-column {
-    display: flex;
-  }
-
-  .main-content {
-    padding-left: 0;
-  }
 }
 
 /* Agrega estilos específicos para dispositivos móviles */
 @media (max-width: 767px) {
   .ad-list {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 20px;
   }
 
   .anuncio-card {
+    flex-basis: calc(50% - 10px);
     flex-direction: column;
     align-items: flex-start;
   }

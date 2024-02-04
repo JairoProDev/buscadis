@@ -17,9 +17,9 @@
 
 /* Lista de Anuncios */
 #ad-list {
+  display: grid;
+  align-items: center;
   list-style: none;
   padding: 0;
-  display: grid;
   /* Añadido para alinear los elementos al centro */
-  align-items: center;
 }
