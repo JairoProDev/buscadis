@@ -12,4 +12,5 @@
   max-width: 100%;
   margin: 0;
   gap: 5px; /* Añadido para dar un espacio entre los anuncios */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }

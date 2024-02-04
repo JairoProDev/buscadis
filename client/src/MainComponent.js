@@ -1,31 +1,21 @@
+// Styles
 import "./styles/root.css";
 import "./styles/reset.css";
 import "./styles/body.css";
-
-import "./MainComponent.css";
-
 import "./styles/navigation.css";
 import "./styles/responsive.css";
 import "./styles/navbar.css";
 import "./styles/mainContent.css";
 import "./styles/PublishButton.css";
-import "./components/AdCard/adCard.css";
+import "./MainComponent.css";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
-import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-
+// Components
 import React, { Fragment } from "react";
 import AdList from "./components/AdList/AdList";
 import Sidebar from "./components/Sidebar/Sidebar";
 import AdForm from "./components/AdForm/AdForm";
-import AdCard from "./components/AdCard/AdCard";
-// import NavBar from './components/NavBar';
-// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-// import Home from './pages/Home';
 import Header from "./components/Header/Header";
 import useAds from "./hooks/useAds";
-import AdvertisementList from "./components/AdvertisementList/AdvertisementList";
 
 function MainComponent() {
   const { anuncios, agregarAnuncioAlPrincipio, error } = useAds();
@@ -37,7 +27,6 @@ function MainComponent() {
         <div className="main-content">
           <Sidebar />
           <AdList anuncios={anuncios} />
-          {/* <AdvertisementList ads={anuncios} /> */}
           <AdForm agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio} />
           {error && <div className="error">{error}</div>}
         </div>
@@ -45,4 +34,5 @@ function MainComponent() {
     </Fragment>
   );
 }
+
 export default MainComponent;
