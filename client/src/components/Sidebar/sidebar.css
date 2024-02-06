@@ -13,12 +13,12 @@
     border-right: 1px solid rgba(255, 255, 255, 0.7);
     transition: width 0.3s ease;
     padding-bottom: 0px;
-    /* Añadido para mejorar la interactividad */
     overflow-x: hidden;
   }
 
   .sidebar:hover {
     width: 220px;
+    z-index: 1;
   }
 
   .sidebar .category-list {
