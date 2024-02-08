@@ -70,8 +70,6 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
                     <input type="text" id="title" name="title" required ref={titleRef} />
                     <label htmlFor="description">Descripción:</label>
                     <textarea id="description" name="description" required ref={descriptionRef}></textarea>
-                    <label htmlFor="url">URL de imagen:</label>
-                    <input type="url" id="url" name="url" ref={urlRef} />
                     <label htmlFor="amount">Precio:</label>
                     <input type="number" id="amount" name="amount"  ref={amountRef} />
                     <label htmlFor="location">Ubicación:</label>
