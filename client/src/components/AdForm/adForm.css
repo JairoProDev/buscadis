@@ -9,16 +9,22 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  max-width: 300px;
+  max-width: 250px;
   background-color: rgba(
     255,
     255,
     255,
     0.3
   ); /* Fondo blanco con 30% de opacidad */
-  font-family: "Roboto", sans-serif; /* Cambiar la fuente */
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
 }
 
+#ad-form input,
+#ad-form button {
+  width: 100%; /* Asegúrate de que los elementos hijos no sean más anchos que su contenedor */
+  box-sizing: border-box; /* Incluye el padding y el border en el ancho total del elemento */
+}
 /* Estilos para los elementos de entrada del formulario */
 label {
   color: #333;

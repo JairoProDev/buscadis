@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./adForm.css";
 import PublishButton from "../PublishButton/PublishButton";
 
@@ -11,6 +11,7 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
   const locationRef = useRef();
   const phoneRef = useRef();
   const emailRef = useRef();
+  const imageRef = useRef();
 
   const clearForm = () => {
     categoryRef.current.value = "";
@@ -20,7 +21,10 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
     locationRef.current.value = "";
     phoneRef.current.value = "";
     emailRef.current.value = "";
+    imageRef.current.value = "";
   };
+
+  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,6 +42,7 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
           location: locationRef.current.value,
           phone: phoneRef.current.value,
           email: emailRef.current.value,
+          image: imageRef.current.value,
         }),
       });
       if (respuesta.ok) {
@@ -52,6 +57,10 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
     } catch (error) {
       alert("Error de red: " + error);
     }
+  };
+
+  const handleAdvancedOptionsClick = () => {
+    setShowAdvancedOptions(!showAdvancedOptions);
   };
 
   return (
@@ -72,23 +81,61 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
             <option value="Servicios">Servicios</option>
             <option value="Otros">Otros</option>
           </select>
-          <label htmlFor="title">Título:</label>
-          <input type="text" id="title" name="title" required ref={titleRef} />
-          <label htmlFor="description">Descripción:</label>
+          <label htmlFor="title">Título de tu aviso:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            required
+            ref={titleRef}
+            autoFocus
+            placeholder="Escribe un título para tu anuncio"
+          />
+          <label htmlFor="description">Descripción de tu aviso:</label>
           <textarea
             id="description"
             name="description"
             required
             ref={descriptionRef}
+            placeholder="Escribe una descripción detallada de tu anuncio"
           ></textarea>
-          <label htmlFor="phone">Teléfono:</label>
-          <input type="tel" id="phone" name="phone" ref={phoneRef} />
-          <label htmlFor="amount">Precio:</label>
-          <input type="number" id="amount" name="amount" ref={amountRef} />
-          <label htmlFor="location">Ubicación:</label>
-          <input type="text" id="location" name="location" ref={locationRef} />
-          <label htmlFor="email">Correo electrónico:</label>
-          <input type="email" id="email" name="email" ref={emailRef} />
+          <label htmlFor="phone">Teléfono/WhatsApp:</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            ref={phoneRef}
+            placeholder="+51 987 654 321"
+          />
+
+          <button type="button" onClick={handleAdvancedOptionsClick}>
+            {showAdvancedOptions ? "Ocultar" : "Mostrar"} opciones avanzadas
+          </button>
+          {showAdvancedOptions && (
+            <>
+              <label htmlFor="amount">Monto:</label>
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                ref={amountRef}
+                placeholder="s/100.00"
+                min="0"
+                step="0.01"
+              />
+              <label htmlFor="location">Ubicación:</label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                ref={locationRef}
+              />
+              <label htmlFor="email">Correo electrónico:</label>
+              <input type="email" id="email" name="email" ref={emailRef} />
+              <label htmlFor="image">Imagen:</label>
+              <input type="file" id="image" name="image" ref={imageRef} />
+            </>
+          )}
         </fieldset>
         <PublishButton />
       </form>

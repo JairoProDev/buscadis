@@ -14,8 +14,9 @@
     display: none !important;
   }
 
-  .social-media {
-    display: none !important;
+  .wrapper {
+    flex-direction: column !important;
+    right: 1px !important;
   }
   .ad-column {
     padding-top: 0;

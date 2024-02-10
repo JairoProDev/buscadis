@@ -27,6 +27,7 @@
   box-shadow: -20px 20px 5px var(--shadow-color);
   box-sizing: content-box;
   transition: transform 0.3s;
+  overflow: hidden;
 }
 .ad-card__content {
   padding: 1rem;

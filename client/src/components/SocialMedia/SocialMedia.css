@@ -1,22 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
-.social-media {
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  display: grid;
-  height: 100vh;
-  place-items: center;
-  background: #151515;
-  font-family: "Poppins", sans-serif;
-}
 .wrapper {
   display: inline-flex;
   list-style: none;
   position: fixed;
-  bottom: 5px;
-  right: 5px;
+  bottom: 1px;
+  right: 20px;
 }
 
 .wrapper .icon {
@@ -27,7 +16,6 @@
   margin: 5px;
   width: 40px;
   height: 40px;
-  cursor: pointer;
   transition: all 0.2scubic-beizer(
       0.68,
       -0.55,
