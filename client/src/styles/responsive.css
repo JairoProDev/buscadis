@@ -7,33 +7,29 @@
   .header,
   .footer {
     flex-direction: column;
+    display: none !important;
   }
 
   .sidebar {
     display: none !important;
   }
 
-  ad-column {
+  .social-media {
+    display: none !important;
+  }
+  .ad-column {
     padding-top: 0;
-    width: 100% !important;
   }
 
   .ad-card {
-    width: 150px !important;
-    height: 150px !important;
+    width: 175px !important;
+    height: 175px !important;
   }
 
   .portal {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    width: calc(100% - 2px);
-    margin: 0 1px;
-  }
-
-  .ad-card {
-    /* Ajusta estos valores según tus necesidades */
-    width: 100%;
-    font-size: 0.8em;
+    display: grid !important;
+    margin: 0 !important;
+    max-width: initial !important;
+    padding: initial !important;
   }
 }
