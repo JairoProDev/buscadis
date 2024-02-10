@@ -1,20 +1,28 @@
 /* Main Content */
-.main-content {
+.container {
   display: flex;
+  justify-content: space-between;
+}
+.portal {
   gap: 10px;
-  justify-content: space-around;
+  display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+  justify-content: space-between;
   margin: 20px 0px 0;
   margin-left: 20px;
   z-index: 0;
   position: relative;
+  max-width: calc(100% - 305px);
+  padding: 30px;
+  padding-left: 25px;
+  padding-right: 0px;
 }
 
 .ad-column {
   padding-top: 10px;
   flex: 1;
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 /* Lista de Anuncios */
