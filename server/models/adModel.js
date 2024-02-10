@@ -54,7 +54,7 @@ const anuncioSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ["Inmuebles", "Empleos", "Servicios", "Vehículos", "Otros"],
+      enum: ["Empleos", "Inmuebles", "Servicios", "Autos", "Otros"],
       default: "Otros",
       required: [true, "La categoría del anuncio es requerida"],
     },

@@ -11,10 +11,11 @@ import "./MainComponent.css";
 
 // Components
 import React, { Fragment, useState } from "react";
-import AdList from "./components/AdList/AdList";
-import Sidebar from "./components/Sidebar/Sidebar";
-import AdForm from "./components/AdForm/AdForm";
 import Header from "./components/Header/Header";
+import Sidebar from "./components/Sidebar/Sidebar";
+import AdList from "./components/AdList/AdList";
+import AdForm from "./components/AdForm/AdForm";
+import SocialMedia from "./components/SocialMedia/SocialMedia";
 import useAds from "./hooks/useAds";
 
 function MainComponent() {
@@ -30,6 +31,7 @@ function MainComponent() {
           <Sidebar />
           <AdList anuncios={filteredAds} />
           <AdForm agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio} />
+          <SocialMedia />          
           {error && <div className="error">{error}</div>}
         </div>
       </div>

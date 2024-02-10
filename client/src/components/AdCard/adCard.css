@@ -39,6 +39,7 @@
 }
 
 .ad-card__title {
+  text-transform: uppercase;
   font-weight: bold;
   padding-bottom: 0px;
   font-size: 18px;
@@ -53,6 +54,10 @@
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+}
+
+.ad-card__description::first-letter {
+  text-transform: uppercase;
 }
 
 .ad-card__details {
@@ -106,4 +111,24 @@
 
 .ad-card__buttons a.call-button:hover {
   background-color: var(--call-button-hover-color);
+}
+
+.ad-card.inmuebles {
+  background-color: #fff1d6;
+}
+
+.ad-card.empleos {
+  background-color: #d3e6ff;
+}
+
+.ad-card.autos {
+  background-color: #ffd9d9;
+}
+
+.ad-card.servicios {
+  background-color: #daffe5;
+}
+
+.ad-card.otros {
+  background-color: #ece7f3;
 }

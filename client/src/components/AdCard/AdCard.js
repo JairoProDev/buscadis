@@ -9,9 +9,12 @@ function AdCard({ anuncio }) {
 
     const { category, title, description, amount, location, phone } = anuncio;
 
+    const adClass = `ad-card ${category.toLowerCase()}`;
+
     return (
-        <div className="ad-card">
+        <div className={adClass}>
             <div className="ad-card__content">
+                
                 <h3 className="ad-card__title">{title}</h3>
                 <p className="ad-card__description">{description}</p>
                 <div className="ad-card__details">
