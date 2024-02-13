@@ -18,11 +18,19 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
     categoryRef.current.value = "";
     titleRef.current.value = "";
     descriptionRef.current.value = "";
-    amountRef.current.value = "";
-    locationRef.current.value = "";
     phoneRef.current.value = "";
-    emailRef.current.value = "";
-    imageRef.current.value = "";
+    if (amountRef.current) {
+      amountRef.current.value = "";
+    }
+    if (locationRef.current) {
+      locationRef.current.value = "";
+    }
+    if (emailRef.current) {
+      emailRef.current.value = "";
+    }
+    if (imageRef.current) {
+      imageRef.current.value = "";
+    }
   };
 
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
@@ -39,11 +47,11 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
           category: categoryRef.current.value,
           title: titleRef.current.value,
           description: descriptionRef.current.value,
-          amount: amountRef.current.value,
-          location: locationRef.current.value,
+          amount: amountRef.current ? amountRef.current.value : "",
+          location: locationRef.current ? locationRef.current.value : "",
           phone: phoneRef.current.value,
-          email: emailRef.current.value,
-          image: imageRef.current.value,
+          email: emailRef.current ? emailRef.current.value : "",
+          image: imageRef.current ? imageRef.current.value : "",
         }),
       });
       if (respuesta.ok) {
