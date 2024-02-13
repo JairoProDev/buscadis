@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./adForm.css";
 import PublishButton from "../PublishButton/PublishButton";
+import Payment from "../Payment/Payment";
 
 function AdForm({ agregarAnuncioAlPrincipio }) {
   const categoryRef = useRef();
@@ -89,7 +90,7 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
             required
             ref={titleRef}
             autoFocus
-            placeholder="Escribe un título para tu anuncio"
+            placeholder="Se busca..."
           />
           <label htmlFor="description">Descripción de tu aviso:</label>
           <textarea
@@ -129,9 +130,16 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
                 id="location"
                 name="location"
                 ref={locationRef}
+                placeholder="Escribe tu ubicación"
               />
               <label htmlFor="email">Correo electrónico:</label>
-              <input type="email" id="email" name="email" ref={emailRef} />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                ref={emailRef}
+                placeholder=""
+              />
               <label htmlFor="image">Imagen:</label>
               <input type="file" id="image" name="image" ref={imageRef} />
             </>
@@ -139,6 +147,7 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
         </fieldset>
         <PublishButton />
       </form>
+      <Payment />
     </div>
   );
 }
