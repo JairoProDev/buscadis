@@ -14,6 +14,7 @@ function Payment() {
         alt="Código QR de Yape"
         className="payment-qr-code"
       />
+      <p>937 054 328</p>
     </div>
   );
 }
