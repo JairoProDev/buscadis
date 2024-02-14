@@ -2,14 +2,14 @@ import React from "react";
 import AdCard from "../AdCard/AdCard";
 import "./adList.css";
 
-function AdList({ anuncios }) {
+function AdList({ anuncios, setSelectedAd }) {
   console.log(anuncios);
 
   return (
     <div className="ad-column">
       <ul id="ad-list">
         {anuncios.map((anuncio) => (
-          <AdCard key={anuncio._id} anuncio={anuncio} />
+          <AdCard key={anuncio._id} anuncio={anuncio} setSelectedAd={setSelectedAd} />
         ))}
       </ul>
     </div>

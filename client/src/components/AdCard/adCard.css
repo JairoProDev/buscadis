@@ -86,41 +86,6 @@
   color: var(--light-text-color);
 }
 
-.ad-card__buttons {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.ad-card__buttons a {
-  display: inline-block;
-  background-color: var(--button-color);
-  color: #fff;
-  text-decoration: none;
-  padding: 5px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.4s, transform 0.3s;
-  box-shadow: 0px 2px 5px var(--shadow-color);
-  font-size: 1rem;
-}
-
-.ad-card__buttons a:hover {
-  background-color: var(--button-hover-color);
-  box-shadow: 0px 4px 15px var(--hover-shadow-color);
-  transform: translateY(-6px);
-}
-
-.ad-card__buttons a.call-button {
-  background-color: var(--call-button-color);
-}
-
-.ad-card__buttons a.call-button:hover {
-  background-color: var(--call-button-hover-color);
-}
-
 .ad-card.inmuebles {
   background-color: #fff1d6;
 }

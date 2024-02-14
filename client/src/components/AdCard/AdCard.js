@@ -4,7 +4,7 @@ import './adCard.css';
 // import { faPhone } from '@fortawesome/free-solid-svg-icons';
 // import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
-function AdCard({ anuncio }) {
+function AdCard({ anuncio, setSelectedAd }) {
     console.log('AdCard anuncio:', anuncio)
 
     const { category, title, description, amount, location, phone } = anuncio;
@@ -12,7 +12,7 @@ function AdCard({ anuncio }) {
     const adClass = `ad-card ${category.toLowerCase()}`;
 
     return (
-        <div className={adClass}>
+        <div className={adClass} onClick={() => setSelectedAd(anuncio)}>
             <div className="ad-card__content">
                 
                 <h3 className="ad-card__title">{title}</h3>

@@ -1,0 +1,36 @@
+/* ContactButtons.css */
+:root {
+  --button-color: #007bff;
+  --button-hover-color: #0056b3;
+  --call-button-color: #28a745;
+  --call-button-hover-color: #218838;
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --hover-shadow-color: rgba(0, 0, 0, 0.25);
+}
+.ad-card__button {
+  display: inline-block;
+  background-color: var(--button-color);
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.4s, transform 0.3s;
+  box-shadow: 0px 2px 5px var(--shadow-color);
+  font-size: 1rem;
+  margin-left: 10px;
+}
+
+.ad-card__button:hover {
+  background-color: var(--button-hover-color);
+  box-shadow: 0px 4px 15px var(--hover-shadow-color);
+  transform: translateY(-6px);
+}
+
+.ad-card__button--details {
+  background-color: var(--call-button-color);
+}
+
+.ad-card__button--details:hover {
+  background-color: var(--call-button-hover-color);
+}
