@@ -1,48 +1,67 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from "react";
 
-function useAds() {
+function useAds(page, category) {
     const [anuncios, setAnuncios] = useState([]);
     const [error, setError] = useState(null);
+    const [hasMore, setHasMore] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [lastPageLoaded, setLastPageLoaded] = useState(0);
 
     const reversedAnuncios = useMemo(() => [...anuncios].reverse(), [anuncios]);
 
     const showAds = useCallback((anunciosData) => {
-        console.log('showAds anunciosData:', anunciosData);
         if (Array.isArray(anunciosData)) {
-            setAnuncios(anunciosData);
+            setAnuncios((oldAnuncios) => {
+                const newAnuncios = anunciosData.filter(
+                    (anuncio) => !oldAnuncios.find((a) => a.id === anuncio.id)
+                );
+                return [...oldAnuncios, ...newAnuncios];
+            });
+            setHasMore(anunciosData.length > 0);
+            setLastPageLoaded(page);
         } else {
-            console.error('anunciosData is not an array:', anunciosData);
-            setError('Error: Data received is not an array');
+            console.error("anunciosData is not an array:", anunciosData);
+            setError("Error: Data received is not an array");
         }
-    }, []);
+    }, [page]);
 
     const getAds = useCallback(async () => {
+        setIsLoading(true);
         setError(null);
         try {
-            const respuesta = await fetch("/api/anuncios");
-            console.log('getAds respuesta:', respuesta);
-            const anuncios = await respuesta.json();
-            if (anuncios) {
-                showAds(anuncios);
-            } else {
-                console.error('anuncios is null or undefined:', anuncios);
-                setError('Error: Data received is null or undefined');
-            }
+          const url = `/api/anuncios?page=${page}` + (category ? `&category=${category}` : '');
+          const respuesta = await fetch(url);
+          const anuncios = await respuesta.json();
+          if (anuncios) {
+            showAds(anuncios);
+          } else {
+            console.error('anuncios is null or undefined:', anuncios);
+            setError('Error: Data received is null or undefined');
+          }
         } catch (error) {
-            console.error('Error al obtener los anuncios:', error);
-            setError("Error al obtener los anuncios");
+          console.error('Error al obtener los anuncios:', error);
+          setError('Error al obtener los anuncios');
         }
-    }, [showAds]);
+        setIsLoading(false);
+      }, [showAds, page, category]);
 
     useEffect(() => {
-        getAds();
-    }, [getAds]);
+        if (page > lastPageLoaded && hasMore && !isLoading) {
+            getAds();
+        }
+    }, [getAds, page, lastPageLoaded, hasMore, isLoading]);
 
     const agregarAnuncioAlPrincipio = (anuncio) => {
-        setAnuncios(prevAnuncios => [...prevAnuncios, anuncio]);
-    }
+        setAnuncios((prevAnuncios) => [anuncio, ...prevAnuncios]);
+    };
 
-    return { anuncios: reversedAnuncios, agregarAnuncioAlPrincipio, error };
+    return {
+        anuncios: reversedAnuncios,
+        agregarAnuncioAlPrincipio,
+        error,
+        hasMore,
+        isLoading,
+    };
 }
 
 export default useAds;

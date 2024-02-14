@@ -19,12 +19,12 @@ function Header({ setFilter }) {
   );
 }
 
-function Logo() {
+function Logo({ setFilter }) {
   return (
-    <div className="header-left">
+    <Link to="/" className="header-left" onClick={() => setFilter(null)}>
       <img src={logo} alt="Logo" className="logo" />
       <div className="header-title">PublicAdis</div>
-    </div>
+    </Link>
   );
 }
 
@@ -112,9 +112,9 @@ function UserMenu({ setFilter }) {
 
 function NavItem({ icon, link, label, setFilter }) {
   return (
-    <li className="nav-item">
+    <li className="nav-item" onClick={() => setFilter(label)}>
       <span className="material-symbols-outlined">{icon}</span>
-      <Link to={link} onClick={() => setFilter(label)}>
+      <Link to={link}>
         {label}
       </Link>
     </li>

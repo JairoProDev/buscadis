@@ -2,7 +2,8 @@ const Ad = require("../models/adModel");
 
 const createAd = async (req, res) => {
   try {
-    const { category, title, description, amount, location, phone, email } = req.body;
+    const { category, title, description, amount, location, phone, email } =
+      req.body;
     const newAd = new Ad({
       category: category,
       title: title,
@@ -25,10 +26,15 @@ const createAd = async (req, res) => {
 
 const getAds = async (req, res) => {
   try {
-    const anuncios = await Ad.find();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+
+    const anuncios = await Ad.find()
+      .skip((page - 1) * limit)
+      .limit(limit);
 
     if (!anuncios || anuncios.length === 0) {
-      return res.status(404).json({ mensaje: "No se encontraron anuncios" });
+      return res.status(200).json([]);
     }
 
     res.status(200).json(anuncios);
@@ -94,4 +100,4 @@ const deleteAd = async (req, res) => {
   }
 };
 
-module.exports = { createAd, getAds, getAdById, updateAd, deleteAd};
+module.exports = { createAd, getAds, getAdById, updateAd, deleteAd };
