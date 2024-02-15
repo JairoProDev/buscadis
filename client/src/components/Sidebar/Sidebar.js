@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './sidebar.css';
-function Sidebar() {
+
+function Sidebar({ isOpen }) {
     return (
-<aside className="sidebar">
+<aside className="sidebar" style={{ display: isOpen ? 'block' : 'none' }}>
 
                 <ul className="category-list">
                     

@@ -28,6 +28,11 @@ function MainComponent() {
     ? anuncios.filter((ad) => ad.category === filter)
     : anuncios;
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+      setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
+    };
     const loader = useRef(null);
 
     useEffect(() => {
@@ -46,9 +51,9 @@ function MainComponent() {
 
   return (
     <Fragment>
-      <Header setFilter={setFilter} />
+      <Header setFilter={setFilter} toggleSidebar={toggleSidebar} />
       <div className="container">
-        <Sidebar />
+      <Sidebar isOpen={isSidebarOpen} />
         <div className="portal">
           <AdList anuncios={filteredAds} setSelectedAd={setSelectedAd} />
           {error && <div className="error">{error}</div>}

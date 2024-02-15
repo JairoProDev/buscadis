@@ -6,11 +6,14 @@ import "./header.css";
 import logo from "../../images/logo.ico";
 import useScroll from "../../hooks/useScroll";
 
-function Header({ setFilter }) {
+function Header({ setFilter, toggleSidebar }) {
   const isHidden = useScroll();
 
   return (
     <header className={`header ${isHidden ? "header-hidden" : ""}`}>
+      <button onClick={toggleSidebar} className="hamburger-menu">
+        &#9776;
+      </button>
       <Logo />
       <NavList setFilter={setFilter} />
       <SearchBar />
