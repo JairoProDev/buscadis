@@ -24,6 +24,16 @@ form-container button {
   box-sizing: border-box; /* Incluye el padding y el border en el ancho total del elemento */
 }
 /* Estilos para los elementos de entrada del formulario */
+
+.form-container fieldset {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
 label {
   color: #333;
   display: block;
