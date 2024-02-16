@@ -2,23 +2,25 @@
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
+    margin-top: 50px;
   }
 
-  /* .header,
-  .footer {
-    flex-direction: column;
-    display: none !important;
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .sidebar {
-    display: none !important;
-  } */
+  .header .hamburger-menu {
+    display: block;
+  }
 
   .wrapper {
     flex-direction: column !important;
     right: 1px !important;
   }
-  .ad-column {
+  .ad-container {
     padding-top: 0;
   }
 
@@ -27,10 +29,31 @@
     height: 175px !important;
   }
 
+  .sidebar {
+    overflow: hidden;
+  }
+
   .portal {
     display: grid !important;
     margin: 0 !important;
     max-width: initial !important;
     padding: initial !important;
+  }
+
+  .form-container {
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: none;
+  }
+
+  .form-container.show {
+    display: flex;
   }
 }

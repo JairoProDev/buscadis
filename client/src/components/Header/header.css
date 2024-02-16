@@ -28,6 +28,7 @@
 }
 
 .hamburger-menu {
+  display: none;
   font-size: 30px;
   background: none;
   border: none;

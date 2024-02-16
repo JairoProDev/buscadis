@@ -4,7 +4,9 @@ import './sidebar.css';
 
 function Sidebar({ isOpen }) {
     return (
-<aside className="sidebar" style={{ display: isOpen ? 'block' : 'none' }}>
+        <aside 
+            className="sidebar" 
+            style={{ display: isOpen ? 'block' : 'none' }}>
 
                 <ul className="category-list">
                     

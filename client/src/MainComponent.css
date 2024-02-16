@@ -19,7 +19,7 @@
   padding-right: 0px;
 }
 
-.ad-column {
+.ad-container {
   padding-top: 10px;
   flex: 1;
   justify-content: space-between;

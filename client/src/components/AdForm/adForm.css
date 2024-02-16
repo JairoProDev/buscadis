@@ -1,7 +1,5 @@
 /* Estilos generales del formulario */
-/* Estilos generales del formulario */
-.form-column,
-#ad-form {
+.form-container {
   margin-top: 60px;
   display: flex;
   flex-direction: column;
@@ -20,8 +18,8 @@
   overflow: hidden;
 }
 
-#ad-form input,
-#ad-form button {
+form-container input,
+form-container button {
   width: 100%; /* Asegúrate de que los elementos hijos no sean más anchos que su contenedor */
   box-sizing: border-box; /* Incluye el padding y el border en el ancho total del elemento */
 }

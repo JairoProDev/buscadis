@@ -3,7 +3,7 @@ import "./adForm.css";
 import PublishButton from "../PublishButton/PublishButton";
 import Payment from "../Payment/Payment";
 
-function AdForm({ agregarAnuncioAlPrincipio }) {
+function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   const categoryRef = useRef();
   const titleRef = useRef();
   const descriptionRef = useRef();
@@ -73,7 +73,8 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
   };
 
   return (
-    <div className="form-column" id="ad-form">
+    <div className={`form-container ${isVisible ? "show" : ""}`}>
+      <button onClick={hideForm}>Cerrar</button>
       <form
         id="adForm"
         action="/api/anuncios"
@@ -152,8 +153,8 @@ function AdForm({ agregarAnuncioAlPrincipio }) {
               <input type="file" id="image" name="image" ref={imageRef} />
             </>
           )}
+          <PublishButton />
         </fieldset>
-        <PublishButton />
       </form>
       <Payment />
     </div>
