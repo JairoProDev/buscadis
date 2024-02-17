@@ -1,5 +1,5 @@
 // React and Hooks
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import useAds from "./hooks/useAds";
 import useIntersectionObserver from "./hooks/useIntersectionObserver";
 
@@ -40,8 +40,12 @@ function MainComponent() {
   const showForm = () => setIsFormVisible(true);
   const hideForm = () => setIsFormVisible(false);
 
+  const hideAdModal = useCallback(() => setSelectedAd(null), []);
+  const loadMore = useCallback(() => setPage((prevPage) => prevPage + 1), []);
+
   const loader = useRef(null);
-  useIntersectionObserver(loader, () => setPage((prevPage) => prevPage + 1), hasMore, isLoading);
+  useIntersectionObserver(loader, loadMore, hasMore, isLoading);
+
 
   return (
     <Fragment>
@@ -59,7 +63,7 @@ function MainComponent() {
           hideForm={hideForm}
         />
         <SocialMedia />
-        <AdModal ad={selectedAd} onHide={() => setSelectedAd(null)} />
+        <AdModal ad={selectedAd} onHide={hideAdModal} />
       </div>
       <NavList toggleForm={showForm} setFilter={setFilter} />    
     </Fragment>
