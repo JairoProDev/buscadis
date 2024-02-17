@@ -1,5 +1,11 @@
 // React and Hooks
-import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import useAds from "./hooks/useAds";
 import useIntersectionObserver from "./hooks/useIntersectionObserver";
 
@@ -15,7 +21,7 @@ import NavList from "./components/NavList/NavList";
 // Styles
 import "./styles/root.css";
 import "./styles/reset.css";
-import "./styles/body.css"; 
+import "./styles/body.css";
 import "./styles/navigation.css";
 import "./styles/responsive.css";
 import "./styles/navbar.css";
@@ -34,7 +40,8 @@ function MainComponent() {
     : anuncios;
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const toggleSidebar = () => setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
+  const toggleSidebar = () =>
+    setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
   const showForm = () => setIsFormVisible(true);
@@ -45,7 +52,6 @@ function MainComponent() {
 
   const loader = useRef(null);
   useIntersectionObserver(loader, loadMore, hasMore, isLoading);
-
 
   return (
     <Fragment>
@@ -65,7 +71,7 @@ function MainComponent() {
         <SocialMedia />
         <AdModal ad={selectedAd} onHide={hideAdModal} />
       </div>
-      <NavList toggleForm={showForm} setFilter={setFilter} />    
+      <NavList toggleForm={showForm} setFilter={setFilter} />
     </Fragment>
   );
 }

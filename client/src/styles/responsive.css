@@ -58,9 +58,4 @@
   .form-container.show {
     display: flex;
   }
-
-  .NavList-Header,
-  .header-title {
-    display: none;
-  }
 }
