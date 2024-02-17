@@ -10,6 +10,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 0 0;
   }
 
   .header .hamburger-menu {
@@ -51,10 +52,15 @@
     transform: translate(-50%, -50%);
     z-index: 2;
     display: none;
-    background-color: rgba(255, 255, 255)
+    background-color: rgba(255, 255, 255);
   }
 
   .form-container.show {
     display: flex;
+  }
+
+  .NavList-Header,
+  .header-title {
+    display: none;
   }
 }

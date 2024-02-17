@@ -1,41 +1,40 @@
-import React from 'react';
-import NavItem from '../NavItem/NavItem'; // Asegúrate de que esta ruta es correcta
+import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./userMenu.css";
+import {
+  faUserCircle,
+  faBell,
+  faEnvelope,
+  faCog,
+  faBullhorn,
+} from "@fortawesome/free-solid-svg-icons";
 
-function UserMenu({ setFilter }) {
-    return (
-        <div className="header-right">
-            <NavItem
-                icon="account_circle"
-                link="/perfil"
-                label="Mi Perfil"
-                setFilter={setFilter}
-            />
-            <NavItem
-                icon="notifications_none"
-                link="/notificaciones"
-                label="Notificaciones"
-                setFilter={setFilter}
-            />
-            <NavItem
-                icon="message"
-                link="/mensajes"
-                label="Mensajes"
-                setFilter={setFilter}
-            />
-            <NavItem
-                icon="settings"
-                link="/configuracion"
-                label="Configuración"
-                setFilter={setFilter}
-            />
-            <NavItem
-                icon="campaign"
-                link="/anunciar"
-                label="Anunciar"
-                setFilter={setFilter}
-            />
-        </div>
-    );
+function UserMenu() {
+  return (
+    <div className="header-right">
+      <Link to="/perfil">
+        <FontAwesomeIcon icon={faUserCircle} />
+        <span>Mi Perfil</span>
+      </Link>
+      <Link to="/notificaciones">
+        <FontAwesomeIcon icon={faBell} />
+        <span>Notificaciones</span>
+      </Link>
+      <Link to="/mensajes">
+        <FontAwesomeIcon icon={faEnvelope} />
+        <span>Mensajes</span>
+      </Link>
+      <Link to="/configuracion">
+        <FontAwesomeIcon icon={faCog} />
+        <span>Configuración</span>
+      </Link>
+      <Link to="/anunciar">
+        <FontAwesomeIcon icon={faBullhorn} />
+        <span>Anunciar</span>
+      </Link>
+    </div>
+  );
 }
 
 export default UserMenu;

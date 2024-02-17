@@ -1,0 +1,44 @@
+/* UserMenu.css */
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-right a {
+  color: white;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.header-right a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.header-right a span {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: 100%; /* Posiciona el tooltip debajo del ícono */
+  left: 50%;
+  transform: translateX(-50%); /* Centra el tooltip */
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.header-right a:hover span {
+  visibility: visible;
+  opacity: 1;
+}

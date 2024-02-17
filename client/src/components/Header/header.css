@@ -19,8 +19,7 @@
   transform: translateY(-100%);
 }
 
-.header-left,
-.header-right {
+.header-left {
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -92,9 +91,6 @@
   cursor: pointer;
 }
 
-.header-right .nav-item {
-  margin-left: 0px;
-}
 .nav-item span {
   font-size: 34px;
   visibility: visible;
@@ -121,27 +117,5 @@
 
 .nav-item:hover a {
   opacity: 1;
-  visibility: visible;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-}
-
-.header-right a {
-  color: white;
-  text-decoration: none;
-  margin-left: 40px;
-  display: flex;
-  align-items: center;
-  height: 40px;
-  padding: 0 10px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.header-right a:hover {
-  background-color: rgba(0, 0, 0, 0.1);
   visibility: visible;
 }
