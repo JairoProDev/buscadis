@@ -1,6 +1,9 @@
-import "./styles/PublishButton.css";
-// Components
+// React and Hooks
 import React, { Fragment, useEffect, useRef, useState } from "react";
+import useAds from "./hooks/useAds";
+import useIntersectionObserver from "./hooks/useIntersectionObserver";
+
+// Components
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import AdList from "./components/AdList/AdList";
@@ -9,15 +12,14 @@ import AdModal from "./components/AdModal/AdModal";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
 import NavList from "./components/NavList/NavList";
 
-import useAds from "./hooks/useAds";
-
 // Styles
 import "./styles/root.css";
 import "./styles/reset.css";
-import "./styles/body.css";
+import "./styles/body.css"; 
 import "./styles/navigation.css";
 import "./styles/responsive.css";
 import "./styles/navbar.css";
+import "./styles/PublishButton.css";
 import "./MainComponent.css";
 
 function MainComponent() {
@@ -32,28 +34,14 @@ function MainComponent() {
     : anuncios;
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
-  };
+  const toggleSidebar = () => setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const showForm = () => setIsFormVisible(true);
+  const hideForm = () => setIsFormVisible(false);
 
   const loader = useRef(null);
-
-  useEffect(() => {
-    if (loader.current && hasMore && !isLoading) {
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      });
-
-      observer.observe(loader.current);
-
-      return () => observer.disconnect();
-    }
-  }, [hasMore, isLoading]);
+  useIntersectionObserver(loader, () => setPage((prevPage) => prevPage + 1), hasMore, isLoading);
 
   return (
     <Fragment>
@@ -68,12 +56,13 @@ function MainComponent() {
         <AdForm
           agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
           isVisible={isFormVisible}
-          hideForm={() => setIsFormVisible(false)}
+          hideForm={hideForm}
         />
         <SocialMedia />
         <AdModal ad={selectedAd} onHide={() => setSelectedAd(null)} />
       </div>
-      <NavList toggleForm={() => setIsFormVisible(!isFormVisible)} setFilter={setFilter} />    </Fragment>
+      <NavList toggleForm={showForm} setFilter={setFilter} />    
+    </Fragment>
   );
 }
 
