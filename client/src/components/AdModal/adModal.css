@@ -48,7 +48,7 @@
   overflow: scroll;
 }
 
-p {
+.modal-body p {
   margin-bottom: 20px;
 }
 
