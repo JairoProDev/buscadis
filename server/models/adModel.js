@@ -3,14 +3,20 @@ const validator = require("validator");
 
 const anuncioSchema = new mongoose.Schema(
   {
+    category: {
+      type: String,
+      enum: ["Empleos", "Inmuebles", "Servicios", "Autos", "Otros"],
+      default: "Otros",
+      required: [true, "La categoría del anuncio es requerida"],
+    },
     title: {
       type: String,
       required: [true, "El título del anuncio es requerido"],
       unique: true,
       trim: true,
       maxlength: [
-        50,
-        "El título del anuncio no puede tener más de 50 caracteres",
+        70,
+        "El título del anuncio no puede tener más de 70 caracteres",
       ],
     },
     description: {
@@ -21,10 +27,6 @@ const anuncioSchema = new mongoose.Schema(
         300,
         "La descripción del anuncio no puede tener más de 200 caracteres",
       ],
-    },
-    images: [String],
-    amount: {
-      type: Number,
     },
     location: {
       type: String,
@@ -41,6 +43,22 @@ const anuncioSchema = new mongoose.Schema(
           `${props.value} Tú número de teléfono está mal!, revísalo por favor`,
       },
     },
+    phone2: {
+      type: String,
+      trim: true,
+      validate: {
+        validator: function (v) {
+          return !v || /^(\+51)?\d{9}$/.test(v);
+        },
+        message: (props) =>
+          `${props.value} Tú número de teléfono está mal!, revísalo por favor`,
+      },
+    },
+    
+    images: [String],
+    amount: {
+      type: Number,
+    },
     email: {
       type: String,
       trim: true,
@@ -51,17 +69,12 @@ const anuncioSchema = new mongoose.Schema(
         message: (props) =>
           `${props.value} Por favor, introduce un correo electrónico válido!`,
       },
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
     },
-    category: {
-      type: String,
-      enum: ["Empleos", "Inmuebles", "Servicios", "Autos", "Otros"],
-      default: "Otros",
-      required: [true, "La categoría del anuncio es requerida"],
-    },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
+    
   },
   {
     timestamps: true,

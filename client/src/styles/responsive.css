@@ -46,6 +46,7 @@
 
   .sidebar {
     overflow: hidden;
+    top: 0px;
   }
 
   .portal {

@@ -2,7 +2,7 @@ const Ad = require("../models/adModel");
 
 const createAd = async (req, res) => {
   try {
-    const { category, title, description, amount, location, phone, email } =
+    const { category, title, description, amount, location, phone, phone2, email } =
       req.body;
     const newAd = new Ad({
       category: category,
@@ -11,6 +11,7 @@ const createAd = async (req, res) => {
       amount: amount,
       location: location,
       phone: phone,
+      phone2: phone2,
       email: email,
     });
 
@@ -74,6 +75,8 @@ const updateAd = async (req, res) => {
     anuncio.amount = req.body.amount || anuncio.amount;
     anuncio.location = req.body.location || anuncio.location;
     anuncio.phone = req.body.phone || anuncio.phone;
+    anuncio.phone2 = req.body.phone2 || anuncio.phone2;
+    
     anuncio.email = req.body.email || anuncio.email;
 
     await anuncio.save();
