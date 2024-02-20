@@ -70,8 +70,9 @@
 
 .ad-card__details {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  font-size: 0.8rem;
   margin-bottom: 0rem;
 }
 
@@ -82,8 +83,9 @@
 }
 
 .ad-card__location {
-  font-size: 1rem;
   color: var(--light-text-color);
+  font-size: 0.7rem;
+  line-height: 0.9;
 }
 
 .ad-card.inmuebles {

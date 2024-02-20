@@ -16,7 +16,7 @@ function AdModal({ ad, onHide }) {
         <div className={`modal ${isOpen ? 'show' : ''}`} onClick={onHide}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>{ad.title}</h2>
+                    <h2 className="modal-title">{ad.title}</h2>
                     <button className="close-button" onClick={onHide}>
                         X
                     </button>
@@ -26,11 +26,11 @@ function AdModal({ ad, onHide }) {
                         <img key={index} src={image} alt={`Imagen ${index + 1} de ${ad.title}`} />
                     ))}
                     <p>{ad.description}</p>
-                    {ad.amount && <p>Precio: {ad.amount}</p>}
-                    {ad.location && <p>Ubicación: {ad.location}</p>}
-                    {ad.phone && <p>Teléfono: {ad.phone}</p>}
-                    {ad.email && <p>Email: {ad.email}</p>}
-                    {ad.category && <p>Categoría: {ad.category}</p>}
+                    {ad.amount && <p><span>Precio:</span> {ad.amount}</p>}
+                    {ad.location && <p><span>Ubicación:</span> {ad.location}</p>}
+                    {ad.phone && <p><span>Teléfono:</span> {ad.phone}</p>}
+                    {ad.email && <p><span>Email:</span> {ad.email}</p>}
+                    {ad.category && <p><span>Categoría:</span> {ad.category}</p>}
                 </div>
                 <div className="modal-footer">
                     <button onClick={onHide}>Cerrar</button>
