@@ -69,3 +69,30 @@ span {
 .close-button:focus {
   color: #007bff;
 }
+
+/* AdModal.css */
+@media (max-width: 600px) {
+  .modal-content {
+    width: 80%;
+    padding: 15px;
+  }
+
+  .modal-header,
+  .modal-footer {
+    padding: 10px;
+  }
+
+  .modal-header {
+    font-size: 1em;
+  }
+
+  .modal-body {
+    font-size: 1em;
+  }
+
+  .close-button {
+    right: 10px;
+    top: 10px;
+    font-size: 1em;
+  }
+}
