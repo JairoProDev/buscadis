@@ -15,7 +15,7 @@ function UserMenu() {
     <div className="header-right">
       <Link to="/perfil">
         <FontAwesomeIcon icon={faUserCircle} />
-        <span>Mi Perfil</span>
+        <span>Perfil</span>
       </Link>
       <Link to="/notificaciones">
         <FontAwesomeIcon icon={faBell} />

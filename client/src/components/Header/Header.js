@@ -14,13 +14,15 @@ function Header({ setFilter, toggleSidebar }) {
 
   return (
     <header className={`header ${isHidden ? "header-hidden" : ""}`}>
-      {/*<button onClick={toggleSidebar} className="hamburger-menu">
-        &#9776;
-  </button>*/}
-      <Logo />
-      <NavList setFilter={setFilter} />
-      {/* <SearchBar /> */}
-      <UserMenu />
+      <div className="header-top">
+        {/*<button onClick={toggleSidebar} className="hamburger-menu">
+          &#9776;
+        </button>*/}
+        <Logo />
+        {/* <SearchBar /> */}
+        <NavList setFilter={setFilter} />
+        <UserMenu />
+      </div>
     </header>
   );
 }

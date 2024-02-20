@@ -6,15 +6,18 @@
   }
 
   .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0;
+    flex-direction: column;
   }
 
-  .header .hamburger-menu {
-    display: block;
+  .header-top {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .nav {
+    order: 2;
+    width: 100%;
+    justify-content: space-around;
   }
 
   .wrapper {

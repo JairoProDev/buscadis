@@ -3,6 +3,8 @@
 .header-right {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  font-size: 1.5rem;
 }
 
 .header-right a {
@@ -23,6 +25,7 @@
 }
 
 .header-right a span {
+  font-size: 1rem;
   visibility: hidden;
   background-color: #555;
   color: #fff;
