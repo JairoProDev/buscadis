@@ -93,6 +93,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
           </select>
           <label htmlFor="title">Título de tu aviso:</label>
           <input
+  className= "form-inputs"
             type="text"
             id="title"
             name="title"
@@ -111,6 +112,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
           ></textarea>
           <label htmlFor="phone">Teléfono/WhatsApp:</label>
           <input
+  className= "form-inputs"
             type="tel"
             id="phone"
             name="phone"
@@ -125,6 +127,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             <>
               <label htmlFor="amount">Monto:</label>
               <input
+  className= "form-inputs"
                 type="number"
                 id="amount"
                 name="amount"
@@ -135,6 +138,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
               />
               <label htmlFor="location">Ubicación:</label>
               <input
+  className= "form-inputs"
                 type="text"
                 id="location"
                 name="location"
@@ -143,6 +147,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
               />
               <label htmlFor="email">Correo electrónico:</label>
               <input
+  className= "form-inputs"
                 type="email"
                 id="email"
                 name="email"
@@ -150,7 +155,8 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
                 placeholder=""
               />
               <label htmlFor="image">Imagen:</label>
-              <input type="file" id="image" name="image" ref={imageRef} />
+              <input
+  className= "form-inputs" type="file" id="image" name="image" ref={imageRef} />
             </>
           )}
           <PublishButton />

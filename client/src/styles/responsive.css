@@ -73,4 +73,11 @@
   .form-container.show {
     display: flex;
   }
+
+  .search-bar {
+    margin-left: 36px;
+    width: 80% !important;
+    margin-bottom: 0 !important;
+    margin-top: 5px !important;
+  }
 }

@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import useAds from "./hooks/useAds";
+import useSearch from "./hooks/useSearch";
 import useIntersectionObserver from "./hooks/useIntersectionObserver";
 
 // Components
@@ -32,23 +33,16 @@ function MainComponent() {
   const [filter, setFilter] = useState("");
   const { anuncios, agregarAnuncioAlPrincipio, error, hasMore, isLoading } =
     useAds(page, filter);
+  const { filteredAds, updateSearchTerm } = useSearch(anuncios);
   const [selectedAd, setSelectedAd] = useState(null);
-
-  const filteredAds = filter
-    ? anuncios.filter((ad) => ad.category === filter)
-    : anuncios;
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const toggleSidebar = () =>
     setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
-
   const [isFormVisible, setIsFormVisible] = useState(false);
   const showForm = () => setIsFormVisible(true);
   const hideForm = () => setIsFormVisible(false);
-
   const hideAdModal = useCallback(() => setSelectedAd(null), []);
   const loadMore = useCallback(() => setPage((prevPage) => prevPage + 1), []);
-
   const loader = useRef(null);
   useIntersectionObserver(loader, loadMore, hasMore, isLoading);
 
@@ -58,6 +52,12 @@ function MainComponent() {
       <div className="container">
         <Sidebar isOpen={isSidebarOpen} />
         <div className="portal">
+          <input
+            type="text"
+            placeholder="Buscar avisos en PublicAdis..."
+            onChange={(event) => updateSearchTerm(event.target.value)}
+            className="search-bar"
+          />
           <AdList anuncios={filteredAds} setSelectedAd={setSelectedAd} />
           {error && <div className="error">{error}</div>}
           {isLoading && <div ref={loader}>Loading...</div>}
