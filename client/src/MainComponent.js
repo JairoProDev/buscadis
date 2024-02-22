@@ -33,7 +33,7 @@ function MainComponent() {
   const [filter, setFilter] = useState("");
   const { anuncios, agregarAnuncioAlPrincipio, error, hasMore, isLoading } =
     useAds(page, filter);
-  const { filteredAds, updateSearchTerm } = useSearch(anuncios);
+  const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const toggleSidebar = () =>
@@ -48,7 +48,7 @@ function MainComponent() {
 
   return (
     <Fragment>
-      <Header setFilter={setFilter} toggleSidebar={toggleSidebar} />
+      <Header toggleForm={showForm} setFilter={setFilter} toggleSidebar={toggleSidebar} />
       <div className="container">
         <Sidebar isOpen={isSidebarOpen} />
         <div className="portal">

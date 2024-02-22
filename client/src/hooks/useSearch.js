@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 
-function useSearch(anuncios) {
+function useSearch(anuncios, filter) {
     const [searchTerm, setSearchTerm] = useState("");
 
     const updateSearchTerm = (newSearchTerm) => {
@@ -8,16 +8,22 @@ function useSearch(anuncios) {
     };
 
     const filteredAds = useMemo(() => {
-        if (!searchTerm) {
-            return anuncios;
+        let filtered = anuncios;
+
+        if (searchTerm) {
+            filtered = filtered.filter((ad) =>
+                ad.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                ad.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                ad.location.toLowerCase().includes(searchTerm.toLowerCase())
+            );
         }
 
-        return anuncios.filter((ad) =>
-            ad.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            ad.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            ad.location.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    }, [anuncios, searchTerm]);
+        if (filter) {
+            filtered = filtered.filter((ad) => ad.category === filter);
+        }
+
+        return filtered;
+    }, [anuncios, searchTerm, filter]);
 
     return {
         filteredAds,

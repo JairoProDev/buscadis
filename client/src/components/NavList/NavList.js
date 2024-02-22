@@ -1,5 +1,4 @@
 // NavList.js
-
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -41,7 +40,7 @@ function NavList({ setFilter, toggleForm }) {
 
 function NavItem({ icon, link, label, setFilter, onClick }) {
   return (
-    <li className="nav-item" onClick={onClick || (() => setFilter(label))}>
+    <li className="nav-item" onClick={onClick || (setFilter ? () => setFilter(label) : undefined)}>
       <span className="material-symbols-outlined">{icon}</span>
       <Link to={link}>{label}</Link>
     </li>
