@@ -1,4 +1,4 @@
-// En el archivo public/serviceWorker.js
+/* eslint-env serviceworker */
 self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open('my-cache').then(function(cache) {
@@ -11,10 +11,14 @@ self.addEventListener('install', function(event) {
     );
 });
 
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
-        })
-    );
-});
+self.addEventListener('fetch', event => {
+    if (event.request.url.endsWith('.js')) {
+      event.respondWith(
+        fetch(event.request).catch(() => caches.match(event.request))
+      );
+    } else {
+      event.respondWith(
+        caches.match(event.request).then(response => response || fetch(event.request))
+      );
+    }
+  });
