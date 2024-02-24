@@ -24,8 +24,8 @@ const anuncioSchema = new mongoose.Schema(
       required: [true, "La descripción del anuncio es requerida"],
       trim: true,
       maxlength: [
-        300,
-        "La descripción del anuncio no puede tener más de 200 caracteres",
+        500,
+        "La descripción del anuncio no puede tener más de 500 caracteres",
       ],
     },
     location: {
