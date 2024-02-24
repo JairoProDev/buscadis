@@ -74,7 +74,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
 
   return (
     <div className={`form-container ${isVisible ? "show" : ""}`}>
-      <button onClick={hideForm}>Cerrar</button>
+      <button className="form-close-button" onClick={hideForm}>X</button>
       <form
         id="adForm"
         action="/api/anuncios"

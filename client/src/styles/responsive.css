@@ -48,8 +48,8 @@
   }
 
   .ad-card {
-    width: 175px !important;
-    height: 175px !important;
+    width: 160px !important;
+    height: 280px !important;
   }
 
   .sidebar {
@@ -63,6 +63,13 @@
     padding: initial !important;
   }
 
+  button.form-close-button {
+    display: block;
+  }
+  .ad-container {
+    padding-left: 36px !important;
+    padding-right: 5px !important;
+  }
   .form-container {
     margin-top: 0;
     margin-left: auto;

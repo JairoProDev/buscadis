@@ -20,6 +20,9 @@
   box-sizing: content-box;
 }
 
+button.form-close-button {
+  display: none;
+}
 form-container input,
 form-container button {
   width: 100%; /* Asegúrate de que los elementos hijos no sean más anchos que su contenedor */
