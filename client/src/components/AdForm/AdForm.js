@@ -119,6 +119,15 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             ref={phoneRef}
             placeholder="+51 987 654 321"
           />
+          <label htmlFor="location">Ubicación:</label>
+          <input
+            className="form-input"
+            type="text"
+            id="location"
+            name="location"
+            ref={locationRef}
+            placeholder="Escribe tu ubicación"
+          />
 
           <button type="button" onClick={handleAdvancedOptionsClick}>
             {showAdvancedOptions ? "Ocultar" : "Mostrar"} opciones avanzadas
@@ -135,15 +144,6 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
                 placeholder="s/100.00"
                 min="0"
                 step="0.01"
-              />
-              <label htmlFor="location">Ubicación:</label>
-              <input
-                className="form-input"
-                type="text"
-                id="location"
-                name="location"
-                ref={locationRef}
-                placeholder="Escribe tu ubicación"
               />
               <label htmlFor="email">Correo electrónico:</label>
               <input

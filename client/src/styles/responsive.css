@@ -48,7 +48,7 @@
   }
 
   .ad-card {
-    width: 160px !important;
+    flex: 1 0 150px;
     height: 280px !important;
   }
 

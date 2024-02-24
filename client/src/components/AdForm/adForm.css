@@ -1,4 +1,8 @@
 /* Estilos generales del formulario */
+form {
+  margin: 0;
+  box-sizing: border-box;
+}
 .form-container {
   margin-top: 60px;
   display: flex;
@@ -16,10 +20,13 @@
     0.3
   ); /* Fondo blanco con 30% de opacidad */
   font-family: "Roboto", sans-serif;
-  overflow: auto;
+  overflow-y: scroll;
+  scrollbar-width: none;
   box-sizing: content-box;
 }
-
+.form-container::-webkit-scrollbar {
+  display: none; /* Para Chrome, Safari y Edge */
+}
 button.form-close-button {
   display: none;
 }
