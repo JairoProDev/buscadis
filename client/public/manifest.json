@@ -1,12 +1,13 @@
 {
   "short_name": "BuscAdis",
   "name": "BuscAdis: Avisos clasificados",
-  "description": "PublicAdis BuscAdis: Avisos clasificados",
+  "description": "PublicAdis BuscAdis: Avisos clasificados: Autos, Empleos, Inmuebles, Servicios",
   "start_url": "/",
   "background_color": "#000",
   "display": "standalone",
   "theme_color": "#fff",
-  
+  "categories": ["shopping", "lifestyle", "business", "news", "community", "empleos", "autos", "inmuebles", "servicios"],
+  "lang": "es",
   "icons": [
     {
       "src": "/images/logo192.png",
