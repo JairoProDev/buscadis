@@ -56,7 +56,7 @@ function MainComponent() {
             type="text"
             placeholder="Buscar avisos en PublicAdis..."
             onChange={(event) => updateSearchTerm(event.target.value)}
-            className="search-bar"
+            id="search-bar"
           />
           <AdList anuncios={filteredAds} setSelectedAd={setSelectedAd} />
           {error && <div className="error">{error}</div>}

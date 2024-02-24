@@ -16,6 +16,7 @@
   ); /* Fondo blanco con 30% de opacidad */
   font-family: "Roboto", sans-serif;
   overflow: hidden;
+  box-sizing: content-box;
 }
 
 form-container input,
@@ -31,8 +32,6 @@ form-container button {
   display: flex;
   flex-direction: column;
 }
-
-
 
 label {
   color: #333;

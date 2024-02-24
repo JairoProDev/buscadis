@@ -9,11 +9,19 @@
     flex-direction: column;
   }
 
-  .header-top {
-    flex-direction: row;
-    justify-content: space-between;
+  .header-title {
+    font-size: 1.2rem;
   }
 
+  .header-top {
+    flex-direction: row;
+    justify-content: start;
+  }
+
+  #search-bar {
+    margin-left: 35px !important;
+    width: 90%;
+  }
   .nav {
     position: fixed;
     bottom: 0;
@@ -50,7 +58,6 @@
   }
 
   .portal {
-    display: grid !important;
     margin: 0 !important;
     max-width: initial !important;
     padding: initial !important;
