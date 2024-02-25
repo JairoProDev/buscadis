@@ -8,10 +8,11 @@ function AdList({ anuncios, setSelectedAd }) {
   return (
     <div className="ad-container">
       <ul id="ad-list">
-        {anuncios.map((anuncio) => (
+        {anuncios.map((anuncio, index) => (
           <AdCard
             key={anuncio._id}
             anuncio={anuncio}
+            number={index+ 1}
             setSelectedAd={setSelectedAd}
           />
         ))}

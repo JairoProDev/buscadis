@@ -1,7 +1,7 @@
 import React from 'react';
 import './adCard.css';
 
-function AdCard({ anuncio, setSelectedAd }) {
+function AdCard({ anuncio, setSelectedAd, number }) {
     console.log('AdCard anuncio:', anuncio)
 
     const { category, title, description, amount, location, phone, phone2 } = anuncio;
@@ -11,7 +11,7 @@ function AdCard({ anuncio, setSelectedAd }) {
     return (
         <div className={adClass} onClick={() => setSelectedAd(anuncio)}>
             <div className="ad-card__content">
-                
+                <p>#{number}</p>
                 <h3 className="ad-card__title">{title}</h3>
                 <p className="ad-card__description">{description}</p>
                 <div className="ad-card__details">

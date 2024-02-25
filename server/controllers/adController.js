@@ -27,12 +27,12 @@ const createAd = async (req, res) => {
 
 const getAds = async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 200;
-
     const anuncios = await Ad.find()
-      .skip((page - 1) * limit)
-      .limit(limit);
+    // const page = parseInt(req.query.page) || 1;
+    // const limit = parseInt(req.query.limit) || 200;
+
+    //   .skip((page - 1) * limit)
+    //   .limit(limit);
 
     if (!anuncios || anuncios.length === 0) {
       return res.status(200).json([]);

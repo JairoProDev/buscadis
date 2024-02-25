@@ -12,13 +12,19 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', event => {
-    if (event.request.url.endsWith('.js')) {
-      event.respondWith(
-        fetch(event.request).catch(() => caches.match(event.request))
-      );
-    } else {
-      event.respondWith(
-        caches.match(event.request).then(response => response || fetch(event.request))
-      );
-    }
-  });
+  if (event.request.url.endsWith('.js')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const responseClone = response.clone();
+          caches.open('my-cache').then(cache => cache.put(event.request, responseClone));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+  } else {
+    event.respondWith(
+      caches.match(event.request).then(response => response || fetch(event.request))
+    );
+  }
+});
