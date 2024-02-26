@@ -6,6 +6,7 @@ self.addEventListener('install', function(event) {
         '/index.html',
         '/static/js/main.3da71462.js',
         '/static/css/main.42bc8682.css',
+        '/offline.html', // Página de error personalizada
         // Agrega aquí todos los demás recursos que quieras almacenar en caché
       ]);
     })
@@ -13,13 +14,26 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request).then(response => {
-        const responseClone = response.clone();
-        caches.open('my-cache').then(cache => cache.put(event.request, responseClone));
-        return response;
-      });
-    })
-  );
+  if (event.request.method === 'GET') {
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        if (cachedResponse) {
+          // Actualiza la caché en segundo plano
+          fetch(event.request).then(response => {
+            caches.open('my-cache').then(cache => cache.put(event.request, response));
+          });
+
+          return cachedResponse;
+        }
+
+        return fetch(event.request)
+          .then(response => {
+            const responseClone = response.clone();
+            caches.open('my-cache').then(cache => cache.put(event.request, responseClone));
+            return response;
+          })
+          .catch(() => caches.match('/offline.html')); // Muestra la página de error personalizada si la solicitud falla
+      })
+    );
+  }
 });

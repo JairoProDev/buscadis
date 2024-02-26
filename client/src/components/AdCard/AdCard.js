@@ -8,20 +8,22 @@ function AdCard({ anuncio, setSelectedAd, number }) {
 
     const adClass = `ad-card ${category.toLowerCase()}`;
 
-    return (
-        <div className={adClass} onClick={() => setSelectedAd(anuncio)}>
-            <div className="ad-card__content">
-                <p>#{number}</p>
-                <h3 className="ad-card__title">{title}</h3>
-                <p className="ad-card__description">{description}</p>
-                <div className="ad-card__details">
-                    <p className="ad-card__category">{category}</p>
-                    <p className="ad-card__price">{amount}</p>
-                    <p className="ad-card__location">{location}</p>
-                </div>
-            </div>
-            
-            {/* <div className="ad-card__buttons">
+  return (
+    <div className={adClass} onClick={() => setSelectedAd(anuncio)}>
+      <div className="ad-card__content">
+        <div className="ad-card__header">
+          <p className="ad-card__number">#{number}</p>
+          <p className="ad-card__category">{category}</p>
+        </div>
+        <h3 className="ad-card__title">{title}</h3>
+        <p className="ad-card__description">{description}</p>
+        <div className="ad-card__details">
+          <p className="ad-card__price">{amount}</p>
+          <p className="ad-card__location">{location}</p>
+        </div>
+      </div>
+
+              {/* <div className="ad-card__buttons">
                 <a href={`tel:${phone}`} className="ad-card__button ad-card__button--details" aria-label="Call">
                     <FontAwesomeIcon icon={faPhone} />
                 </a>
@@ -29,8 +31,8 @@ function AdCard({ anuncio, setSelectedAd, number }) {
                     <FontAwesomeIcon icon={faWhatsapp} size='2x' />
                 </a>
             </div> */}
-        </div>
-    );
+    </div>
+  );
 }
 
 export default AdCard;

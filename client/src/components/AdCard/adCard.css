@@ -10,7 +10,14 @@
   --call-button-color: #007bff;
   --call-button-hover-color: #0056b3;
 }
-
+.ad-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem;
+  border-bottom: 1px solid var(--light-text-color);
+  font-size: small;
+}
 .ad-card {
   flex: 1 0 250px;
   height: 210px;
@@ -30,7 +37,7 @@
   overflow: hidden;
 }
 .ad-card__content {
-  padding: 0.8rem;
+  padding: 0.6rem;
   display: flex;
   flex-direction: column;
   height: 100%;
