@@ -32,7 +32,14 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
       imageRef.current.value = "";
     }
   };
-
+//mantener el valor del textarea en el estado de tu componente:
+  const [description, setDescription] = useState("");
+  //función que se llame cada vez que cambie el valor del textarea. Esta función puede ajustar la altura del textarea para que se ajuste a su contenido:
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+    event.target.style.height = "inherit";
+    event.target.style.height = `${event.target.scrollHeight}px`;
+  };
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -108,6 +115,8 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             name="description"
             required
             ref={descriptionRef}
+            defaultValue={description}
+            onInput={handleDescriptionChange}
             placeholder="Escribe una descripción detallada de tu anuncio"
           ></textarea>
           <label htmlFor="phone">Teléfono/WhatsApp:</label>

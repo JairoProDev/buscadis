@@ -14,7 +14,7 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', event => {
-  if (event.request.method === 'GET') {
+  if (event.request.method === 'GET' && event.request.url.startsWith('http') && !event.request.url.startsWith('chrome-extension')) {
     event.respondWith(
       fetch(event.request)
         .then(response => {
