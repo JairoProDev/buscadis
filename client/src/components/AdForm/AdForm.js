@@ -34,12 +34,22 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   };
 
   const [image, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
-const handleImageChange = (event) => {
-  setImage(event.target.files[0]);
-};
+  const handleImageChange = (event) => {
+    if (event.target.files[0]) {
+      setImage(event.target.files[0]);
 
-//mantener el valor del textarea en el estado de tu componente:
+      // Create a preview URL for the selected image
+      const url = URL.createObjectURL(event.target.files[0]);
+      setPreviewUrl(url);
+    } else {
+      setImage(null);
+      setPreviewUrl(null);
+    }
+  };
+
+  //mantener el valor del textarea en el estado de tu componente:
   const [description, setDescription] = useState("");
   //función que se llame cada vez que cambie el valor del textarea. Esta función puede ajustar la altura del textarea para que se ajuste a su contenido:
   const handleDescriptionChange = (event) => {
@@ -52,19 +62,22 @@ const handleImageChange = (event) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('image', image);
-    formData.append('category', categoryRef.current.value);
-    formData.append('title', titleRef.current.value);
-    formData.append('description', descriptionRef.current.value);
-    formData.append('phone', phoneRef.current.value);
-    formData.append('location', locationRef.current ? locationRef.current.value : "");
-    formData.append('email', emailRef.current ? emailRef.current.value : "");
-    formData.append('amount', amountRef.current ? amountRef.current.value : "");
+    formData.append("image", image);
+    formData.append("category", categoryRef.current.value);
+    formData.append("title", titleRef.current.value);
+    formData.append("description", descriptionRef.current.value);
+    formData.append("phone", phoneRef.current.value);
+    formData.append(
+      "location",
+      locationRef.current ? locationRef.current.value : ""
+    );
+    formData.append("email", emailRef.current ? emailRef.current.value : "");
+    formData.append("amount", amountRef.current ? amountRef.current.value : "");
 
     try {
-      const response = await fetch('/api/images/upload', {
-        method: 'POST',
-        body: formData
+      const response = await fetch("/api/images/upload", {
+        method: "POST",
+        body: formData,
       });
       const data = await response.json();
       const imageUrl = data.imageUrl;
@@ -106,7 +119,9 @@ const handleImageChange = (event) => {
 
   return (
     <div className={`form-container ${isVisible ? "show" : ""}`}>
-      <button className="form-close-button" onClick={hideForm}>X</button>
+      <button className="form-close-button" onClick={hideForm}>
+        X
+      </button>
       <form
         id="adForm"
         action="/api/anuncios"
@@ -162,40 +177,44 @@ const handleImageChange = (event) => {
             ref={locationRef}
             placeholder="Escribe tu ubicación"
           />
+          <label htmlFor="amount">Monto:</label>
+          <input
+            className="form-input"
+            type="number"
+            id="amount"
+            name="amount"
+            ref={amountRef}
+            placeholder="s/100.00"
+            min="0"
+            step="0.01"
+          />
+          <label htmlFor="email">Correo electrónico:</label>
+          <input
+            className="form-input"
+            type="email"
+            id="email"
+            name="email"
+            ref={emailRef}
+            placeholder=""
+          />
+                        <label htmlFor="image">Imagen:</label>
+              <input
+                className="form-input file-input"
+                type="file"
+                id="image"
+                name="image"
+                onChange={handleImageChange}
+              />
+          {previewUrl && (
+            <img src={previewUrl} alt="Preview" className="preview-image" />
+          )}
 
           <button type="button" onClick={handleAdvancedOptionsClick}>
             {showAdvancedOptions ? "Ocultar" : "Mostrar"} opciones avanzadas
           </button>
           {showAdvancedOptions && (
             <>
-              <label htmlFor="amount">Monto:</label>
-              <input
-                className="form-input"
-                type="number"
-                id="amount"
-                name="amount"
-                ref={amountRef}
-                placeholder="s/100.00"
-                min="0"
-                step="0.01"
-              />
-              <label htmlFor="email">Correo electrónico:</label>
-              <input
-                className="form-input"
-                type="email"
-                id="email"
-                name="email"
-                ref={emailRef}
-                placeholder=""
-              />
-              <label htmlFor="image">Imagen:</label>
-              <input
-                className="form-input"
-                type="file"
-                id="image"
-                name="image"
-                onChange={handleImageChange}
-                />
+
             </>
           )}
           <PublishButton />
