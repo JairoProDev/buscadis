@@ -1,11 +1,23 @@
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config({ path: '../.env' });
 }
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET 
+});
+
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const adRoutes = require('./routes/adRoutes');
 const cors = require('cors')
+
+const imageRoutes = require('./routes/imageRoutes');
+// const userRoutes = require('./routes/userRoutes');
+// const authRoutes = require('./routes/authRoutes');
 
 // Inicializar la aplicación
 const app = express();
@@ -21,6 +33,8 @@ app.use(express.json());
 
 // Usar middleware para servir archivos estáticos
 app.use(express.static(path.resolve(__dirname, '../client/build')));
+
+app.use('/api/images', imageRoutes);
 
 // Contador para los intentos de conexión a la base de datos
 let dbConnectionAttempts = 0;

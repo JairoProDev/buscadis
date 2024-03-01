@@ -1,5 +1,6 @@
 node_modules
 client/build/
+uploads
 seed.js
 seed2.js
 seed3.js

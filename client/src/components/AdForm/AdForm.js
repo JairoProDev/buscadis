@@ -32,6 +32,13 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
       imageRef.current.value = "";
     }
   };
+
+  const [image, setImage] = useState(null);
+
+const handleImageChange = (event) => {
+  setImage(event.target.files[0]);
+};
+
 //mantener el valor del textarea en el estado de tu componente:
   const [description, setDescription] = useState("");
   //función que se llame cada vez que cambie el valor del textarea. Esta función puede ajustar la altura del textarea para que se ajuste a su contenido:
@@ -44,8 +51,25 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('category', categoryRef.current.value);
+    formData.append('title', titleRef.current.value);
+    formData.append('description', descriptionRef.current.value);
+    formData.append('phone', phoneRef.current.value);
+    formData.append('location', locationRef.current ? locationRef.current.value : "");
+    formData.append('email', emailRef.current ? emailRef.current.value : "");
+    formData.append('amount', amountRef.current ? amountRef.current.value : "");
+
     try {
-      const respuesta = await fetch("/api/anuncios", {
+      const response = await fetch('/api/images/upload', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await response.json();
+      const imageUrl = data.imageUrl;
+
+      const responseAnuncio = await fetch("/api/anuncios", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,17 +82,18 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
           location: locationRef.current ? locationRef.current.value : "",
           phone: phoneRef.current.value,
           email: emailRef.current ? emailRef.current.value : "",
-          image: imageRef.current ? imageRef.current.value : "",
+          image: imageUrl,
         }),
       });
-      if (respuesta.ok) {
-        const respuestaJson = await respuesta.json();
-        const anuncio = respuestaJson.anuncio;
+
+      if (responseAnuncio.ok) {
+        const responseJson = await responseAnuncio.json();
+        const anuncio = responseJson.anuncio;
         agregarAnuncioAlPrincipio(anuncio);
         clearForm();
       } else {
-        const respuestaJson = await respuesta.json();
-        alert("Error al crear el anuncio: " + respuestaJson.error);
+        const responseJson = await responseAnuncio.json();
+        alert("Error al crear el anuncio: " + responseJson.error);
       }
     } catch (error) {
       alert("Error de red: " + error);
@@ -169,8 +194,8 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
                 type="file"
                 id="image"
                 name="image"
-                ref={imageRef}
-              />
+                onChange={handleImageChange}
+                />
             </>
           )}
           <PublishButton />
