@@ -2,7 +2,7 @@ import React from 'react';
 import './adCard.css';
 
 function AdCard({ anuncio, setSelectedAd, number }) {
-    console.log('AdCard anuncio:', anuncio)
+    // console.log('AdCard anuncio:', anuncio)
 
     const { category, title, description, amount, location, phone, phone2 } = anuncio;
 
