@@ -28,7 +28,7 @@ const createAd = async (req, res) => {
 const getAds = async (req, res) => {
   try {
     const anuncios = await Ad.find()
-    console.log(anuncios);
+    // console.log(anuncios);
     // const page = parseInt(req.query.page) || 1;
     // const limit = parseInt(req.query.limit) || 200;
 

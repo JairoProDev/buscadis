@@ -33,6 +33,7 @@
   z-index: 2;
   color: #5264ae; /* Añade un color al ícono */
   font-size: 20px; /* Aumenta el tamaño del ícono */
+  cursor: pointer;
 }
 
 .microphone-icon {
@@ -43,6 +44,7 @@
   z-index: 2;
   color: #5264ae; /* Añade un color al ícono del micrófono */
   font-size: 20px; /* Aumenta el tamaño del ícono del micrófono */
+  cursor: pointer;
 }
 
 .search-input:valid + .search-label,
