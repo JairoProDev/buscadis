@@ -2,7 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./sidebar.css";
 
-function Sidebar({ isOpen }) {
+function Sidebar({ isOpen, updateSearchTerm }) {
+  const handleLinkClick = (event) => {
+    event.preventDefault();
+    const searchTerm = event.target.getAttribute("data-search-term");
+    updateSearchTerm(searchTerm);
+  };
   return (
     <aside className="sidebar" style={{ display: isOpen ? "block" : "none" }}>
       <ul className="category-list">
