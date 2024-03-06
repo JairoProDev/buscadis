@@ -6,13 +6,13 @@ import "./adModal.css";
 function AdModal({ ad, onHide }) {
   const [isOpen, setIsOpen] = useState(false);
 
-useEffect(() => {
+  useEffect(() => {
     if (ad) {
-        console.log(ad.images);  // Imprime las URLs de las imágenes
-        console.log(Array.isArray(ad.images));  // Imprime true si ad.images es un array
+      console.log(ad.images); // Imprime las URLs de las imágenes
+      console.log(Array.isArray(ad.images)); // Imprime true si ad.images es un array
     }
     setIsOpen(!!ad);
-}, [ad]);
+  }, [ad]);
 
   if (!ad) return null;
 
@@ -21,9 +21,6 @@ useEffect(() => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2 className="modal-title">{ad.title}</h2>
-          <button className="close-button" onClick={onHide}>
-            X
-          </button>
         </div>
         <div className="modal-body">
           {ad.images &&
@@ -62,7 +59,6 @@ useEffect(() => {
           )}
         </div>
         <div className="modal-footer">
-          <button onClick={onHide}>Cerrar</button>
           <ContactButtons phone={ad.phone} />
         </div>
       </div>

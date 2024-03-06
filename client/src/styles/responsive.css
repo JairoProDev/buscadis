@@ -20,7 +20,6 @@
 
   #search-bar {
     margin-left: 35px !important;
-    width: 90%;
   }
   .nav {
     position: fixed;
@@ -95,8 +94,7 @@
   }
 
   .search-bar {
-    margin-left: 36px;
-    width: 80% !important;
+    width: 100% !important;
     margin-bottom: 0 !important;
     margin-top: 5px !important;
   }

@@ -1,18 +1,53 @@
-.search-container {
+.search-bar {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
-  border-radius: 5 0px;
-
-  /* 
-      padding: 0 10px;
-      max-width: 240px;
-      */
+  border-radius: 50px;
 }
 
-#search-input {
+#search-bar {
   padding: 5px;
-  font-size: 1%;
+  font-size: 16px;
   width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.search-label.searchbar-label {
+  position: absolute;
+  left: 12%;
+  top: 50%;
+  transform: translateY(-50%); /* Centra verticalmente */
+  z-index: 2;
+  pointer-events: none;
+  transition: 0s ease all;
+  color: #5264ae;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px; /* Ajusta la posición del ícono */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #5264ae; /* Añade un color al ícono */
+  font-size: 20px; /* Aumenta el tamaño del ícono */
+}
+
+.microphone-icon {
+  position: absolute;
+  right: 45px; /* Ajusta la posición del ícono del micrófono */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: #5264ae; /* Añade un color al ícono del micrófono */
+  font-size: 20px; /* Aumenta el tamaño del ícono del micrófono */
+}
+
+.search-input:valid + .search-label,
+.search-input:focus + .search-label {
+  font-size: 14px;
+  top: 15%;
+  color: #0128c2;
 }

@@ -18,6 +18,7 @@ import AdForm from "./components/AdForm/AdForm";
 import AdModal from "./components/AdModal/AdModal";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
 import NavList from "./components/NavList/NavList";
+import SearchBar from "./components/SearchBar/SearchBar";
 
 // Styles
 import "./styles/root.css";
@@ -48,16 +49,15 @@ function MainComponent() {
 
   return (
     <Fragment>
-      <Header toggleForm={showForm} setFilter={setFilter} toggleSidebar={toggleSidebar} />
+      <Header
+        toggleForm={showForm}
+        setFilter={setFilter}
+        toggleSidebar={toggleSidebar}
+      />
       <div className="container">
         <Sidebar isOpen={isSidebarOpen} />
         <div className="portal">
-          <input
-            type="text"
-            placeholder="Buscar avisos en PublicAdis..."
-            onChange={(event) => updateSearchTerm(event.target.value)}
-            id="search-bar"
-          />
+          <SearchBar updateSearchTerm={updateSearchTerm} />
           <AdList anuncios={filteredAds} setSelectedAd={setSelectedAd} />
           {error && <div className="error">{error}</div>}
           {isLoading && <div ref={loader}>Loading...</div>}
