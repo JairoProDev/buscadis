@@ -11,6 +11,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   const amountRef = useRef();
   const locationRef = useRef();
   const phoneRef = useRef();
+  const phone2Ref = useRef();
   const emailRef = useRef();
   const imageRef = useRef();
 
@@ -30,6 +31,9 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
     }
     if (imageRef.current) {
       imageRef.current.value = "";
+    }
+    if (phone2Ref.current) {
+      phone2Ref.current.value = "";
     }
   };
 
@@ -195,16 +199,16 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             id="email"
             name="email"
             ref={emailRef}
-            placeholder=""
+            placeholder="tu-correo@gmail.com"
           />
-                        <label htmlFor="image">Imagen:</label>
-              <input
-                className="form-input file-input"
-                type="file"
-                id="image"
-                name="image"
-                onChange={handleImageChange}
-              />
+          <label htmlFor="image">Imagen:</label>
+          <input
+            className="form-input file-input"
+            type="file"
+            id="image"
+            name="image"
+            onChange={handleImageChange}
+          />
           {previewUrl && (
             <img src={previewUrl} alt="Preview" className="preview-image" />
           )}
@@ -212,11 +216,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
           <button type="button" onClick={handleAdvancedOptionsClick}>
             {showAdvancedOptions ? "Ocultar" : "Mostrar"} opciones avanzadas
           </button>
-          {showAdvancedOptions && (
-            <>
-
-            </>
-          )}
+          {showAdvancedOptions && <></>}
           <PublishButton />
         </fieldset>
       </form>
