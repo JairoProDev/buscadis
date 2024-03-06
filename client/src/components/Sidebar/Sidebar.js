@@ -6,22 +6,6 @@ function Sidebar({ isOpen }) {
   return (
     <aside className="sidebar" style={{ display: isOpen ? "block" : "none" }}>
       <ul className="category-list">
-        <h4>Servicios</h4>
-        <ul className="enlaces">
-          <li>
-            <span className="material-symbols-outlined">engineering</span>
-            <Link to="#">Profesionales</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">school</span>
-            <Link to="#">Clases y Cursos</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">event</span>
-            <Link to="#">Eventos</Link>
-          </li>
-        </ul>
-
         <h4>Empleos</h4>
         <ul className="enlaces">
           <li>
@@ -36,21 +20,23 @@ function Sidebar({ isOpen }) {
             <span className="material-symbols-outlined">school</span>
             <Link to="#">Docencia</Link>
           </li>
-        </ul>
-
-        <h4>Vehículos</h4>
-        <ul className="enlaces">
           <li>
-            <span className="material-symbols-outlined">directions_car</span>
-            <Link to="#">Autos</Link>
+            <span className="material-symbols-outlined">hotel</span>
+            <Link to="#">Hoteles</Link>
           </li>
           <li>
-            <span className="material-symbols-outlined">directions_bike</span>
-            <Link to="#">Motos</Link>
+            <span className="material-symbols-outlined">
+              store_mall_directory
+            </span>
+            <Link to="#">Almacén</Link>
           </li>
           <li>
             <span className="material-symbols-outlined">local_shipping</span>
-            <Link to="#">Camiones</Link>
+            <Link to="#">Repartidor</Link>
+          </li>
+          <li>
+            <span className="material-symbols-outlined">local_bar</span>
+            <Link to="#">Bares</Link>
           </li>
         </ul>
 
@@ -88,15 +74,51 @@ function Sidebar({ isOpen }) {
           </li>
         </ul>
 
-        <h4>Productos</h4>
+        <h4>Vehículos</h4>
         <ul className="enlaces">
           <li>
-            <span className="material-symbols-outlined">home</span>
-            <Link to="#">Bienes Raíces</Link>
+            <span className="material-symbols-outlined">directions_car</span>
+            <Link to="#">Autos</Link>
           </li>
           <li>
-            <span className="material-symbols-outlined">directions_car</span>
-            <Link to="#">Vehículos</Link>
+            <span className="material-symbols-outlined">directions_bike</span>
+            <Link to="#">Motos</Link>
+          </li>
+          <li>
+            <span className="material-symbols-outlined">local_shipping</span>
+            <Link to="#">Camiones</Link>
+          </li>
+        </ul>
+
+        <h4>Turismo</h4>
+        <ul className="enlaces">
+          <li>
+            <span className="material-symbols-outlined">flight</span>
+            <Link to="#">Vuelos</Link>
+          </li>
+          <li>
+            <span className="material-symbols-outlined">hotel</span>
+            <Link to="#">Hoteles</Link>
+          </li>
+          <li>
+            <span className="material-symbols-outlined">local_activity</span>
+            <Link to="#">Agencias de viaje</Link>
+          </li>
+          <li>
+            <span className="material-symbols-outlined">restaurant</span>
+            <Link to="#">Restaurantes</Link>
+          </li>
+        </ul>
+
+        <h4>Servicios</h4>
+
+        <h4>Otros</h4>
+        <ul className="enlaces">
+          <li>
+            <span className="material-symbols-outlined">
+              local_grocery_store
+            </span>
+            <Link to="#">Alimentos</Link>
           </li>
           <li>
             <span className="material-symbols-outlined">kitchen</span>
@@ -128,26 +150,6 @@ function Sidebar({ isOpen }) {
           </li>
         </ul>
 
-        <h4>Turismo</h4>
-        <ul className="enlaces">
-          <li>
-            <span className="material-symbols-outlined">flight</span>
-            <Link to="#">Vuelos</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">hotel</span>
-            <Link to="#">Hoteles</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">local_activity</span>
-            <Link to="#">Agencias de viaje</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">restaurant</span>
-            <Link to="#">Restaurantes</Link>
-          </li>
-        </ul>
-
         <h4>Varios</h4>
         <ul className="enlaces">
           <li>
@@ -161,6 +163,18 @@ function Sidebar({ isOpen }) {
           <li>
             <span className="material-symbols-outlined">settings</span>
             <Link to="#">Servicios</Link>
+          </li>
+          <li>
+            <span className="material-symbols-outlined">engineering</span>
+            <Link to="#">Profesionales</Link>
+          </li>
+          <li>
+            <span className="material-symbols-outlined">school</span>
+            <Link to="#">Clases y Cursos</Link>
+          </li>
+          <li>
+            <span className="material-symbols-outlined">event</span>
+            <Link to="#">Eventos</Link>
           </li>
         </ul>
       </ul>

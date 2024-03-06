@@ -1,12 +1,20 @@
-import React from 'react';
-import './adCard.css';
+import React from "react";
+import "./adCard.css";
+import { formatDistance } from "date-fns";
+import { es } from "date-fns/locale";
 
 function AdCard({ anuncio, setSelectedAd, number }) {
-    // console.log('AdCard anuncio:', anuncio)
+  // console.log('AdCard anuncio:', anuncio)
 
-    const { category, title, description, amount, location, phone, phone2 } = anuncio;
+  const { category, title, description, amount, location, createdAt } = anuncio;
 
-    const adClass = `ad-card ${category.toLowerCase()}`;
+  const adClass = `ad-card ${category.toLowerCase()}`;
+
+  // Formatea la fecha de publicación
+  const formattedDate = formatDistance(new Date(createdAt), new Date(), {
+    locale: es,
+    addSuffix: false,
+  });
 
   return (
     <div className={adClass} onClick={() => setSelectedAd(anuncio)}>
@@ -14,6 +22,8 @@ function AdCard({ anuncio, setSelectedAd, number }) {
         <div className="ad-card__header">
           <p className="ad-card__number">#{number}</p>
           <p className="ad-card__category">{category}</p>
+          <p className="ad-card__date">{formattedDate}</p>{" "}
+
         </div>
         <h3 className="ad-card__title">{title}</h3>
         <p className="ad-card__description">{description}</p>
@@ -22,15 +32,6 @@ function AdCard({ anuncio, setSelectedAd, number }) {
           <p className="ad-card__location">{location}</p>
         </div>
       </div>
-
-              {/* <div className="ad-card__buttons">
-                <a href={`tel:${phone}`} className="ad-card__button ad-card__button--details" aria-label="Call">
-                    <FontAwesomeIcon icon={faPhone} />
-                </a>
-                <a href={`https://wa.me/${phone}?text=${encodeURIComponent("Hola, vi su anuncio en PublicAdis.com y me interesa, podría proporcionarme más información por favor?")}`} className="ad-card__button ad-card__button--contact" aria-label="Contact on WhatsApp">
-                    <FontAwesomeIcon icon={faWhatsapp} size='2x' />
-                </a>
-            </div> */}
     </div>
   );
 }
