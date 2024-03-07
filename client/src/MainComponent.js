@@ -19,6 +19,7 @@ import AdModal from "./components/AdModal/AdModal";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
 import NavList from "./components/NavList/NavList";
 import SearchBar from "./components/SearchBar/SearchBar";
+import HomeFeed from "./components/HomeFeed/HomeFeed";
 
 // Styles
 import "./styles/root.css";
@@ -49,6 +50,7 @@ function MainComponent() {
 
   return (
     <Fragment>
+      <div className="main-container">
       <Header
         toggleForm={showForm}
         setFilter={setFilter}
@@ -60,7 +62,8 @@ function MainComponent() {
           <SearchBar updateSearchTerm={updateSearchTerm} />
           <AdList anuncios={filteredAds} setSelectedAd={setSelectedAd} />
           {error && <div className="error">{error}</div>}
-          {isLoading && <div ref={loader}>Loading...</div>}
+          {isLoading && <div ref={loader}>Cargando anuncios publicados en BuscAdis.com...</div>}
+          <HomeFeed anuncios={filteredAds} />
         </div>
         <AdForm
           agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
@@ -70,7 +73,8 @@ function MainComponent() {
         <SocialMedia />
         <AdModal ad={selectedAd} onHide={hideAdModal} />
       </div>
-      <NavList toggleForm={showForm} setFilter={setFilter} />
+      <NavList toggleForm={showForm} setFilter={setFilter} />  
+      </div>
     </Fragment>
   );
 }
