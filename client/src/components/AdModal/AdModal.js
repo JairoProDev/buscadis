@@ -21,7 +21,7 @@ function AdModal({ ad, onHide }) {
 
   if (!ad) return null;
 
-  const { category, title, description, amount, location, createdAt } = ad;
+  const { category, title, description, amount, location, email, createdAt } = ad;
 
   const formattedDate = formatDistance(new Date(createdAt), new Date(), {
     locale: es,
@@ -31,7 +31,7 @@ function AdModal({ ad, onHide }) {
   
 return (
   <div className={`modal ${isOpen ? "show" : ""}`} onClick={onHide}>
-    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className={`modal-content ${category}`} onClick={(e) => e.stopPropagation()}>
       <div className="modal-header">
         <div className="modal-header-left">
           <p className="ad-card__date">{formattedDate}</p>{" "}
@@ -48,7 +48,11 @@ return (
       <h2 className="modal-title">{title}</h2>
       <div className="modal-body">
         <p>{description}</p>
+          {ad.images && ad.images.map((image, index) => (
+            <img key={index} src={image} alt={`Imagen ${index + 1}`} />
+          ))}
         <p>{amount}</p>
+        <p>{email}</p>
         <p>{location}</p>
       </div>
       <div className="modal-footer">

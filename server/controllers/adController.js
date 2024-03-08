@@ -2,7 +2,7 @@ const Ad = require("../models/adModel");
 
 const createAd = async (req, res) => {
   try {
-    const { category, title, description, amount, location, phone, phone2, email } =
+    const { category, title, description, amount, location, phone, phone2, email, images } =
       req.body;
     const newAd = new Ad({
       category: category,
@@ -13,6 +13,7 @@ const createAd = async (req, res) => {
       phone: phone,
       phone2: phone2,
       email: email,
+      images: images,
     });
 
     await newAd.save();

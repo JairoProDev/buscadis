@@ -20,7 +20,7 @@
 }
 
 .modal-content {
-  background-color: white;
+  background-color: #fff;
   padding: 20px;
   border-radius: 50px;
   width: 80%;
@@ -34,7 +34,7 @@
 }
 .modal-header,
 .modal-footer {
-  padding: 20px;
+  padding: 0;
   border-bottom: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
@@ -53,23 +53,18 @@
 
 .modal-body p {
   margin-bottom: 20px;
+  text-align: justify;
+}
+
+.modal-body img {
+  max-width: 100%; /* Asegura que la imagen no sea más ancha que su contenedor */
+  height: auto; /* Mantiene la proporción de aspecto de la imagen */
+  display: block; /* Hace que la imagen sea un bloque para evitar espacio blanco alrededor */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
 }
 
 span {
   font-weight: bold;
-}
-.close-button {
-  background: none;
-  border: none;
-  font-size: 1.2em;
-  cursor: pointer;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.close-button:hover,
-.close-button:focus {
-  color: #ff0000;
-  transition: color 0.3s ease-in-out;
 }
 
 /* AdModal.css */
@@ -81,7 +76,7 @@ span {
 
   .modal-header,
   .modal-footer {
-    padding: 10px;
+    padding: 0px;
   }
 
   .modal-header {
@@ -91,10 +86,24 @@ span {
   .modal-body {
     font-size: 1em;
   }
+}
 
-  .close-button {
-    right: 10px;
-    top: 10px;
-    font-size: 1em;
-  }
+.modal.inmuebles {
+  background-color: #fff1d6;
+}
+
+.modal.empleos {
+  background-color: #d3e6ff;
+}
+
+.modal.autos {
+  background-color: #ffd9d9;
+}
+
+.modal.servicios {
+  background-color: #daffe5;
+}
+
+.modal.otros {
+  background-color: #ece7f3;
 }

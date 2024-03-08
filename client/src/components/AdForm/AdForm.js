@@ -35,21 +35,19 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
     if (phone2Ref.current) {
       phone2Ref.current.value = "";
     }
+    setImages(null);
   };
 
-  const [image, setImage] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
+  const [images, setImages] = useState(null);
 
   const handleImageChange = (event) => {
-    if (event.target.files[0]) {
-      setImage(event.target.files[0]);
-
-      // Create a preview URL for the selected image
-      const url = URL.createObjectURL(event.target.files[0]);
-      setPreviewUrl(url);
-    } else {
-      setImage(null);
-      setPreviewUrl(null);
+    if (event.target.files) {
+      const filesArray = Array.from(event.target.files).map((file) =>
+        URL.createObjectURL(file)
+      );
+  
+      /* Store files in state */
+      setImages(filesArray);
     }
   };
 
@@ -62,11 +60,15 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
     event.target.style.height = `${event.target.scrollHeight}px`;
   };
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
-
+  const [error, setError] = useState(null);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("image", image);
+    images.forEach((image, index) => {
+      formData.append(`image${index}`, image); // Agregado el índice al nombre
+    });
+
+    images.forEach((url) => URL.revokeObjectURL(url)); // Revocar las URLs de objeto después de cargar las imágenes
     formData.append("category", categoryRef.current.value);
     formData.append("title", titleRef.current.value);
     formData.append("description", descriptionRef.current.value);
@@ -77,16 +79,21 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
     );
     formData.append("email", emailRef.current ? emailRef.current.value : "");
     formData.append("amount", amountRef.current ? amountRef.current.value : "");
-
+    
     try {
       const response = await fetch("/api/images/upload", {
         method: "POST",
         body: formData,
       });
-      const data = await response.json();
-      const imageUrl = data.imageUrl;
 
-      const responseAnuncio = await fetch("/api/anuncios", {
+      if (!response.ok) {
+        throw new Error("Error al cargar las imágenes");
+      }
+
+      const data = await response.json();
+      const imageUrls = data.imageUrls;
+
+      const adResponse = await fetch("/api/anuncios", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -99,24 +106,23 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
           location: locationRef.current ? locationRef.current.value : "",
           phone: phoneRef.current.value,
           email: emailRef.current ? emailRef.current.value : "",
-          image: imageUrl,
+          images: imageUrls,
         }),
       });
 
-      if (responseAnuncio.ok) {
-        const responseJson = await responseAnuncio.json();
-        const anuncio = responseJson.anuncio;
-        agregarAnuncioAlPrincipio(anuncio);
-        clearForm();
-      } else {
-        const responseJson = await responseAnuncio.json();
-        alert("Error al crear el anuncio: " + responseJson.error);
+      if (!adResponse.ok) {
+        throw new Error("Error al crear el anuncio");
       }
-    } catch (error) {
-      alert("Error de red: " + error);
-    }
-  };
 
+      const responseJson = await adResponse.json();
+      const anuncio = responseJson.anuncio;
+      agregarAnuncioAlPrincipio(anuncio);
+      clearForm();
+
+      } catch (error) {
+      setError(error.message);
+      }
+    };
   const handleAdvancedOptionsClick = () => {
     setShowAdvancedOptions(!showAdvancedOptions);
   };
@@ -132,6 +138,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
         method="POST"
         onSubmit={handleSubmit}
       >
+        {error && <p className="error-message">{error}</p>}
         <fieldset>
           <legend>!ANUNCIA EN BUSCADIS!</legend>
           <label htmlFor="category">Categoría:</label>
@@ -208,10 +215,11 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             id="image"
             name="image"
             onChange={handleImageChange}
+            multiple
           />
-          {previewUrl && (
-            <img src={previewUrl} alt="Preview" className="preview-image" />
-          )}
+          {images && images.map((url, index) => (
+            <img key={index} src={url} alt="Preview" className="preview-image" />
+          ))}
 
           <button type="button" onClick={handleAdvancedOptionsClick}>
             {showAdvancedOptions ? "Ocultar" : "Mostrar"} opciones avanzadas
