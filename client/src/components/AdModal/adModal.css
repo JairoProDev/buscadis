@@ -12,6 +12,12 @@
   opacity: 0;
   transition: opacity 0.5s ease, transform 0.5s ease;
   transition: all 0.25s ease-in-out;
+  align-items: flex-start; /* Alinea el modal al inicio en lugar del centro cuando se desplaza */
+  transform: translateY(
+    -100px
+  ); /* Desplaza el modal hacia abajo para que parezca que se desliza desde arriba */
+  padding-top: 60px; /* Agrega un poco de espacio en la parte superior para evitar que el modal toque el borde de la ventana */
+  padding-bottom: 50px; /* Agrega un poco de espacio en la parte inferior para evitar que el modal toque el borde de la ventana */
 }
 
 .modal.show {
@@ -22,15 +28,23 @@
 .modal-content {
   background-color: #fff;
   padding: 20px;
-  border-radius: 50px;
+  border-radius: 18px;
   width: 80%;
   max-width: 500px;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 10);
+  max-height: calc(
+    100vh - 100px
+  ); /* Asegura que el modal no sea más alto que la ventana del navegador, teniendo en cuenta el padding superior e inferior */
+  overflow: auto; /* Permite el desplazamiento cuando el contenido excede la altura del contenedor */
 }
 
 .modal-title {
   line-height: 1.2;
   text-align: center;
+  text-transform: uppercase;
+  font-size: 2em;
+  margin: 10px;
+  text-decoration: underline;
 }
 .modal-header,
 .modal-footer {
@@ -67,10 +81,15 @@ span {
   font-weight: bold;
 }
 
+.ad-card__date,
+.ad-card__time {
+  font-size: 0.8em; /* Cambia esto al tamaño que prefieras */
+  line-height: 1;
+}
+
 /* AdModal.css */
 @media (max-width: 600px) {
   .modal-content {
-    width: 80%;
     padding: 15px;
   }
 
