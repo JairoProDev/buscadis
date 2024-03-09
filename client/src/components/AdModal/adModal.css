@@ -16,8 +16,8 @@
   transform: translateY(
     -100px
   ); /* Desplaza el modal hacia abajo para que parezca que se desliza desde arriba */
-  padding-top: 60px; /* Agrega un poco de espacio en la parte superior para evitar que el modal toque el borde de la ventana */
-  padding-bottom: 50px; /* Agrega un poco de espacio en la parte inferior para evitar que el modal toque el borde de la ventana */
+  margin-top: 55px; /* Agrega un poco de espacio en la parte superior para evitar que el modal toque el borde de la ventana */
+  margin-bottom: 50px; /* Agrega un poco de espacio en la parte inferior para evitar que el modal toque el borde de la ventana */
 }
 
 .modal.show {
@@ -32,10 +32,10 @@
   width: 80%;
   max-width: 500px;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 10);
+  overflow: auto; /* Permite el desplazamiento cuando el contenido excede la altura del contenedor */
   max-height: calc(
     100vh - 100px
   ); /* Asegura que el modal no sea más alto que la ventana del navegador, teniendo en cuenta el padding superior e inferior */
-  overflow: auto; /* Permite el desplazamiento cuando el contenido excede la altura del contenedor */
 }
 
 .modal-title {

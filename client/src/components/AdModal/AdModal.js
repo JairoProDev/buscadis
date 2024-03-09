@@ -1,5 +1,7 @@
 // AdModal.js
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
 import ContactButtons from "../ContactButtons/ContactButtons";
 import "./adModal.css";
 
@@ -10,12 +12,39 @@ import {
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 
-function AdModal({ ad, onHide }) {
+function AdModal({ anuncios }) {
+  // Asegúrate de pasar 'anuncios' como prop
+  const { id } = useParams();
+  const navigate = useNavigate(); // Obtén la función navigate
+  const modalRef = useRef();
+
+  const ad = anuncios.find((anuncio) => anuncio._id === id); // Busca el anuncio correspondiente
+
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setIsOpen(!!ad);
   }, [ad]);
+
+  const handleClose = () => {
+    navigate("/"); // Navega a la página principal
+  };
+
+  const handleClickOutside = (event) => {
+    if (event.target === modalRef.current) {
+      handleClose();
+    }
+  };
+  
+  useEffect(() => {
+    // Agrega el manejador de eventos al documento
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Limpia el manejador de eventos cuando el componente se desmonta
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []); // Dependencias vacías para que se ejecute solo una vez
 
   if (!ad) return null;
 
@@ -32,11 +61,8 @@ function AdModal({ ad, onHide }) {
   const formattedDate = `${day}/${month}/${year} a las ${hours}:${minutes}`;
 
   return (
-    <div className={`modal ${isOpen ? "show" : ""}`} onClick={onHide}>
-      <div
-        className={`modal-content ${category}`}
-        onClick={(e) => e.stopPropagation()}
-      >
+    <div className={`modal ${isOpen ? "show" : ""}`} onClick={handleClickOutside} ref={modalRef}>
+    <div className={`modal-content ${category}`} onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div className="modal-header-left">
             <p className="ad-card__date">{formattedDate.split(" a las ")[0]}</p>
@@ -57,6 +83,7 @@ function AdModal({ ad, onHide }) {
             <button>
               <FontAwesomeIcon icon={faFlag} />
             </button>
+            <button onClick={handleClose}>X</button> {/* Botón de cierre */}
           </div>
         </div>
         <h2 className="modal-title">{title}</h2>

@@ -6,6 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { Route, Routes } from 'react-router-dom';
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
 import useIntersectionObserver from "./hooks/useIntersectionObserver";
@@ -71,7 +72,9 @@ function MainComponent() {
           hideForm={hideForm}
         />
         <SocialMedia />
-        <AdModal ad={selectedAd} onHide={hideAdModal} />
+        <Routes>
+          <Route path="/anuncio/:id" element={<AdModal anuncios={anuncios} />} />
+        </Routes>
       </div>
       <NavList toggleForm={showForm} setFilter={setFilter} />  
       </div>
