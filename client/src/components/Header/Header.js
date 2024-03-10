@@ -1,6 +1,5 @@
 // Header.js
-
-import React from "react";
+import React, { useState } from "react"; // Importa useState de react
 import { Link } from "react-router-dom";
 import "./header.css";
 import logo from "../../images/logo.ico";
@@ -8,9 +7,13 @@ import useScroll from "../../hooks/useScroll";
 import NavList from "../NavList/NavList";
 import SearchBar from "../SearchBar/SearchBar";
 import UserMenu from "../UserMenu/UserMenu";
+import AdForm from "../AdForm/AdForm"; // Importa el formulario de publicación del anuncio
 
 function Header({ setFilter, toggleSidebar }) {
   const isHidden = useScroll();
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const showForm = () => setIsFormVisible(true); // Esta es la única declaración de showForm que necesitas
+  const hideForm = () => setIsFormVisible(false);
 
   return (
     <header className={`header ${isHidden ? "header-hidden" : ""}`}>
@@ -20,9 +23,14 @@ function Header({ setFilter, toggleSidebar }) {
         </button>*/}
         <Logo />
         {/* <SearchBar /> */}
-        <NavList setFilter={setFilter} />
-        <UserMenu />
+        <NavList
+
+          setFilter={setFilter}
+        />{" "}
+        <UserMenu toggleForm={showForm} />
       </div>
+      {isFormVisible && <AdForm hideForm={hideForm} />}{" "}
+      {/* Muestra el formulario si isFormVisible es true */}
     </header>
   );
 }
