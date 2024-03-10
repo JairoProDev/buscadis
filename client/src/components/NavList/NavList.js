@@ -40,7 +40,10 @@ function NavList({ setFilter, toggleForm }) {
 
 function NavItem({ icon, link, label, setFilter, onClick }) {
   return (
-    <li className="nav-item" onClick={onClick || (setFilter ? () => setFilter(label) : undefined)}>
+    <li
+      className="nav-item"
+      onClick={onClick || (setFilter ? () => setFilter(label) : undefined)}
+    >
       <span className="material-symbols-outlined">{icon}</span>
       <Link to={link}>{label}</Link>
     </li>
