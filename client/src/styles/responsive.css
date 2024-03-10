@@ -90,6 +90,8 @@
     background-color: rgba(255, 255, 255);
     overflow: auto;
     box-sizing: content-box;
+    max-height: 50vh;
+    max-width: 35vh;
   }
 
   label,
