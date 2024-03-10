@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
 import useIntersectionObserver from "./hooks/useIntersectionObserver";
@@ -52,32 +52,38 @@ function MainComponent() {
   return (
     <Fragment>
       <div className="main-container">
-      <Header
-        toggleForm={showForm}
-        setFilter={setFilter}
-        toggleSidebar={toggleSidebar}
-      />
-      <div className="container">
-        <Sidebar isOpen={isSidebarOpen} />
-        <div className="portal">
-          <SearchBar updateSearchTerm={updateSearchTerm} />
-          <AdList anuncios={filteredAds} setSelectedAd={setSelectedAd} />
-          {error && <div className="error">{error}</div>}
-          {isLoading && <div ref={loader}>Cargando anuncios publicados en BuscAdis.com...</div>}
-          <HomeFeed anuncios={filteredAds} />
-        </div>
-        <AdForm
-          agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
-          isVisible={isFormVisible}
-          hideForm={hideForm}
+        <Header
+          toggleForm={showForm}
+          setFilter={setFilter}
+          toggleSidebar={toggleSidebar}
         />
-        <SocialMedia />
-        <Routes>
-          <Route path="/anuncio/:id" element={<AdModal anuncios={anuncios} />} />
-        </Routes>
-      </div>
-      <NavList toggleForm={showForm} setFilter={setFilter} />  
-      </div>
+        <div className="container">
+          <Sidebar isOpen={isSidebarOpen} />
+          <div className="portal">
+            <SearchBar updateSearchTerm={updateSearchTerm} />
+            <AdList anuncios={filteredAds} setSelectedAd={setSelectedAd} />
+            {error && <div className="error">{error}</div>}
+            {isLoading && (
+              <div ref={loader}>
+                Cargando anuncios publicados en BuscAdis.com...
+              </div>
+            )}
+            <HomeFeed anuncios={filteredAds} />
+          </div>
+          <AdForm
+            agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
+            isVisible={isFormVisible}
+            hideForm={hideForm}
+          />
+          <SocialMedia />
+          <Routes>
+            <Route
+              path="/anuncio/:id"
+              element={<AdModal anuncios={anuncios} />}
+            />
+          </Routes>
+        </div>
+        <NavList className="nav-list nav-list-bottom" toggleForm={showForm} setFilter={setFilter} />      </div>
     </Fragment>
   );
 }
