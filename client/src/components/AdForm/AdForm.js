@@ -64,11 +64,14 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
+     // Verificar si 'images' existe antes de intentar llamar a 'forEach' en él
+  if (images) {
     images.forEach((image, index) => {
       formData.append(`image${index}`, image); // Agregado el índice al nombre
     });
 
     images.forEach((url) => URL.revokeObjectURL(url)); // Revocar las URLs de objeto después de cargar las imágenes
+  }
     formData.append("category", categoryRef.current.value);
     formData.append("title", titleRef.current.value);
     formData.append("description", descriptionRef.current.value);
