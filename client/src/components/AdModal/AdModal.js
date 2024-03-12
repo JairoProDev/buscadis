@@ -35,7 +35,7 @@ function AdModal({ anuncios }) {
       handleClose();
     }
   };
-  
+
   useEffect(() => {
     // Agrega el manejador de eventos al documento
     document.addEventListener("mousedown", handleClickOutside);
@@ -60,9 +60,31 @@ function AdModal({ anuncios }) {
 
   const formattedDate = `${day}/${month}/${year} a las ${hours}:${minutes}`;
 
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: title,
+          text: description,
+          url: window.location.href,
+        })
+        .then(() => console.log("Successful share"))
+        .catch((error) => console.log("Error sharing", error));
+    } else {
+      console.log("Share not supported on this browser, do it manually.");
+    }
+  };
+
   return (
-    <div className={`modal ${isOpen ? "show" : ""}`} onClick={handleClickOutside} ref={modalRef}>
-    <div className={`modal-content ${category}`} onClick={(e) => e.stopPropagation()}>
+    <div
+      className={`modal ${isOpen ? "show" : ""}`}
+      onClick={handleClickOutside}
+      ref={modalRef}
+    >
+      <div
+        className={`modal-content ${category}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="modal-header">
           <div className="modal-header-left">
             <p className="ad-card__date">{formattedDate.split(" a las ")[0]}</p>
@@ -77,7 +99,7 @@ function AdModal({ anuncios }) {
             <button>
               <FontAwesomeIcon icon={faBookmark} />
             </button>
-            <button>
+            <button onClick={handleShare}>
               <FontAwesomeIcon icon={faShareSquare} />
             </button>
             <button>
