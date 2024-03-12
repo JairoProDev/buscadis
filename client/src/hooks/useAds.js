@@ -52,7 +52,7 @@ function useAds(page, category) {
     }, [getAds, page, lastPageLoaded, hasMore, isLoading]);
 
     const agregarAnuncioAlPrincipio = (anuncio) => {
-        setAnuncios((prevAnuncios) => [anuncio, ...prevAnuncios]);
+        setAnuncios((prevAnuncios) => [...prevAnuncios, anuncio]);
     };
 
     return {
