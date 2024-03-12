@@ -15,8 +15,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
         res.json({ imageUrl: result.secure_url });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error uploading image' });
-    }
+        res.status(500).json({ error: 'Error uploading image', message: error.message });    }
 });
 
 module.exports = router;
