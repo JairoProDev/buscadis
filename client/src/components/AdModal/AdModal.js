@@ -74,7 +74,11 @@ function AdModal({ anuncios }) {
       console.log("Share not supported on this browser, do it manually.");
     }
   };
-
+  
+  const handleReport = () => {
+    // Aquí es donde manejas el reporte. Por ejemplo, podrías mostrar un formulario de reporte.
+    alert('Reported!');
+  };
   return (
     <div
       className={`modal ${isOpen ? "show" : ""}`}
@@ -102,7 +106,7 @@ function AdModal({ anuncios }) {
             <button onClick={handleShare}>
               <FontAwesomeIcon icon={faShareSquare} />
             </button>
-            <button>
+            <button onClick={handleReport}>
               <FontAwesomeIcon icon={faFlag} />
             </button>
             <button onClick={handleClose}>X</button> {/* Botón de cierre */}
