@@ -1,21 +1,21 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config({ path: '../.env' });
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config({ path: "../.env" });
 }
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require("cloudinary").v2;
 
-cloudinary.config({ 
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const express = require('express');
-const mongoose = require('mongoose');
-const path = require('path');
-const adRoutes = require('./routes/adRoutes');
-const cors = require('cors')
+const express = require("express");
+const mongoose = require("mongoose");
+const path = require("path");
+const adRoutes = require("./routes/adRoutes");
+const cors = require("cors");
 
-const imageRoutes = require('./routes/imageRoutes');
+const imageRoutes = require("./routes/imageRoutes");
 // const userRoutes = require('./routes/userRoutes');
 // const authRoutes = require('./routes/authRoutes');
 
@@ -32,9 +32,9 @@ app.use(cors());
 app.use(express.json());
 
 // Usar middleware para servir archivos estáticos
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+app.use(express.static(path.resolve(__dirname, "../client/build")));
 
-app.use('/api/images', imageRoutes);
+app.use("/api/images", imageRoutes);
 
 // Contador para los intentos de conexión a la base de datos
 let dbConnectionAttempts = 0;
@@ -42,51 +42,53 @@ let dbConnectionAttempts = 0;
 // Función para conectar a la base de datos
 const connectToDb = () => {
   // Intenta conectar a MongoDB
-  mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    // Si la conexión es exitosa, registra un mensaje en la consola
-    console.log('Connected to MongoDB');
-  })
-  .catch((err) => {
-    // Si la conexión falla, registra el error
-    console.error('Error connecting to MongoDB', err);
-    
-    // Incrementa el contador de intentos de conexión
-    dbConnectionAttempts++;
-    
-    // Si hemos intentado conectar menos de 5 veces...
-    if (dbConnectionAttempts < 5) {
-      // ... intenta conectar de nuevo después de 5 segundos
-      setTimeout(connectToDb, 5000);
-    } else {
-      // Si hemos intentado conectar 5 veces y todas han fallado, detén la aplicación
-      process.exit(1);
-    }
-  });
+  mongoose
+    .connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => {
+      // Si la conexión es exitosa, registra un mensaje en la consola
+      console.log("Connected to MongoDB");
+    })
+    .catch((err) => {
+      // Si la conexión falla, registra el error
+      console.error("Error connecting to MongoDB", err);
+
+      // Incrementa el contador de intentos de conexión
+      dbConnectionAttempts++;
+
+      // Si hemos intentado conectar menos de 5 veces...
+      if (dbConnectionAttempts < 5) {
+        // ... intenta conectar de nuevo después de 5 segundos
+        setTimeout(connectToDb, 5000);
+      } else {
+        // Si hemos intentado conectar 5 veces y todas han fallado, detén la aplicación
+        process.exit(1);
+      }
+    });
 };
 
 // Intenta conectar a la base de datos por primera vez
 connectToDb();
 
 // Usar las rutas de la API
-app.use('/api', adRoutes);
+app.use("/api", adRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(err.status || 500).json({ error: err.message || 'Error interno del servidor' });
+  res
+    .status(err.status || 500)
+    .json({ error: err.message || "Error interno del servidor" });
 });
-  
+
 // Manejar todas las demás rutas enviando el archivo index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
