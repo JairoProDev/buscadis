@@ -2,6 +2,7 @@ const Ad = require("../models/adModel");
 
 const createAd = async (req, res) => {
   try {
+    console.log('Creating new ad with data:', req.body);
     const { category, title, description, amount, location, phone, phone2, email, images } =
       req.body;
     const newAd = new Ad({
@@ -16,7 +17,9 @@ const createAd = async (req, res) => {
       images: images,
     });
 
+    console.log('New ad:', newAd);
     await newAd.save();
+    console.log('Ad saved successfully');
     res
       .status(201)
       .json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
