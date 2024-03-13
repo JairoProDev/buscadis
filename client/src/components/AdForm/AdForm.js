@@ -75,6 +75,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
     formData.append("title", titleRef.current.value);
     formData.append("description", descriptionRef.current.value);
     formData.append("phone", phoneRef.current.value);
+    formData.append("phone2", phone2Ref.current ? phone2Ref.current.value : "");
     formData.append(
       "location",
       locationRef.current ? locationRef.current.value : ""
@@ -125,9 +126,6 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
       setError(error.message);
       }
     };
-  const handleAdvancedOptionsClick = () => {
-    setShowAdvancedOptions(!showAdvancedOptions);
-  };
 
   return (
     <div className={`form-container ${isVisible ? "show" : ""}`}>
@@ -179,6 +177,15 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             id="phone"
             name="phone"
             ref={phoneRef}
+            placeholder="+51 987 654 321"
+          />
+          <label htmlFor="phone2">Teléfono/WhatsApp 2:</label>
+          <input
+            className="form-input"
+            type="tel"
+            id="phone2"
+            name="phone2"
+            ref={phone2Ref}
             placeholder="+51 987 654 321"
           />
           <label htmlFor="location">Ubicación:</label>
