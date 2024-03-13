@@ -7,7 +7,6 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   const categoryRef = useRef();
   const titleRef = useRef();
   const descriptionRef = useRef();
-  //   const urlRef = useRef();
   const amountRef = useRef();
   const locationRef = useRef();
   const phoneRef = useRef();
@@ -224,10 +223,6 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             <img key={index} src={url} alt="Preview" className="preview-image" />
           ))}
 
-          <button type="button" onClick={handleAdvancedOptionsClick}>
-            {showAdvancedOptions ? "Ocultar" : "Mostrar"} opciones avanzadas
-          </button>
-          {showAdvancedOptions && <></>}
           <PublishButton />
         </fieldset>
       </form>
