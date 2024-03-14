@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./adForm.css";
 import PublishButton from "../PublishButton/PublishButton";
 import Payment from "../Payment/Payment";
@@ -37,15 +37,11 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
     setImages(null);
   };
 
-  const [images, setImages] = useState(null);
+  const [images, setImages] = useState([]);
 
   const handleImageChange = (event) => {
     if (event.target.files) {
-      const filesArray = Array.from(event.target.files).map((file) =>
-        URL.createObjectURL(file)
-      );
-  
-      /* Store files in state */
+      const filesArray = Array.from(event.target.files);
       setImages(filesArray);
     }
   };
@@ -53,15 +49,31 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   //mantener el valor del textarea en el estado de tu componente:
   const [description, setDescription] = useState("");
   //función que se llame cada vez que cambie el valor del textarea. Esta función puede ajustar la altura del textarea para que se ajuste a su contenido:
+  
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
     event.target.style.height = "inherit";
     event.target.style.height = `${event.target.scrollHeight}px`;
   };
-  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    return () => {
+      // Revocar las URLs de las imágenes cuando el componente se desmonta
+      if (images) {
+        images.forEach((url) => URL.revokeObjectURL(url));
+      }
+    };
+  }, [images]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+     // Validar los campos del formulario antes de enviarlos
+    if (!categoryRef.current.value || !titleRef.current.value || !descriptionRef.current.value || !phoneRef.current.value) {
+      setError("Por favor, rellena todos los campos obligatorios.");
+      return;
+    }
     const formData = new FormData();
      // Verificar si 'images' existe antes de intentar llamar a 'forEach' en él
   if (images) {
