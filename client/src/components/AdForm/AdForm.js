@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "./adForm.css";
 import PublishButton from "../PublishButton/PublishButton";
 import Payment from "../Payment/Payment";
+import ImageUpload from "../FormComponents/ImageUpload";
 
 function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   const categoryRef = useRef();
@@ -49,7 +50,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   //mantener el valor del textarea en el estado de tu componente:
   const [description, setDescription] = useState("");
   //función que se llame cada vez que cambie el valor del textarea. Esta función puede ajustar la altura del textarea para que se ajuste a su contenido:
-  
+
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
     event.target.style.height = "inherit";
@@ -69,20 +70,25 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-     // Validar los campos del formulario antes de enviarlos
-    if (!categoryRef.current.value || !titleRef.current.value || !descriptionRef.current.value || !phoneRef.current.value) {
+    // Validar los campos del formulario antes de enviarlos
+    if (
+      !categoryRef.current.value ||
+      !titleRef.current.value ||
+      !descriptionRef.current.value ||
+      !phoneRef.current.value
+    ) {
       setError("Por favor, rellena todos los campos obligatorios.");
       return;
     }
     const formData = new FormData();
-     // Verificar si 'images' existe antes de intentar llamar a 'forEach' en él
-  if (images) {
-    images.forEach((image, index) => {
-      formData.append(`image${index}`, image); // Agregado el índice al nombre
-    });
+    // Verificar si 'images' existe antes de intentar llamar a 'forEach' en él
+    if (images) {
+      images.forEach((image, index) => {
+        formData.append(`image${index}`, image); // Agregado el índice al nombre
+      });
 
-    images.forEach((url) => URL.revokeObjectURL(url)); // Revocar las URLs de objeto después de cargar las imágenes
-  }
+      images.forEach((url) => URL.revokeObjectURL(url)); // Revocar las URLs de objeto después de cargar las imágenes
+    }
     formData.append("category", categoryRef.current.value);
     formData.append("title", titleRef.current.value);
     formData.append("description", descriptionRef.current.value);
@@ -94,7 +100,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
     );
     formData.append("email", emailRef.current ? emailRef.current.value : "");
     formData.append("amount", amountRef.current ? amountRef.current.value : "");
-    
+
     try {
       const response = await fetch("/api/images/upload", {
         method: "POST",
@@ -134,11 +140,10 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
       const anuncio = responseJson.anuncio;
       agregarAnuncioAlPrincipio(anuncio);
       clearForm();
-
-      } catch (error) {
+    } catch (error) {
       setError(error.message);
-      }
-    };
+    }
+  };
 
   return (
     <div className={`form-container ${isVisible ? "show" : ""}`}>
@@ -173,6 +178,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             autoFocus
             placeholder="Se busca..."
           />
+          
           <label htmlFor="description">Descripción de tu aviso:</label>
           <textarea
             id="description"
@@ -183,6 +189,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             onInput={handleDescriptionChange}
             placeholder="Escribe una descripción detallada de tu anuncio"
           ></textarea>
+
           <label htmlFor="phone">Teléfono/WhatsApp:</label>
           <input
             className="form-input"
@@ -192,6 +199,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             ref={phoneRef}
             placeholder="+51 987 654 321"
           />
+
           <label htmlFor="phone2">Teléfono/WhatsApp 2:</label>
           <input
             className="form-input"
@@ -201,6 +209,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             ref={phone2Ref}
             placeholder="+51 987 654 321"
           />
+
           <label htmlFor="location">Ubicación:</label>
           <input
             className="form-input"
@@ -210,6 +219,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             ref={locationRef}
             placeholder="Escribe tu ubicación"
           />
+
           <label htmlFor="amount">Monto:</label>
           <input
             className="form-input"
@@ -221,6 +231,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             min="0"
             step="0.01"
           />
+
           <label htmlFor="email">Correo electrónico:</label>
           <input
             className="form-input"
@@ -230,6 +241,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             ref={emailRef}
             placeholder="tu-correo@gmail.com"
           />
+
           <label htmlFor="image">Imagen:</label>
           <input
             className="form-input file-input"
@@ -239,9 +251,16 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             onChange={handleImageChange}
             multiple
           />
-          {images && images.map((url, index) => (
-            <img key={index} src={url} alt="Preview" className="preview-image" />
-          ))}
+
+          {images &&
+            images.map((url, index) => (
+              <img
+                key={index}
+                src={url}
+                alt="Preview"
+                className="preview-image"
+              />
+            ))}
 
           <PublishButton />
         </fieldset>
