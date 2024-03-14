@@ -74,10 +74,10 @@ function AdModal({ anuncios }) {
       console.log("Share not supported on this browser, do it manually.");
     }
   };
-  
+
   const handleReport = () => {
     // Aquí es donde manejas el reporte. Por ejemplo, podrías mostrar un formulario de reporte.
-    alert('Reported!');
+    alert("Reported!");
   };
   return (
     <div
@@ -109,7 +109,7 @@ function AdModal({ anuncios }) {
             <button onClick={handleReport}>
               <FontAwesomeIcon icon={faFlag} />
             </button>
-            <button onClick={handleClose}>X</button> {/* Botón de cierre */}
+            {/* <button onClick={handleClose}>X</button> */}
           </div>
         </div>
         <h2 className="modal-title">{title}</h2>
@@ -124,7 +124,7 @@ function AdModal({ anuncios }) {
           <p>{location}</p>
         </div>
         <div className="modal-footer">
-          <ContactButtons phone={ad.phone} />
+          <ContactButtons phone={ad.phone} phone2={ad.phone2} />
         </div>
       </div>
     </div>
