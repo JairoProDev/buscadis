@@ -108,6 +108,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
           amount: amountRef.current ? amountRef.current.value : "",
           location: locationRef.current ? locationRef.current.value : "",
           phone: phoneRef.current.value,
+          phone2: phone2Ref.current ? phone2Ref.current.value : "",
           email: emailRef.current ? emailRef.current.value : "",
           images: imageUrls,
         }),
