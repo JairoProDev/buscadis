@@ -5,17 +5,18 @@ function ImageUpload({ onImageChange }) {
 
     const handleImageChange = (event) => {
         if (event.target.files) {
-            const filesArray = Array.from(event.target.files);
+            const filesArray = Array.from(event.target.files).map(file =>
+                URL.createObjectURL(file)
+            );
             setImages(filesArray);
-            onImageChange(filesArray);
+            onImageChange(event.target.files);
         }
     };
 
     useEffect(() => {
         return () => {
-            if (images) {
-                images.forEach((url) => URL.revokeObjectURL(url));
-            }
+            // Revocar los object URLs
+            images.forEach((url) => URL.revokeObjectURL(url));
         };
     }, [images]);
 
