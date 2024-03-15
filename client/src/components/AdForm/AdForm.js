@@ -25,6 +25,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
     // setError,
     // clearForm,
     handleImageChange,
+    handleDeletePreviewImage,
     handleDescriptionChange,
     handleSubmit,
   } = useAdFormLogic(agregarAnuncioAlPrincipio);
@@ -126,25 +127,38 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             placeholder="tu-correo@gmail.com"
           />
 
-          <label htmlFor="image">Imagen:</label>
-          <input
-            className="form-input file-input"
-            type="file"
-            id="image"
-            name="image"
-            onChange={handleImageChange}
-            multiple
-          />
+<label htmlFor="image" className="custom-file-upload-button">
+  Subir imágenes
+</label>
+<input
+  className="form-input file-input"
+  type="file"
+  id="image"
+  name="image"
+  onChange={handleImageChange}
+  multiple
+  hidden // Oculta el botón de subida de archivos predeterminado
+/>
 
-          {images &&
-              images.map((image, index) => (
-                <img
-                  key={index}
-                  src={URL.createObjectURL(image)}
-                  alt="Preview"
-                  className="preview-image"
-                />
-              ))}
+<div className="preview-images-container">
+  {images &&
+    images.map((image, index) => (
+      <div key={index} className="preview-image-container">
+        <img
+          src={URL.createObjectURL(image)}
+          alt="Preview"
+          className="preview-image"
+        />
+        <button
+          type="button"
+          className="delete-preview-image-button"
+          onClick={() => handleDeletePreviewImage(index)}
+        >
+          Eliminar
+        </button>
+      </div>
+    ))}
+</div>
 
           <PublishButton />
         </fieldset>
