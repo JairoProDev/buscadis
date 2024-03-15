@@ -12,26 +12,29 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-router.post('/upload', upload.single('image'), async (req, res) => {
-    if (!req.file) {
-        res.status(400).json({ message: 'No image file was provided.' });
+router.post('/upload', upload.array('image'), async (req, res) => {
+    if (!req.files) {
+        res.status(400).json({ message: 'No image files were provided.' });
         return;
     }
 
     try {
-        const result = await cloudinary.uploader.upload(req.file.path);
+        const results = await Promise.all(req.files.map(file => 
+            cloudinary.uploader.upload(file.path)
+        ));
 
-        // Eliminar el archivo del sistema de archivos local
-        fs.unlinkSync(req.file.path);
+        // Eliminar los archivos del sistema de archivos local
+        req.files.forEach(file => fs.unlinkSync(file.path));
 
-        res.json({ imageUrl: result.secure_url });
+        const imageUrls = results.map(result => result.secure_url);
+        res.json({ imageUrls });
     } catch (error) {
         console.error(error);
 
-        // Eliminar el archivo del sistema de archivos local en caso de error
-        fs.unlinkSync(req.file.path);
+        // Eliminar los archivos del sistema de archivos local en caso de error
+        req.files.forEach(file => fs.unlinkSync(file.path));
 
-        res.status(500).json({ error: 'Error uploading image', message: error.message });
+        res.status(500).json({ error: 'Error uploading images', message: error.message });
     }
 });
 
