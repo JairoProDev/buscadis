@@ -83,8 +83,8 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
     const formData = new FormData();
     // Verificar si 'images' existe antes de intentar llamar a 'forEach' en él
     if (images) {
-      images.forEach((image, index) => {
-        formData.append(`image${index}`, image); // Agregado el índice al nombre
+      images.forEach((image) => {
+        formData.append('image', image);
       });
 
       images.forEach((url) => URL.revokeObjectURL(url)); // Revocar las URLs de objeto después de cargar las imágenes
@@ -253,14 +253,14 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
           />
 
           {images &&
-            images.map((url, index) => (
-              <img
-                key={index}
-                src={url}
-                alt="Preview"
-                className="preview-image"
-              />
-            ))}
+              images.map((image, index) => (
+                <img
+                  key={index}
+                  src={URL.createObjectURL(image)}
+                  alt="Preview"
+                  className="preview-image"
+                />
+              ))}
 
           <PublishButton />
         </fieldset>
