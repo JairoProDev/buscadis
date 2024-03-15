@@ -95,3 +95,21 @@ textarea::placeholder {
   max-height: 200px;
   object-fit: contain;
 }
+
+.custom-file-upload-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4caf50; /* Cambia esto al color de fondo que prefieras */
+  color: white; /* Cambia esto al color de texto que prefieras */
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-upload-button:hover {
+  background-color: #45a049; /* Cambia esto al color de fondo que prefieras cuando se pasa el mouse por encima */
+}
