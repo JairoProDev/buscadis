@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const cloudinary = require('cloudinary').v2;
+const fs = require('fs');
 
 // Configurar Cloudinary
 cloudinary.config({
@@ -13,15 +14,23 @@ cloudinary.config({
 
 router.post('/upload', upload.single('image'), async (req, res) => {
     if (!req.file) {
-        res.json({ message: 'No image file was provided.' });
+        res.status(400).json({ message: 'No image file was provided.' });
         return;
     }
 
     try {
         const result = await cloudinary.uploader.upload(req.file.path);
+
+        // Eliminar el archivo del sistema de archivos local
+        fs.unlinkSync(req.file.path);
+
         res.json({ imageUrl: result.secure_url });
     } catch (error) {
         console.error(error);
+
+        // Eliminar el archivo del sistema de archivos local en caso de error
+        fs.unlinkSync(req.file.path);
+
         res.status(500).json({ error: 'Error uploading image', message: error.message });
     }
 });
