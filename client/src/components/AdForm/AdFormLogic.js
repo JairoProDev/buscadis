@@ -46,6 +46,10 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
         }
     };
 
+    const handleDeletePreviewImage = (index) => {
+        setImages(images.filter((_, i) => i !== index));
+      };
+
     const handleDescriptionChange = (event) => {
         setDescription(event.target.value);
         event.target.style.height = "inherit";
@@ -157,6 +161,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
         setError,
         clearForm,
         handleImageChange,
+        handleDeletePreviewImage, 
         handleDescriptionChange,
         handleSubmit,
     };
