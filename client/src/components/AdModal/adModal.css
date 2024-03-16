@@ -46,6 +46,9 @@
   margin: 10px;
   text-decoration: underline;
 }
+.modal-description {
+  white-space: pre-line;
+}
 .modal-header,
 .modal-footer {
   padding: 0;

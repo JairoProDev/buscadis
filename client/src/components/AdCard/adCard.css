@@ -62,6 +62,7 @@
   line-height: 1;
   margin-bottom: 0rem;
   overflow: hidden;
+  white-space: pre-line;
   -webkit-mask-image: linear-gradient(
     to bottom,
     black 0%,
