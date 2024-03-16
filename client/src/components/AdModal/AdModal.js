@@ -114,7 +114,7 @@ function AdModal({ anuncios }) {
         </div>
         <h2 className="modal-title">{title}</h2>
         <div className="modal-body">
-          <p>{description}</p>
+          <p className="modal-description">{description}</p>
           {ad.images &&
             ad.images.map((image, index) => (
               <img key={index} src={image} alt={`Imagen ${index + 1}`} />
