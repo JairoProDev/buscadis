@@ -53,6 +53,24 @@ label {
   margin-bottom: 5px;
 }
 
+select#category {
+  width: 80%; /* Reduce el ancho para darle más prominencia */
+  margin: 0 auto; /* Centra el selector de categorías */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Añade una sombra para darle más profundidad y un efecto de relieve */
+  color: #000; /* Cambia el color del texto para un contraste mejorado */
+  padding: 10px;
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+select#category:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Aumenta la sombra cuando se pasa el cursor sobre el selector de categorías para dar un efecto de relieve */
+  transform: scale(1.05);
+}
+
 input[type="text"],
 textarea,
 input[type="tel"],
