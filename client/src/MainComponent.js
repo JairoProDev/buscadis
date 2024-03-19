@@ -22,6 +22,9 @@ import NavList from "./components/NavList/NavList";
 import SearchBar from "./components/SearchBar/SearchBar";
 import HomeFeed from "./components/HomeFeed/HomeFeed";
 
+import RegisterForm from "./components/RegisterForm/RegisterForm";
+import LoginForm from "./components/LoginForm/LoginForm";
+import Modal from './components/Modal/Modal'; // Asegúrate de que esta ruta es correcta
 // Styles
 import "./styles/root.css";
 import "./styles/reset.css";
@@ -49,6 +52,15 @@ function MainComponent() {
   const loader = useRef(null);
   useIntersectionObserver(loader, loadMore, hasMore, isLoading);
 
+const [isLoginOpen, setIsLoginOpen] = useState(false);
+const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+const openLoginModal = () => setIsLoginOpen(true);
+const closeLoginModal = () => setIsLoginOpen(false);
+
+const openRegisterModal = () => setIsRegisterOpen(true);
+const closeRegisterModal = () => setIsRegisterOpen(false);
+
   return (
     <Fragment>
       <div className="main-container">
@@ -56,7 +68,19 @@ function MainComponent() {
           toggleForm={showForm}
           setFilter={setFilter}
           toggleSidebar={toggleSidebar}
+          openLoginModal={openLoginModal}
+          openRegisterModal={openRegisterModal}
         />
+      {isLoginOpen && (
+        <Modal onClose={closeLoginModal}>
+          <LoginForm onSuccess={closeLoginModal} />
+        </Modal>
+      )}
+      {isRegisterOpen && (
+        <Modal onClose={closeRegisterModal}>
+          <RegisterForm onSuccess={closeRegisterModal} />
+        </Modal>
+      )}
         <div className="container">
           <Sidebar isOpen={isSidebarOpen} />
           <div className="portal">
@@ -81,6 +105,8 @@ function MainComponent() {
               path="/anuncio/:id"
               element={<AdModal anuncios={anuncios} />}
             />
+              {/* <Route path="/login" element={<LoginForm />} />
+              <Route path="/register" element={<RegisterForm />} />  */}
           </Routes>
         </div>
         <NavList className="nav-list nav-list-bottom" toggleForm={showForm} setFilter={setFilter} />      </div>
