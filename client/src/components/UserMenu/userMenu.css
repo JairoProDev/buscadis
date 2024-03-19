@@ -7,10 +7,8 @@
   font-size: 1.5rem;
 }
 
-.header-right a {
+.header-right .menu-item {
   color: white;
-  text-decoration: none;
-
   display: flex;
   align-items: center;
   height: 40px;
@@ -18,13 +16,15 @@
   border-radius: 8px;
   transition: background-color 0.3s ease;
   position: relative;
+  cursor: pointer;
 }
 
-.header-right a:hover {
+.header-right .menu-item:hover {
   background-color: rgba(0, 0, 0, 0.1);
+  color: #ff6347; /* Cambia el color del texto cuando el usuario pasa el ratón por encima */
 }
 
-.header-right a span {
+.header-right .menu-item span {
   font-size: 1rem;
   visibility: hidden;
   background-color: #555;
@@ -41,7 +41,42 @@
   transition: opacity 0.3s, visibility 0.3s;
 }
 
-.header-right a:hover span {
+.header-right .menu-item:hover span {
   visibility: visible;
   opacity: 1;
+}
+
+.menu-options {
+  display: none;
+  flex-direction: column;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 2;
+  transition: opacity 0.3s ease; /* Añade una transición a la aparición del menú */
+  opacity: 0; /* Hace que el menú aparezca gradualmente */
+}
+
+.menu-options div {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.menu-options div:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.menu-options span {
+  margin-left: 5px;
+}
+
+.menu-item:hover .menu-options {
+  display: flex;
+  opacity: 1; /* Hace que el menú aparezca gradualmente */
 }
