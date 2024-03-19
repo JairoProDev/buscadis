@@ -8,7 +8,7 @@ function ContactButton({ phone, type }) {
   const isWhatsApp = type === "whatsapp";
   const href = isWhatsApp
     ? `https://wa.me/${phone}?text=${encodeURIComponent(
-        "Hola, vi su anuncio en BuscAdis.com y me interesa, podría proporcionarme más información por favor?"
+        "Hola, vi su aviso en BuscAdis.com y me interesa, podría proporcionarme más información por favor?"
       )}`
     : `tel:${phone}`;
   const icon = isWhatsApp ? faWhatsapp : faPhone;
