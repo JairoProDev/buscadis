@@ -115,3 +115,11 @@ button:hover,
 .custom-file-upload-button:hover {
   box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #ffffff;
 }
+
+input:hover,
+textarea:hover,
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 10px 30px rgba(0, 0, 0, 0.2); /* Aumenta la sombra cuando se pasa el cursor sobre la barra de búsqueda */
+  transform: scale(1.1);
+}
