@@ -12,6 +12,7 @@ body {
   background-size: 600% 600%;
   animation: AnimationName 15s ease infinite;
   background-color: rgb(240, 248, 255);
+  cursor: url(../images/cursor-lupa.png), auto;
 }
 
 @keyframes AnimationName {
