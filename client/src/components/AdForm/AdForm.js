@@ -5,6 +5,8 @@ import PublishButton from "../PublishButton/PublishButton";
 import Payment from "../Payment/Payment";
 // import ImageUpload from "../FormComponents/ImageUpload";
 import { useAdFormLogic } from "./AdFormLogic";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   const {
@@ -63,7 +65,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             autoFocus
             placeholder="Se busca..."
           />
-          
+
           <label htmlFor="description">Descripción de tu aviso:</label>
           <textarea
             id="description"
@@ -127,38 +129,38 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             placeholder="tu-correo@gmail.com"
           />
 
-<label htmlFor="image" className="custom-file-upload-button">
-  Subir imágenes
-</label>
-<input
-  className="form-input file-input"
-  type="file"
-  id="image"
-  name="image"
-  onChange={handleImageChange}
-  multiple
-  hidden // Oculta el botón de subida de archivos predeterminado
-/>
+          <label htmlFor="image" className="custom-file-upload-button">
+            <FontAwesomeIcon icon={faUpload} /> Subir imágenes
+          </label>
+          <input
+            className="form-input file-input"
+            type="file"
+            id="image"
+            name="image"
+            onChange={handleImageChange}
+            multiple
+            hidden // Oculta el botón de subida de archivos predeterminado
+          />
 
-<div className="preview-images-container">
-  {images &&
-    images.map((image, index) => (
-      <div key={index} className="preview-image-container">
-        <img
-          src={URL.createObjectURL(image)}
-          alt="Preview"
-          className="preview-image"
-        />
-        <button
-          type="button"
-          className="delete-preview-image-button"
-          onClick={() => handleDeletePreviewImage(index)}
-        >
-          Eliminar
-        </button>
-      </div>
-    ))}
-</div>
+          <div className="preview-images-container">
+            {images &&
+              images.map((image, index) => (
+                <div key={index} className="preview-image-container">
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt="Preview"
+                    className="preview-image"
+                  />
+                  <button
+                    type="button"
+                    className="delete-preview-image-button"
+                    onClick={() => handleDeletePreviewImage(index)}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              ))}
+          </div>
 
           <PublishButton />
         </fieldset>
