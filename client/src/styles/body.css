@@ -7,9 +7,11 @@ body {
   grid-template-rows: auto 1fr auto;
   height: 100vh;
   margin: 0;
-  background: linear-gradient(270deg, #4c1a57, #00a8aa, #333333);
+  /* background: linear-gradient(270deg, #4c1a57, #00a8aa, #333333); */
+  background-color: rgb(240, 248, 255);
   background-size: 600% 600%;
   animation: AnimationName 15s ease infinite;
+  background-color: rgb(240, 248, 255);
 }
 
 @keyframes AnimationName {
@@ -35,3 +37,9 @@ body {
 
     background: var(--background-color) url("../images/hero-bg.jpg") center/cover;
 } */
+
+/* Estilos para el modo oscuro */
+.dark-mode body {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
