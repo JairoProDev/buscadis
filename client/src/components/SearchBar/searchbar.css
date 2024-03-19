@@ -1,55 +1,78 @@
+/* SearchBar.css */
+
 .search-bar {
   position: relative;
   display: flex;
   align-items: center;
-  width: 100%;
-  border-radius: 50px;
+  width: 80%; /* Reduce el ancho para darle más prominencia */
+  max-width: 600px; /* Limita el ancho máximo para mantener la legibilidad en pantallas grandes */
+  margin: 0 auto; /* Centra la barra de búsqueda */
+  height: 50px; /* Aumenta la altura para hacerla más prominente */
+  border-radius: 25px; /* Asegura que la barra de búsqueda siga siendo redonda después de aumentar la altura */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), 0 10px 20px rgba(0, 0, 0, 0.1); /* Añade una sombra para darle más profundidad */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Añade una transición al transform */
+}
+
+.search-bar:hover {
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 10px 30px rgba(0, 0, 0, 0.2); /* Aumenta la sombra cuando se pasa el cursor sobre la barra de búsqueda */
+  transform: scale(
+    1.05
+  ); /* Aumenta ligeramente el tamaño de la barra de búsqueda cuando se pasa el cursor sobre ella */
 }
 
 #search-bar {
-  padding: 5px;
-  font-size: 16px;
+  padding: 5px 20px; /* Aumenta el padding para darle más espacio al texto */
+  font-size: 18px; /* Aumenta el tamaño de la fuente para hacerla más legible */
   width: 100%;
   position: relative;
   z-index: 1;
+  background: transparent;
+  color: #ccc;
 }
 
 .search-label.searchbar-label {
+  left: 20%; /* Ajusta la posición para que coincida con el nuevo padding */
+  color: #ccc;
+}
+
+.search-icon,
+.microphone-icon {
   position: absolute;
-  left: 12%;
   top: 50%;
-  transform: translateY(-50%); /* Centra verticalmente */
+  transform: translateY(-50%);
   z-index: 2;
-  pointer-events: none;
-  transition: 0s ease all;
-  color: #5264ae;
+  color: #ccc; /* Añade un color al ícono */
+  font-size: 20px; /* Aumenta el tamaño del ícono */
+  cursor: pointer;
+  transition: transform 0.3s ease; /* Añade una transición al tamaño del ícono */
 }
 
 .search-icon {
-  position: absolute;
-  right: 15px; /* Ajusta la posición del ícono */
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  color: #5264ae; /* Añade un color al ícono */
-  font-size: 20px; /* Aumenta el tamaño del ícono */
-  cursor: pointer;
+  right: 20px; /* Ajusta la posición para que coincida con el nuevo padding */
 }
 
 .microphone-icon {
-  position: absolute;
-  right: 45px; /* Ajusta la posición del ícono del micrófono */
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  color: #5264ae; /* Añade un color al ícono del micrófono */
-  font-size: 20px; /* Aumenta el tamaño del ícono del micrófono */
-  cursor: pointer;
+  right: 50px; /* Ajusta la posición para que coincida con el nuevo padding */
+}
+
+.search-icon:hover {
+  transform: translateY(-50%) scale(1.2); /* Aumenta el tamaño del ícono cuando se pasa el cursor sobre él */
+}
+
+.microphone-icon {
+  right: 50px; /* Ajusta la posición del ícono del micrófono */
+}
+
+.microphone-icon:hover {
+  transform: translateY(-50%) scale(1.2); /* Aumenta el tamaño del ícono del micrófono cuando se pasa el cursor sobre él */
 }
 
 .search-input:valid + .search-label,
 .search-input:focus + .search-label {
   font-size: 14px;
-  top: 15%;
-  color: #0128c2;
+  top: 10%;
+  color: #ccc;
 }
