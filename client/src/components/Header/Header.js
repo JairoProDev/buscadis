@@ -9,7 +9,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import UserMenu from "../UserMenu/UserMenu";
 import AdForm from "../AdForm/AdForm"; // Importa el formulario de publicación del anuncio
 
-function Header({ setFilter, toggleSidebar }) {
+function Header({ openLoginModal, openRegisterModal, setFilter, toggleSidebar }) {
   const isHidden = useScroll();
   const [isFormVisible, setIsFormVisible] = useState(false);
   const showForm = () => setIsFormVisible(true); // Esta es la única declaración de showForm que necesitas
@@ -27,7 +27,7 @@ function Header({ setFilter, toggleSidebar }) {
 
           setFilter={setFilter}
         />{" "}
-        <UserMenu toggleForm={showForm} />
+      <UserMenu openLoginModal={openLoginModal} openRegisterModal={openRegisterModal} toggleForm={showForm} />
       </div>
       {isFormVisible && <AdForm hideForm={hideForm} />}{" "}
       {/* Muestra el formulario si isFormVisible es true */}
