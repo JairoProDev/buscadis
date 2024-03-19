@@ -28,12 +28,11 @@
   color: var(--text-color);
   cursor: pointer;
   transform: translateY(16%);
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s ease; /* Añade una transición a la sombra */
   max-width: 276px;
   margin: 5px;
-  box-shadow: -20px 20px 5px var(--shadow-color);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Aumenta la sombra para darle más profundidad y un efecto de relieve */
   box-sizing: content-box;
-  transition: transform 0.3s;
   overflow: hidden;
 }
 .ad-card__content {
@@ -42,8 +41,15 @@
   flex-direction: column;
   height: 100%;
 }
+
 .ad-card:hover {
-  transform: translateY(0);
+  transform: translateY(0) scale(1.2); /* Aumenta ligeramente el tamaño de la tarjeta de anuncio cuando se pasa el cursor sobre ella */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); /* Aumenta la sombra cuando se pasa el cursor sobre la tarjeta de anuncio para dar un efecto de relieve */
+}
+
+.ad-card:active {
+  transform: translateY(5px) scale(0.98); /* Reduce ligeramente el tamaño de la tarjeta de anuncio y la desplaza hacia abajo cuando se hace clic en ella */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Reduce la sombra cuando se hace clic en la tarjeta de anuncio */
 }
 
 .ad-card__title {
