@@ -10,15 +10,10 @@ form {
   align-items: center;
   padding: 10px;
   border-radius: 25px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  background: #e0e5ec;
+  box-shadow: -2px -2px 6px #ffffff, 2px 2px 6px #babecc;
   max-width: 30vh;
   max-height: 100%;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.3
-  ); /* Fondo blanco con 30% de opacidad */
   font-family: "Roboto", sans-serif;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -30,8 +25,8 @@ form {
 button.form-close-button {
   display: none;
 }
-form-container input,
-form-container button {
+.form-container input,
+.form-container button {
   width: 100%; /* Asegúrate de que los elementos hijos no sean más anchos que su contenedor */
   box-sizing: border-box; /* Incluye el padding y el border en el ancho total del elemento */
 }
@@ -46,12 +41,12 @@ form-container button {
 legend {
   font-size: 16px;
   font-weight: 600;
-  color: #fff;
+  color: #333;
   margin-bottom: 0px;
   text-align: center;
 }
 label {
-  color: #fff;
+  color: #333;
   display: block;
   font-size: 16px;
   font-weight: 600;
@@ -66,12 +61,14 @@ input[type="number"],
 input[type="url"] {
   width: 100%;
   padding: 5px;
-  border: 1px solid #ccc;
+  border: none;
   border-radius: 4px;
   margin-bottom: 10px;
   font-size: 16px;
   color: #333;
-  transition: border 0.3s;
+  background: #e0e5ec;
+  box-shadow: inset 2px 2px 5px #babecc, inset -3px -3px 7px #ffffff;
+  transition: all 0.3s ease-in-out;
 }
 
 input[type="text"]:focus,
@@ -80,7 +77,7 @@ input[type="tel"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
 input[type="url"]:focus {
-  border: 1px solid #007bff; /* Cambiar el color del borde al hacer foco */
+  box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #ffffff;
 }
 
 input[type="text"]::placeholder,
@@ -99,17 +96,22 @@ textarea::placeholder {
 .custom-file-upload-button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #4caf50; /* Cambia esto al color de fondo que prefieras */
-  color: white; /* Cambia esto al color de texto que prefieras */
+  background-color: #e0e5ec;
+  color: #333;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   border-radius: 4px;
   border: none;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 2px 2px 5px #babecc, -3px -3px 7px #ffffff;
 }
 
+button:hover,
 .custom-file-upload-button:hover {
-  background-color: #45a049; /* Cambia esto al color de fondo que prefieras cuando se pasa el mouse por encima */
+  background-color: #d1d9e6;
+}
+.custom-file-upload-button:hover {
+  box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #ffffff;
 }
