@@ -8,7 +8,7 @@
 }
 
 .header-right .menu-item {
-  color: white;
+  color: #464444;
   display: flex;
   align-items: center;
   height: 40px;
@@ -21,7 +21,7 @@
 
 .header-right .menu-item:hover {
   background-color: rgba(0, 0, 0, 0.1);
-  color: #ff6347; /* Cambia el color del texto cuando el usuario pasa el ratón por encima */
+  color: #47b8ff; /* Cambia el color del texto cuando el usuario pasa el ratón por encima */
 }
 
 .header-right .menu-item span {
