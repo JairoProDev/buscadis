@@ -3,7 +3,6 @@ import React from "react";
 import "./adForm.css";
 import PublishButton from "../PublishButton/PublishButton";
 import Payment from "../Payment/Payment";
-// import ImageUpload from "../FormComponents/ImageUpload";
 import { useAdFormLogic } from "./AdFormLogic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
@@ -18,14 +17,9 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
     phoneRef,
     phone2Ref,
     emailRef,
-    // imageRef,
     images,
-    // setImages,
     description,
-    // setDescription,
     error,
-    // setError,
-    // clearForm,
     handleImageChange,
     handleDeletePreviewImage,
     handleDescriptionChange,
@@ -33,12 +27,13 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   } = useAdFormLogic(agregarAnuncioAlPrincipio);
 
   return (
-    <div className={`form-container ${isVisible ? "show" : ""}`}>
+    <div className={`adForm form-container ${isVisible ? "show" : ""}`}>
       <button className="form-close-button" onClick={hideForm}>
         X
       </button>
       <form
         id="adForm"
+        className="adForm"
         action="/api/anuncios"
         method="POST"
         onSubmit={handleSubmit}
@@ -47,7 +42,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
         <fieldset>
           <legend>!ANUNCIA EN BUSCADIS!</legend>
           <label htmlFor="category">Categoría:</label>
-          <select id="category" name="category" required ref={categoryRef}>
+          <select id="category" name="category" required ref={categoryRef} className="adForm-input">
             <option value="Empleos">Empleos</option>
             <option value="Inmuebles">Inmuebles</option>
             <option value="Autos">Autos</option>
@@ -56,7 +51,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
           </select>
           <label htmlFor="title">Título de tu aviso:</label>
           <input
-            className="form-input"
+            className="adForm-input"
             type="text"
             id="title"
             name="title"
@@ -75,11 +70,12 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             defaultValue={description}
             onInput={handleDescriptionChange}
             placeholder="Escribe una descripción detallada de tu anuncio"
+            className="adForm-input"
           ></textarea>
 
           <label htmlFor="phone">Teléfono/WhatsApp:</label>
           <input
-            className="form-input"
+            className="adForm-input"
             type="tel"
             id="phone"
             name="phone"
@@ -89,7 +85,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
 
           <label htmlFor="phone2">Teléfono/WhatsApp 2:</label>
           <input
-            className="form-input"
+            className="adForm-input"
             type="tel"
             id="phone2"
             name="phone2"
@@ -99,7 +95,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
 
           <label htmlFor="location">Ubicación:</label>
           <input
-            className="form-input"
+            className="adForm-input"
             type="text"
             id="location"
             name="location"
@@ -109,7 +105,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
 
           <label htmlFor="amount">Monto:</label>
           <input
-            className="form-input"
+            className="adForm-input"
             type="number"
             id="amount"
             name="amount"
@@ -121,7 +117,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
 
           <label htmlFor="email">Correo electrónico:</label>
           <input
-            className="form-input"
+            className="adForm-input"
             type="email"
             id="email"
             name="email"
@@ -133,7 +129,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             <FontAwesomeIcon icon={faUpload} /> Subir imágenes
           </label>
           <input
-            className="form-input file-input"
+            className="adForm-input file-input"
             type="file"
             id="image"
             name="image"
