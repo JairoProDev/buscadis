@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserCircle,
@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./userMenu.css";
 
-function UserMenu({ openLoginModal, openRegisterModal }) {
+function UserMenu({ openLoginForm, openRegisterForm, toggleForm }) {
   const token = localStorage.getItem("token");
   const [activeMenu, setActiveMenu] = useState(null);
   const menuRef = useRef(null);
@@ -19,6 +19,7 @@ function UserMenu({ openLoginModal, openRegisterModal }) {
 
   function logout() {
     localStorage.removeItem("token");
+    navigate("/login");
   }
 
   useEffect(() => {
@@ -42,38 +43,42 @@ function UserMenu({ openLoginModal, openRegisterModal }) {
   if (!token) {
     return (
       <div className="header-right">
-        <button onClick={openLoginModal}>Iniciar sesión</button>
-        <button onClick={openRegisterModal}>Registrarse</button>
+        <button onClick={openLoginForm}>Iniciar sesión</button>
+        <button onClick={openRegisterForm}>Registrarse</button>
       </div>
     );
   }
 
   return (
     <div className="header-right" ref={menuRef}>
-      <div className="menu-item" onClick={() => setActiveMenu('messages')}>
+      <div className="menu-item" onClick={() => setActiveMenu("messages")}>
         <FontAwesomeIcon icon={faEnvelope} />
         <span>Mensajes</span>
-        {activeMenu === 'messages' && (
+        {activeMenu === "messages" && (
           <div className="menu-options">
             {/* Aquí puedes agregar las opciones de mensajes */}
           </div>
         )}
       </div>
-      <div className="menu-item" onClick={() => setActiveMenu('notifications')}>
+      <div className="menu-item" onClick={() => setActiveMenu("notifications")}>
         <FontAwesomeIcon icon={faBell} />
         <span>Notificaciones</span>
-        {activeMenu === 'notifications' && (
+        {activeMenu === "notifications" && (
           <div className="menu-options">
             {/* Aquí puedes agregar las opciones de notificaciones */}
           </div>
         )}
       </div>
-      <div className="menu-item" onClick={() => setActiveMenu('profile')}>
+      <div className="menu-item" onClick={() => setActiveMenu("profile")}>
         <FontAwesomeIcon icon={faUserCircle} />
         <span>Perfil</span>
-        {activeMenu === 'profile' && (
+        {activeMenu === "profile" && (
           <div className="menu-options">
-            <div onClick={() => { setActiveMenu(null); }}>
+            <div
+              onClick={() => {
+                setActiveMenu(null);
+              }}
+            >
               <FontAwesomeIcon icon={faUserCircle} />
               <span>Ver perfil</span>
             </div>
@@ -84,26 +89,34 @@ function UserMenu({ openLoginModal, openRegisterModal }) {
           </div>
         )}
       </div>
-      <div className="menu-item" onClick={() => setActiveMenu('settings')}>
+      <div className="menu-item" onClick={() => setActiveMenu("settings")}>
         <FontAwesomeIcon icon={faCog} />
         <span>Configuración</span>
-        {activeMenu === 'settings' && (
+        {activeMenu === "settings" && (
           <div className="menu-options">
-            <div onClick={() => { setActiveMenu(null); }}>
+            <div
+              onClick={() => {
+                setActiveMenu(null);
+              }}
+            >
               <FontAwesomeIcon icon={faCog} />
               <span>Configuración de cuenta</span>
             </div>
-            <div onClick={() => { setActiveMenu(null); }}>
+            <div
+              onClick={() => {
+                setActiveMenu(null);
+              }}
+            >
               <FontAwesomeIcon icon={faBullhorn} />
               <span>Configuración de notificaciones</span>
             </div>
           </div>
         )}
       </div>
-      <div className="menu-item" onClick={() => setActiveMenu('announce')}>
+      <div className="menu-item" onClick={() => setActiveMenu("announce")}>
         <FontAwesomeIcon icon={faBullhorn} />
         <span>Anunciar</span>
-        {activeMenu === 'announce' && (
+        {activeMenu === "announce" && (
           <div className="menu-options">
             {/* Aquí puedes agregar las opciones de anunciar */}
           </div>
@@ -119,7 +132,7 @@ export default UserMenu;
 
 // Primero, importo las dependencias necesarias, incluyendo React, useState de React para el estado del componente, FontAwesomeIcon de @fortawesome/react-fontawesome para los iconos, y los iconos específicos que necesito de @fortawesome/free-solid-svg-icons.
 
-// Luego, defino mi componente UserMenu. Este componente toma dos props: openLoginModal y openRegisterModal, que son funciones que se llaman cuando el usuario hace clic en los botones de iniciar sesión y registrarse, respectivamente.
+// Luego, defino mi componente UserMenu. Este componente toma dos props: openLoginForm y openRegisterForm, que son funciones que se llaman cuando el usuario hace clic en los botones de iniciar sesión y registrarse, respectivamente.
 
 // Dentro de mi componente, obtengo el token del almacenamiento local y creo una variable de estado activeMenu para rastrear qué submenú está actualmente activo.
 
