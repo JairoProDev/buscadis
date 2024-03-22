@@ -40,14 +40,14 @@ button.form-close-button {
   display: flex;
   flex-direction: column;
 }
-legend {
+.adForm legend {
   font-size: 16px;
   font-weight: 600;
   color: #333;
   margin-bottom: 0px;
   text-align: center;
 }
-label {
+.adForm label {
   color: #333;
   display: block;
   font-size: 16px;
@@ -55,7 +55,7 @@ label {
   margin-bottom: 5px;
 }
 
-select#category {
+.adForm select#category {
   width: 80%; /* Reduce el ancho para darle más prominencia */
   margin: 0 auto; /* Centra el selector de categorías */
   background: rgba(255, 255, 255, 0.1);
@@ -68,17 +68,17 @@ select#category {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-select#category:hover {
+.adForm select#category:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Aumenta la sombra cuando se pasa el cursor sobre el selector de categorías para dar un efecto de relieve */
   transform: scale(1.05);
 }
 
-input[type="text"],
-textarea,
-input[type="tel"],
-input[type="email"],
-input[type="number"],
-input[type="url"] {
+.adForm input[type="text"],
+.adForm .adForm textarea,
+.adForm .adForm input[type="tel"],
+.adForm .adForm input[type="email"],
+.adForm .adForm input[type="number"],
+.adForm .adForm input[type="url"] {
   width: 100%;
   padding: 5px;
   border: none;
@@ -91,16 +91,16 @@ input[type="url"] {
   transition: all 0.3s ease-in-out;
 }
 
-input[type="text"]:focus,
-textarea:focus,
-input[type="tel"]:focus,
-input[type="email"]:focus,
-input[type="number"]:focus,
-input[type="url"]:focus {
+.adForm input[type="text"]:focus,
+.adForm textarea:focus,
+.adForm input[type="tel"]:focus,
+.adForm input[type="email"]:focus,
+.adForm input[type="number"]:focus,
+.adForm input[type="url"]:focus {
   box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #ffffff;
 }
 
-input[type="text"]::placeholder,
+.adForm input[type="text"]::placeholder,
 textarea::placeholder {
   color: #aaa;
 }
@@ -128,7 +128,7 @@ textarea::placeholder {
   box-shadow: 2px 2px 5px #babecc, -3px -3px 7px #ffffff;
 }
 
-button:hover,
+.adForm button:hover,
 .custom-file-upload-button:hover {
   background-color: #d1d9e6;
 }
@@ -136,10 +136,10 @@ button:hover,
   box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #ffffff;
 }
 
-input:hover,
-textarea:hover,
-input:focus,
-textarea:focus {
+.adForm input:hover,
+.adForm textarea:hover,
+.adForm input:focus,
+.adForm textarea:focus {
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 10px 30px rgba(0, 0, 0, 0.2); /* Aumenta la sombra cuando se pasa el cursor sobre la barra de búsqueda */
   transform: scale(1.1);
 }
