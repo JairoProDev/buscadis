@@ -14,13 +14,6 @@ body {
   min-height: 100dvh;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  /* Balance headings across multiple lines into an ven block. */
-  text-wrap: balance;
-}
 p {
   /* Prevent text orphans (single words on last line. */
   text-wrap: pretty;
