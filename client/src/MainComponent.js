@@ -21,10 +21,10 @@ import SocialMedia from "./components/SocialMedia/SocialMedia";
 import NavList from "./components/NavList/NavList";
 import SearchBar from "./components/SearchBar/SearchBar";
 import HomeFeed from "./components/HomeFeed/HomeFeed";
+import RegisterForm from "./components/AuthForm/RegisterForm";
+import LoginForm from "./components/AuthForm/LoginForm";
+import Modal from "./components/Modal";
 
-import RegisterForm from "./components/RegisterForm/RegisterForm";
-import LoginForm from "./components/LoginForm/LoginForm";
-import Modal from './components/Modal/Modal'; // Asegúrate de que esta ruta es correcta
 // Styles
 import "./styles/root.css";
 import "./styles/reset.css";
@@ -52,14 +52,21 @@ function MainComponent() {
   const loader = useRef(null);
   useIntersectionObserver(loader, loadMore, hasMore, isLoading);
 
-const [isLoginOpen, setIsLoginOpen] = useState(false);
-const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
 
-const openLoginModal = () => setIsLoginOpen(true);
-const closeLoginModal = () => setIsLoginOpen(false);
+  const openLoginForm = () => {
+    setShowLoginForm(true);
+    setIsFormVisible(false);
+  };
 
-const openRegisterModal = () => setIsRegisterOpen(true);
-const closeRegisterModal = () => setIsRegisterOpen(false);
+  const openRegisterForm = () => {
+    setShowRegisterForm(true);
+    setIsFormVisible(false);
+  };
+
+  const closeLoginForm = () => setShowLoginForm(false);
+  const closeRegisterForm = () => setShowRegisterForm(false);
 
   return (
     <Fragment>
@@ -68,19 +75,19 @@ const closeRegisterModal = () => setIsRegisterOpen(false);
           toggleForm={showForm}
           setFilter={setFilter}
           toggleSidebar={toggleSidebar}
-          openLoginModal={openLoginModal}
-          openRegisterModal={openRegisterModal}
+          openLoginForm={openLoginForm}
+          openRegisterForm={openRegisterForm}
         />
-      {isLoginOpen && (
-        <Modal onClose={closeLoginModal}>
-          <LoginForm onSuccess={closeLoginModal} />
-        </Modal>
-      )}
-      {isRegisterOpen && (
-        <Modal onClose={closeRegisterModal}>
-          <RegisterForm onSuccess={closeRegisterModal} />
-        </Modal>
-      )}
+        {showLoginForm && (
+          <Modal onClose={closeLoginForm}>
+            <LoginForm onClose={closeLoginForm} />
+          </Modal>
+        )}
+        {showRegisterForm && (
+          <Modal onClose={closeRegisterForm}>
+            <RegisterForm onClose={closeRegisterForm} />
+          </Modal>
+        )}
         <div className="container">
           <Sidebar isOpen={isSidebarOpen} />
           <div className="portal">
@@ -105,11 +112,14 @@ const closeRegisterModal = () => setIsRegisterOpen(false);
               path="/anuncio/:id"
               element={<AdModal anuncios={anuncios} />}
             />
-              {/* <Route path="/login" element={<LoginForm />} />
-              <Route path="/register" element={<RegisterForm />} />  */}
           </Routes>
         </div>
-        <NavList className="nav-list nav-list-bottom" toggleForm={showForm} setFilter={setFilter} />      </div>
+        <NavList
+          className="nav-list nav-list-bottom"
+          toggleForm={showForm}
+          setFilter={setFilter}
+        />
+      </div>
     </Fragment>
   );
 }
