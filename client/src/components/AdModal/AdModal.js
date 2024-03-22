@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import ContactButtons from "../ContactButtons/ContactButtons";
-import "./adModal.css";
+import "./adModal.css"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
