@@ -1,42 +1,29 @@
 // Header.js
-import React, { useState } from "react"; // Importa useState de react
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
 import logo from "../../images/logo.ico";
 import useScroll from "../../hooks/useScroll";
 import NavList from "../NavList/NavList";
-import SearchBar from "../SearchBar/SearchBar";
 import UserMenu from "../UserMenu/UserMenu";
-import AdForm from "../AdForm/AdForm"; // Importa el formulario de publicación del anuncio
 
-function Header({
-  openLoginModal,
-  openRegisterModal,
-  setFilter,
-  toggleSidebar,
-}) {
+function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
   const isHidden = useScroll();
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const showForm = () => setIsFormVisible(true); // Esta es la única declaración de showForm que necesitas
-  const hideForm = () => setIsFormVisible(false);
+
+  const showForm = () => setIsFormVisible(true);
 
   return (
     <header className={`header ${isHidden ? "header-hidden" : ""}`}>
       <div className="header-top">
-        {/*<button onClick={toggleSidebar} className="hamburger-menu">
-          &#9776;
-        </button>*/}
         <Logo />
-        {/* <SearchBar /> */}
-        <NavList setFilter={setFilter} />{" "}
+        <NavList setFilter={setFilter} />
         <UserMenu
-          openLoginModal={openLoginModal}
-          openRegisterModal={openRegisterModal}
+          openLoginForm={openLoginForm}
+          openRegisterForm={openRegisterForm}
           toggleForm={showForm}
         />
       </div>
-      {isFormVisible && <AdForm hideForm={hideForm} />}{" "}
-      {/* Muestra el formulario si isFormVisible es true */}
     </header>
   );
 }
