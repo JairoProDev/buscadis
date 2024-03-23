@@ -83,6 +83,7 @@ const Span = styled.span`
   transition: 0.5s;
   letter-spacing: 0.05em;
   color: rgba(255, 255, 255, 0.5);
+  width: 223px;
 
   ${Input}:focus + ${Label} &,
   ${Input}:valid + ${Label} & {
@@ -115,6 +116,10 @@ const Error = styled.div`
   font-size: 0.75em;
   font-weight: 300;
   margin-top: -25px;
+`;
+
+const Title = styled.h2`
+  color: #ffffff;
 `;
 
 function RegisterForm() {
@@ -166,7 +171,7 @@ function RegisterForm() {
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <h2>Registrate:</h2>
+        <Title>Registrate:</Title>
         <InputBox>
           <Input
             type="text"
