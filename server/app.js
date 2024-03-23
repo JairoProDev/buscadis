@@ -79,13 +79,6 @@ connectToDb();
 app.use("/api", adRoutes);
 app.use('/api/auth', authRoutes);
 
-// Usa el middleware de autenticación antes de las rutas protegidas
-// app.use('/api/auth/protected-route', expressJwt({ secret: process.env.JWT_SECRET, algorithms: ['HS256'] }));
-app.get('/api/auth/protected-route', (req, res) => {
-  // Esta ruta está protegida. Solo los usuarios autenticados pueden acceder a ella.
-  res.json({ message: 'Esta es una ruta protegida' });
-});
-
 // Manejar todas las demás rutas enviando el archivo index.html
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
