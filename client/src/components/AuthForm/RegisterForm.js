@@ -125,7 +125,6 @@ const Title = styled.h2`
 function RegisterForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -145,7 +144,9 @@ function RegisterForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username,
+          firstName,
+          lastName,
+          phoneNumber,
           email,
           password,
         }),
@@ -159,6 +160,7 @@ function RegisterForm() {
         // Por ejemplo, puedes usar react-router-dom para hacer esto
         // history.push('/login');
       } else {
+        console.log(data);
         throw new Error(data.message);
       }
     } catch (error) {
