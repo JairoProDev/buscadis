@@ -19,7 +19,7 @@ function AuthForm({ onClose }) {
         </div>
       )}
       <p>
-        {isLoginForm ? "No tienes una cuenta? " : "Ya estudias con nosotros ? "}
+        {isLoginForm ? "No tienes una cuenta? " : "Ya tienes una cuenta ? "}
         <a
           href="#"
           onClick={(e) => {
