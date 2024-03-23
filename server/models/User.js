@@ -3,9 +3,23 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
-    username: {
+    firstName: {
         type: String,
         required: true,
+        trim: true
+    },
+    lastName: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    phoneNumber: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    username: {
+        type: String,
         unique: true,
         trim: true
     },
@@ -41,11 +55,17 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', async function (next) {
     const user = this;
 
-    if (user.isModified('password')) {
-        user.password = await bcrypt.hash(user.password, 8);
-    }
+    try {
+        if (user.isModified('password')) {
+            user.password = await bcrypt.hash(user.password, 8);
+        }
 
-    next();
+        next();
+    } catch (error) {
+        // Handle the error
+        console.error(error);
+        next(error);
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);
