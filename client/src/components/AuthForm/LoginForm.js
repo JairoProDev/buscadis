@@ -69,7 +69,7 @@ const Span = styled.span`
   transition: 0.5s;
   letter-spacing: 0.05em;
   color: #a0a5a8;
-  width: 225px;
+  width: 223px;
 
   ${Input}:focus + ${Label} &,
   ${Input}:valid + ${Label} & {
