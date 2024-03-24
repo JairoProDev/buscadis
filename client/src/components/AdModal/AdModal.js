@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import ContactButtons from "../ContactButtons/ContactButtons";
-import "./adModal.css"
+import "./adModal.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -101,13 +101,13 @@ function AdModal({ anuncios }) {
           </div>
           <div className="modal-header-right">
             <button>
-              <FontAwesomeIcon icon={faBookmark} />
+              <FontAwesomeIcon icon={faBookmark} color="green" />
             </button>
             <button onClick={handleShare}>
-              <FontAwesomeIcon icon={faShareSquare} />
+              <FontAwesomeIcon icon={faShareSquare} color="yellow" />
             </button>
             <button onClick={handleReport}>
-              <FontAwesomeIcon icon={faFlag} />
+              <FontAwesomeIcon icon={faFlag} color="red" />
             </button>
             {/* <button onClick={handleClose}>X</button> */}
           </div>
