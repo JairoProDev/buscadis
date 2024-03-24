@@ -1,14 +1,19 @@
+// App.js
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-
-import MainComponent from './MainComponent'; // Asegúrate de que la ruta sea correcta
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainComponent from './MainComponent';
+import UserProfile from './components/UserProfile/UserProfile';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <MainComponent />
-      </div>
+      <AuthProvider>
+        <Routes>
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/*" element={<MainComponent />} />
+        </Routes>
+      </AuthProvider>
     </Router>
   );
 }
