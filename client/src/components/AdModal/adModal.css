@@ -61,6 +61,36 @@
   font-size: 1.5em;
 }
 
+.modal-header-right button {
+  font-size: 0.9em;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.modal-header-right button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.modal-header-right button:active {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.modal-header-right .faBookmark {
+  color: green;
+}
+
+.modal-header-right .faShareSquare {
+  color: yellow;
+}
+
+.modal-header-right .faFlag {
+  color: red;
+}
+
 .modal-body {
   padding: 0px;
   font-size: 1.2em;
