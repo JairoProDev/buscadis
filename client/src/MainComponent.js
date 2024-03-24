@@ -24,6 +24,8 @@ import HomeFeed from "./components/HomeFeed/HomeFeed";
 import RegisterForm from "./components/AuthForm/RegisterForm";
 import LoginForm from "./components/AuthForm/LoginForm";
 import Modal from "./components/Modal";
+import UserProfile from './components/UserProfile/UserProfile';
+
 
 // Styles
 import "./styles/root.css";
@@ -107,12 +109,7 @@ function MainComponent() {
             hideForm={hideForm}
           />
           <SocialMedia />
-          <Routes>
-            <Route
-              path="/anuncio/:id"
-              element={<AdModal anuncios={anuncios} />}
-            />
-          </Routes>
+
         </div>
         <NavList
           className="nav-list nav-list-bottom"
@@ -120,6 +117,13 @@ function MainComponent() {
           setFilter={setFilter}
         />
       </div>
+      <Routes>
+          <Route path="/profile" element={<UserProfile />} />
+            <Route
+              path="/anuncio/:id"
+              element={<AdModal anuncios={anuncios} />}
+            />
+          </Routes>
     </Fragment>
   );
 }
