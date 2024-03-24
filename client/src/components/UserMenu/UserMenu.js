@@ -77,6 +77,7 @@ function UserMenu({ openLoginForm, openRegisterForm, toggleForm }) {
             <div
               onClick={() => {
                 setActiveMenu(null);
+                navigate('/profile');
               }}
             >
               <FontAwesomeIcon icon={faUserCircle} />
