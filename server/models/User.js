@@ -68,4 +68,11 @@ userSchema.pre('save', async function (next) {
     }
 });
 
+// Agrega el método removeUser a tu esquema de usuario
+userSchema.methods.removeUser = async function() {
+    const user = this;
+    console.log('Removing user:', user);
+    await user.remove();
+}
+
 module.exports = mongoose.model('User', userSchema);
