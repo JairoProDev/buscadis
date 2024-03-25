@@ -80,4 +80,46 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.delete('/users/:id', async (req, res) => {
+    console.log('DELETE request received for user:', req.params.id);
+
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
+            console.log('Usuario no encontrado');
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        console.log('Usuario encontrado:', user);
+
+        await User.deleteOne({ _id: req.params.id });
+        console.log('Usuario removido');
+
+        const response = { message: 'User deleted successfully' };
+        console.log('Response:', response);
+        res.send(response);
+    } catch (error) {
+        console.log('Error:', error);
+        res.status(500).send({ message: error.message });
+    }
+});
+
+router.post('/users/:id/delete_request', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        // Aquí podrías agregar el código para marcar la cuenta del usuario para la eliminación
+        // Por ejemplo, podrías cambiar el estado de la cuenta del usuario a 'pending deletion'
+
+        res.send({ message: 'Delete request received. We will process your request shortly.' });
+    } catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+});
+
 module.exports = router;
