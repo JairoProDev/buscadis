@@ -106,7 +106,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
           <label htmlFor="amount">Monto:</label>
           <input
             className="adForm-input"
-            type="number"
+            type="text"
             id="amount"
             name="amount"
             ref={amountRef}
