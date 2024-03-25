@@ -20,7 +20,7 @@
 }
 .ad-card {
   flex: 1 0 250px;
-  height: 210px;
+  height: 180px;
   background: var(--primary-color) 0.5;
   border-radius: 20px;
   position: relative;
