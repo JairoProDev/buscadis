@@ -86,7 +86,7 @@ function AdModal({ anuncios }) {
       ref={modalRef}
     >
       <div
-        className={`modal-content ${category}`}
+        className={`modal-content ${category.toLowerCase()}`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-header">
