@@ -36,6 +36,31 @@
   max-height: calc(
     100vh - 100px
   ); /* Asegura que el modal no sea más alto que la ventana del navegador, teniendo en cuenta el padding superior e inferior */
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+}
+
+.modal-content::-webkit-scrollbar {
+  display: none; /* Oculta la barra de desplazamiento en Chrome, Safari y Edge */
+}
+
+.modal-content.inmuebles {
+  background-color: #fff1d6;
+}
+
+.modal-content.empleos {
+  background-color: #d3e6ff;
+}
+
+.modal-content.autos {
+  background-color: #ffd9d9;
+}
+
+.modal-content.servicios {
+  background-color: #daffe5;
+}
+
+.modal-content.otros {
+  background-color: #ece7f3;
 }
 
 .modal-title {
@@ -96,6 +121,7 @@
   font-size: 1.2em;
   line-height: 1.3;
   overflow: scroll;
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
 }
 
 .modal-body p {
