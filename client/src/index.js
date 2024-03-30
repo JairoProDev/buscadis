@@ -1,12 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 // Espera a que el DOM esté completamente cargado antes de renderizar la aplicación
 document.addEventListener("DOMContentLoaded", () => {
-  const root = ReactDOM.createRoot(document.getElementById("root"));
+  const root = createRoot(document.getElementById("root")); // Cambia esta línea
   root.render(
     <React.StrictMode>
       <App />
