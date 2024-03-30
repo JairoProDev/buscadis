@@ -18,8 +18,7 @@ function AdModal({ anuncios }) {
   const navigate = useNavigate(); // Obtén la función navigate
   const modalRef = useRef();
 
-  const ad = anuncios.find((anuncio) => anuncio._id === id); // Busca el anuncio correspondiente
-
+  const ad = anuncios ? anuncios.find((anuncio) => anuncio._id === id) : null;
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
