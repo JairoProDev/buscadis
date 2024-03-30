@@ -81,6 +81,7 @@ app.use('/api/auth', authRoutes);
 
 // Manejar todas las demás rutas enviando el archivo index.html
 app.get("*", (req, res) => {
+  console.log(`Handling route: ${req.originalUrl}`);
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
