@@ -24,6 +24,7 @@ const createAd = async (req, res) => {
       .status(201)
       .json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
   } catch (error) {
+    console.error('Error al crear el anuncio:', error);
     // res.status(500).json({ error: "Error al crear el anuncio" });
     res.status(500).json({ error: error.message });
   }
