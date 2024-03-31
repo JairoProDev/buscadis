@@ -2,7 +2,6 @@
 import React, {
   Fragment,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from "react";
@@ -49,7 +48,7 @@ function MainComponent() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const showForm = () => setIsFormVisible(true);
   const hideForm = () => setIsFormVisible(false);
-  const hideAdModal = useCallback(() => setSelectedAd(null), []);
+  // const hideAdModal = useCallback(() => setSelectedAd(null), []);
   const loadMore = useCallback(() => setPage((prevPage) => prevPage + 1), []);
   const loader = useRef(null);
   useIntersectionObserver(loader, loadMore, hasMore, isLoading);
@@ -121,7 +120,7 @@ function MainComponent() {
           <Route path="/profile" element={<UserProfile />} />
             <Route
               path="/anuncio/:id"
-              element={<AdModal anuncios={anuncios} />}
+              element={<AdModal anuncios={anuncios} selectedAd={selectedAd} />}
             />
           </Routes>
     </Fragment>
