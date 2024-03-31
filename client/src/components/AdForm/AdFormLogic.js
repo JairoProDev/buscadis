@@ -112,6 +112,18 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
             const data = await response.json();
             const imageUrls = data.imageUrls;
 
+            console.log({
+                category: categoryRef.current.value,
+                title: titleRef.current.value,
+                description: descriptionRef.current.value,
+                amount: amountRef.current ? amountRef.current.value : "",
+                location: locationRef.current ? locationRef.current.value : "",
+                phone: phoneRef.current.value,
+                phone2: phone2Ref.current ? phone2Ref.current.value : "",
+                email: emailRef.current ? emailRef.current.value : "",
+                images: imageUrls,
+              });
+
             const adResponse = await fetch("/api/anuncios", {
                 method: "POST",
                 headers: {
@@ -121,8 +133,8 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
                     category: categoryRef.current.value,
                     title: titleRef.current.value,
                     description: descriptionRef.current.value,
-                    amount: amountRef.current ? amountRef.current.value : "",
-                    location: locationRef.current ? locationRef.current.value : "",
+                    amount: amountRef.current && amountRef.current.value !== "" ? amountRef.current.value : null,
+                    location: locationRef.current && locationRef.current.value !== "" ? locationRef.current.value : null,
                     phone: phoneRef.current.value,
                     phone2: phone2Ref.current ? phone2Ref.current.value : "",
                     email: emailRef.current ? emailRef.current.value : "",
