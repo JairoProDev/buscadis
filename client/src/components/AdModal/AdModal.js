@@ -1,5 +1,5 @@
 // AdModal.js
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import ContactButtons from "../ContactButtons/ContactButtons";
@@ -25,15 +25,17 @@ function AdModal({ anuncios }) {
     setIsOpen(!!ad);
   }, [ad]);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     navigate("/"); // Navega a la página principal
-  };
+  }, [navigate]); // Añade las dependencias necesarias aquí
+  
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = useCallback((event) => {
     if (event.target === modalRef.current) {
       handleClose();
     }
-  };
+  }, [handleClose]); // Añade las dependencias necesarias aquí
+  
 
   useEffect(() => {
     // Agrega el manejador de eventos al documento
@@ -43,7 +45,7 @@ function AdModal({ anuncios }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []); // Dependencias vacías para que se ejecute solo una vez
+  }, [handleClickOutside]); // Dependencias vacías para que se ejecute solo una vez
 
   if (!ad) return null;
 
