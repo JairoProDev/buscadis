@@ -57,7 +57,7 @@ const anuncioSchema = new mongoose.Schema(
     
     images: [String],
     amount: {
-      type: Number,
+      type: String,
     },
     email: {
       type: String,
