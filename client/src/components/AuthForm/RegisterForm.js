@@ -132,19 +132,19 @@ function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [setIsLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    
-console.log({
-  firstName,
-  lastName,
-  userName,
-  phoneNumber,
-  email,
-  password,
-});
+
+    console.log({
+      firstName,
+      lastName,
+      userName,
+      phoneNumber,
+      email,
+      password,
+    });
 
     try {
       const response = await fetch("http://localhost:3000/api/auth/register", {
