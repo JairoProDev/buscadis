@@ -8,10 +8,10 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   console.log(req.body); // Esto imprimirá el cuerpo de la solicitud en la consola del servidor
   try {
-    const { firstName, lastName, phoneNumber, email, password } = req.body;
+    const { firstName, lastName, userName, phoneNumber, email, password } = req.body;
 
     // Validación de los datos de entrada
-    if (!firstName || !lastName || !phoneNumber || !email || !password) {
+    if (!firstName || !lastName || !userName || !phoneNumber || !email || !password) {
       return res
         .status(400)
         .json({
@@ -35,11 +35,13 @@ router.post("/register", async (req, res) => {
     const user = new User({
       firstName,
       lastName,
+      userName,
       phoneNumber,
       email,
       password,
     });
 
+    console.log(user);
     // Guarda el usuario en la base de datos
     const savedUser = await user.save();
 
