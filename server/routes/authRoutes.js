@@ -124,4 +124,20 @@ router.post('/users/:id/delete_request', async (req, res) => {
     }
 });
 
+// Nueva ruta para obtener los detalles de un usuario
+router.get('/users/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error del servidor' });
+  }
+});
+
 module.exports = router;
