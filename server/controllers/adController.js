@@ -6,8 +6,8 @@ const createAd = async (req, res) => {
     const { category, title, description, amount, location, phone, phone2, email, images } =
       req.body;
       
-    if (!category || !title || !description || !amount || !location || !phone || !email) {
-      return res.status(400).json({ error: 'Faltan campos requeridos' });
+    if (!category || !title || !description || !phone) {
+        return res.status(400).json({ error: 'Faltan campos requeridos' });
     }
     const newAd = new Ad({
       category: category,
