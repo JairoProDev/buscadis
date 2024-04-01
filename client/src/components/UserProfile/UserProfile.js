@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import "./UserProfile.css"; // Importa tu archivo CSS
 
@@ -7,6 +7,7 @@ function UserProfile() {
   const [editing, setEditing] = useState(false);
   const [firstName, setFirstName] = useState(currentUser?.firstName || "");
   const [lastName, setLastName] = useState(currentUser?.lastName || "");
+  const [userName, setUserName] = useState(currentUser?.userName || "");
   const [phoneNumber, setPhoneNumber] = useState(
     currentUser?.phoneNumber || ""
   );
@@ -19,11 +20,20 @@ function UserProfile() {
     if (currentUser) {
       setFirstName(currentUser.firstName || "");
       setLastName(currentUser.lastName || "");
+      setUserName(currentUser.userName || "");
       setPhoneNumber(currentUser.phoneNumber || "");
       setEmail(currentUser.email || "");
       setProfilePic(currentUser.profilePic || "");
     }
   }, [currentUser]);
+
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+      return () => {
+        isMounted.current = false;
+      };
+    }, []);
 
   const handleEdit = () => {
     setEditing(true);
@@ -41,6 +51,7 @@ function UserProfile() {
         body: JSON.stringify({
           firstName,
           lastName,
+          userName,
           phoneNumber,
           email,
           profilePic,
@@ -48,7 +59,7 @@ function UserProfile() {
       });
 
       if (!response.ok) {
-        throw new Error("Error al actualizar el perfil");
+        throw new Error(`Error al actualizar el perfil: ${response.status}`);
       }
 
       const data = await response.json();
@@ -61,32 +72,33 @@ function UserProfile() {
     setEditing(false);
   };
 
-  const handleDelete = async () => {
-    // Aquí puedes agregar el código para eliminar la cuenta del usuario
-    const confirmed = window.confirm(
-      "¿Estás seguro de que quieres eliminar tu cuenta?"
-    );
+  // const handleDelete = async () => {
+  //   // Aquí puedes agregar el código para eliminar la cuenta del usuario
+  //   const confirmed = window.confirm(
+  //     "¿Estás seguro de que quieres eliminar tu cuenta?"
+  //   );
 
-    if (confirmed) {
-      try {
-        const response = await fetch(`/api/auth/users/${currentUser.id}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${currentUser.token}`,
-          },
-        });
+  //   if (confirmed) {
+  //     try {
+  //       const response = await fetch(`/api/auth/users/${currentUser.id}`, {
+  //         method: "DELETE",
+  //         headers: {
+  //           Authorization: `Bearer ${currentUser.token}`,
+  //         },
+  //       });
 
-        if (!response.ok) {
-          throw new Error("Error al eliminar la cuenta");
-        }
+  //       if (!response.ok) {
+  //         throw new Error(`Error al eliminar la cuenta: ${response.status}`);
+  //       }
 
-        setCurrentUser(null);
-        setSuccess("Cuenta eliminada con éxito");
-      } catch (error) {
-        setError(error.message);
-      }
-    }
-  };
+  //       setCurrentUser(null);
+  //       setSuccess("Cuenta eliminada con éxito");
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //   }
+  // };
+
   // Esta es la función que se llama cuando haces clic en el botón de eliminación
   function deleteUser() {
     console.log("deleteUser function called");
@@ -151,6 +163,14 @@ function UserProfile() {
             />
           </label>
           <label>
+            Nombre de usuario:
+            <input
+              type="text"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+          </label>
+          <label>
             N° Celular:
             <input
               type="text"
@@ -181,6 +201,7 @@ function UserProfile() {
         <div>
           <p>Nombres: {firstName}</p>
           <p>Apellidos: {lastName}</p>
+          <p>Nombre de usuario: {userName}</p>
           <p>N° Celular: {phoneNumber}</p>
           <p>Correo electrónico: {email}</p>
           <button onClick={handleEdit}>Editar perfil</button>
@@ -192,7 +213,7 @@ function UserProfile() {
         Para solicitar la eliminación de tu cuenta y los datos asociados, por
         favor{" "}
         <a
-          href="http://localhost:3000/api/auth/users/${currentUser.id}/delete_request"
+          href={`http://buscadis.com/api/auth/users/${currentUser.id}/delete_request`}
           target="_blank"
           rel="noopener noreferrer"
         >
