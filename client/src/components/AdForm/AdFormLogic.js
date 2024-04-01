@@ -78,6 +78,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
             setError("Por favor, rellena todos los campos obligatorios.");
             return;
         }
+
         const formData = new FormData();
         // Verificar si 'images' existe antes de intentar llamar a 'forEach' en él
         if (images) {
@@ -87,17 +88,27 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
 
             images.forEach((url) => URL.revokeObjectURL(url)); // Revocar las URLs de objeto después de cargar las imágenes
         }
+
         formData.append("category", categoryRef.current.value);
         formData.append("title", titleRef.current.value);
         formData.append("description", descriptionRef.current.value);
         formData.append("phone", phoneRef.current.value);
-        formData.append("phone2", phone2Ref.current ? phone2Ref.current.value : "");
-        formData.append(
-            "location",
-            locationRef.current ? locationRef.current.value : ""
-        );
-        formData.append("email", emailRef.current ? emailRef.current.value : "");
-        formData.append("amount", amountRef.current ? amountRef.current.value : "");
+
+        if (phone2Ref.current && phone2Ref.current.value !== "") {
+            formData.append("phone2", phone2Ref.current.value);
+        }
+
+        if (locationRef.current && locationRef.current.value !== "") {
+            formData.append("location", locationRef.current.value);
+        }
+
+        if (emailRef.current && emailRef.current.value !== "") {
+            formData.append("email", emailRef.current.value);
+        }
+
+        if (amountRef.current && amountRef.current.value !== "") {
+            formData.append("amount", amountRef.current.value);
+        }
 
         try {
             const response = await fetch("/api/images/upload", {
@@ -122,7 +133,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
                 phone2: phone2Ref.current ? phone2Ref.current.value : "",
                 email: emailRef.current ? emailRef.current.value : "",
                 images: imageUrls,
-              });
+            });
 
             const adResponse = await fetch("/api/anuncios", {
                 method: "POST",
@@ -133,8 +144,8 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
                     category: categoryRef.current.value,
                     title: titleRef.current.value,
                     description: descriptionRef.current.value,
-                    amount: amountRef.current && amountRef.current.value !== "" ? amountRef.current.value : null,
-                    location: locationRef.current && locationRef.current.value !== "" ? locationRef.current.value : null,
+                    amount: amountRef.current && amountRef.current.value !== "" ? amountRef.current.value : "",
+                    location: locationRef.current && locationRef.current.value !== "" ? locationRef.current.value : "",
                     phone: phoneRef.current.value,
                     phone2: phone2Ref.current ? phone2Ref.current.value : "",
                     email: emailRef.current ? emailRef.current.value : "",
