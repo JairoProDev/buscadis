@@ -125,6 +125,7 @@ const Title = styled.h2`
 function RegisterForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -132,10 +133,18 @@ function RegisterForm() {
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
+    
+console.log({
+  firstName,
+  lastName,
+  userName,
+  phoneNumber,
+  email,
+  password,
+});
 
     try {
       const response = await fetch("http://localhost:3000/api/auth/register", {
@@ -146,6 +155,7 @@ function RegisterForm() {
         body: JSON.stringify({
           firstName,
           lastName,
+          userName,
           phoneNumber,
           email,
           password,
@@ -197,6 +207,20 @@ function RegisterForm() {
           />
           <Label>
             <Span>Apellidos:</Span>
+          </Label>
+          <Icon>
+            <FontAwesomeIcon icon={faUser} />
+          </Icon>
+        </InputBox>
+        <InputBox>
+          <Input
+            type="text"
+            required
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+          <Label>
+            <Span>Nombre de usuario:</Span>
           </Label>
           <Icon>
             <FontAwesomeIcon icon={faUser} />
