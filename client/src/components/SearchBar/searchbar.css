@@ -14,6 +14,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), 0 10px 20px rgba(0, 0, 0, 0.1); /* Añade una sombra para darle más profundidad */
   transition: box-shadow 0.3s ease, transform 0.3s ease; /* Añade una transición al transform */
+  margin-top: 35px;
 }
 
 .search-bar:hover {
