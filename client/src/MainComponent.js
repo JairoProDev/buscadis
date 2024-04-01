@@ -1,10 +1,5 @@
 // React and Hooks
-import React, {
-  Fragment,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
+import React, { Fragment, useCallback, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
@@ -23,8 +18,7 @@ import HomeFeed from "./components/HomeFeed/HomeFeed";
 import RegisterForm from "./components/AuthForm/RegisterForm";
 import LoginForm from "./components/AuthForm/LoginForm";
 import Modal from "./components/Modal";
-import UserProfile from './components/UserProfile/UserProfile';
-
+import UserProfile from "./components/UserProfile/UserProfile";
 
 // Styles
 import "./styles/root.css";
@@ -100,7 +94,7 @@ function MainComponent() {
                 Cargando anuncios publicados en BuscAdis.com...
               </div>
             )}
-            <HomeFeed anuncios={filteredAds} />
+            {/* <HomeFeed anuncios={filteredAds} /> */}
           </div>
           <AdForm
             agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
@@ -108,7 +102,6 @@ function MainComponent() {
             hideForm={hideForm}
           />
           <SocialMedia />
-
         </div>
         <NavList
           className="nav-list nav-list-bottom"
@@ -117,12 +110,12 @@ function MainComponent() {
         />
       </div>
       <Routes>
-          <Route path="/profile" element={<UserProfile />} />
-            <Route
-              path="/anuncio/:id"
-              element={<AdModal anuncios={anuncios} selectedAd={selectedAd} />}
-            />
-          </Routes>
+        <Route path="/profile" element={<UserProfile />} />
+        <Route
+          path="/anuncio/:id"
+          element={<AdModal anuncios={anuncios} selectedAd={selectedAd} />}
+        />
+      </Routes>
     </Fragment>
   );
 }
