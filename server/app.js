@@ -79,11 +79,6 @@ connectToDb();
 app.use("/api", adRoutes);
 app.use('/api/auth', authRoutes);
 
-// Manejar todas las demás rutas enviando el archivo index.html
-app.get("*", (req, res) => {
-  console.log(`Handling route: ${req.originalUrl}`);
-  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
-});
 
 app.use((req, res, next) => {
   res.status(404).json({ message: 'Ruta no encontrada' });
@@ -93,8 +88,14 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   console.error(err);
   res
-    .status(err.status || 500)
-    .json({ error: err.message || "Error interno del servidor" });
+  .status(err.status || 500)
+  .json({ error: err.message || "Error interno del servidor" });
+});
+
+// Manejar todas las demás rutas enviando el archivo index.html
+app.get("*", (req, res) => {
+  console.log(`Handling route: ${req.originalUrl}`);
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
 // Iniciar el servidor
