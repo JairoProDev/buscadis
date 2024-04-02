@@ -79,11 +79,6 @@ connectToDb();
 app.use("/api", adRoutes);
 app.use('/api/auth', authRoutes);
 
-
-app.use((req, res, next) => {
-  res.status(404).json({ message: 'Ruta no encontrada' });
-});
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
@@ -96,6 +91,10 @@ app.use((err, req, res, next) => {
 app.get("*", (req, res) => {
   console.log(`Handling route: ${req.originalUrl}`);
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
+
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Ruta no encontrada' });
 });
 
 // Iniciar el servidor
