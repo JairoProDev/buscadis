@@ -1,10 +1,10 @@
 // App.js
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainComponent from './MainComponent';
-import UserProfile from './components/UserProfile/UserProfile';
-import { AuthProvider } from './context/AuthContext';
-import AdModal from './components/AdModal/AdModal';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainComponent from "./MainComponent";
+import UserProfile from "./components/UserProfile/UserProfile";
+import { AuthProvider } from "./context/AuthContext";
+// import AdModal from './components/AdModal/AdModal';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/*" element={<MainComponent />} />
-          <Route path="/anuncio/:id" element={<AdModal />} />
+          {/* <Route path="/anuncio/:id" element={<AdModal />} /> */}
         </Routes>
       </AuthProvider>
     </Router>
