@@ -33,8 +33,6 @@ app.use(cors());
 // Usar middleware para parsear el cuerpo de las solicitudes JSON
 app.use(express.json());
 
-// Usar middleware para servir archivos estáticos
-app.use(express.static(path.resolve(__dirname, "../client/build")));
 
 // Usar las rutas de imágenes
 app.use("/api/images", imageRoutes);
@@ -79,18 +77,22 @@ connectToDb();
 app.use("/api", adRoutes);
 app.use('/api/auth', authRoutes);
 
+
+// Usar middleware para servir archivos estáticos
+app.use(express.static(path.resolve(__dirname, "../client/build")));
+
+// Manejar todas las demás rutas enviando el archivo index.html
+app.get("*", (req, res) => {
+  console.log(`Handling route: ${req.originalUrl}`);
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
   res
   .status(err.status || 500)
   .json({ error: err.message || "Error interno del servidor" });
-});
-
-// Manejar todas las demás rutas enviando el archivo index.html
-app.get("*", (req, res) => {
-  console.log(`Handling route: ${req.originalUrl}`);
-  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
 app.use((req, res, next) => {
