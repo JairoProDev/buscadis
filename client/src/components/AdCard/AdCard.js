@@ -4,7 +4,7 @@ import "./adCard.css";
 function AdCard({ anuncio, setSelectedAd, number }) {
   // console.log('AdCard anuncio:', anuncio)
 
-  const { category, title, description, amount, location, createdAt } = anuncio;
+  const { category, subcategory, title, description, amount, location, createdAt } = anuncio;
 
   const adClass = `ad-card ${category.toLowerCase()}`;
 
