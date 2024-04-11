@@ -3,7 +3,7 @@ const Ad = require("../models/adModel");
 const createAd = async (req, res) => {
   try {
     console.log('Creating new ad with data:', req.body);
-    const { category, title, description, amount, location, phone, phone2, email, images } =
+    const { category, subcategory, title, description, amount, location, phone, phone2, email, images } =
       req.body;
       
     if (!category || !title || !description || !phone) {
@@ -11,6 +11,7 @@ const createAd = async (req, res) => {
     }
     const newAd = new Ad({
       category: category,
+      subcategory: subcategory,
       title: title,
       description: description,
       amount: amount,
@@ -83,6 +84,7 @@ const updateAd = async (req, res) => {
     }
 
     anuncio.category = req.body.category || anuncio.category;
+    anuncio.subcategory = req.body.subcategory || anuncio.subcategory;
     anuncio.title = req.body.title || anuncio.title;
     anuncio.description = req.body.description || anuncio.description;
     anuncio.amount = req.body.amount || anuncio.amount;
