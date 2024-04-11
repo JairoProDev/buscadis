@@ -30,7 +30,7 @@
 }
 
 .ad-card__button--contact {
-  background-color: var(--call-button-color);
+  /* background-color: var(--call-button-color); */
 }
 
 .ad-card__button--contact:hover {
