@@ -32,8 +32,9 @@ import "./MainComponent.css";
 function MainComponent() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
-  const { anuncios, agregarAnuncioAlPrincipio, error, hasMore, isLoading } =
-    useAds(page, filter);
+  const [category, setCategory] = useState("");
+  const [subcategory, setSubcategory] = useState("");
+  const { anuncios, agregarAnuncioAlPrincipio, error, hasMore, isLoading } = useAds(page, category, subcategory, filter);  
   const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
