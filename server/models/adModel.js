@@ -17,6 +17,7 @@ const anuncioSchema = new mongoose.Schema(
         "Minidepartamentos",
         "Casas",
         "Terrenos",
+        "Otros",
       ],
     },
     title: {
