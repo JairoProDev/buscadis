@@ -3,6 +3,12 @@ import { useRef, useState, useEffect } from "react";
 
 export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     const categoryRef = useRef();
+    const subcategoryRef = useRef();
+    const [category, setCategory] = useState("");
+    const setCategoryRef = (ref) => {
+        categoryRef.current = ref;
+        setCategory(ref.value);
+      };
     const titleRef = useRef();
     const descriptionRef = useRef();
     const amountRef = useRef();
@@ -90,6 +96,9 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
         }
 
         formData.append("category", categoryRef.current.value);
+        if (subcategoryRef.current) {
+            formData.append("subcategory", subcategoryRef.current.value);
+        }
         formData.append("title", titleRef.current.value);
         formData.append("description", descriptionRef.current.value);
         formData.append("phone", phoneRef.current.value);
@@ -125,6 +134,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
 
             console.log({
                 category: categoryRef.current.value,
+                subcategory: subcategoryRef.current ? subcategoryRef.current.value : "",
                 title: titleRef.current.value,
                 description: descriptionRef.current.value,
                 amount: amountRef.current ? amountRef.current.value : "",
@@ -167,7 +177,11 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     };
 
     return {
+        category,
+        setCategory,
         categoryRef,
+        subcategoryRef,
+        setCategoryRef,
         titleRef,
         descriptionRef,
         amountRef,
