@@ -125,7 +125,7 @@ function AdModal({ anuncios }) {
           <p>{location}</p>
         </div>
         <div className="modal-footer">
-          <ContactButtons phone={ad.phone} phone2={ad.phone2} />
+          <ContactButtons phone={ad.phone} phone2={ad.phone2} category={ad.category}/>
         </div>
       </div>
     </div>
