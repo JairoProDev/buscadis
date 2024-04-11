@@ -9,7 +9,12 @@ import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
   const {
+    category,
+    setCategory,
     categoryRef,
+    subcategory,
+    subcategoryRef,
+    setCategoryRef,
     titleRef,
     descriptionRef,
     amountRef,
@@ -42,13 +47,40 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
         <fieldset>
           <legend>!ANUNCIA EN BUSCADIS!</legend>
           <label htmlFor="category">Categoría:</label>
-          <select id="category" name="category" required ref={categoryRef} className="adForm-input">
+          <select
+            id="category"
+            name="category"
+            required
+            ref={categoryRef}
+            className="adForm-input"
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {" "}
             <option value="Empleos">Empleos</option>
             <option value="Inmuebles">Inmuebles</option>
             <option value="Autos">Autos</option>
             <option value="Servicios">Servicios</option>
             <option value="Otros">Otros</option>
           </select>
+
+          <label htmlFor="subcategory">Subcategoría:</label>
+          {category === "Inmuebles" && (
+            <select
+              id="subcategory"
+              name="subcategory"
+              required
+              ref={subcategoryRef}
+              className="adForm-input"
+            >
+              <option value="Habitaciones">Habitaciones</option>
+              <option value="Apartamentos">Apartamentos</option>
+              <option value="Minidepartamentos">Minidepartamentos</option>
+              <option value="Casas">Casas</option>
+              <option value="Terrenos">Terrenos</option>
+              <option value="Otros">Otros</option>
+            </select>
+          )}
+
           <label htmlFor="title">Título de tu aviso:</label>
           <input
             className="adForm-input"
