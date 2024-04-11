@@ -9,6 +9,16 @@ const anuncioSchema = new mongoose.Schema(
       default: "Otros",
       required: [true, "La categoría del anuncio es requerida"],
     },
+    subcategory: {
+      type: String,
+      enum: [
+        "Habitaciones",
+        "Apartamentos",
+        "Minidepartamentos",
+        "Casas",
+        "Terrenos",
+      ],
+    },
     title: {
       type: String,
       required: [true, "El título del anuncio es requerido"],
@@ -54,7 +64,7 @@ const anuncioSchema = new mongoose.Schema(
           `${props.value} Tú número de teléfono está mal!, revísalo por favor`,
       },
     },
-    
+
     images: [String],
     amount: {
       type: String,
@@ -74,7 +84,6 @@ const anuncioSchema = new mongoose.Schema(
         ref: "User",
       },
     },
-    
   },
   {
     timestamps: true,
