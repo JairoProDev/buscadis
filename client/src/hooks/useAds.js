@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 
-function useAds(page, category) {
+function useAds(page, category, subcategory) {
     const [anuncios, setAnuncios] = useState([]);
     const [error, setError] = useState(null);
     const [hasMore, setHasMore] = useState(true);
@@ -29,7 +29,7 @@ function useAds(page, category) {
         setIsLoading(true);
         setError(null);
         try {
-          const url = `/api/anuncios?page=${page}` + (category ? `&category=${category}` : '');
+          const url = `/api/anuncios?page=${page}` + (category ? `&category=${category}` : '') + (subcategory ? `&subcategory=${subcategory}` : '');
           const respuesta = await fetch(url);
           const anuncios = await respuesta.json();
           if (anuncios) {
