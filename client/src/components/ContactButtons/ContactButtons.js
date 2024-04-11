@@ -16,7 +16,7 @@ function ContactButton({ phone, type, category }) {
       message = "Buen día, encontré su anuncio en BuscAdis.com y estoy muy interesado en el empleo que ofrece. ¿Podría proporcionarme más detalles al respecto?";
       break;
     case "Inmuebles":
-      message = "Hola, vi su aviso en BuscAdis.com sobre la propiedad en venta y me interesa. ¿Podría darme más información sobre la misma?";
+      message = "Hola, vi su aviso en BuscAdis.com sobre la propiedad y me interesa. ¿Podría darme más información sobre la misma?";
       break;
     case "Servicios":
       message = "¡Hola! Vi su anuncio en BuscAdis.com y estoy interesado en los servicios que ofrece. ¿Podría proporcionarme más detalles al respecto?";
