@@ -52,7 +52,7 @@ function ContactButtons({ phone, phone2, category, url }) {
         {phone && <ContactButton phone={phone} type="call" category={category} url={url} />}
         {phone && <ContactButton phone={phone} type="whatsapp" category={category} url={url} />}
       </div>
-      <p>🌐BuscAdis🔗</p>
+      <p>BuscAdis</p>
       <div>
         {phone2 && <ContactButton phone={phone2} type="call" category={category} url={url} />}
         {phone2 && <ContactButton phone={phone2} type="whatsapp" category={category} url={url} />}
