@@ -12,7 +12,8 @@
   opacity: 0;
   transition: opacity 0.5s ease, transform 0.5s ease;
   transition: all 0.25s ease-in-out;
-  align-items: flex-start; /* Alinea el modal al inicio en lugar del centro cuando se desplaza */
+  /* Alinea el modal al inicio en lugar del centro cuando se desplaza */
+  /* align-items: flex-start;  */
   transform: translateY(
     -100px
   ); /* Desplaza el modal hacia abajo para que parezca que se desliza desde arriba */
