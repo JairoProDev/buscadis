@@ -58,6 +58,9 @@
     height: 200px !important;
   }
 
+  .modal-title {
+    font-size: 1.2rem;
+  }
   .sidebar {
     overflow: hidden;
     top: 0px;
