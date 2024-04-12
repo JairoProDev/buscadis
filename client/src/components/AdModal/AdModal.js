@@ -80,6 +80,9 @@ function AdModal({ anuncios }) {
     // Aquí es donde manejas el reporte. Por ejemplo, podrías mostrar un formulario de reporte.
     alert("Reported!");
   };
+
+  const adUrl = window.location.href;
+
   return (
     <div
       className={`modal ${isOpen ? "show" : ""}`}
@@ -125,7 +128,7 @@ function AdModal({ anuncios }) {
           <p>{location}</p>
         </div>
         <div className="modal-footer">
-          <ContactButtons phone={ad.phone} phone2={ad.phone2} category={ad.category}/>
+          <ContactButtons phone={ad.phone} phone2={ad.phone2} category={ad.category} url={adUrl} />
         </div>
       </div>
     </div>
