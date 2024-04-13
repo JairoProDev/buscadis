@@ -23,7 +23,7 @@ const anuncioSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, "El título del anuncio es requerido"],
-      unique: true,
+      unique: false,
       trim: true,
       maxlength: [
         70,
