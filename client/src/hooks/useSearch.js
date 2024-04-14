@@ -12,9 +12,14 @@ function useSearch(anuncios, filter) {
 
         if (searchTerm) {
             filtered = filtered.filter((ad) =>
-                ad.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                ad.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                ad.location?.toLowerCase().includes(searchTerm.toLowerCase())
+              ad.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              ad.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              ad.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              ad.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              ad.subcategory?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              ad.phone?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              ad.phone2?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              ad.email?.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
 
