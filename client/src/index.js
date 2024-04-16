@@ -48,3 +48,5 @@ if ("serviceWorker" in navigator) {
 
 // Llama a la función reportWebVitals, que se utiliza para medir el rendimiento de la aplicación
 reportWebVitals();
+
+// https://create-react-app.dev/docs/making-a-progressive-web-app  -  Para seguir mejorando la PWA.
