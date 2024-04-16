@@ -4,8 +4,8 @@ self.addEventListener("install", function (event) {
             return cache.addAll([
                 "/",
                 "/index.html",
-                "/static/js/main.3da71462.js",
-                "/static/css/main.42bc8682.css",
+                "/static/js/main.js",
+                "/static/css/main.css",
                 "/offline.html", // Página de error personalizada
                 // Agrega aquí todos los demás recursos que quieras almacenar en caché
             ]);
@@ -17,7 +17,7 @@ self.addEventListener("fetch", (event) => {
     if (
         event.request.method === "GET" &&
         event.request.url.startsWith("http") &&
-        !event.request.url.startsWith("chrome-extension")
+        !event.request.url.startsWith("chrome-extension") 
     ) {
         event.respondWith(
             fetch(event.request)
@@ -41,7 +41,7 @@ self.addEventListener("activate", (event) => {
                     .filter((cacheName) => {
                         // En este punto, podrías borrar las cachés antiguas.
                         // Podrías adaptar este código para borrar sólo ciertas cachés.
-                        return true;
+                        return cacheName !== "my-cache";
                     })
                     .map((cacheName) => {
                         return caches.delete(cacheName);
