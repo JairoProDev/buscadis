@@ -11,7 +11,14 @@
   "dir": "ltr",
   "scope": "/",
   "orientation": "any",
-  "prefer_related_applications": false,
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=buscadis.publicadis",
+      "id": "buscadis.publicadis"
+    }
+  ],
   "icons": [
     {
       "src": "/images/logo192.png",
