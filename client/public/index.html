@@ -1,50 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <!-- Metadatos básicos -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      📢Avisos Clasificados Cusco | Oportunidades y Negocios | Anuncios locales | Rueda de Negocios | El Negocioado
-    </title>
-    <meta
-      name="description"
-      content="Encuentra todo lo que buscas en la ciudad: Autos, Empleos, Inmuebles, Servicios y Productos."
-    />
-    <meta
-      name="keywords"
-      content="avisos, anuncios, clasificados, publicidad, productos, servicios, empleos, inmuebles, vehículos, bienes raíces, tecnología, accesorios, hogar, salud, belleza, mascotas, profesionales, clases, cursos, eventos, cocina, conducción, docencia, autos, motos, camiones, apartamentos, casas, terrenos, locales, oficinas, bodegas, almacenes, educación, ropa, servicios"
-    />
+
+    <!-- Título y descripción para SEO -->
+    <title>📢Avisos Clasificados Cusco | Oportunidades y Negocios | Anuncios locales | Rueda de Negocios | El Negocioado</title>
+    <meta name="description" content="Encuentra todo lo que buscas en la ciudad: Autos, Empleos, Inmuebles, Servicios y Productos." />
+    
+    <!-- Palabras clave para SEO -->
+    <meta name="keywords" content="avisos, anuncios, clasificados, publicidad, productos, servicios, empleos, inmuebles, vehículos, bienes raíces, tecnología, accesorios, hogar, salud, belleza, mascotas, profesionales, clases, cursos, eventos, cocina, conducción, docencia, autos, motos, camiones, apartamentos, casas, terrenos, locales, oficinas, bodegas, almacenes, educación, ropa, servicios" />
+
+    <!-- Información del autor y propietario del sitio -->
     <meta name="author" content="Jairo Saul Pro Dev" />
     <meta name="owner" content="PublicAdis" />
+
+    <!-- Metadatos para controlar el comportamiento de los motores de búsqueda y la frecuencia de rastreo -->
     <meta name="rating" content="General" />
     <meta name="revisit-after" content="1 day" />
     <meta name="language" content="Spanish" />
     <meta name="robots" content="index, follow" />
+
+    <!-- Metadatos para compartir en redes sociales -->
+    <meta property="og:title" content="📢Avisos Clasificados Cusco | Oportunidades y Negocios | Anuncios locales | Rueda de Negocios | El Negocioado" />
+    <meta property="og:description" content="Encuentra todo lo que buscas en la ciudad: Autos, Empleos, Inmuebles, Servicios y Productos." />
+    <meta property="og:image" content="https://publicadis.com/images/PublicAdis-logo.png" />
+    <meta property="og:url" content="https://publicadis.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PublicAdis" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Metadatos para mejorar la experiencia del usuario en dispositivos móviles -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="BuscAdis" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- Icono de la aplicación para dispositivos Apple -->
     <link rel="apple-touch-icon" href="./images/PublicAdis-logo.png">
+
     <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
 
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
+    <!-- Fuentes y estilos externos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Favicon -->
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+
+    <!-- Google Analytics -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-4N4QVEB03T"
@@ -57,12 +68,39 @@
       gtag("js", new Date());
       gtag("config", "G-4N4QVEB03T");
     </script>
-<!-- script para detectar adblockers-->
-<script src="/detectAdblocker.js"></script>
+
+    <!-- script para detectar adblockers-->
+    <script src="/detectAdblocker.js"></script>
+
+    <!-- script para cargar metadatos dinámicamente -->
+    <script>
+      fetch('/metadata.json')
+        .then(response => response.json())
+        .then(metadata => {
+          const head = document.getElementsByTagName('head')[0];
+    
+          metadata.forEach(meta => {
+            const metaElement = document.createElement('meta');
+    
+            if (meta.name) {
+              metaElement.name = meta.name;
+            } else if (meta.property) {
+              metaElement.setAttribute('property', meta.property);
+            }
+    
+            metaElement.content = meta.content;
+    
+            head.appendChild(metaElement);
+          });
+        });
+    </script>
   </head>
   <body>
+    <!-- Contenedor principal de la aplicación -->
     <div id="root"></div>
     <!-- <div id="modal-root"></div> -->
+
+    <!-- Mensaje para los usuarios que tienen JavaScript desactivado -->
     <noscript>Tienes que activar JavaScript para activar esta aplicación.</noscript>
   </body>
 </html>
