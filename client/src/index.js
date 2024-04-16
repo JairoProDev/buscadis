@@ -15,21 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Registra el Service Worker
-// if ("serviceWorker" in navigator) {
-//   window.addEventListener("load", function () {
-//     navigator.serviceWorker.register("/serviceWorker.js").then(
-//       function (registration) {
-//         console.log(
-//           "ServiceWorker registration successful with scope: ",
-//           registration.scope
-//         );
-//       },
-//       function (err) {
-//         console.log("ServiceWorker registration failed: ", err);
-//       }
-//     );
-//   });
-// }
+ if ("serviceWorker" in navigator) {
+   window.addEventListener("load", function () {
+     navigator.serviceWorker.register("/serviceWorker.js").then(
+       function (registration) {
+         console.log(
+           "ServiceWorker registration successful with scope: ",
+           registration.scope
+         );
+       },
+       function (err) {
+         console.log("ServiceWorker registration failed: ", err);
+       }
+     );
+   });
+ }
 
 // Si quieres empezar a medir el rendimiento en tu aplicación, pasa una función
 // para registrar los resultados (por ejemplo: reportWebVitals(console.log))
