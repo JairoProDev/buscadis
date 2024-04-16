@@ -11,14 +11,20 @@ const anuncioSchema = new mongoose.Schema(
     },
     subcategory: {
       type: String,
-      enum: [
-        "Habitaciones",
-        "Apartamentos",
-        "Minidepartamentos",
-        "Casas",
-        "Terrenos",
-        "Otros",
-      ],
+      validate: {
+        validator: function(v) {
+          const validSubcategories = {
+            Empleos: ["Tiempo completo", "Medio tiempo", "Por horas", "Prácticas"],
+            Inmuebles: ["Alquiler", "Anticresis", "Venta", "Traspasos", "Habitaciones", "Apartamentos", "Minidepartamentos", "Casas", "Terrenos"],
+            Servicios: ["Técnicos", "Domésticos", "Eventos", "Salud", "Educación"],
+            Autos: ["Autos", "Camionetas", "Motos", "Maquinaria"],
+            Otros: ["Otros"],
+          };
+          return validSubcategories[this.category].includes(v);
+        },
+        message: props => `${props.value} no es una subcategoría válida para la categoría ${props.category}`
+      },
+      // required: [true, "La subcategoría del anuncio es requerida"],
     },
     title: {
       type: String,
