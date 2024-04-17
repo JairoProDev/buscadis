@@ -1,6 +1,8 @@
 // AdModal.js
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import useAdNavigation from "../../hooks/useAdNavigation";
+
 
 import ContactButtons from "../ContactButtons/ContactButtons";
 import "./adModal.css";
@@ -47,6 +49,8 @@ function AdModal({ anuncios }) {
     };
   }, [handleClickOutside]); // Dependencias vacías para que se ejecute solo una vez
 
+  useAdNavigation(anuncios); // Llama a la función useAdNavigation
+  
   if (!ad) return null;
 
   const { category, title, description, amount, location, email, createdAt } =
