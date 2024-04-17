@@ -36,9 +36,12 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
       <div className="header-top">
         <Logo />
         <NavList setFilter={setFilter} />
-        <div className="visitor-count">
-          <p>Visitantes: {visitorCount}</p>
-          <p>Anunciantes: {adCount}</p>
+        {/* <button className="toggle-sidebar" onClick={toggleSidebar}>
+          <span className="icon">📖</span>
+        </button> */}
+        <div className="counters">
+          <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitantes:</span> <span className="number">{visitorCount}</span></p>
+          <p className="advertisers"><span className="icon">📢</span> <span className="text">Anunciantes:</span> <span className="number">{adCount}</span></p>
         </div>
 
 
