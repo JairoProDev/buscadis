@@ -15,7 +15,7 @@ function AuthForm({ onClose }) {
         </div>
       ) : (
         <div className="form-wrapper auth-form auth-signup">
-          <RegisterForm onClose={onClose} />
+          <RegisterForm onClose={onClose} />  
         </div>
       )}
       <p>

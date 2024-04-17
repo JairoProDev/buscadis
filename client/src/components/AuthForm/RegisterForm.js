@@ -132,7 +132,7 @@ function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [error, setError] = useState(null);
-  const [setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -146,8 +146,10 @@ function RegisterForm() {
       password,
     });
 
+    const API_URL = process.env.REACT_APP_API_URL;
+
     try {
-      const response = await fetch("http://localhost:3000/api/auth/register", {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
