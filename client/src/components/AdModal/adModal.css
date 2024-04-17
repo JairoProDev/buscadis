@@ -188,11 +188,7 @@ span {
 }
 
 /* adModal.css */
-<<<<<<< HEAD
 /* .modal-content.transition-right {
-=======
-.modal-content.transition-right {
->>>>>>> c66ce461a26fc258ef746ea56d33a6a594b29226
   animation: slideRight 0.5s forwards;
 }
 
@@ -215,9 +211,4 @@ span {
   }
   100% {
     transform: translateX(0);
-  }
-<<<<<<< HEAD
-} */
-=======
-}
->>>>>>> c66ce461a26fc258ef746ea56d33a6a594b29226
+  } */
