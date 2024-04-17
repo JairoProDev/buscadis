@@ -55,3 +55,20 @@
   border-radius: 50%;
 }
 
+.counters {
+  margin-top: 6px;
+}
+/* header.css */
+@media (max-width: 600px) {
+  .visitors .text, .advertisers .text {
+    display: none;
+  }
+}
+
+.visitors {
+  color: #007BFF;
+}
+
+.advertisers {
+  color: #28A745;
+}
