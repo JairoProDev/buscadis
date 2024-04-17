@@ -80,3 +80,10 @@
   display: flex;
   opacity: 1; /* Hace que el menú aparezca gradualmente */
 }
+
+@media (max-width: 600px) {
+  .header-right .menu-item {
+    padding: 0 6px;
+  }
+
+}

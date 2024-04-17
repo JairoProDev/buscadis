@@ -13,10 +13,6 @@
     font-size: 1.2rem;
   }
 
-  .header-top {
-    flex-direction: row;
-    justify-content: start;
-  }
 
   #search-bar {
     margin-left: 35px !important;
