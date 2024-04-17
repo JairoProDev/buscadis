@@ -19,6 +19,8 @@ const cors = require("cors");
 const imageRoutes = require("./routes/imageRoutes");
 const authRoutes = require('./routes/authRoutes');
 const expressJwt = require('express-jwt');
+const VisitorCount = require('./models/VisitorCount');
+const adModel = require('./models/adModel');
 console.log(expressJwt);
 // const authenticateToken = require('./middlewares/authenticateToken');
 // Inicializar la aplicación
@@ -77,6 +79,32 @@ connectToDb();
 app.use("/api", adRoutes);
 app.use('/api/auth', authRoutes);
 
+// Contador de visitas
+app.get('/visitorCount', async (req, res) => {
+  try {
+    let visitorCount = await VisitorCount.findOne();
+    if (!visitorCount) {
+      visitorCount = new VisitorCount();
+    }
+    visitorCount.count++;
+    await visitorCount.save();
+    res.json({ visitorCount: visitorCount.count });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+// Contador de Avisos
+app.get('/adCount', async (req, res) => {
+  try {
+    const adCount = await adModel.countDocuments();
+    res.json({ adCount });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
 
 // Usar middleware para servir archivos estáticos
 app.use(express.static(path.resolve(__dirname, "../client/build")));
