@@ -2,10 +2,9 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAdNavigation from "../../hooks/useAdNavigation";
-
+import "./adModal.css";
 
 import ContactButtons from "../ContactButtons/ContactButtons";
-import "./adModal.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,50 +14,54 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function AdModal({ anuncios }) {
-  // Asegúrate de pasar 'anuncios' como prop
   const { id } = useParams();
-  const navigate = useNavigate(); // Obtén la función navigate
+  const navigate = useNavigate();
   const modalRef = useRef();
 
-  const ad = anuncios ? anuncios.find((anuncio) => anuncio._id === id) : null;
-  const [isOpen, setIsOpen] = useState(false);
+  const adIndex = anuncios.findIndex((anuncio) => anuncio._id === id);
+  const [prevAdIndex, setPrevAdIndex] = useState(adIndex);
 
+  useEffect(() => {
+    if (adIndex !== prevAdIndex) {
+      setPrevAdIndex(adIndex);
+    }
+  }, [adIndex, prevAdIndex]);
+
+  const isForwardNavigation = adIndex > prevAdIndex;
+
+  const ad = anuncios[adIndex];
+  const [isOpen, setIsOpen] = useState(false);
+  
   useEffect(() => {
     setIsOpen(!!ad);
   }, [ad]);
 
   const handleClose = useCallback(() => {
-    navigate("/"); // Navega a la página principal
-  }, [navigate]); // Añade las dependencias necesarias aquí
-  
+    navigate("/");
+  }, [navigate]);
 
   const handleClickOutside = useCallback((event) => {
     if (event.target === modalRef.current) {
       handleClose();
     }
-  }, [handleClose]); // Añade las dependencias necesarias aquí
-  
+  }, [handleClose]);
 
   useEffect(() => {
-    // Agrega el manejador de eventos al documento
     document.addEventListener("mousedown", handleClickOutside);
-
-    // Limpia el manejador de eventos cuando el componente se desmonta
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [handleClickOutside]); // Dependencias vacías para que se ejecute solo una vez
+  }, [handleClickOutside]);
 
-  useAdNavigation(anuncios); // Llama a la función useAdNavigation
-  
+  useAdNavigation(anuncios);
+
   if (!ad) return null;
 
-  const { category, title, description, amount, location, email, createdAt } =
-    ad;
+  const { category, title, description, amount, location, email, createdAt } = ad;
 
   const date = new Date(createdAt);
   const day = date.getDate().toString().padStart(2, "0");
-  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Los meses en JavaScript comienzan desde 0
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const year = date.getFullYear().toString().slice(2);
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
@@ -81,11 +84,12 @@ function AdModal({ anuncios }) {
   };
 
   const handleReport = () => {
-    // Aquí es donde manejas el reporte. Por ejemplo, podrías mostrar un formulario de reporte.
     alert("Reported!");
   };
 
   const adUrl = window.location.href;
+
+  const modalClass = `modal-content ${category.toLowerCase()} ${isForwardNavigation ? 'transition-right' : 'transition-left'}`;
 
   return (
     <div
@@ -94,7 +98,7 @@ function AdModal({ anuncios }) {
       ref={modalRef}
     >
       <div
-        className={`modal-content ${category.toLowerCase()}`}
+        className={modalClass}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-header">
@@ -102,7 +106,7 @@ function AdModal({ anuncios }) {
             <p className="ad-card__date">{formattedDate.split(" a las ")[0]}</p>
             <p className="ad-card__time">
               a las {formattedDate.split(" a las ")[1]}
-            </p>{" "}
+            </p>
           </div>
           <div className="modal-header-center">
             <p>{category}</p>
@@ -117,7 +121,6 @@ function AdModal({ anuncios }) {
             <button onClick={handleReport}>
               <FontAwesomeIcon icon={faFlag} color="red" />
             </button>
-            {/* <button onClick={handleClose}>X</button> */}
           </div>
         </div>
         <h2 className="modal-title">{title}</h2>
