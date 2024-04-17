@@ -1,5 +1,5 @@
 // Header.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
 import logo from "../../images/logo.ico";
@@ -13,11 +13,35 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
 
   const showForm = () => setIsFormVisible(true);
 
+  const [ visitorCount, setVisitorCount] = useState(0);
+
+  const [adCount, setAdCount] = useState(0);
+
+  useEffect(() => {
+    fetch('/visitorCount')
+      .then(response => response.json())
+      .then(data => setVisitorCount(data.visitorCount))
+      .catch(error => console.error('Error:', error));
+  }, []);
+
+  useEffect(() => {
+    fetch('/adCount')
+      .then(response => response.json())
+      .then(data => setAdCount(data.adCount))
+      .catch(error => console.error('Error:', error));
+  }, []);
+
   return (
     <header className={`header ${isHidden ? "header-hidden" : ""}`}>
       <div className="header-top">
         <Logo />
         <NavList setFilter={setFilter} />
+        <div className="visitor-count">
+          <p>Visitantes: {visitorCount}</p>
+          <p>Anunciantes: {adCount}</p>
+        </div>
+
+
         <UserMenu
           openLoginForm={openLoginForm}
           openRegisterForm={openRegisterForm}
