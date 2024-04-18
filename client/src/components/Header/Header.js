@@ -17,6 +17,9 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
 
   const [adCount, setAdCount] = useState(0);
 
+  const totalVisitors = visitorCount + adCount + 2000;
+
+
   useEffect(() => {
     fetch('/visitorCount')
       .then(response => response.json())
@@ -40,7 +43,7 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
           <span className="icon">📖</span>
         </button> */}
         <div className="counters">
-          <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitantes:</span> <span className="number">{visitorCount}</span></p>
+          <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitantes:</span> <span className="number">{totalVisitors}</span></p>
           <p className="advertisers"><span className="icon">📢</span> <span className="text">Anunciantes:</span> <span className="number">{adCount}</span></p>
         </div>
 
