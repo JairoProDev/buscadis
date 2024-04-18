@@ -34,7 +34,7 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
   return (
     <header className={`header ${isHidden ? "header-hidden" : ""}`}>
       <div className="header-top">
-        <Logo />
+      <Logo text="BuscAdis" />
         <NavList setFilter={setFilter} />
         {/* <button className="toggle-sidebar" onClick={toggleSidebar}>
           <span className="icon">📖</span>
@@ -44,22 +44,23 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
           <p className="advertisers"><span className="icon">📢</span> <span className="text">Anunciantes:</span> <span className="number">{adCount}</span></p>
         </div>
 
+        <Logo text="PublicAdis " />
 
-        <UserMenu
+        {/* <UserMenu
           openLoginForm={openLoginForm}
           openRegisterForm={openRegisterForm}
           toggleForm={showForm}
-        />
+        /> */}
       </div>
     </header>
   );
 }
 
-function Logo({ setFilter }) {
+function Logo({ text, setFilter }) {
   return (
     <Link to="/" className="header-left" onClick={() => setFilter(null)}>
       <img src={logo} alt="Logo" className="logo" />
-      <h1 className="header-title">PublicAdis</h1>
+      <h1 className="header-title">{text}</h1>
     </Link>
   );
 }
