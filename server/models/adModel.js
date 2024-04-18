@@ -14,10 +14,10 @@ const anuncioSchema = new mongoose.Schema(
       validate: {
         validator: function(v) {
           const validSubcategories = {
-            Empleos: ["Tiempo completo", "Medio tiempo", "Por horas", "Prácticas"],
+            Empleos: ["Tiempo completo", "Medio tiempo", "Por horas", "Prácticas", "Otros"],
             Inmuebles: ["Alquiler", "Anticresis", "Venta", "Traspasos", "Habitaciones", "Apartamentos", "Minidepartamentos", "Casas", "Terrenos"],
-            Servicios: ["Técnicos", "Domésticos", "Eventos", "Salud", "Educación"],
-            Autos: ["Autos", "Camionetas", "Motos", "Maquinaria"],
+            Servicios: ["Técnicos", "Domésticos", "Eventos", "Salud", "Educación", "Otros"],
+            Autos: ["Autos", "Camionetas", "Motos", "Maquinaria", "Otros"],
             Otros: ["Otros"],
           };
           return validSubcategories[this.category].includes(v);
