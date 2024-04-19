@@ -32,8 +32,8 @@ const anuncioSchema = new mongoose.Schema(
       unique: false,
       trim: true,
       maxlength: [
-        70,
-        "El título del anuncio no puede tener más de 70 caracteres",
+        80,
+        "El título del anuncio no puede tener más de 80 caracteres",
       ],
     },
     description: {
