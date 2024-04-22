@@ -60,9 +60,9 @@
 }
 /* header.css */
 @media (max-width: 600px) {
-  .visitors .text, .advertisers .text {
+  /* .visitors .text, .advertisers .text {
     display: none;
-  }
+  } */
   .hidden {
     display: none;
   }
