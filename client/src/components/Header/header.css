@@ -63,6 +63,9 @@
   .visitors .text, .advertisers .text {
     display: none;
   }
+  .hidden {
+    display: none;
+  }
 }
 
 .visitors {

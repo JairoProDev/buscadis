@@ -46,8 +46,9 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
           <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitantes:</span> <span className="number">{totalVisitors}</span></p>
           <p className="advertisers"><span className="icon">📢</span> <span className="text">Anunciantes:</span> <span className="number">{adCount}</span></p>
         </div>
-
+        <div className="hidden">
         <Logo text="PublicAdis " />
+        </div>
 
         {/* <UserMenu
           openLoginForm={openLoginForm}
