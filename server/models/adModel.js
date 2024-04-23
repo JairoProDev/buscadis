@@ -5,26 +5,13 @@ const anuncioSchema = new mongoose.Schema(
   {
     category: {
       type: String,
-      enum: ["Empleos", "Inmuebles", "Servicios", "Autos", "Otros"],
+      enum: ["Vehículos", "Empleos", "Inmuebles", "Servicios", "Eventos", "Educación", "Turismo", "Productos", "Negocios", "Otros"],
       default: "Otros",
       required: [true, "La categoría del anuncio es requerida"],
     },
     subcategory: {
       type: String,
-      validate: {
-        validator: function(v) {
-          const validSubcategories = {
-            Empleos: ["Tiempo completo", "Medio tiempo", "Por horas", "Prácticas", "Otros"],
-            Inmuebles: ["Alquiler", "Anticresis", "Venta", "Traspasos", "Habitaciones", "Apartamentos", "Minidepartamentos", "Departamentos", "Casas", "Terrenos"],
-            Servicios: ["Técnicos", "Domésticos", "Eventos", "Salud", "Educación", "Otros"],
-            Autos: ["Autos", "Camionetas", "Motos", "Maquinaria", "Otros"],
-            Otros: ["Otros"],
-          };
-          return validSubcategories[this.category].includes(v);
-        },
-        message: props => `${props.value} no es una subcategoría válida para la categoría ${props.category}`
-      },
-      // required: [true, "La subcategoría del anuncio es requerida"],
+      required: [true, "La subcategoría del anuncio es requerida"],
     },
     title: {
       type: String,
@@ -38,7 +25,7 @@ const anuncioSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: [true, "La descripción del anuncio es requerida"],
+      required: [true, "Por favor, proporciona una descripción para tu anuncio"],
       trim: true,
       maxlength: [
         500,
@@ -96,5 +83,16 @@ const anuncioSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+const validSubcategories = require("./validSubcategories");
+
+
+anuncioSchema.pre("save", function (next) {
+  if (!validSubcategories[this.category].includes(this.subcategory)) {
+    next(new Error(`La subcategoría "${this.subcategory}" es inválida para la categoría "${this.category}". Por favor, proporciona una subcategoría válida.`));
+  } else {
+    next();
+  }
+});
 
 module.exports = mongoose.model("Anuncio", anuncioSchema);
