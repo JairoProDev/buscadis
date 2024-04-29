@@ -26,24 +26,25 @@ function useAds(page, category, subcategory) {
     }, [page]);
 
     const getAds = useCallback(async () => {
-        setIsLoading(true);
-        setError(null);
-        try {
-          const url = `/api/anuncios?page=${page}` + (category ? `&category=${category}` : '') + (subcategory ? `&subcategory=${subcategory}` : '');
-          const respuesta = await fetch(url);
-          const anuncios = await respuesta.json();
-          if (anuncios) {
-            showAds(anuncios);
-          } else {
-            console.error('anuncios is null or undefined:', anuncios);
-            setError('Error: Data received is null or undefined');
-          }
-        } catch (error) {
-          console.error('Error al obtener los anuncios:', error);
-          setError('Error al obtener los anuncios');
+    setIsLoading(true);
+    setError(null);
+    try {
+        const url = `/api/anuncios?page=${page}` + (category ? `&category=${category}` : '') + (subcategory ? `&subcategory=${subcategory}` : '');
+        const respuesta = await fetch(url);
+        const data = await respuesta.json();
+        if (data && data.anuncios) {
+        showAds(data.anuncios);
+        setHasMore(data.hasMore);
+        } else {
+        console.error('anuncios is null or undefined:', data);
+        setError('Error: Data received is null or undefined');
         }
-        setIsLoading(false);
-      }, [showAds, page, category]);
+    } catch (error) {
+        console.error('Error al obtener los anuncios:', error);
+        setError('Error al obtener los anuncios');
+    }
+    setIsLoading(false);
+    }, [showAds, page, category]);
 
     useEffect(() => {
         if (page > lastPageLoaded && hasMore && !isLoading) {
