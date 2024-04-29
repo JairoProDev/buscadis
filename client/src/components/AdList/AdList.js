@@ -25,7 +25,7 @@ function AdList({ setSelectedAd }) {
   }, [hasMore]);
 
   useEffect(() => {
-  fetch(`/api/anuncios?page=${page}&limit=20`)
+  fetch(`/api/anuncios?page=${page}&limit=30`)
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
