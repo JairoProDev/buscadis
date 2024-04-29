@@ -1,19 +1,57 @@
 // AdList.js
-import React from "react";
+import React, { useState, useEffect, useRef } from 'react'; // Asegúrate de importar useState, useEffect y useRef
 import AdCard from "../AdCard/AdCard";
 import "./adList.css";
-import { Link } from "react-router-dom"; // Importa Link de react-router-dom
+import { Link } from "react-router-dom";
 
-function AdList({ anuncios, setSelectedAd }) {
-  console.log(anuncios);
+function AdList({ setSelectedAd }) { 
+  const [anuncios, setAnuncios] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const lastAdElementRef = useRef(null);
+
+  useEffect(() => {
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && hasMore) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  }, { threshold: 1 });
+
+  if (lastAdElementRef.current) {
+    observer.observe(lastAdElementRef.current);
+  }
+
+  return () => observer.disconnect();
+  }, [hasMore]);
+
+  useEffect(() => {
+  fetch(`/api/anuncios?page=${page}&limit=20`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      setAnuncios((prevAds) => {
+        const newAds = data.anuncios.filter(
+          (ad) => !prevAds.find((prevAd) => prevAd._id === ad._id)
+        );
+        return [...prevAds, ...newAds];
+      });
+      setHasMore(data.hasMore);
+      console.log('hasMore:', data.hasMore); // Agrega esta línea
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
+}, [page]);
 
   return (
     <div className="ad-container">
       <ul id="ad-list" style={{ listStyleType: "none" }}>
-        {" "}
-        {/* Agrega listStyleType: 'none' para eliminar los puntos de la lista */}
-        {anuncios.map((anuncio, index) => (
-          <li key={anuncio._id}>
+        {anuncios.map((anuncio, index, arr) => (
+          <li key={anuncio._id} ref={index === arr.length - 1 ? lastAdElementRef : null}>
             <Link
               to={`/anuncio/${anuncio._id}`}
               style={{
@@ -23,8 +61,6 @@ function AdList({ anuncios, setSelectedAd }) {
                 maxWidth: "calc(20% - 10px)",
               }}
             >
-              {" "}
-              {/* Aplica los estilos de Flexbox al componente Link */}
               <AdCard
                 anuncio={anuncio}
                 number={index + 1}
