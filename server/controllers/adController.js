@@ -40,19 +40,22 @@ const createAd = async (req, res) => {
 
 const getAds = async (req, res) => {
   try {
-    const anuncios = await Ad.find()
-    // console.log(anuncios);
-    // const page = parseInt(req.query.page) || 1;
-    // const limit = parseInt(req.query.limit) || 200;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
 
-    //   .skip((page - 1) * limit)
-    //   .limit(limit);
+    const anuncios = await Ad.find()
+      .sort('-createdAt') // Ordena los anuncios por la fecha de creación en orden descendente
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    const totalAds = await Ad.countDocuments();
+    const hasMore = (page - 1) * limit + anuncios.length < totalAds;
 
     if (!anuncios || anuncios.length === 0) {
-      return res.status(200).json([]);
+      return res.status(200).json({ anuncios: [], hasMore: false });
     }
 
-    res.status(200).json(anuncios);
+    res.status(200).json({ anuncios, hasMore });
   } catch (error) {
     console.error("Error al obtener los anuncios:", error);
     res.status(500).json({ error: "Error interno al obtener los anuncios" });
