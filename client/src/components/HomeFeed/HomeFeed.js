@@ -1,38 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AdList from "../AdList/AdList";
 
-function HomeFeed({ anuncios }) {
+function HomeFeed() {
+  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+  const [ads, setAds] = useState([]);
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    setSelectedSubcategory(null);
-  };
+  useEffect(() => {
+    // Aquí deberías hacer la solicitud a la API para obtener las categorías
+    // Por ahora, solo estableceremos algunas categorías de ejemplo
+    setCategories([
+      {
+        title: "Empleos",
+        subcategories: ["Cocina", "Docencia" /* ... */],
+      },
+      // Más categorías aquí...
+    ]);
+  }, []);
 
-  const handleSubcategoryClick = (subcategory) => {
-    setSelectedSubcategory(subcategory);
-  };
-
-  const filteredAds = anuncios.filter(
-    (ad) =>
-      ad.category === selectedCategory && ad.subcategory === selectedSubcategory
-  );
+  useEffect(() => {
+    if (selectedCategory && selectedSubcategory) {
+      // Aquí deberías hacer la solicitud a la API para obtener los anuncios
+      // que corresponden a la categoría y subcategoría seleccionadas
+      // Por ahora, solo estableceremos algunos anuncios de ejemplo
+      setAds([
+        {
+          id: 1,
+          title: "Anuncio 1",
+          category: selectedCategory,
+          subcategory: selectedSubcategory,
+        },
+        // Más anuncios aquí...
+      ]);
+    }
+  }, [selectedCategory, selectedSubcategory]);
 
   return (
     <div>
       {selectedCategory && selectedSubcategory ? (
-        <AdList anuncios={filteredAds} />
+        <AdList anuncios={ads} />
       ) : (
-        <div>
+        categories.map((category) => (
           <Category
-            title="Empleos"
-            subcategories={["Cocina", "Docencia" /* ... */]}
-            onCategoryClick={handleCategoryClick}
-            onSubcategoryClick={handleSubcategoryClick}
+            key={category.title}
+            title={category.title}
+            subcategories={category.subcategories}
+            onCategoryClick={setSelectedCategory}
+            onSubcategoryClick={setSelectedSubcategory}
           />
-          {/* Más categorías aquí... */}
-        </div>
+        ))
       )}
     </div>
   );
@@ -49,7 +66,7 @@ function Category({
       <h2 onClick={() => onCategoryClick(title)}>{title}</h2>
       <div style={{ display: "flex", overflowX: "scroll" }}>
         {subcategories.map((subcategory) => (
-          <div onClick={() => onSubcategoryClick(subcategory)}>
+          <div key={subcategory} onClick={() => onSubcategoryClick(subcategory)}>
             {subcategory}
           </div>
         ))}
