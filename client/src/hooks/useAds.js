@@ -1,65 +1,59 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 
-function useAds(page, category, subcategory) {
+function useAds(category, subcategory) {
     const [anuncios, setAnuncios] = useState([]);
     const [error, setError] = useState(null);
-    const [hasMore, setHasMore] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
-    const [lastPageLoaded, setLastPageLoaded] = useState(0);
 
     const reversedAnuncios = useMemo(() => [...anuncios].reverse(), [anuncios]);
 
-    const showAds = useCallback((anunciosData) => {
-        if (Array.isArray(anunciosData)) {
-            setAnuncios((oldAnuncios) => {
-                const newAnuncios = anunciosData.filter(
-                    (anuncio) => !oldAnuncios.find((a) => a.id === anuncio.id)
-                );
-                return [...oldAnuncios, ...newAnuncios];
-            });
-            setHasMore(anunciosData.length > 0);
-            setLastPageLoaded(page);
-        } else {
-            console.error("anunciosData is not an array:", anunciosData);
-            setError("Error: Data received is not an array");
-        }
-    }, [page]);
+const showAds = useCallback((anunciosData) => {
+    if (Array.isArray(anunciosData)) {
+        setAnuncios((oldAnuncios) => {
+            const newAnuncios = anunciosData
+                .sort((a, b) => new Date(b.date) - new Date(a.date)) // Ordena los anuncios por fecha
+                .slice(0, 100)
+                .filter((anuncio) => !oldAnuncios.find((a) => a.id === anuncio.id));
+            return [...newAnuncios];
+        });
+    } else {
+        console.error("anunciosData is not an array:", anunciosData);
+        setError("Error: Data received is not an array");
+    }
+}, []);
 
     const getAds = useCallback(async () => {
         setIsLoading(true);
         setError(null);
         try {
-          const url = `/api/anuncios?page=${page}` + (category ? `&category=${category}` : '') + (subcategory ? `&subcategory=${subcategory}` : '');
-          const respuesta = await fetch(url);
-          const anuncios = await respuesta.json();
-          if (anuncios) {
-            showAds(anuncios);
-          } else {
-            console.error('anuncios is null or undefined:', anuncios);
-            setError('Error: Data received is null or undefined');
-          }
+            const url = `/api/anuncios?limit=100` + (category ? `&category=${category}` : '') + (subcategory ? `&subcategory=${subcategory}` : '');
+            const respuesta = await fetch(url);
+            const anuncios = await respuesta.json();
+            if (anuncios) {
+                showAds(anuncios);
+            } else {
+                console.error('anuncios is null or undefined:', anuncios);
+                setError('Error: Data received is null or undefined');
+            }
         } catch (error) {
-          console.error('Error al obtener los anuncios:', error);
-          setError('Error al obtener los anuncios');
+            console.error('Error al obtener los anuncios:', error);
+            setError('Error al obtener los anuncios');
         }
         setIsLoading(false);
-      }, [showAds, page, category]);
+    }, [showAds, category, subcategory]);
 
     useEffect(() => {
-        if (page > lastPageLoaded && hasMore && !isLoading) {
-            getAds();
-        }
-    }, [getAds, page, lastPageLoaded, hasMore, isLoading]);
+        getAds();
+    }, [getAds]);
 
     const agregarAnuncioAlPrincipio = (anuncio) => {
-        setAnuncios((prevAnuncios) => [...prevAnuncios, anuncio]);
+        setAnuncios((prevAnuncios) => [anuncio, ...prevAnuncios.slice(0, 99)]);
     };
 
     return {
         anuncios: reversedAnuncios,
         agregarAnuncioAlPrincipio,
         error,
-        hasMore,
         isLoading,
     };
 }
