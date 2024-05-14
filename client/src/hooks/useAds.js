@@ -1,26 +1,18 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 function useAds(category, subcategory) {
     const [anuncios, setAnuncios] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const reversedAnuncios = useMemo(() => [...anuncios].reverse(), [anuncios]);
-
-const showAds = useCallback((anunciosData) => {
-    if (Array.isArray(anunciosData)) {
-        setAnuncios((oldAnuncios) => {
-            const newAnuncios = anunciosData
-                .sort((a, b) => new Date(b.date) - new Date(a.date)) // Ordena los anuncios por fecha
-                .slice(0, 100)
-                .filter((anuncio) => !oldAnuncios.find((a) => a.id === anuncio.id));
-            return [...newAnuncios];
-        });
-    } else {
-        console.error("anunciosData is not an array:", anunciosData);
-        setError("Error: Data received is not an array");
-    }
-}, []);
+    const showAds = useCallback((anunciosData) => {
+        if (Array.isArray(anunciosData)) {
+            setAnuncios(anunciosData);
+        } else {
+            console.error("anunciosData is not an array:", anunciosData);
+            setError("Error: Data received is not an array");
+        }
+    }, []);
 
     const getAds = useCallback(async () => {
         setIsLoading(true);
@@ -51,7 +43,7 @@ const showAds = useCallback((anunciosData) => {
     };
 
     return {
-        anuncios: reversedAnuncios,
+        anuncios,
         agregarAnuncioAlPrincipio,
         error,
         isLoading,

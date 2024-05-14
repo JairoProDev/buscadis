@@ -41,12 +41,9 @@ const createAd = async (req, res) => {
 const getAds = async (req, res) => {
   try {
     const anuncios = await Ad.find()
-    // console.log(anuncios);
-    // const page = parseInt(req.query.page) || 1;
-    // const limit = parseInt(req.query.limit) || 200;
-
-    //   .skip((page - 1) * limit)
-    //   .limit(limit);
+      .sort({ createdAt: -1 }) // Ordena los anuncios por fecha de creación de más reciente a más antiguo
+      .limit(100) // Limita los resultados a los primeros 100
+      .exec();
 
     if (!anuncios || anuncios.length === 0) {
       return res.status(200).json([]);
