@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import "./header.css";
 import logo from "../../images/logo.ico";
 import useScroll from "../../hooks/useScroll";
-import NavList from "../NavList/NavList";
 import UserMenu from "../UserMenu/UserMenu";
+import SearchBar from "../SearchBar/SearchBar"; // Importa el componente SearchBar
 
-function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
+
+function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, updateSearchTerm }) {
   const isHidden = useScroll();
   const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -38,7 +39,7 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
     <header className={`header ${isHidden ? "header-hidden" : ""}`}>
       <div className="header-top">
       <Logo text="BuscAdis" />
-        <NavList setFilter={setFilter} />
+      <SearchBar updateSearchTerm={updateSearchTerm} />
         {/* <button className="toggle-sidebar" onClick={toggleSidebar}>
           <span className="icon">📖</span>
         </button> */}
@@ -47,7 +48,7 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm }) {
           <p className="advertisers"><span className="icon">📢</span> <span className="text">Anunciantes:</span> <span className="number">{adCount}</span></p>
         </div>
 
-        <Logo text="PublicAdis " />
+        {/* <Logo text="PublicAdis " /> */}
 
         {/* <UserMenu
           openLoginForm={openLoginForm}
