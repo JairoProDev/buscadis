@@ -2,13 +2,13 @@
 import React from "react";
 import AdCard from "../AdCard/AdCard";
 import "./adList.css";
-import { Link } from "react-router-dom"; // Importa Link de react-router-dom
+import { Link } from "react-router-dom";
 
 function AdList({ anuncios, setSelectedAd }) {
   console.log(anuncios);
 
   return (
-    <div className="ad-container">
+    <div className="ads-container">
       <ul id="ad-list" style={{ listStyleType: "none" }}>
         {" "}
         {/* Agrega listStyleType: 'none' para eliminar los puntos de la lista */}
