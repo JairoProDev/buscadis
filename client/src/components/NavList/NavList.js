@@ -11,13 +11,13 @@ function NavList({ setFilter, toggleForm }) {
           icon="work"
           link="/Empleos"
           label="Empleos"
-          setFilter={setFilter}
+          onClick={() => setFilter("Empleos")}
         />
         <NavItem
           icon="house"
           link="/Inmuebles"
           label="Inmuebles"
-          setFilter={setFilter}
+          onClick={() => setFilter("Inmuebles")}
         />
 
         <NavItem icon="campaign" onClick={toggleForm} label="Anunciar" />
@@ -26,24 +26,27 @@ function NavList({ setFilter, toggleForm }) {
           icon="directions_car"
           link="/Autos"
           label="Autos"
-          setFilter={setFilter}
+          onClick={() => setFilter("Autos")}
         />
         <NavItem
           icon="engineering"
           link="/Servicios"
           label="Servicios"
-          setFilter={setFilter}
+          onClick={() => setFilter("Servicios")}
         />
       </ul>
     </nav>
   );
 }
 
-function NavItem({ icon, link, label, setFilter, onClick }) {
+function NavItem({ icon, link, label, onClick }) {
   return (
     <li
       className="nav-item"
-      onClick={onClick || (setFilter ? () => setFilter(label) : undefined)}
+      onClick={(event) => {
+        event.stopPropagation();
+        onClick();
+      }}  
     >
       <span className="material-symbols-outlined">{icon}</span>
       <Link to={link}>{label}</Link>
