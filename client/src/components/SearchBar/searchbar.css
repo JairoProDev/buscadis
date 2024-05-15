@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: 80%; /* Reduce el ancho para darle más prominencia */
+  width: 70%; /* Reduce el ancho para darle más prominencia */
   max-width: 600px; /* Limita el ancho máximo para mantener la legibilidad en pantallas grandes */
   margin: 0 auto; /* Centra la barra de búsqueda */
   height: 50px; /* Aumenta la altura para hacerla más prominente */
@@ -14,7 +14,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), 0 10px 20px rgba(0, 0, 0, 0.1); /* Añade una sombra para darle más profundidad */
   transition: box-shadow 0.3s ease, transform 0.3s ease; /* Añade una transición al transform */
-  margin-top: 35px;
+  margin-top: 0px;
 }
 
 .search-bar:hover {

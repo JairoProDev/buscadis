@@ -13,10 +13,6 @@
     font-size: 1.2rem;
   }
 
-
-  #search-bar {
-    margin-left: 35px !important;
-  }
   .nav {
     position: fixed;
     bottom: 0;
@@ -38,7 +34,7 @@
     right: 1px !important;
     margin: 0px;
   }
-  .ad-container {
+  .ads-container {
     padding-top: 0;
   }
 
@@ -74,7 +70,7 @@
   button.form-close-button {
     display: block;
   }
-  .ad-container {
+  .ads-container {
     padding-left: 36px !important;
     padding-right: 5px !important;
   }
@@ -104,9 +100,5 @@
     display: flex;
   }
 
-  .search-bar {
-    width: 100% !important;
-    margin-bottom: 0 !important;
-    margin-top: 5px !important;
-  }
+
 }
