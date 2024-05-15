@@ -73,6 +73,7 @@ function MainComponent() {
           toggleSidebar={toggleSidebar}
           openLoginForm={openLoginForm}
           openRegisterForm={openRegisterForm}
+          updateSearchTerm={updateSearchTerm}
         />
         {showLoginForm && (
           <Modal onClose={closeLoginForm}>
@@ -87,7 +88,9 @@ function MainComponent() {
         <div className="container">
           <Sidebar isOpen={isSidebarOpen} />
           <div className="portal">
-            <SearchBar updateSearchTerm={updateSearchTerm} />
+          <NavList setFilter={setFilter} />
+
+            {/* <SearchBar updateSearchTerm={updateSearchTerm} /> */}
             <AdList anuncios={filteredAds} setSelectedAd={setSelectedAd} />
             {error && <div className="error">{error}</div>}
             {isLoading && (
