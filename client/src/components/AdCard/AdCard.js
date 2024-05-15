@@ -4,9 +4,11 @@ import "./adCard.css";
 function AdCard({ anuncio, setSelectedAd, number }) {
   // console.log('AdCard anuncio:', anuncio)
 
+  const sizeClass = `ad-size-${anuncio.size || 'normal'}`;
+
   const { category, subcategory, title, description, amount, location, createdAt } = anuncio;
 
-  const adClass = `ad-card ${category.toLowerCase()}`;
+  const adClass = `ad-card ${category.toLowerCase()} ${sizeClass}`;
 
   // Formatea la fecha de publicación
   const formattedDate = formatShortDistance(new Date(createdAt));
