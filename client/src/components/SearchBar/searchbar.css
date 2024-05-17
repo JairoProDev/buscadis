@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: 70%; /* Reduce el ancho para darle más prominencia */
+  width: 63%; /* Reduce el ancho para darle más prominencia */
   max-width: 600px; /* Limita el ancho máximo para mantener la legibilidad en pantallas grandes */
   margin: 0 auto; /* Centra la barra de búsqueda */
   height: 50px; /* Aumenta la altura para hacerla más prominente */
@@ -76,4 +76,13 @@
   font-size: 14px;
   top: 10%;
   color: #ccc;
+}
+@media (max-width: 600px) {
+  .search-icon,
+  .microphone-icon {
+    display: none;
+  }
+  #search-bar {
+    font-size: 16px;
+  }
 }
