@@ -3,16 +3,14 @@ import React, { Fragment, useCallback, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
-import useIntersectionObserver from "./hooks/useIntersectionObserver";
 
 // Components
 import Header from "./components/Header/Header";
+import Feed from "./components/Feed/Feed";
 import Sidebar from "./components/Sidebar/Sidebar";
-import AdList from "./components/AdList/AdList";
 import AdForm from "./components/AdForm/AdForm";
 import AdModal from "./components/AdModal/AdModal";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
-import NavList from "./components/NavList/NavList";
 import RegisterForm from "./components/AuthForm/RegisterForm";
 import LoginForm from "./components/AuthForm/LoginForm";
 import Modal from "./components/Modal";
@@ -43,9 +41,7 @@ function HomePage() {
   const showForm = () => setIsFormVisible(true);
   const hideForm = () => setIsFormVisible(false);
   // const hideAdModal = useCallback(() => setSelectedAd(null), []);
-  const loadMore = useCallback(() => setPage((prevPage) => prevPage + 1), []);
   const loader = useRef(null);
-  useIntersectionObserver(loader, loadMore, hasMore, isLoading);
 
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
@@ -65,7 +61,7 @@ function HomePage() {
 
   return (
     <Fragment>
-      <div className="main-container">
+      <div className="HomePage">
         <Header
           toggleForm={showForm}
           setFilter={setFilter}
@@ -84,33 +80,22 @@ function HomePage() {
             <RegisterForm onClose={closeRegisterForm} />
           </Modal>
         )}
-        <div className="container">
           <Sidebar isOpen={isSidebarOpen} />
-          <div className="portal">
-            <NavList setFilter={setFilter} />
-
-            {/* <SearchBar updateSearchTerm={updateSearchTerm} /> */}
-            <AdList anuncios={filteredAds} setSelectedAd={setSelectedAd} />
-            {error && <div className="error">{error}</div>}
-            {isLoading && (
-              <div ref={loader}>
-                Cargando anuncios publicados en BuscAdis.com...
-              </div>
-            )}
-            {/* <HomeFeed anuncios={filteredAds} /> */}
-          </div>
+            <Feed className="feed"
+                anuncios={filteredAds}
+                setSelectedAd={setSelectedAd}
+                error={error}
+                isLoading={isLoading}
+                loader={loader.current}
+                setFilter={setFilter}
+                toggleForm={showForm}
+              />
           <AdForm
             agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
             isVisible={isFormVisible}
             hideForm={hideForm}
           />
           <SocialMedia />
-        </div>
-        <NavList
-          className="nav-list nav-list-bottom"
-          toggleForm={showForm}
-          setFilter={setFilter}
-        />
       </div>
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
