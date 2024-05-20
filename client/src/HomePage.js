@@ -82,15 +82,16 @@ function HomePage() {
         <div className="container">
           <Sidebar isOpen={isSidebarOpen} />
           <div className="portal">
-            <Feed className="feed"
-                anuncios={filteredAds}
-                setSelectedAd={setSelectedAd}
-                error={error}
-                isLoading={isLoading}
-                loader={loader.current}
-                setFilter={setFilter}
-                toggleForm={showForm}
-              />
+            <Feed
+              className="feed"
+              anuncios={filteredAds}
+              setSelectedAd={setSelectedAd}
+              error={error}
+              isLoading={isLoading}
+              loader={loader.current}
+              setFilter={setFilter}
+              toggleForm={showForm}
+            />
           </div>
           <AdForm
             agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
@@ -99,7 +100,6 @@ function HomePage() {
           />
           <SocialMedia />
         </div>
-
       </div>
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
