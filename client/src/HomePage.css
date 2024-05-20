@@ -1,19 +1,7 @@
-/* Main Content */
+/* HomePage */
 .container {
   display: flex;
   justify-content: space-between;
-}
-
-#search-bar {
-  display: flex;
-  align-items: center;
-  padding: 5px !important;
-  background-color: rgb(255, 255, 255);
-  z-index: 1;
-  bottom: 0;
-  width: 100%;
-  margin: 5px 5px;
-  border-radius: 12px;
 }
 
 .portal {
@@ -31,13 +19,4 @@
   padding-right: 0px;
 }
 
-.ad-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding-top: 0px;
-  align-items: center;
-  padding-left: 10px;
-  margin: 0 auto;
-  width: 100%;
-}
+
