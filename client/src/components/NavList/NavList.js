@@ -7,6 +7,7 @@ import EstateIcon from '../../icons/estate.png';
 import CarsIcon from '../../icons/vehicles.png';
 import ServiceIcon from '../../icons/services.png';
 import PublishIcon from '../../icons/publish.png';
+import ProductIcon from '../../icons/products.png';
 
 function NavList({ setFilter, toggleForm }) {
   return (
@@ -35,12 +36,18 @@ function NavList({ setFilter, toggleForm }) {
           label="Autos"
           onClick={() => setFilter("Autos")}
         />
-        <NavItem
-          icon={ServiceIcon}
-          link="/Servicios"
-          label="Servicios"
-          onClick={() => setFilter("Servicios")}
-        />
+          {/* <NavItem
+            icon={ServiceIcon}
+            link="/Servicios"
+            label="Servicios"
+            onClick={() => setFilter("Servicios")}
+          />
+          <NavItem
+            icon={ProductIcon}
+            link="/Productos"
+            label="Productos"
+            onClick={() => setFilter("Productos")}
+          /> */}
       </ul>
     </nav>
   );
@@ -57,7 +64,7 @@ function NavItem({ icon, link, label, onClick }) {
     >
       <img src={icon} alt="" className="nav-item-icon" />
       <Link to={link}>
-        <div>{label}</div> {/* Agrega el nombre debajo del icono */}
+        <div>{label}</div>
       </Link>
     </li>
   );
