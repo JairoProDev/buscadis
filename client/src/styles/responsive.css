@@ -13,8 +13,8 @@
     font-size: 1.2rem;
   }
 
-  .nav {
-    position: fixed;
+  /* .nav {
+    position: static;
     bottom: 0;
     width: 80%;
     justify-content: center;
@@ -24,7 +24,7 @@
 
     padding: 0 10px;
     border-radius: 50px;
-  }
+  } */
 
   .nav-item {
     padding: 0 0px;
