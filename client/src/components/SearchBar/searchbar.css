@@ -25,15 +25,20 @@
 }
 
 #search-bar {
-  padding: 5px 20px; /* Aumenta el padding para darle más espacio al texto */
-  font-size: 18px; /* Aumenta el tamaño de la fuente para hacerla más legible */
-  width: 100%;
-  position: relative;
-  z-index: 1;
-  background: transparent;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  bottom: 0;
   color: #ccc;
+  display: flex;
+  font-size: 18px; /* Aumenta el tamaño de la fuente para hacerla más legible */
+  margin: 5px 5px;
+  padding: 5px 20px; /* Aumenta el padding para darle más espacio al texto */
+  position: relative;
+  padding: 5px !important;
+  width: 100%;
+  z-index: 1;
 }
-
 .search-label.searchbar-label {
   left: 20%; /* Ajusta la posición para que coincida con el nuevo padding */
   color: #ccc;
