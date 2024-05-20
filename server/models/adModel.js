@@ -5,7 +5,7 @@ const anuncioSchema = new mongoose.Schema(
   {
     category: {
       type: String,
-      enum: ["Empleos", "Inmuebles", "Servicios", "Autos", "Otros"],
+      enum: ["Empleos", "Inmuebles", "Servicios", "Autos", "Productos", "Otros"],
       default: "Otros",
       required: [true, "La categoría del anuncio es requerida"],
     },
@@ -18,6 +18,7 @@ const anuncioSchema = new mongoose.Schema(
             Inmuebles: ["Alquiler", "Anticresis", "Venta", "Traspasos", "Habitaciones", "Apartamentos", "Minidepartamentos", "Departamentos", "Casas", "Terrenos"],
             Servicios: ["Técnicos", "Domésticos", "Eventos", "Salud", "Educación", "Otros"],
             Autos: ["Autos", "Camionetas", "Motos", "Maquinaria", "Otros"],
+            Productos: ["Tecnología", "Hogar", "Moda", "Deportes", "Mascotas", "Otros"],
             Otros: ["Otros"],
           };
           return validSubcategories[this.category].includes(v);
