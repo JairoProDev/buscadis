@@ -31,23 +31,23 @@ function NavList({ setFilter, toggleForm }) {
           label="Anunciar"
         />
         <NavItem
+          icon={ServiceIcon}
+          link="/Servicios"
+          label="Servicios"
+          onClick={() => setFilter("Servicios")}
+        />
+        {/* <NavItem
           icon={CarsIcon}
           link="/Autos"
           label="Autos"
           onClick={() => setFilter("Autos")}
         />
-          {/* <NavItem
-            icon={ServiceIcon}
-            link="/Servicios"
-            label="Servicios"
-            onClick={() => setFilter("Servicios")}
-          />
-          <NavItem
-            icon={ProductIcon}
-            link="/Productos"
-            label="Productos"
-            onClick={() => setFilter("Productos")}
-          /> */}
+        <NavItem
+          icon={ProductIcon}
+          link="/Productos"
+          label="Productos"
+          onClick={() => setFilter("Productos")}
+        /> */}
       </ul>
     </nav>
   );
