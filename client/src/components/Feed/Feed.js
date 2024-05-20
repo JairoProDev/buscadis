@@ -20,12 +20,12 @@ function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, to
         isLoading={isLoading}
         loader={loader}
       />
-      <NavList
+      {/* <NavList
         className="nav-list nav-list-bottom"
         toggleForm={toggleForm}
         setFilter={setFilter}
-      />
-                  {error && <div className="error">{error}</div>}
+      /> */}
+      {error && <div className="error">{error}</div>}
             {isLoading && (
               <div ref={loader}>
                 Cargando anuncios publicados en BuscAdis.com...
