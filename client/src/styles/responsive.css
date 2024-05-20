@@ -34,9 +34,7 @@
     right: 1px !important;
     margin: 0px;
   }
-  .ads-container {
-    padding-top: 0;
-  }
+
 
   #ad-list li {
     flex: 1 0 calc(50% - 10px); /* Ajusta este valor según tus necesidades */
@@ -71,8 +69,7 @@
     display: block;
   }
   .ads-container {
-    padding-left: 36px !important;
-    padding-right: 5px !important;
+    padding-left: 24px !important;
   }
   .form-container {
     margin-top: 0;
