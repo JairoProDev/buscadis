@@ -35,7 +35,6 @@
     margin: 0px;
   }
 
-
   #ad-list li {
     flex: 1 0 calc(50% - 10px); /* Ajusta este valor según tus necesidades */
     max-width: calc(50% - 10px); /* Ajusta este valor según tus necesidades */
@@ -96,6 +95,4 @@
   .form-container.show {
     display: flex;
   }
-
-
 }
