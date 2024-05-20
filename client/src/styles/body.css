@@ -2,8 +2,7 @@ body {
   display: grid;
   grid-template-areas:
     "header"
-    "main"
-    "footer";
+    "main";
   grid-template-rows: auto 1fr auto;
   height: 100vh;
   margin: 0;
