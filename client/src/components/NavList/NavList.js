@@ -54,18 +54,24 @@ function NavList({ setFilter, toggleForm }) {
 }
 
 function NavItem({ icon, link, label, onClick }) {
+  const handleClick = (event) => {
+    event.stopPropagation();
+    onClick();
+  };
+
   return (
     <li
       className="nav-item"
-      onClick={(event) => {
-        event.stopPropagation();
-        onClick();
-      }}  
+      onClick={handleClick}
     >
-      <img src={icon} alt="" className="nav-item-icon" />
-      <Link to={link}>
+      <img src={icon} alt={label} className="nav-item-icon" />
+      {link ? (
+        <Link to={link}>
+          <div>{label}</div>
+        </Link>
+      ) : (
         <div>{label}</div>
-      </Link>
+      )}
     </li>
   );
 }
