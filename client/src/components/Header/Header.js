@@ -2,11 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
-import logo from "../../images/logo.ico";
 import useScroll from "../../hooks/useScroll";
 import UserMenu from "../UserMenu/UserMenu";
-import SearchBar from "../SearchBar/SearchBar"; // Importa el componente SearchBar
-
+import SearchBar from "../SearchBar/SearchBar";
 
 function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, updateSearchTerm }) {
   const isHidden = useScroll();
@@ -19,7 +17,6 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
   const [adCount, setAdCount] = useState(0);
 
   const totalVisitors = visitorCount + adCount + 2000;
-
 
   useEffect(() => {
     fetch('/visitorCount')
@@ -38,8 +35,11 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
   return (
     <header className={`header ${isHidden ? "header-hidden" : ""}`}>
       <div className="header-top">
-      <Logo text="BuscAdis" />
-      <SearchBar updateSearchTerm={updateSearchTerm} />
+        <Link to="/" className="header-left">
+          <img src="../../images/logo.ico" alt="Logo" className="logo" />
+          <h1 className="header-title">BuscAdis</h1>
+        </Link>
+        <SearchBar updateSearchTerm={updateSearchTerm} />
         {/* <button className="toggle-sidebar" onClick={toggleSidebar}>
           <span className="icon">📖</span>
         </button> */}
@@ -47,9 +47,6 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
           <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitantes:</span> <span className="number">{totalVisitors}</span></p>
           <p className="advertisers"><span className="icon">📢</span> <span className="text">Anunciantes:</span> <span className="number">{adCount}</span></p>
         </div>
-
-        {/* <Logo text="PublicAdis " /> */}
-
         {/* <UserMenu
           openLoginForm={openLoginForm}
           openRegisterForm={openRegisterForm}
@@ -57,15 +54,6 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
         /> */}
       </div>
     </header>
-  );
-}
-
-function Logo({ text, setFilter }) {
-  return (
-    <Link to="/" className="header-left" onClick={() => setFilter(null)}>
-      <img src={logo} alt="Logo" className="logo" />
-      <h1 className="header-title">{text}</h1>
-    </Link>
   );
 }
 
