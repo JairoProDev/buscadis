@@ -36,7 +36,7 @@ function NavList({ setFilter, toggleForm }) {
           label="Servicios"
           onClick={() => setFilter("Servicios")}
         />
-        {/* <NavItem
+        <NavItem
           icon={CarsIcon}
           link="/Autos"
           label="Autos"
@@ -47,7 +47,7 @@ function NavList({ setFilter, toggleForm }) {
           link="/Productos"
           label="Productos"
           onClick={() => setFilter("Productos")}
-        /> */}
+        />
       </ul>
     </nav>
   );
