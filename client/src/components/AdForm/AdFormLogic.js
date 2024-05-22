@@ -22,8 +22,22 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     const [description, setDescription] = useState("");
     const [error, setError] = useState(null);
 
+    const getRefValue = (ref) => ref.current ? ref.current.value : "";
+
+    const validateForm = () => {
+        if (
+            !getRefValue(categoryRef) ||
+            !getRefValue(titleRef) ||
+            !getRefValue(descriptionRef) ||
+            !getRefValue(phoneRef)
+        ) {
+            throw new Error("Por favor, rellena todos los campos obligatorios.");
+        }
+    };
+
     const clearForm = () => {
         categoryRef.current.value = "";
+        subcategoryRef.current.value = "";
         titleRef.current.value = "";
         descriptionRef.current.value = "";
         phoneRef.current.value = "";
@@ -42,7 +56,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
         if (phone2Ref.current) {
             phone2Ref.current.value = "";
         }
-        setImages(null);
+        setImages([]);
     };
 
     const handleImageChange = (event) => {
@@ -74,16 +88,8 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Validar los campos del formulario antes de enviarlos
-        if (
-            !categoryRef.current.value ||
-            !titleRef.current.value ||
-            !descriptionRef.current.value ||
-            !phoneRef.current.value
-        ) {
-            setError("Por favor, rellena todos los campos obligatorios.");
-            return;
-        }
+        try {
+            validateForm();
 
         const formData = new FormData();
         // Verificar si 'images' existe antes de intentar llamar a 'forEach' en él
@@ -132,19 +138,6 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
             const data = await response.json();
             const imageUrls = data.imageUrls;
 
-            console.log({
-                category: categoryRef.current.value,
-                subcategory: subcategoryRef.current ? subcategoryRef.current.value : "",
-                title: titleRef.current.value,
-                description: descriptionRef.current.value,
-                amount: amountRef.current ? amountRef.current.value : "",
-                location: locationRef.current ? locationRef.current.value : "",
-                phone: phoneRef.current.value,
-                phone2: phone2Ref.current ? phone2Ref.current.value : "",
-                email: emailRef.current ? emailRef.current.value : "",
-                images: imageUrls,
-            });
-
             const adResponse = await fetch("/api/anuncios", {
                 method: "POST",
                 headers: {
@@ -152,6 +145,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
                 },
                 body: JSON.stringify({
                     category: categoryRef.current.value,
+                    subcategory: subcategoryRef.current ? subcategoryRef.current.value : "",
                     title: titleRef.current.value,
                     description: descriptionRef.current.value,
                     amount: amountRef.current && amountRef.current.value !== "" ? amountRef.current.value : "",
@@ -174,7 +168,10 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
         } catch (error) {
             setError(error.message);
         }
-    };
+    } catch (error) {
+        setError(error.message);
+    }
+};
 
     return {
         category,
