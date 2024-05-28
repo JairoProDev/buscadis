@@ -19,14 +19,14 @@ function NavList({ setFilter, toggleForm }) {
           label="Empleos"
           onClick={() => setFilter("Empleos")}
         />
+        <NavItem icon={PublishIcon} onClick={toggleForm} label="Anunciar" />
         <NavItem
           icon={EstateIcon}
           link="/Inmuebles"
           label="Inmuebles"
           onClick={() => setFilter("Inmuebles")}
         />
-        <NavItem icon={PublishIcon} onClick={toggleForm} label="Anunciar" />
-        <NavItem
+        {/* <NavItem
           icon={ServiceIcon}
           link="/Servicios"
           label="Servicios"
@@ -43,7 +43,7 @@ function NavList({ setFilter, toggleForm }) {
           link="/Productos"
           label="Productos"
           onClick={() => setFilter("Productos")}
-        />
+        /> */}
       </ul>
     </nav>
   );
