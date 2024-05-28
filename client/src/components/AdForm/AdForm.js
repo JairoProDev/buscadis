@@ -58,7 +58,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
             {" "}
             <option value="Empleos">Empleos</option>
             <option value="Inmuebles">Inmuebles</option>
-            <option value="Autos">Vehículos</option>
+            <option value="Vehicles">Vehicles</option>
             <option value="Servicios">Servicios</option>
             <option value="Productos">Productos</option>
             <option value="Otros">Otros</option>
@@ -78,6 +78,8 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
               <option value="Minidepartamentos">Minidepartamentos</option>
               <option value="Casas">Casas</option>
               <option value="Terrenos">Terrenos</option>
+              <option value="Locales">Locales</option>
+              <option value="Oficinas">Oficinas</option>
               <option value="Otros">Otros</option>
             </select>
           )}
@@ -89,10 +91,14 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
               ref={subcategoryRef}
               className="adForm-input"
             >
-              <option value="Tiempo completo">Tiempo completo</option>
-              <option value="Medio tiempo">Medio tiempo</option>
-              <option value="Por horas">Por horas</option>
-              <option value="Prácticas">Prácticas</option>
+              <option value="Tecnología">Tecnología</option>
+              <option value="Salud">Salud</option>
+              <option value="Educación">Educación</option>
+              <option value="Construcción">Construcción</option>
+              <option value="Ventas">Ventas</option>
+              <option value="Servicio al Cliente">Servicio al Cliente</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Administración">Administración</option>
               <option value="Otros">Otros</option>
             </select>
           )}
@@ -109,10 +115,11 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
               <option value="Eventos">Eventos</option>
               <option value="Salud">Salud</option>
               <option value="Educación">Educación</option>
+              <option value="Reparaciones">Reparaciones</option>
               <option value="Otros">Otros</option>
             </select>
           )}
-          {category === "Autos" && (
+          {category === "Vehicles" && (
             <select
               id="subcategory"
               name="subcategory"
@@ -123,6 +130,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
               <option value="Autos">Autos</option>
               <option value="Camionetas">Camionetas</option>
               <option value="Motos">Motos</option>
+              <option value="Bicicletas">Bicicletas</option>
               <option value="Maquinaria">Maquinaria</option>
               <option value="Otros">Otros</option>
             </select>
@@ -140,6 +148,8 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
               <option value="Moda">Moda</option>
               <option value="Deportes">Deportes</option>
               <option value="Mascotas">Mascotas</option>
+              <option value="Juguetes">Juguetes</option>
+              <option value="Libros">Libros</option>
               <option value="Otros">Otros</option>
             </select>
           )}
@@ -151,6 +161,11 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
               ref={subcategoryRef}
               className="adForm-input"
             >
+              <option value="Eventos">Eventos</option>
+              <option value="Mascotas">Mascotas</option>
+              <option value="Perdidos">Perdidos</option>
+              <option value="Coleccionables">Coleccionables</option>
+              <option value="Ofertas">Ofertas</option>
               <option value="Otros">Otros</option>
             </select>
           )}
