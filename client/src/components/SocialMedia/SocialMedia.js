@@ -56,7 +56,7 @@ const SocialMedia = () => {
         </li>
         <li className="icon whatsapp">
           <span className="tooltip">WhatsApp</span>
-          <a href="https://wa.me/921963484" target="_blank" rel="noreferrer">
+          <a href="https://wa.me/937054328" target="_blank" rel="noreferrer">
             <FontAwesomeIcon icon={faWhatsapp} />
           </a>
         </li>
