@@ -90,6 +90,30 @@ const getAdsByCategory = async (req, res) => {
     res.status(500).json({ error: "Error interno al obtener los anuncios" });
   }
 };
+const getAdsByCategoryAndSubcategory = async (req, res) => {
+  try {
+    const { category, subcategory } = req.params;
+    let query = { category };
+
+    if (subcategory) {
+      query.subcategory = subcategory;
+    }
+
+    const ads = await Ad.find(query)
+      .sort({ createdAt: -1 }) // Ordena los anuncios por fecha de creación de más reciente a más antiguo
+      .limit(100) // Limita los resultados a los primeros 100
+      .exec();
+
+    if (!ads || ads.length === 0) {
+      return res.status(200).json([]);
+    }
+
+    res.status(200).json(ads);
+  } catch (error) {
+    console.error("Error al obtener los anuncios:", error);
+    res.status(500).json({ error: "Error interno al obtener los anuncios" });
+  }
+};
 
 // Actaulizar anuncio (modificar)
 const updateAd = async (req, res) => {
@@ -135,4 +159,5 @@ const deleteAd = async (req, res) => {
   }
 };
 
-module.exports = { createAd, getAds, getAdById, updateAd, deleteAd, getAdsByCategory };
+module.exports = { createAd, getAds, getAdById, updateAd, deleteAd, getAdsByCategory, getAdsByCategoryAndSubcategory };
+
