@@ -3,6 +3,8 @@ import React, { Fragment, useCallback, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
+import { useParams } from 'react-router-dom';
+
 
 // Components
 import Header from "./components/Header/Header";
@@ -28,8 +30,8 @@ import "./HomePage.css";
 function HomePage() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
-  const [category, setCategory] = useState("");
-  const [subcategory, setSubcategory] = useState("");
+  const { category, subcategory } = useParams();
+
   const { anuncios, agregarAnuncioAlPrincipio, error, hasMore, isLoading } =
     useAds(page, category, subcategory, filter);
   const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
