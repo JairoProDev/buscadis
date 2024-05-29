@@ -58,7 +58,7 @@
   margin: 5px;
 }
 /* header.css */
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .visitors .text, .advertisers .text {
     display: none;
   }
