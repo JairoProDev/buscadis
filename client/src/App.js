@@ -4,7 +4,6 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import UserProfile from "./components/UserProfile/UserProfile";
 import { AuthProvider } from "./context/AuthContext";
-// import AdModal from './components/AdModal/AdModal';
 
 function App() {
   return (
@@ -12,6 +11,8 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/category/:category" element={<HomePage />} />
+          <Route path="/category/:category/:subcategory" element={<HomePage />} />
           <Route path="/*" element={<HomePage />} />
           {/* <Route path="/anuncio/:id" element={<AdModal />} /> */}
         </Routes>
