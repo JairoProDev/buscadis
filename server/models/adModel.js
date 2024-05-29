@@ -33,8 +33,8 @@
         validate: {
           validator: function (v) {
             const categorySubcategories = {
-                Empleos: ['Restaurantes', 'Tecnología', 'Salud', 'Educación', 'Construcción', 'Ventas', 'Servicio al Cliente', 'Transporte', 'Administración', 'Otros'],
-                Inmuebles: ['Habitaciones', 'Minidepartamentos', 'Departamentos', 'Casas', 'Lotes de Terreno', 'Locales Comerciales', 'Oficinas', 'Otros'],
+                Empleos: ['Restaurantes', 'Tecnología', 'Salud', 'Educación', 'Construcción', 'Ventas', 'Servicio al Cliente', 'Transporte', 'Administración', 'Hotelería', 'Agencias', 'Hogar', 'Logística', 'Operaciones', 'Otros'],
+                Inmuebles: ['Habitaciones', 'Minidepartamentos', 'Departamentos', 'Casas', 'Lotes', 'Locales', 'Oficinas', 'Hoteles', 'Otros'],
                 Vehicles: ['Autos', 'Camionetas', 'Motos', 'Bicicletas', 'Maquinaria', 'Otros'],
                 Servicios: ['Educación', 'Reparaciones', 'Salud', 'Domésticos', 'Técnicos', 'Eventos', 'Otros'],
                 Productos: ['Tecnología', 'Ropa y Accesorios', 'Hogar y Muebles', 'Deportes y Fitness', 'Libros y Educación', 'Juegos y Juguetes', 'Otros'],
