@@ -8,6 +8,7 @@ import CarsIcon from "../../icons/vehicles.png";
 import ServiceIcon from "../../icons/services.png";
 import PublishIcon from "../../icons/publish.png";
 import ProductIcon from "../../icons/products.png";
+import PlaystoreIcon from "../../icons/playstore.png";
 
 function NavList({ setFilter, toggleForm }) {
   return (
@@ -16,15 +17,21 @@ function NavList({ setFilter, toggleForm }) {
         <NavItem
           icon={JobsIcon}
           link="/Empleos"
-          label="Empleos"
+          label="🔎Empleos💼"
           onClick={() => setFilter("Empleos")}
         />
-        <NavItem icon={PublishIcon} onClick={toggleForm} label="Anunciar" />
         <NavItem
           icon={EstateIcon}
           link="/Inmuebles"
-          label="Inmuebles"
+          label="🔎Inmuebles🏠"
           onClick={() => setFilter("Inmuebles")}
+        />
+        <NavItem icon={PublishIcon} onClick={toggleForm} label="📢Anunciar📈" />
+        <NavItem
+          icon={PlaystoreIcon}
+          link="https://play.google.com/store/apps/details?id=buscadis.publicadis"
+          label="Descargar App"
+          onClick={() => {}}
         />
         {/* <NavItem
           icon={ServiceIcon}
