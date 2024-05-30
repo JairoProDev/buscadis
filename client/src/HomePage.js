@@ -99,6 +99,7 @@ function HomePage() {
             agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
             isVisible={isFormVisible}
             hideForm={hideForm}
+            anuncios={anuncios}
           />
           <SocialMedia />
         </div>
