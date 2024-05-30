@@ -60,7 +60,7 @@
         required: [true, "La descripción del anuncio es requerida"],
         trim: true,
         maxlength: [
-          500,
+          600,
           "La descripción del anuncio no puede tener más de 500 caracteres",
         ],
       },
