@@ -27,12 +27,18 @@ function NavList({ setFilter, toggleForm }) {
           onClick={() => setFilter("Inmuebles")}
         />
         <NavItem icon={PublishIcon} onClick={toggleForm} label="📢Anunciar📈" />
-        <NavItem
+        <li className="nav-item">
+          <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" target="_blank">
+            <img src={PlaystoreIcon} alt="Playstore" className="nav-item-icon" />
+            <div>Bajar App</div>
+          </a>
+        </li>
+        {/* <NavItem
           icon={PlaystoreIcon}
           link="https://play.google.com/store/apps/details?id=buscadis.publicadis"
           label="Descargar App"
           onClick={() => {}}
-        />
+        /> */}
         {/* <NavItem
           icon={ServiceIcon}
           link="/Servicios"
