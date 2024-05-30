@@ -39,20 +39,31 @@ function AdCard({ anuncio, setSelectedAd, number }) {
     }
     return `${Math.floor(seconds)} seg`;
   }
-
+  const categoryEmojis = {
+    empleos: "💼",
+    inmuebles: "🏠",
+    vehiculos: "🚗",
+    servicios: "🔧",
+    tecnologia: "📱",
+    hogar: "🏡",
+    moda: "👗",
+    deportes: "⚽",
+    mascotas: "🐶",
+    otros: "🔍"
+  };
   return (
     <div className={adClass} onClick={() => setSelectedAd(anuncio)}>
       <div className="ad-card__content">
         <div className="ad-card__header">
           <p className="ad-card__number">#{number}</p>
-          <p className="ad-card__category">{category}</p>
-          <p className="ad-card__date">{formattedDate}</p>{" "}
+          <p className="ad-card__category">{categoryEmojis[category.toLowerCase()] || category} {subcategory}</p>
+          <p className="ad-card__date">Hace {formattedDate}</p>{" "}
         </div>
         <h3 className="ad-card__title">{title}</h3>
         <p className="ad-card__description">{description}</p>
         <div className="ad-card__details">
           <p className="ad-card__price">{amount}</p>
-          <p className="ad-card__location">{location}</p>
+          <p className="ad-card__location">🌎{location}</p>
         </div>
       </div>
     </div>
