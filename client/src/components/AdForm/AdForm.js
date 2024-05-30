@@ -7,7 +7,7 @@ import { useAdFormLogic } from "./AdFormLogic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
-function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
+function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
   const {
     category,
     setCategory,
@@ -283,8 +283,24 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm }) {
         </fieldset>
       </form>
       <Payment />
+      <div className="columna-anuncios">
+        {anuncios && anuncios.map((anuncio) => (
+          <Anuncio key={anuncio.id} anuncio={anuncio} />
+        ))}
+      </div>
     </div>
   );
 }
+function Anuncio({ anuncio }) {
+  const { title, description, phone } = anuncio;
+  const halfDescription = description.substring(0, description.length / 2);
+  const message = encodeURIComponent(`Hola, estoy interesado en el anuncio: ${title}`);
+  const href = `https://wa.me/${phone}?text=${message}`;
 
+  return (
+    <div className="anuncio separador">
+      <p>{halfDescription} <a href={href} target="_blank" rel="noopener noreferrer">Contactar</a></p>
+    </div>
+  );
+}
 export default AdForm;
