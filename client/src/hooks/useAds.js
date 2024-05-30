@@ -18,7 +18,7 @@ function useAds(category, subcategory) {
         setIsLoading(true);
         setError(null);
         try {
-            const url = `/api/anuncios?limit=100` + (category ? `&category=${category}` : '') + (subcategory ? `&subcategory=${subcategory}` : '');
+            const url = `/api/anuncios?limit=120` + (category ? `&category=${category}` : '') + (subcategory ? `&subcategory=${subcategory}` : '');
             const respuesta = await fetch(url);
             const anuncios = await respuesta.json();
             if (anuncios) {
