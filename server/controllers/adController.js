@@ -2,12 +2,22 @@ const Ad = require("../models/adModel");
 
 const createAd = async (req, res) => {
   try {
-    console.log('Creating new ad with data:', req.body);
-    const { category, subcategory, title, description, amount, location, phone, phone2, email, images } =
-      req.body;
-      
+    console.log("Creating new ad with data:", req.body);
+    const {
+      category,
+      subcategory,
+      title,
+      description,
+      amount,
+      location,
+      phone,
+      phone2,
+      email,
+      images,
+    } = req.body;
+
     if (!category || !title || !description || !phone) {
-        return res.status(400).json({ error: 'Faltan campos requeridos' });
+      return res.status(400).json({ error: "Faltan campos requeridos" });
     }
     const newAd = new Ad({
       category: category,
@@ -22,27 +32,28 @@ const createAd = async (req, res) => {
       images: images,
     });
 
-    console.log('New ad:', newAd);
+    console.log("New ad:", newAd);
     try {
       await newAd.save();
-      console.log('Ad saved successfully');
-      res.status(201).json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
+      console.log("Ad saved successfully");
+      res
+        .status(201)
+        .json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
     } catch (error) {
-      console.error('Error al guardar el anuncio:', error);
+      console.error("Error al guardar el anuncio:", error);
       res.status(500).json({ error: error.message });
     }
   } catch (error) {
-    console.error('Error al crear el anuncio:', error);
+    console.error("Error al crear el anuncio:", error);
     res.status(500).json({ error: error.message });
   }
 };
-
 
 const getAds = async (req, res) => {
   try {
     const anuncios = await Ad.find()
       .sort({ createdAt: -1 }) // Ordena los anuncios por fecha de creación de más reciente a más antiguo
-      .limit(120) // Limita los resultados a los primeros 100
+      .limit(150) // Limita los resultados a los primeros 100
       .exec();
 
     if (!anuncios || anuncios.length === 0) {
@@ -77,7 +88,7 @@ const getAdsByCategory = async (req, res) => {
     const category = req.params.category;
     const anuncios = await Ad.find({ category: category })
       .sort({ createdAt: -1 }) // Ordena los anuncios por fecha de creación de más reciente a más antiguo
-      .limit(120) // Limita los resultados a los primeros 100
+      .limit(150) // Limita los resultados a los primeros 100
       .exec();
 
     if (!anuncios || anuncios.length === 0) {
@@ -101,7 +112,7 @@ const getAdsByCategoryAndSubcategory = async (req, res) => {
 
     const ads = await Ad.find(query)
       .sort({ createdAt: -1 }) // Ordena los anuncios por fecha de creación de más reciente a más antiguo
-      .limit(120) // Limita los resultados a los primeros 100
+      .limit(150) // Limita los resultados a los primeros 100
       .exec();
 
     if (!ads || ads.length === 0) {
@@ -132,7 +143,7 @@ const updateAd = async (req, res) => {
     anuncio.location = req.body.location || anuncio.location;
     anuncio.phone = req.body.phone || anuncio.phone;
     anuncio.phone2 = req.body.phone2 || anuncio.phone2;
-    
+
     anuncio.email = req.body.email || anuncio.email;
 
     await anuncio.save();
@@ -159,5 +170,12 @@ const deleteAd = async (req, res) => {
   }
 };
 
-module.exports = { createAd, getAds, getAdById, updateAd, deleteAd, getAdsByCategory, getAdsByCategoryAndSubcategory };
-
+module.exports = {
+  createAd,
+  getAds,
+  getAdById,
+  updateAd,
+  deleteAd,
+  getAdsByCategory,
+  getAdsByCategoryAndSubcategory,
+};
