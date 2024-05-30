@@ -143,3 +143,33 @@ textarea::placeholder {
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 10px 30px rgba(0, 0, 0, 0.2); /* Aumenta la sombra cuando se pasa el cursor sobre la barra de búsqueda */
   transform: scale(1.1);
 }
+
+.columna-anuncios {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px; /* Ajusta el ancho según tus necesidades */
+  margin: auto;
+  background-color: #f7f7f7; /* Fondo similar al de la revista */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Opcional: para darle un efecto elevado */
+}
+
+.anuncio {
+  margin-bottom: 6px;
+}
+
+.anuncio h4 {
+  font-size: 0.8em;
+}
+
+.anuncio p {
+  font-size: 0.7em;
+}
+.anuncio a {
+  font-size: 0.9em;
+}
+.separador {
+  border-bottom: 1px solid #000; /* Cambia el color según tu preferencia */
+  padding: 5px 0; /* Añade un poco de espacio alrededor de la línea */
+}
