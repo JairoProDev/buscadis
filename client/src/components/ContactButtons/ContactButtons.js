@@ -46,6 +46,9 @@ function ContactButton({ phone, type, category, url }) {
 function ContactButtons({ phone, phone2, category, url }) {
   if (!phone && !phone2) return null;
 
+  const adminMessage = `Hola, hemos añadido su anuncio a la App BuscAdis para ayudarle a llegar a más personas. Puede verlo aquí: ${url}. Si desea publicar imágenes, añadir información o publicar un nuevo anuncio, avísenos por favor.,`;
+  const whatsappLink = `https://web.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(adminMessage)}`;
+
   return (
     <>
       <div>
@@ -66,7 +69,7 @@ function ContactButtons({ phone, phone2, category, url }) {
           />
         )}
       </div>
-      <p>BuscAdis</p>
+      <a href={whatsappLink} target="_blank" rel="noopener noreferrer">BuscAdis</a>
       <div>
         {phone2 && (
           <ContactButton
