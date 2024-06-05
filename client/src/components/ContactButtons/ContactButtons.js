@@ -46,7 +46,7 @@ function ContactButton({ phone, type, category, url }) {
 function ContactButtons({ phone, phone2, category, url }) {
   if (!phone && !phone2) return null;
 
-  const adminMessage = `Hola, hemos añadido su aviso en la App BuscAdis para ayudarle a llegar a más personas. Puede verlo aquí: ${url}. Si desea publicar imágenes, añadir información o publicar un nuevo anuncio, avísenos por favor.`;
+  const adminMessage = `Hola, hemos publicado su aviso en la App BuscAdis para ayudarle a llegar a más personas. Puede verlo aquí: ${url}. Si desea publicar imágenes, añadir información o publicar un nuevo anuncio, avísenos por favor.`;
   const whatsappLink = `https://wa.me/${phone}?text=${encodeURIComponent(adminMessage)}`;
 
   return (
