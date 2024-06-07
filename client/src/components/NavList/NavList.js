@@ -17,13 +17,13 @@ function NavList({ setFilter, toggleForm }) {
         <NavItem
           icon={JobsIcon}
           link="/Empleos"
-          label="🔎Empleos💼"
+          label="Empleos💼"
           onClick={() => setFilter("Empleos")}
         />
         <NavItem
           icon={EstateIcon}
           link="/Inmuebles"
-          label="🔎Inmuebles🏠"
+          label="Inmuebles🏠"
           onClick={() => setFilter("Inmuebles")}
         />
         <NavItem icon={PublishIcon} onClick={toggleForm} label="📢Anunciar📈" />
