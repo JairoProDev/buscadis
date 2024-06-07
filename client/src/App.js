@@ -11,8 +11,8 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/category/:category" element={<HomePage />} />
-          <Route path="/category/:category/:subcategory" element={<HomePage />} />
+          <Route path="/:category" element={<HomePage />} />
+          <Route path="/:category/:subcategory" element={<HomePage />} />
           <Route path="/*" element={<HomePage />} />
           {/* <Route path="/anuncio/:id" element={<AdModal />} /> */}
         </Routes>
