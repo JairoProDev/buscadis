@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 // Components
 import Header from "./components/Header/Header";
-import Feed from "./components/Feed/Feed";
+import NewFeed from "./components/NewFeed/NewFeed";
 import Sidebar from "./components/Sidebar/Sidebar";
 import AdForm from "./components/AdForm/AdForm";
 import AdModal from "./components/AdModal/AdModal";
@@ -84,7 +84,7 @@ function HomePage() {
         <div className="container">
           <Sidebar isOpen={isSidebarOpen} />
           <div className="portal">
-            <Feed
+            <NewFeed
               className="feed"
               anuncios={filteredAds}
               setSelectedAd={setSelectedAd}
