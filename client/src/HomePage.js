@@ -8,14 +8,13 @@ import { useParams } from 'react-router-dom';
 
 // Components
 import Header from "./components/Header/Header";
-import NewFeed from "./components/NewFeed/NewFeed";
 import Sidebar from "./components/Sidebar/Sidebar";
+import NewFeed from "./components/NewFeed/NewFeed";
 import AdForm from "./components/AdForm/AdForm";
 import AdModal from "./components/AdModal/AdModal";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
 import RegisterForm from "./components/AuthForm/RegisterForm";
 import LoginForm from "./components/AuthForm/LoginForm";
-import Modal from "./components/Modal";
 import UserProfile from "./components/UserProfile/UserProfile";
 
 // Styles
@@ -57,9 +56,6 @@ function HomePage() {
     setIsFormVisible(false);
   };
 
-  const closeLoginForm = () => setShowLoginForm(false);
-  const closeRegisterForm = () => setShowRegisterForm(false);
-
   return (
     <Fragment>
       <div className="main-container">
@@ -71,16 +67,6 @@ function HomePage() {
           openRegisterForm={openRegisterForm}
           updateSearchTerm={updateSearchTerm}
         />
-        {showLoginForm && (
-          <Modal onClose={closeLoginForm}>
-            <LoginForm onClose={closeLoginForm} />
-          </Modal>
-        )}
-        {showRegisterForm && (
-          <Modal onClose={closeRegisterForm}>
-            <RegisterForm onClose={closeRegisterForm} />
-          </Modal>
-        )}
         <div className="container">
           <Sidebar isOpen={isSidebarOpen} />
           <div className="portal">
@@ -107,7 +93,7 @@ function HomePage() {
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
         <Route
-          path="/anuncio/:id"
+          path="/:category/:subcategory/:id"
           element={<AdModal anuncios={anuncios} selectedAd={selectedAd} />}
         />
       </Routes>
