@@ -1,9 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./adCard.css";
 
+
 function AdCard({ anuncio, setSelectedAd, number }) {
+  const navigate = useNavigate();
   // console.log('AdCard anuncio:', anuncio)
 
+  const handleAdClick = () => {
+    // Cambia la URL a la nueva ruta con categoría, subcategoría y ID
+    navigate(`/${anuncio.category}/${anuncio.subcategory}/${anuncio.id}`);
+    // Establece el anuncio seleccionado
+    setSelectedAd(anuncio);
+  };
+  
   const sizeClass = `ad-size-${anuncio.size || 'normal'}`;
 
   const { category, subcategory, title, description, amount, location, createdAt } = anuncio;
@@ -52,7 +62,7 @@ function AdCard({ anuncio, setSelectedAd, number }) {
     otros: "🔍"
   };
   return (
-    <div className={adClass} onClick={() => setSelectedAd(anuncio)}>
+    <div className={adClass} onClick={handleAdClick}>
       <div className="ad-card__content">
         <div className="ad-card__header">
           <p className="ad-card__number">#{number}</p>
