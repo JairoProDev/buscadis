@@ -17,16 +17,16 @@ function NavList({ setFilter, toggleForm }) {
         <NavItem
           icon={JobsIcon}
           link="/Empleos"
-          label="Empleos💼"
+          label="Empleos"
           onClick={() => setFilter("Empleos")}
         />
         <NavItem
           icon={EstateIcon}
           link="/Inmuebles"
-          label="Inmuebles🏠"
+          label="Inmuebles"
           onClick={() => setFilter("Inmuebles")}
         />
-        <NavItem icon={PublishIcon} onClick={toggleForm} label="📢Anunciar📈" />
+        <NavItem icon={PublishIcon} onClick={toggleForm} label="Anunciar" />
         <li className="nav-item">
           <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" target="_blank">
             <img src={PlaystoreIcon} alt="Playstore" className="nav-item-icon" />
