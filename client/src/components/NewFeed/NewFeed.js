@@ -6,10 +6,10 @@ import AdList from '../AdList/AdList';
 const categories = {
   Empleos: ['Restaurantes', 'Tecnología', 'Salud', 'Educación', 'Construcción', 'Practicantes', 'Ventas', 'Servicio al Cliente', 'Transporte', 'Administración', 'Hotelería', 'Agencias', 'Hogar', 'Logística', 'Operaciones', 'Turismo', 'Contabilidad', 'Seguridad', 'Panadería', 'Secretaría', 'Almacén', 'Cuidado', 'Marketing', 'Gastronomía', 'Belleza', 'Farmacia', 'Otros'],
   Inmuebles: ['Habitaciones', 'Minidepartamentos', 'Departamentos', 'Casas', 'Lotes', 'Terrenos', 'Locales', 'Oficinas', 'Hoteles', 'Anticresis', 'Otros'],
-  // Vehicles: ['Autos', 'Camionetas', 'Motos', 'Bicicletas', 'Maquinaria', 'Otros'],
-  // Servicios: ['Educación', 'Reparaciones', 'Salud', 'Domésticos', 'Técnicos', 'Eventos', 'Otros'],
-  // Productos: ['Tecnología', 'Ropa y Accesorios', 'Hogar y Muebles', 'Deportes y Fitness', 'Libros y Educación', 'Juegos y Juguetes', 'Otros'],
-  // Otros: ['Eventos', 'Mascotas', 'Ofertas Especiales', 'Objetos Perdidos', 'Coleccionables', 'Otros']
+  Vehicles: ['Autos', 'Camionetas', 'Motos', 'Bicicletas', 'Maquinaria', 'Otros'],
+  Servicios: ['Educación', 'Reparaciones', 'Salud', 'Domésticos', 'Técnicos', 'Eventos', 'Otros'],
+  Productos: ['Tecnología', 'Ropa y Accesorios', 'Hogar y Muebles', 'Deportes y Fitness', 'Libros y Educación', 'Juegos y Juguetes', 'Otros'],
+  Otros: ['Eventos', 'Mascotas', 'Ofertas Especiales', 'Objetos Perdidos', 'Coleccionables', 'Otros']
 };
 
 function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, toggleForm }) {
