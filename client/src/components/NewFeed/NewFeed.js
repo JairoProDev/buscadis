@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdList from '../AdList/AdList';
-import CategoryButtons from '../CategoryButtons/CategoryButtons'; 
+import CategoryButtons from '../CategoryButtons/CategoryButtons';
 
 const categories = {
   Empleos: ['Restaurantes', 'Tecnología', 'Salud', 'Educación', 'Construcción', 'Practicantes', 'Ventas', 'Servicio al Cliente', 'Transporte', 'Administración', 'Hotelería', 'Agencias', 'Hogar', 'Logística', 'Operaciones', 'Turismo', 'Contabilidad', 'Seguridad', 'Panadería', 'Secretaría', 'Almacén', 'Cuidado', 'Marketing', 'Gastronomía', 'Belleza', 'Farmacia', 'Otros'],
@@ -26,16 +26,24 @@ function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, to
     if (subcategory) {
       filtered = filtered.filter(anuncio => anuncio.subcategory === subcategory);
     }
+    if (!category) {
+      filtered = anuncios; // Mostrar todos los anuncios cuando no hay categoría
+    }
     setFilteredAnuncios(filtered);
   }, [anuncios, category, subcategory]);
 
   const handleCategoryClick = (category) => {
-    navigate(`/${category}`);
+    if (category === null) {
+      navigate('/');
+    } else {
+      navigate(`/${category}`);
+    }
   };
 
   const handleSubcategoryClick = (subcategory) => {
     navigate(`/${category}/${subcategory}`);
   };
+
   return (
     <div className="feed">
       <CategoryButtons

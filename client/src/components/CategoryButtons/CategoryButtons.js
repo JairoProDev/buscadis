@@ -17,7 +17,7 @@ const categoryIcons = {
   Otros: OtherIcon
 };
 
-function CategoryButtons({ categories, category, handleCategoryClick, handleSubcategoryClick }) {
+function CategoryButtons({ categories, handleCategoryClick, handleSubcategoryClick }) {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
 
   const handleCategorySelection = (categoryKey) => {
@@ -27,7 +27,7 @@ function CategoryButtons({ categories, category, handleCategoryClick, handleSubc
 
   const handleAllClick = () => {
     setSelectedCategory('Todos');
-    handleCategoryClick(null);
+    handleCategoryClick(null); // Pasar null para manejar "Todos"
   };
 
   return (
@@ -53,10 +53,10 @@ function CategoryButtons({ categories, category, handleCategoryClick, handleSubc
         </div>
       </div>
 
-      {category && categories[category] && selectedCategory !== 'Todos' && (
+      {selectedCategory && categories[selectedCategory] && selectedCategory !== 'Todos' && (
         <div className="subcategory-section">
           <div className="subcategory-section-inner scroll-container">
-            {categories[category].map((subcategory) => (
+            {categories[selectedCategory].map((subcategory) => (
               <button
                 key={subcategory}
                 onClick={() => handleSubcategoryClick(subcategory)}
