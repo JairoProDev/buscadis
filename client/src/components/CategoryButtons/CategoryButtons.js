@@ -7,6 +7,7 @@ import CarsIcon from "../../icons/vehicles.png";
 import ServiceIcon from "../../icons/services.png";
 import ProductIcon from "../../icons/products.png";
 import OtherIcon from "../../icons/others.png";
+import PlayStoreIcon from "../../icons/playstore.png";
 
 const categoryIcons = {
   Empleos: JobsIcon,
@@ -50,6 +51,11 @@ function CategoryButtons({ categories, handleCategoryClick, handleSubcategoryCli
               {categoryKey}
             </button>
           ))}
+          {/* Botón para descargar la app desde la Play Store */}
+          <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" className="category-button download-app-button" target='_blank'>
+            <img src={PlayStoreIcon} alt="Play Store" />
+            Descargar App
+          </a>
         </div>
       </div>
 
