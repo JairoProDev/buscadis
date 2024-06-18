@@ -1,4 +1,4 @@
-// Feed.js
+// NewFeed.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdList from '../AdList/AdList';
@@ -56,7 +56,7 @@ function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, to
         anuncios={filteredAnuncios}
         setSelectedAd={setSelectedAd}
         error={error}
-        isLoading={isLoading}
+        isLoading={isLoading} 
         loader={loader}
       />
       {error && <div className="error">{error}</div>}

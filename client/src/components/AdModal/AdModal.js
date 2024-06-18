@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function AdModal({ anuncios }) {
-  const { id } = useParams();
+  const { category, subcategory, id } = useParams();
   const navigate = useNavigate();
   const modalRef = useRef();
 
@@ -31,14 +31,21 @@ function AdModal({ anuncios }) {
 
   const ad = anuncios[adIndex];
   const [isOpen, setIsOpen] = useState(false);
-  
+
   useEffect(() => {
     setIsOpen(!!ad);
   }, [ad]);
 
   const handleClose = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
+    // Navegar a la URL anterior correspondiente a la categoría y subcategoría
+    if (category && subcategory) {
+      navigate(`/${category}/${subcategory}`);
+    } else if (category) {
+      navigate(`/${category}`);
+    } else {
+      navigate('/');
+    }
+  }, [category, subcategory, navigate]);
 
   const handleClickOutside = useCallback((event) => {
     if (event.target === modalRef.current) {
@@ -57,7 +64,7 @@ function AdModal({ anuncios }) {
 
   if (!ad) return null;
 
-  const { category, title, description, amount, location, email, createdAt } = ad;
+  const { title, description, amount, location, email, createdAt } = ad;
 
   const date = new Date(createdAt);
   const day = date.getDate().toString().padStart(2, "0");
