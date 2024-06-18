@@ -38,15 +38,17 @@ function AdModal({ anuncios }) {
 
   const handleClose = useCallback(() => {
     // Navegar a la URL anterior correspondiente a la categoría y subcategoría
-    if (category && subcategory) {
-      navigate(`/${category}/${subcategory}`);
-    } else if (category) {
-      navigate(`/${category}`);
-    } else {
-      navigate('/');
-    }
-  }, [category, subcategory, navigate]);
+  //   if (category && subcategory) {
+  //     navigate(`/${category}/${subcategory}`);
+  //   } else if (category) {
+  //     navigate(`/${category}`);
+  //   } else {
+  //     navigate('/');
+  //   }
+  // }, [category, subcategory, navigate]);
+  navigate('/');
 
+  }, [navigate]);
   const handleClickOutside = useCallback((event) => {
     if (event.target === modalRef.current) {
       handleClose();
