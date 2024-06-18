@@ -1,7 +1,8 @@
+// Feed.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import NavList from '../NavList/NavList';
 import AdList from '../AdList/AdList';
+import CategoryButtons from '../CategoryButtons/CategoryButtons'; 
 
 const categories = {
   Empleos: ['Restaurantes', 'Tecnología', 'Salud', 'Educación', 'Construcción', 'Practicantes', 'Ventas', 'Servicio al Cliente', 'Transporte', 'Administración', 'Hotelería', 'Agencias', 'Hogar', 'Logística', 'Operaciones', 'Turismo', 'Contabilidad', 'Seguridad', 'Panadería', 'Secretaría', 'Almacén', 'Cuidado', 'Marketing', 'Gastronomía', 'Belleza', 'Farmacia', 'Otros'],
@@ -35,33 +36,14 @@ function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, to
   const handleSubcategoryClick = (subcategory) => {
     navigate(`/${category}/${subcategory}`);
   };
-
   return (
     <div className="feed">
-      <NavList
-        className="nav-list nav-list-top"
-        toggleForm={toggleForm}
-        setFilter={setFilter}
+      <CategoryButtons
+        categories={categories}
+        category={category}
+        handleCategoryClick={handleCategoryClick}
+        handleSubcategoryClick={handleSubcategoryClick}
       />
-      <div>
-        <div>
-          {Object.keys(categories).map((category) => (
-            <button key={category} onClick={() => handleCategoryClick(category)}>
-              {category}
-            </button>
-          ))}
-        </div>
-
-{category && categories[category] && (
-  <div>
-    {categories[category].map((subcategory) => (
-      <button key={subcategory} onClick={() => handleSubcategoryClick(subcategory)}>
-        {subcategory}
-      </button>
-    ))}
-  </div>
-)}
-      </div>
       <AdList
         anuncios={filteredAnuncios}
         setSelectedAd={setSelectedAd}
