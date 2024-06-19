@@ -164,8 +164,6 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
               <option value="Eventos">Eventos</option>
               <option value="Mascotas">Mascotas</option>
               <option value="Perdidos">Perdidos</option>
-              <option value="Coleccionables">Coleccionables</option>
-              <option value="Ofertas">Ofertas</option>
               <option value="Otros">Otros</option>
             </select>
           )}

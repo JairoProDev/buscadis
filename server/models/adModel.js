@@ -38,7 +38,7 @@
                 Vehicles: ['Autos', 'Camionetas', 'Motos', 'Bicicletas', 'Maquinaria', 'Otros'],
                 Servicios: ['Educación', 'Reparaciones', 'Salud', 'Domésticos', 'Técnicos', 'Eventos', 'Otros'],
                 Productos: ['Tecnología', 'Ropa y Accesorios', 'Hogar', 'Deportes y Fitness', 'Libros y Educación', 'Juegos y Juguetes', 'Otros'],
-                Otros: ['Eventos', 'Mascotas', 'Ofertas Especiales', 'Objetos Perdidos', 'Coleccionables', 'Otros']
+                Otros: ['Eventos', 'Mascotas', 'Objetos Perdidos', 'Otros']
             };
             return categorySubcategories[this.category]?.includes(v) || false;
         },
