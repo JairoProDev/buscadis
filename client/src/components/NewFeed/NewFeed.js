@@ -10,7 +10,7 @@ const categories = {
   Vehicles: ['Autos', 'Camionetas', 'Motos', 'Bicicletas', 'Maquinaria', 'Otros'],
   Servicios: ['Educación', 'Reparaciones', 'Salud', 'Domésticos', 'Técnicos', 'Eventos', 'Otros'],
   Productos: ['Tecnología', 'Ropa y Accesorios', 'Hogar y Muebles', 'Deportes y Fitness', 'Libros y Educación', 'Juegos y Juguetes', 'Otros'],
-  Otros: ['Eventos', 'Mascotas', 'Ofertas Especiales', 'Objetos Perdidos', 'Coleccionables', 'Otros']
+  Otros: ['Eventos', 'Mascotas', 'Objetos Perdidos', 'Otros']
 };
 
 function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, toggleForm }) {
