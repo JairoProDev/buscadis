@@ -46,8 +46,22 @@ function ContactButton({ phone, type, category, url }) {
 function ContactButtons({ phone, phone2, category, url }) {
   if (!phone && !phone2) return null;
 
-  const adminMessage = `Hola, hemos publicado su aviso en la App BuscAdis para ayudarle a llegar a más personas. Puede verlo aquí: ${url}. Si desea publicar imágenes, añadir información o publicar un nuevo anuncio, avísenos por favor.`;
-  const whatsappLink = `https://wa.me/${phone}?text=${encodeURIComponent(adminMessage)}`;
+  // Codificar correctamente la URL
+  const encodedUrl = encodeURIComponent(url);
+
+  // Mensaje dividido en partes para fácil lectura
+  const part1 = "Hola, hemos publicado GRATIS su aviso por todo el día en nuestra App BuscAdis para ayudarle a que más personas vean lo que ofrece.";
+  const part2 = "Puede verlo aquí: " + encodedUrl + "."; // Usar la URL codificada
+  const part3 = "Aproveche la promoción hasta el medio día para agregar imágenes, actualizar detalles o publicar un nuevo anuncio.";
+  const part4 = "Estamos aquí para ayudarle a maximizar su visibilidad.";
+  const part5 = "Para aprovechar esta oferta, ¡responda a este mensaje! ¿Desea que su anuncio esté publicado por más días?";
+
+  // Concatenar con \n para saltos de línea y luego codificar toda la cadena
+  const adminMessage = part1 + "\n" + part2 + "\n" + part3 + "\n" + part4 + "\n" + part5;
+  const encodedMessage = encodeURIComponent(adminMessage);
+
+  // Crear el enlace de WhatsApp
+  const whatsappLink = `https://wa.me/${phone}?text=${encodedMessage}`;
 
   return (
     <>
