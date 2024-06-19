@@ -57,7 +57,7 @@ function ContactButtons({ phone, phone2, category, url }) {
   const part5 = "Para aprovechar esta oferta, ¡responda a este mensaje! ¿Desea que su anuncio esté publicado por más días?";
 
   // Concatenar con \n para saltos de línea y luego codificar toda la cadena
-  const adminMessage = part1 + "\n" + part2 + "\n" + part3 + "\n" + part4 + "\n" + part5;
+  const adminMessage = part1 + "\n\n" + part2 + "\n\n" + part3 + "\n\n" + part4 + "\n\n" + part5;
   const encodedMessage = encodeURIComponent(adminMessage);
 
   // Crear el enlace de WhatsApp
