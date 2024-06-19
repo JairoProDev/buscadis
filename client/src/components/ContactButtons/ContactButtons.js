@@ -46,12 +46,9 @@ function ContactButton({ phone, type, category, url }) {
 function ContactButtons({ phone, phone2, category, url }) {
   if (!phone && !phone2) return null;
 
-  // Codificar correctamente la URL
-  const encodedUrl = encodeURIComponent(url);
-
   // Mensaje dividido en partes para fácil lectura
   const part1 = "Hola, hemos publicado GRATIS su aviso por todo el día en nuestra App BuscAdis para ayudarle a que más personas vean lo que ofrece.";
-  const part2 = "Puede verlo aquí: " + encodedUrl + "."; // Usar la URL codificada
+  const part2 = `Puede verlo aquí: ${url}.`; // Usar la URL directamente
   const part3 = "Aproveche la promoción hasta el medio día para agregar imágenes, actualizar detalles o publicar un nuevo anuncio.";
   const part4 = "Estamos aquí para ayudarle a maximizar su visibilidad.";
   const part5 = "Para aprovechar esta oferta, ¡responda a este mensaje! ¿Desea que su anuncio esté publicado por más días?";
