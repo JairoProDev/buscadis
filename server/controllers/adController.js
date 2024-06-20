@@ -6,6 +6,7 @@ const createAd = async (req, res) => {
     const {
       adType,
       category,
+      subCategory,
       title,
       description,
       amount,
@@ -16,28 +17,31 @@ const createAd = async (req, res) => {
       images,
     } = req.body;
 
-    if (!adType || !category || !title || !description || !phone) {
+    if (!adType || !category || !subCategory || !title || !description || !phone) {
       return res.status(400).json({ error: "Faltan campos requeridos" });
     }
 
     const newAd = new Ad({
-      adType,
-      category,
-      title,
-      description,
-      amount,
-      location,
-      phone,
-      phone2,
-      email,
-      images,
+      adType: adType,
+      category: category,
+      subCategory: subCategory,
+      title: title,
+      description: description,
+      amount: amount,
+      location: location,
+      phone: phone,
+      phone2: phone2,
+      email: email,
+      images: images,
     });
 
     console.log("New ad:", newAd);
     try {
       await newAd.save();
       console.log("Ad saved successfully");
-      res.status(201).json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
+      res
+        .status(201)
+        .json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
     } catch (error) {
       console.error("Error al guardar el anuncio:", error);
       res.status(500).json({ error: error.message });

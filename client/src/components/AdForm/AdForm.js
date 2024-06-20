@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./adForm.css";
 import PublishButton from "../PublishButton/PublishButton";
 import Payment from "../Payment/Payment";
@@ -12,6 +12,8 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
     setAdType,
     adTypeRef,
     categoryRef,
+    subCategoryRef,
+    setAdTypeRef,
     titleRef,
     descriptionRef,
     amountRef,
@@ -27,6 +29,233 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
     handleDescriptionChange,
     handleSubmit,
   } = useAdFormLogic(agregarAnuncioAlPrincipio);
+
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+
+  useEffect(() => {
+    const categoriesMap = {
+      Empleos: [
+        "Restaurantes y Bares",
+        "Hoteles y Alojamiento",
+        "Ventas",
+        "Marketing y Publicidad",
+        "Administración",
+        "Finanzas",
+        "Construcción",
+        "Logística",
+        "Educación",
+        "Salud",
+        "Desarrollo de Software",
+        "Soporte Técnico",
+        "Limpieza y Mantenimiento",
+        "Seguridad",
+        "Transporte",
+        "Movilidad",
+        "Diseño Gráfico",
+        "Artes y Oficios",
+      ],
+      Inmuebles: ["Apartamentos", "Casas", "Oficinas", "Terrenos", "Locales"],
+      Vehicles: ["Autos", "Camionetas", "Motos", "Bicicletas", "Otros"],
+      Servicios: ["Educación", "Reparaciones", "Salud", "Técnicos", "Otros"],
+      Productos: [
+        "Tecnología",
+        "Hogar",
+        "Moda",
+        "Deportes",
+        "Mascotas",
+        "Libros",
+        "Otros",
+      ],
+      Otros: ["Eventos", "Mascotas", "Perdidos", "Otros"],
+    };
+
+    const subCategoriesMap = {
+      "Restaurantes y Bares": [
+        "Mozo/Moza",
+        "Pizzero/Ayudante Pizzero",
+        "Ayudante de Cocina",
+        "Maestro Parrillero/Especialista en Fast Food",
+        "Cajero/Cajera",
+        "Cocinero",
+        "Bartender",
+      ],
+      "Hoteles y Alojamiento": [
+        "Recepcionista",
+        "Personal de Housekeeping",
+        "Personal de Cafetería",
+        "Mantenimiento",
+        "Atención al Cliente",
+      ],
+      Ventas: [
+        "Vendedor(a)",
+        "Promotor(a) de Ventas",
+        "Ejecutivo de Ventas",
+        "Asistente de Ventas",
+      ],
+      "Marketing y Publicidad": [
+        "Especialista en Marketing Digital",
+        "Diseñador Gráfico",
+        "Publicidad Turística",
+        "Community Manager",
+      ],
+      Administración: [
+        "Asistente Administrativo",
+        "Secretario(a)",
+        "Recepcionista Administrativa",
+        "Personal de Atención al Cliente",
+      ],
+      Finanzas: [
+        "Contador",
+        "Técnico Contable",
+        "Asistente Contable",
+        "Auditor",
+        "Gestor de Recuperaciones",
+      ],
+      Construcción: [
+        "Albañil",
+        "Ingeniero Civil",
+        "Arquitecto",
+        "Maestro de Obra",
+      ],
+      Logística: [
+        "Chofer de Distribución",
+        "Almacenero",
+        "Auxiliar de Almacén",
+        "Coordinador Logístico",
+      ],
+      Educación: ["Profesor(a)", "Asistente Educativo", "Instructor(a)", "Tutor(a)"],
+      Salud: [
+        "Médico(a)",
+        "Enfermero(a)",
+        "Asistente Dental",
+        "Técnico en Enfermería",
+        "Psicólogo(a)",
+      ],
+      "Desarrollo de Software": [
+        "Desarrollador Frontend",
+        "Desarrollador Backend",
+        "Desarrollador Full Stack",
+      ],
+      "Soporte Técnico": [
+        "Técnico en Informática",
+        "Soporte Técnico",
+        "Administrador de Sistemas",
+      ],
+      "Limpieza y Mantenimiento": [
+        "Personal de Limpieza",
+        "Mantenimiento",
+        "Jardinería",
+      ],
+      Seguridad: ["Guardia de Seguridad", "Personal de Seguridad"],
+      Transporte: ["Chofer", "Conductor"],
+      Movilidad: ["Motorizado", "Repartidor"],
+      "Diseño Gráfico": [
+        "Diseñador Gráfico",
+        "Diseñador Web",
+        "Ilustrador",
+      ],
+      "Artes y Oficios": ["Artista", "Artesano"],
+    };
+
+    if (adType) {
+      setCategories(categoriesMap[adType] || []);
+      setSubCategories([]);
+    }
+  }, [adType]);
+
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+    const subCategoriesMap = {
+      "Restaurantes y Bares": [
+        "Mozo/Moza",
+        "Pizzero/Ayudante Pizzero",
+        "Ayudante de Cocina",
+        "Maestro Parrillero/Especialista en Fast Food",
+        "Cajero/Cajera",
+        "Cocinero",
+        "Bartender",
+      ],
+      "Hoteles y Alojamiento": [
+        "Recepcionista",
+        "Personal de Housekeeping",
+        "Personal de Cafetería",
+        "Mantenimiento",
+        "Atención al Cliente",
+      ],
+      Ventas: [
+        "Vendedor(a)",
+        "Promotor(a) de Ventas",
+        "Ejecutivo de Ventas",
+        "Asistente de Ventas",
+      ],
+      "Marketing y Publicidad": [
+        "Especialista en Marketing Digital",
+        "Diseñador Gráfico",
+        "Publicidad Turística",
+        "Community Manager",
+      ],
+      Administración: [
+        "Asistente Administrativo",
+        "Secretario(a)",
+        "Recepcionista Administrativa",
+        "Personal de Atención al Cliente",
+      ],
+      Finanzas: [
+        "Contador",
+        "Técnico Contable",
+        "Asistente Contable",
+        "Auditor",
+        "Gestor de Recuperaciones",
+      ],
+      Construcción: [
+        "Albañil",
+        "Ingeniero Civil",
+        "Arquitecto",
+        "Maestro de Obra",
+      ],
+      Logística: [
+        "Chofer de Distribución",
+        "Almacenero",
+        "Auxiliar de Almacén",
+        "Coordinador Logístico",
+      ],
+      Educación: ["Profesor(a)", "Asistente Educativo", "Instructor(a)", "Tutor(a)"],
+      Salud: [
+        "Médico(a)",
+        "Enfermero(a)",
+        "Asistente Dental",
+        "Técnico en Enfermería",
+        "Psicólogo(a)",
+      ],
+      "Desarrollo de Software": [
+        "Desarrollador Frontend",
+        "Desarrollador Backend",
+        "Desarrollador Full Stack",
+      ],
+      "Soporte Técnico": [
+        "Técnico en Informática",
+        "Soporte Técnico",
+        "Administrador de Sistemas",
+      ],
+      "Limpieza y Mantenimiento": [
+        "Personal de Limpieza",
+        "Mantenimiento",
+        "Jardinería",
+      ],
+      Seguridad: ["Guardia de Seguridad", "Personal de Seguridad"],
+      Transporte: ["Chofer", "Conductor"],
+      Movilidad: ["Motorizado", "Repartidor"],
+      "Diseño Gráfico": [
+        "Diseñador Gráfico",
+        "Diseñador Web",
+        "Ilustrador",
+      ],
+      "Artes y Oficios": ["Artista", "Artesano"],
+    };
+
+    setSubCategories(subCategoriesMap[selectedCategory] || []);
+  };
 
   return (
     <div className={`adForm form-container ${isVisible ? "show" : ""}`}>
@@ -52,7 +281,6 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
             className="adForm-input"
             onChange={(e) => setAdType(e.target.value)}
           >
-            <option value="">Seleccionar</option>
             <option value="Empleos">Empleos</option>
             <option value="Inmuebles">Inmuebles</option>
             <option value="Vehicles">Vehicles</option>
@@ -62,112 +290,37 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
           </select>
 
           <label htmlFor="category">Categoría:</label>
-          {adType === "Inmuebles" && (
-            <select
-              id="category"
-              name="category"
-              required
-              ref={categoryRef}
-              className="adForm-input"
-            >
-              <option value="">Seleccionar</option>
-              <option value="Habitaciones">Habitaciones</option>
-              <option value="Apartamentos">Apartamentos</option>
-              <option value="Minidepartamentos">Minidepartamentos</option>
-              <option value="Casas">Casas</option>
-              <option value="Terrenos">Terrenos</option>
-              <option value="Locales">Locales</option>
-              <option value="Oficinas">Oficinas</option>
-              <option value="Otros">Otros</option>
-            </select>
-          )}
-          {adType === "Empleos" && (
-            <select
-              id="category"
-              name="category"
-              required
-              ref={categoryRef}
-              className="adForm-input"
-            >
-              <option value="">Seleccionar</option>
-              <option value="Tecnología">Tecnología</option>
-              <option value="Salud">Salud</option>
-              <option value="Educación">Educación</option>
-              <option value="Construcción">Construcción</option>
-              <option value="Ventas">Ventas</option>
-              <option value="Servicio al Cliente">Servicio al Cliente</option>
-              <option value="Transporte">Transporte</option>
-              <option value="Administración">Administración</option>
-              <option value="Otros">Otros</option>
-            </select>
-          )}
-          {adType === "Servicios" && (
-            <select
-              id="category"
-              name="category"
-              required
-              ref={categoryRef}
-              className="adForm-input"
-            >
-              <option value="Técnicos">Técnicos</option>
-              <option value="Domésticos">Domésticos</option>
-              <option value="Eventos">Eventos</option>
-              <option value="Salud">Salud</option>
-              <option value="Educación">Educación</option>
-              <option value="Reparaciones">Reparaciones</option>
-              <option value="Otros">Otros</option>
-            </select>
-          )}
-          {adType === "Vehicles" && (
-            <select
-              id="category"
-              name="category"
-              required
-              ref={categoryRef}
-              className="adForm-input"
-            >
-              <option value="Autos">Autos</option>
-              <option value="Camionetas">Camionetas</option>
-              <option value="Motos">Motos</option>
-              <option value="Bicicletas">Bicicletas</option>
-              <option value="Maquinaria">Maquinaria</option>
-              <option value="Otros">Otros</option>
-            </select>
-          )}
-          {adType === "Productos" && (
-            <select
-              id="category"
-              name="category"
-              required
-              ref={categoryRef}
-              className="adForm-input"
-            >
-              <option value="Tecnología">Tecnología</option>
-              <option value="Hogar">Hogar</option>
-              <option value="Moda">Moda</option>
-              <option value="Deportes">Deportes</option>
-              <option value="Mascotas">Mascotas</option>
-              <option value="Juguetes">Juguetes</option>
-              <option value="Libros">Libros</option>
-              <option value="Otros">Otros</option>
-            </select>
-          )}
-          {adType === "Otros" && (
-            <select
-              id="category"
-              name="category"
-              required
-              ref={categoryRef}
-              className="adForm-input"
-            >
-              <option value="Eventos">Eventos</option>
-              <option value="Mascotas">Mascotas</option>
-              <option value="Perdidos">Perdidos</option>
-              <option value="Otros">Otros</option>
-            </select>
-          )}
+          <select
+            id="category"
+            name="category"
+            required
+            ref={categoryRef}
+            className="adForm-input"
+            onChange={handleCategoryChange}
+          >
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
 
-<label htmlFor="title">Título de tu aviso:</label>
+          <label htmlFor="subCategory">Subcategoría:</label>
+          <select
+            id="subCategory"
+            name="subCategory"
+            required
+            ref={subCategoryRef}
+            className="adForm-input"
+          >
+            {subCategories.map((subCat) => (
+              <option key={subCat} value={subCat}>
+                {subCat}
+              </option>
+            ))}
+          </select>
+
+          <label htmlFor="title">Título de tu aviso:</label>
           <input
             className="adForm-input"
             type="text"
@@ -185,8 +338,8 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
             name="description"
             required
             ref={descriptionRef}
-            value={description}
-            onChange={handleDescriptionChange}
+            defaultValue={description}
+            onInput={handleDescriptionChange}
             placeholder="Escribe una descripción detallada de tu anuncio"
             className="adForm-input"
           ></textarea>
@@ -288,6 +441,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
     </div>
   );
 }
+
 function Anuncio({ anuncio }) {
   const { title, description, phone } = anuncio;
   const halfDescription = description.substring(0, description.length / 2);
@@ -300,4 +454,5 @@ function Anuncio({ anuncio }) {
     </div>
   );
 }
+
 export default AdForm;
