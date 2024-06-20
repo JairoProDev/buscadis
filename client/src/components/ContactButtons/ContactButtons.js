@@ -4,11 +4,11 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import "./contactButtons.css";
 
-function ContactButton({ phone, type, category, url }) {
+function ContactButton({ phone, type, adType, url }) {
   const isWhatsApp = type === "whatsapp";
 
   let message;
-  switch (category) {
+  switch (adType) {
     case "Vehicles":
       message = `¡Hola! Vi su aviso sobre el Vehículo que tiene en venta aquí: ${url} y me interesa. ¿Podría proporcionarme más información, por favor?`;
       break;
@@ -43,7 +43,7 @@ function ContactButton({ phone, type, category, url }) {
   );
 }
 
-function ContactButtons({ phone, phone2, category, url }) {
+function ContactButtons({ phone, phone2, adType, url }) {
   if (!phone && !phone2) return null;
 
   // Mensaje dividido en partes para fácil lectura
@@ -67,7 +67,7 @@ function ContactButtons({ phone, phone2, category, url }) {
           <ContactButton
             phone={phone}
             type="call"
-            category={category}
+            adType={adType}
             url={url}
           />
         )}
@@ -75,7 +75,7 @@ function ContactButtons({ phone, phone2, category, url }) {
           <ContactButton
             phone={phone}
             type="whatsapp"
-            category={category}
+            adType={adType}
             url={url}
           />
         )}
@@ -86,7 +86,7 @@ function ContactButtons({ phone, phone2, category, url }) {
           <ContactButton
             phone={phone2}
             type="call"
-            category={category}
+            adType={adType}
             url={url}
           />
         )}
@@ -94,7 +94,7 @@ function ContactButtons({ phone, phone2, category, url }) {
           <ContactButton
             phone={phone2}
             type="whatsapp"
-            category={category}
+            adType={adType}
             url={url}
           />
         )}

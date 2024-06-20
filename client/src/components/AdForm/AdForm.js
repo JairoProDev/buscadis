@@ -1,4 +1,3 @@
-// AdForm.js
 import React from "react";
 import "./adForm.css";
 import PublishButton from "../PublishButton/PublishButton";
@@ -9,12 +8,10 @@ import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
   const {
-    category,
-    setCategory,
+    adType,
+    setAdType,
+    adTypeRef,
     categoryRef,
-    subcategory,
-    subcategoryRef,
-    setCategoryRef,
     titleRef,
     descriptionRef,
     amountRef,
@@ -46,16 +43,16 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
         {error && <p className="error-message">{error}</p>}
         <fieldset>
           <legend>!ANUNCIA EN BUSCADIS!</legend>
-          <label htmlFor="category">Categoría:</label>
+          <label htmlFor="adType">Tipo de anuncio:</label>
           <select
-            id="category"
-            name="category"
+            id="adType"
+            name="adType"
             required
-            ref={categoryRef}
+            ref={adTypeRef}
             className="adForm-input"
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => setAdType(e.target.value)}
           >
-            {" "}
+            <option value="">Seleccionar</option>
             <option value="Empleos">Empleos</option>
             <option value="Inmuebles">Inmuebles</option>
             <option value="Vehicles">Vehicles</option>
@@ -64,15 +61,16 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
             <option value="Otros">Otros</option>
           </select>
 
-          <label htmlFor="subcategory">Subcategoría:</label>
-          {category === "Inmuebles" && (
+          <label htmlFor="category">Categoría:</label>
+          {adType === "Inmuebles" && (
             <select
-              id="subcategory"
-              name="subcategory"
+              id="category"
+              name="category"
               required
-              ref={subcategoryRef}
+              ref={categoryRef}
               className="adForm-input"
             >
+              <option value="">Seleccionar</option>
               <option value="Habitaciones">Habitaciones</option>
               <option value="Apartamentos">Apartamentos</option>
               <option value="Minidepartamentos">Minidepartamentos</option>
@@ -83,14 +81,15 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
               <option value="Otros">Otros</option>
             </select>
           )}
-          {category === "Empleos" && (
+          {adType === "Empleos" && (
             <select
-              id="subcategory"
-              name="subcategory"
+              id="category"
+              name="category"
               required
-              ref={subcategoryRef}
+              ref={categoryRef}
               className="adForm-input"
             >
+              <option value="">Seleccionar</option>
               <option value="Tecnología">Tecnología</option>
               <option value="Salud">Salud</option>
               <option value="Educación">Educación</option>
@@ -102,12 +101,12 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
               <option value="Otros">Otros</option>
             </select>
           )}
-          {category === "Servicios" && (
+          {adType === "Servicios" && (
             <select
-              id="subcategory"
-              name="subcategory"
+              id="category"
+              name="category"
               required
-              ref={subcategoryRef}
+              ref={categoryRef}
               className="adForm-input"
             >
               <option value="Técnicos">Técnicos</option>
@@ -119,12 +118,12 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
               <option value="Otros">Otros</option>
             </select>
           )}
-          {category === "Vehicles" && (
+          {adType === "Vehicles" && (
             <select
-              id="subcategory"
-              name="subcategory"
+              id="category"
+              name="category"
               required
-              ref={subcategoryRef}
+              ref={categoryRef}
               className="adForm-input"
             >
               <option value="Autos">Autos</option>
@@ -135,12 +134,12 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
               <option value="Otros">Otros</option>
             </select>
           )}
-          {category === "Productos" && (
+          {adType === "Productos" && (
             <select
-              id="subcategory"
-              name="subcategory"
+              id="category"
+              name="category"
               required
-              ref={subcategoryRef}
+              ref={categoryRef}
               className="adForm-input"
             >
               <option value="Tecnología">Tecnología</option>
@@ -153,12 +152,12 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
               <option value="Otros">Otros</option>
             </select>
           )}
-          {category === "Otros" && (
+          {adType === "Otros" && (
             <select
-              id="subcategory"
-              name="subcategory"
+              id="category"
+              name="category"
               required
-              ref={subcategoryRef}
+              ref={categoryRef}
               className="adForm-input"
             >
               <option value="Eventos">Eventos</option>
@@ -168,7 +167,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
             </select>
           )}
 
-          <label htmlFor="title">Título de tu aviso:</label>
+<label htmlFor="title">Título de tu aviso:</label>
           <input
             className="adForm-input"
             type="text"
@@ -186,8 +185,8 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
             name="description"
             required
             ref={descriptionRef}
-            defaultValue={description}
-            onInput={handleDescriptionChange}
+            value={description}
+            onChange={handleDescriptionChange}
             placeholder="Escribe una descripción detallada de tu anuncio"
             className="adForm-input"
           ></textarea>

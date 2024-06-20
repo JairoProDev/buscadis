@@ -1,14 +1,9 @@
-// AdFormLogic.js
 import { useRef, useState, useEffect } from "react";
 
 export function useAdFormLogic(agregarAnuncioAlPrincipio) {
+    const adTypeRef = useRef();
     const categoryRef = useRef();
-    const subcategoryRef = useRef();
-    const [category, setCategory] = useState("");
-    const setCategoryRef = (ref) => {
-        categoryRef.current = ref;
-        setCategory(ref.value);
-      };
+    const [adType, setAdType] = useState("");
     const titleRef = useRef();
     const descriptionRef = useRef();
     const amountRef = useRef();
@@ -26,7 +21,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
 
     const validateForm = () => {
         if (
-            !getRefValue(categoryRef) ||
+            !getRefValue(adTypeRef) ||
             !getRefValue(titleRef) ||
             !getRefValue(descriptionRef) ||
             !getRefValue(phoneRef)
@@ -36,8 +31,10 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     };
 
     const clearForm = () => {
-        categoryRef.current.value = "";
-        subcategoryRef.current.value = "";
+        adTypeRef.current.value = "";
+        if (categoryRef.current) {
+            categoryRef.current.value = "";
+        }
         titleRef.current.value = "";
         descriptionRef.current.value = "";
         phoneRef.current.value = "";
@@ -85,100 +82,52 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
         };
     }, [images]);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-        try {
-            validateForm();
+  try {
+    validateForm();
 
-        const formData = new FormData();
-        // Verificar si 'images' existe antes de intentar llamar a 'forEach' en él
-        if (images) {
-            images.forEach((image) => {
-                formData.append('image', image);
-            });
+    const formData = {
+      adType: adTypeRef.current.value,
+      category: categoryRef.current ? categoryRef.current.value : "",
+      title: titleRef.current.value,
+      description: descriptionRef.current.value,
+      phone: phoneRef.current.value,
+      phone2: phone2Ref.current ? phone2Ref.current.value : "",
+      location: locationRef.current ? locationRef.current.value : "",
+      email: emailRef.current ? emailRef.current.value : "",
+      amount: amountRef.current ? amountRef.current.value : "",
+      images: images.map(image => URL.createObjectURL(image)),
+    };
 
-            images.forEach((url) => URL.revokeObjectURL(url)); // Revocar las URLs de objeto después de cargar las imágenes
-        }
+    const adResponse = await fetch("/api/anuncios", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-        formData.append("category", categoryRef.current.value);
-        if (subcategoryRef.current) {
-            formData.append("subcategory", subcategoryRef.current.value);
-        }
-        formData.append("title", titleRef.current.value);
-        formData.append("description", descriptionRef.current.value);
-        formData.append("phone", phoneRef.current.value);
-
-        if (phone2Ref.current && phone2Ref.current.value !== "") {
-            formData.append("phone2", phone2Ref.current.value);
-        }
-
-        if (locationRef.current && locationRef.current.value !== "") {
-            formData.append("location", locationRef.current.value);
-        }
-
-        if (emailRef.current && emailRef.current.value !== "") {
-            formData.append("email", emailRef.current.value);
-        }
-
-        if (amountRef.current && amountRef.current.value !== "") {
-            formData.append("amount", amountRef.current.value);
-        }
-
-        try {
-            const response = await fetch("/api/images/upload", {
-                method: "POST",
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error("Error al cargar las imágenes");
-            }
-
-            const data = await response.json();
-            const imageUrls = data.imageUrls;
-
-            const adResponse = await fetch("/api/anuncios", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    category: categoryRef.current.value,
-                    subcategory: subcategoryRef.current ? subcategoryRef.current.value : "",
-                    title: titleRef.current.value,
-                    description: descriptionRef.current.value,
-                    amount: amountRef.current && amountRef.current.value !== "" ? amountRef.current.value : "",
-                    location: locationRef.current && locationRef.current.value !== "" ? locationRef.current.value : "",
-                    phone: phoneRef.current.value,
-                    phone2: phone2Ref.current ? phone2Ref.current.value : "",
-                    email: emailRef.current ? emailRef.current.value : "",
-                    images: imageUrls,
-                }),
-            });
-
-            if (!adResponse.ok) {
-                throw new Error("Error al crear el anuncio");
-            }
-
-            const responseJson = await adResponse.json();
-            const anuncio = responseJson.anuncio;
-            agregarAnuncioAlPrincipio(anuncio);
-            clearForm();
-        } catch (error) {
-            setError(error.message);
-        }
-    } catch (error) {
-        setError(error.message);
+    if (!adResponse.ok) {
+      throw new Error("Error al crear el anuncio");
     }
+
+    const responseJson = await adResponse.json();
+    const anuncio = responseJson.anuncio;
+    agregarAnuncioAlPrincipio(anuncio);
+    clearForm();
+  } catch (error) {
+    setError(error.message);
+  }
 };
 
+
     return {
-        category,
-        setCategory,
+        adType,
+        setAdType,
+        adTypeRef,
         categoryRef,
-        subcategoryRef,
-        setCategoryRef,
         titleRef,
         descriptionRef,
         amountRef,

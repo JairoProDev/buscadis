@@ -8,17 +8,19 @@ function AdCard({ anuncio, setSelectedAd, number }) {
   // console.log('AdCard anuncio:', anuncio)
 
   const handleAdClick = () => {
-    // Cambia la URL a la nueva ruta con categoría, subcategoría y ID
-    navigate(`/${anuncio.category}/${anuncio.subcategory}/${anuncio.id}`);
+    // Cambia la URL a la nueva ruta con adType, categoría y ID
+    navigate(`/${anuncio.adType}/${anuncio.category}/${anuncio.id}`);
     // Establece el anuncio seleccionado
     setSelectedAd(anuncio);
   };
   
   const sizeClass = `ad-size-${anuncio.size || 'normal'}`;
 
-  const { category, subcategory, title, description, amount, location, createdAt } = anuncio;
+  const { adType, category, title, description, amount, location, createdAt } = anuncio;
 
-  const adClass = `ad-card ${category.toLowerCase()} ${sizeClass}`;
+// En AdCard.js, antes de definir adClass, asegúrate de que adType esté definido
+const adTypeLower = adType ? adType.toLowerCase() : 'default';
+const adClass = `ad-card ${adTypeLower} ${sizeClass}`;
 
   // Formatea la fecha de publicación
   const formattedDate = formatShortDistance(new Date(createdAt));
@@ -49,7 +51,7 @@ function AdCard({ anuncio, setSelectedAd, number }) {
     }
     return `${Math.floor(seconds)} seg`;
   }
-  const categoryEmojis = {
+  const adTypeEmojis = {
     empleos: "💼",
     inmuebles: "🏠",
     vehiculos: "🚗",
@@ -66,7 +68,7 @@ function AdCard({ anuncio, setSelectedAd, number }) {
       <div className="ad-card__content">
         <div className="ad-card__header">
           <p className="ad-card__number">#{number}</p>
-          <p className="ad-card__category">{categoryEmojis[category.toLowerCase()] || category} {subcategory}</p>
+          <p className="ad-adType">{adTypeEmojis[adType.toLowerCase()] || adType} {category}</p>
           <p className="ad-card__date">Hace {formattedDate}</p>{" "}
         </div>
         <h3 className="ad-card__title">{title}</h3>

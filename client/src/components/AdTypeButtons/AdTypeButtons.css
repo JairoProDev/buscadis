@@ -1,5 +1,4 @@
-/* Categories.css */
-.category-container {
+.adType-container {
     padding-left: 30px;
   }
   
@@ -11,7 +10,7 @@
     max-width: 100%;
   }
   
-  .scroll-container .category-button {
+  .scroll-container .adType-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,40 +26,40 @@
     white-space: nowrap;
   }
   
-  .scroll-container .category-button img {
+  .scroll-container .adType-button img {
     margin-right: 10px;
     width: 24px;
     height: 24px;
   }
   
-  .scroll-container .category-button:hover {
+  .scroll-container .adType-button:hover {
     transform: translateY(-2px);
     box-shadow: 2px 2px 5px #bebebe, -2px -2px 5px #ffffff;
   }
   
-  .scroll-container .category-button:active {
+  .scroll-container .adType-button:active {
     transform: translateY(2px);
     box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
   }
   
-  .scroll-container .category-button:focus {
+  .scroll-container .adType-button:focus {
     outline: none;
     box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
   }
   
-  .scroll-container .category-button.selected-all {
+  .scroll-container .adType-button.selected-all {
     background-color: #28a745;
     color: #ffffff;
     box-shadow: 4px 4px 8px #19692c, -4px -4px 8px #37d258;
   }
   
-  .scroll-container .category-button.selected-category {
+  .scroll-container .adType-button.selected-adType {
     background-color: #007bff;
     color: #ffffff;
     box-shadow: 4px 4px 8px #0056b3, -4px -4px 8px #0099ff;
   }
   
-  .scroll-container .subcategory-button {
+  .scroll-container .category-button {
     background-color: #e0e0e0;
     color: #666;
     border: none;
@@ -73,17 +72,17 @@
     white-space: nowrap;
   }
   
-  .scroll-container .subcategory-button:hover {
+  .scroll-container .category-button:hover {
     transform: translateY(-2px);
     box-shadow: 1px 1px 3px #bebebe, -1px -1px 3px #ffffff;
   }
   
-  .scroll-container .subcategory-button:active {
+  .scroll-container .category-button:active {
     transform: translateY(2px);
     box-shadow: inset 1px 1px 3px #bebebe, inset -1px -1px 3px #ffffff;
   }
   
-  .scroll-container .subcategory-button:focus {
+  .scroll-container .category-button:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
   }
@@ -93,12 +92,12 @@
       padding: 5px;
     }
   
-    .scroll-container .category-button {
+    .scroll-container .adType-button {
       padding: 8px 16px;
       font-size: 14px;
     }
   
-    .scroll-container .subcategory-button {
+    .scroll-container .category-button {
       padding: 6px 12px;
       font-size: 12px;
     }

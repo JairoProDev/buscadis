@@ -1,8 +1,8 @@
-// SubCategoryList.js
+// CategoryList.js
 import React from 'react';
 
-const SubCategoryList = () => {
-  const subcategories = {
+const CategoryList = () => {
+  const categories = {
     'Empleos': ['Turismo', 'Restaurantes', 'Hotelería', 'Ventas'],
     'Inmuebles': ['Habitaciones', 'Departamentos', 'Casas'],
     'Vehículos': ['Autos', 'Camionetas', 'Motos'],
@@ -11,10 +11,10 @@ const SubCategoryList = () => {
   };
 
   return (
-    <div className="subcategories-nav">
-      {Object.entries(subcategories).map(([category, subs]) => (
-        <div key={category}>
-          <h3>{category}</h3>
+    <div className="categories-nav">
+      {Object.entries(categories).map(([adType, subs]) => (
+        <div key={adType}>
+          <h3>{adType}</h3>
           <ul>
             {subs.map(sub => <li key={sub}>{sub}</li>)}
           </ul>
@@ -24,4 +24,4 @@ const SubCategoryList = () => {
   );
 };
 
-export default SubCategoryList;
+export default CategoryList;

@@ -10,7 +10,7 @@ function Sidebar({ isOpen, updateSearchTerm }) {
   };
   return (
     <aside className="sidebar" style={{ display: isOpen ? "block" : "none" }}>
-      <ul className="category-list">
+      <ul className="adType-list">
         <h4>Empleos</h4>
         <ul className="enlaces">
           <li>

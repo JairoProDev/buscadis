@@ -55,9 +55,9 @@ button.form-close-button {
   margin-bottom: 5px;
 }
 
-.adForm select#category {
+.adForm select#adType {
   width: 80%; /* Reduce el ancho para darle más prominencia */
-  margin: 0 auto; /* Centra el selector de categorías */
+  margin: 0 auto; /* Centra el selector de adTypes */
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -68,8 +68,8 @@ button.form-close-button {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.adForm select#category:hover {
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Aumenta la sombra cuando se pasa el cursor sobre el selector de categorías para dar un efecto de relieve */
+.adForm select#adType:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Aumenta la sombra cuando se pasa el cursor sobre el selector de adTypes para dar un efecto de relieve */
   transform: scale(1.05);
 }
 

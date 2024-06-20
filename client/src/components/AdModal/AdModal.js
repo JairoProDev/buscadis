@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function AdModal({ anuncios }) {
-  const { category, subcategory, id } = useParams();
+  const { adType, category, id } = useParams();
   const navigate = useNavigate();
   const modalRef = useRef();
 
@@ -37,15 +37,15 @@ function AdModal({ anuncios }) {
   }, [ad]);
 
   const handleClose = useCallback(() => {
-    // Navegar a la URL anterior correspondiente a la categoría y subcategoría
-  //   if (category && subcategory) {
-  //     navigate(`/${category}/${subcategory}`);
-  //   } else if (category) {
-  //     navigate(`/${category}`);
+    // Navegar a la URL anterior correspondiente a la adType y categoría
+  //   if (adType && category) {
+  //     navigate(`/${adType}/${category}`);
+  //   } else if (adType) {
+  //     navigate(`/${adType}`);
   //   } else {
   //     navigate('/');
   //   }
-  // }, [category, subcategory, navigate]);
+  // }, [adType, category, navigate]);
   navigate('/');
 
   }, [navigate]);
@@ -98,7 +98,7 @@ function AdModal({ anuncios }) {
 
   const adUrl = window.location.href;
 
-  const modalClass = `modal-content ${category.toLowerCase()} ${isForwardNavigation ? 'transition-right' : 'transition-left'}`;
+  const modalClass = `modal-content ${adType.toLowerCase()} ${isForwardNavigation ? 'transition-right' : 'transition-left'}`;
 
   return (
     <div
@@ -118,7 +118,7 @@ function AdModal({ anuncios }) {
             </p>
           </div>
           <div className="modal-header-center">
-            <p>{category}</p>
+            <p>{adType}</p>
           </div>
           <div className="modal-header-right">
             <button>
@@ -144,7 +144,7 @@ function AdModal({ anuncios }) {
           <p>{location}</p>
         </div>
         <div className="modal-footer">
-          <ContactButtons phone={ad.phone} phone2={ad.phone2} category={ad.category} url={adUrl} />
+          <ContactButtons phone={ad.phone} phone2={ad.phone2} adType={ad.adType} url={adUrl} />
         </div>
       </div>
     </div>

@@ -9,9 +9,9 @@ function useAdNavigation(anuncios) {
 
   const handleKeyDown = (event) => {
     if (event.key === 'ArrowLeft' && currentIndex > 0) {
-      navigate(`/${anuncios[currentIndex - 1].category}/${anuncios[currentIndex - 1].subcategory}/${anuncios[currentIndex - 1]._id}`);
+      navigate(`/${anuncios[currentIndex - 1].adType}/${anuncios[currentIndex - 1].category}/${anuncios[currentIndex - 1]._id}`);
     } else if (event.key === 'ArrowRight' && currentIndex < anuncios.length - 1) {
-      navigate(`/${anuncios[currentIndex + 1].category}/${anuncios[currentIndex + 1].subcategory}/${anuncios[currentIndex + 1]._id}`);
+      navigate(`/${anuncios[currentIndex + 1].adType}/${anuncios[currentIndex + 1].category}/${anuncios[currentIndex + 1]._id}`);
     }
   };
 

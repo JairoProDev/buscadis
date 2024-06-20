@@ -4,8 +4,8 @@ const createAd = async (req, res) => {
   try {
     console.log("Creating new ad with data:", req.body);
     const {
+      adType,
       category,
-      subcategory,
       title,
       description,
       amount,
@@ -16,29 +16,28 @@ const createAd = async (req, res) => {
       images,
     } = req.body;
 
-    if (!category || !title || !description || !phone) {
+    if (!adType || !category || !title || !description || !phone) {
       return res.status(400).json({ error: "Faltan campos requeridos" });
     }
+
     const newAd = new Ad({
-      category: category,
-      subcategory: subcategory,
-      title: title,
-      description: description,
-      amount: amount,
-      location: location,
-      phone: phone,
-      phone2: phone2,
-      email: email,
-      images: images,
+      adType,
+      category,
+      title,
+      description,
+      amount,
+      location,
+      phone,
+      phone2,
+      email,
+      images,
     });
 
     console.log("New ad:", newAd);
     try {
       await newAd.save();
       console.log("Ad saved successfully");
-      res
-        .status(201)
-        .json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
+      res.status(201).json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
     } catch (error) {
       console.error("Error al guardar el anuncio:", error);
       res.status(500).json({ error: error.message });
@@ -52,8 +51,8 @@ const createAd = async (req, res) => {
 const getAds = async (req, res) => {
   try {
     const anuncios = await Ad.find()
-      .sort({ createdAt: -1 }) // Ordena los anuncios por fecha de creación de más reciente a más antiguo
-      .limit(300) // Limita los resultados a los primeros 300
+      .sort({ createdAt: -1 })
+      .limit(300)
       .exec();
 
     if (!anuncios || anuncios.length === 0) {
@@ -67,7 +66,6 @@ const getAds = async (req, res) => {
   }
 };
 
-// Devuelve un solo anuncio por su ID
 const getAdById = async (req, res) => {
   try {
     const anuncio = await Ad.findById(req.params.id);
@@ -83,12 +81,12 @@ const getAdById = async (req, res) => {
   }
 };
 
-const getAdsByCategory = async (req, res) => {
+const getAdsByAdType = async (req, res) => {
   try {
-    const category = req.params.category;
-    const anuncios = await Ad.find({ category: category })
-      .sort({ createdAt: -1 }) // Ordena los anuncios por fecha de creación de más reciente a más antiguo
-      .limit(300) // Limita los resultados a los primeros 300
+    const adType = req.params.adType;
+    const anuncios = await Ad.find({ adType })
+      .sort({ createdAt: -1 })
+      .limit(300)
       .exec();
 
     if (!anuncios || anuncios.length === 0) {
@@ -101,18 +99,15 @@ const getAdsByCategory = async (req, res) => {
     res.status(500).json({ error: "Error interno al obtener los anuncios" });
   }
 };
-const getAdsByCategoryAndSubcategory = async (req, res) => {
-  try {
-    const { category, subcategory } = req.params;
-    let query = { category };
 
-    if (subcategory) {
-      query.subcategory = subcategory;
-    }
+const getAdsByAdTypeAndCategory = async (req, res) => {
+  try {
+    const { adType, category } = req.params;
+    const query = { adType, category };
 
     const ads = await Ad.find(query)
-      .sort({ createdAt: -1 }) // Ordena los anuncios por fecha de creación de más reciente a más antiguo
-      .limit(300) // Limita los resultados a los primeros 300
+      .sort({ createdAt: -1 })
+      .limit(300)
       .exec();
 
     if (!ads || ads.length === 0) {
@@ -126,7 +121,6 @@ const getAdsByCategoryAndSubcategory = async (req, res) => {
   }
 };
 
-// Actaulizar anuncio (modificar)
 const updateAd = async (req, res) => {
   try {
     const anuncio = await Ad.findById(req.params.id);
@@ -135,25 +129,16 @@ const updateAd = async (req, res) => {
       return res.status(404).json({ mensaje: "No se encontró el anuncio" });
     }
 
-    anuncio.category = req.body.category || anuncio.category;
-    anuncio.subcategory = req.body.subcategory || anuncio.subcategory;
-    anuncio.title = req.body.title || anuncio.title;
-    anuncio.description = req.body.description || anuncio.description;
-    anuncio.amount = req.body.amount || anuncio.amount;
-    anuncio.location = req.body.location || anuncio.location;
-    anuncio.phone = req.body.phone || anuncio.phone;
-    anuncio.phone2 = req.body.phone2 || anuncio.phone2;
-
-    anuncio.email = req.body.email || anuncio.email;
+    Object.assign(anuncio, req.body);
 
     await anuncio.save();
-    res.status(200).json({ mensaje: "Anuncio actualizado", anuncio: anuncio });
+    res.status(200).json({ mensaje: "Anuncio actualizado", anuncio });
   } catch (error) {
     console.error("Error al actualizar el anuncio:", error);
     res.status(500).json({ error: "Error interno al actualizar el anuncio" });
   }
 };
-// Eliminar anuncio
+
 const deleteAd = async (req, res) => {
   try {
     const anuncio = await Ad.findById(req.params.id);
@@ -163,7 +148,7 @@ const deleteAd = async (req, res) => {
     }
 
     await anuncio.remove();
-    res.status(200).json({ mensaje: "Anuncio eliminado", anuncio: anuncio });
+    res.status(200).json({ mensaje: "Anuncio eliminado", anuncio });
   } catch (error) {
     console.error("Error al eliminar el anuncio:", error);
     res.status(500).json({ error: "Error interno al eliminar el anuncio" });
@@ -176,6 +161,6 @@ module.exports = {
   getAdById,
   updateAd,
   deleteAd,
-  getAdsByCategory,
-  getAdsByCategoryAndSubcategory,
+  getAdsByAdType,
+  getAdsByAdTypeAndCategory,
 };

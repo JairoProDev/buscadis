@@ -29,10 +29,10 @@ import "./HomePage.css";
 function HomePage() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
-  const { category, subcategory } = useParams();
+  const { adType, category } = useParams();
 
   const { anuncios, agregarAnuncioAlPrincipio, error, hasMore, isLoading } =
-    useAds(page, category, subcategory, filter);
+    useAds(page, adType, category, filter);
   const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -93,7 +93,7 @@ function HomePage() {
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
         <Route
-          path="/:category/:subcategory/:id"
+          path="/:adType/:category/:id"
           element={<AdModal anuncios={anuncios} selectedAd={selectedAd} />}
         />
       </Routes>

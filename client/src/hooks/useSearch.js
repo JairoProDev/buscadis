@@ -15,8 +15,8 @@ function useSearch(anuncios, filter) {
               ad.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              ad.adType?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              ad.subcategory?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.phone?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.phone2?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.email?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -24,7 +24,7 @@ function useSearch(anuncios, filter) {
         }
 
         if (filter) {
-            filtered = filtered.filter((ad) => ad.category === filter);
+            filtered = filtered.filter((ad) => ad.adType === filter);
         }
 
         return filtered;

@@ -6,7 +6,7 @@
   "background_color": "#000",
   "display": "standalone",
   "theme_color": "#fff",
-  "categories": ["Compras", "Clasificados", "Negocios", "Empleos", "Inmuebles", "Automóviles", "Servicios", "Comunidad", "Publicidad", "Local", "Bienes Raíces", "Social", "Transporte"],
+  "adTypes": ["Compras", "Clasificados", "Negocios", "Empleos", "Inmuebles", "Automóviles", "Servicios", "Comunidad", "Publicidad", "Local", "Bienes Raíces", "Social", "Transporte"],
   "lang": "es-419",
   "dir": "ltr",
   "scope": "/",

@@ -13,7 +13,7 @@ function AdList({ anuncios, setSelectedAd }) {
         {anuncios.map((anuncio, index) => (
           <li key={anuncio._id}>
             <Link
-              to={`/${anuncio.category}/${anuncio.subcategory}/${anuncio._id}`}
+              to={`/${anuncio.adType}/${anuncio.category}/${anuncio._id}`}
               style={{
                 textDecoration: "none",
                 color: "inherit",
