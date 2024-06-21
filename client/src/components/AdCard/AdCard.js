@@ -61,7 +61,7 @@ function AdCard({ anuncio, setSelectedAd, number }) {
       <div className="ad-card__content">
         <div className="ad-card__header">
           <p className="ad-card__number">#{number}</p>
-          <p className="ad-adType">{adTypeEmojis[adTypeLower] || adType} {category} {subCategory && ` - ${subCategory}`}</p>
+          <p className="ad-adType">{adTypeEmojis[adTypeLower] || adType} {category}</p>
           <p className="ad-card__date">Hace {formattedDate}</p>
         </div>
         <h3 className="ad-card__title">{title}</h3>
