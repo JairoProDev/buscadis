@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-function useAds(adType, category) {
+function useAds(adType, category, subcategory) {
     const [anuncios, setAnuncios] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +18,10 @@ function useAds(adType, category) {
         setIsLoading(true);
         setError(null);
         try {
-            const url = `/api/anuncios?limit=300` + (adType ? `&adType=${adType}` : '') + (category ? `&category=${category}` : '');
+            const url = `/api/anuncios?limit=100` + 
+                        (adType ? `&adType=${adType}` : '') + 
+                        (category ? `&category=${category}` : '') + 
+                        (subcategory ? `&subcategory=${subcategory}` : ''); // Añadir subcategory a la URL
             const respuesta = await fetch(url);
             const anuncios = await respuesta.json();
             if (anuncios) {
@@ -32,7 +35,7 @@ function useAds(adType, category) {
             setError('Error al obtener los anuncios');
         }
         setIsLoading(false);
-    }, [showAds, adType, category]);
+    }, [showAds, adType, category, subcategory]);
 
     useEffect(() => {
         getAds();
