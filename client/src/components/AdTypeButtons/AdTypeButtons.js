@@ -7,6 +7,7 @@ import CarsIcon from "../../icons/vehicles.png";
 import ServiceIcon from "../../icons/services.png";
 import ProductIcon from "../../icons/products.png";
 import OtherIcon from "../../icons/others.png";
+import BusinessIcon from "../../icons/business.png";
 import PlayStoreIcon from "../../icons/playstore.png";
 import { adTypes } from './AdTypes';
 
@@ -16,7 +17,8 @@ const adTypeIcons = {
   Vehicles: CarsIcon,
   Servicios: ServiceIcon,
   Productos: ProductIcon,
-  Otros: OtherIcon
+  Otros: OtherIcon,
+  Negocios: BusinessIcon,
 };
 
 function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handleCategoryClick, handleSubCategoryClick }) {
@@ -64,7 +66,7 @@ const handleAllClick = () => {
           ))}
           <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" className="adType-button download-app-button" target='_blank'>
             <img src={PlayStoreIcon} alt="Play Store" />
-            Descargar App
+            Bajar App
           </a>
         </div>
       </div>

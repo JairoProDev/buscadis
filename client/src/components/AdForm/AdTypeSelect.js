@@ -16,6 +16,7 @@ const AdTypeSelect = ({ adTypeRef, setAdType }) => (
       <option value="Vehicles">Vehicles</option>
       <option value="Servicios">Servicios</option>
       <option value="Productos">Productos</option>
+      <option value="Negocios">Negocios</option>
       <option value="Otros">Otros</option>
     </select>
   </>
