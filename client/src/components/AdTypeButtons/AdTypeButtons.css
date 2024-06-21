@@ -1,5 +1,5 @@
 .adType-container {
-    padding-left: 30px;
+  padding-top: 5px;
   }
   
   .scroll-container {
@@ -27,7 +27,7 @@
   }
   
   .scroll-container .adType-button img {
-    margin-right: 10px;
+    margin-right: 6px;
     width: 24px;
     height: 24px;
   }
@@ -93,13 +93,20 @@
     }
   
     .scroll-container .adType-button {
-      padding: 8px 16px;
+      padding: 4px 8px;
       font-size: 14px;
     }
   
     .scroll-container .category-button {
       padding: 6px 12px;
       font-size: 12px;
+    }
+    .adType-container {
+      padding-left: 30px;
+    }
+    .scroll-container .category-button {
+      padding: 4px 8px;
+      font-size: 10px;
     }
   }
   
