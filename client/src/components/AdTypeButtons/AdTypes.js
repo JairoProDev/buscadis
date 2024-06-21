@@ -1,27 +1,36 @@
 // adTypes.js
 export const adTypes = {
     Empleos: {
-      "Restaurantes y Bares": [
+      "Restaurantes": [
         "Mozo/Moza",
-        "Pizzero/Ayudante Pizzero",
         "Ayudante de Cocina",
-        "Maestro Parrillero/Especialista en Fast Food",
         "Cajero/Cajera",
         "Cocinero",
         "Bartender",
+        "Lavaplatos",
+        "Pizzero",
+        "Personal de Limpieza",
+        "Maestro pollero",
+        "Maestro chifero",
+        "Maestro cevichero"
       ],
-      "Hoteles y Alojamiento": [
+      "Hoteles": [
         "Recepcionista",
-        "Personal de Housekeeping",
+        "Housekeeping",
         "Personal de Cafetería",
         "Mantenimiento",
-        "Atención al Cliente",
+        "Cocinero(a) de Hotel",
+        "Bartender de Hotel",
+        "Limpieza",
       ],
       Ventas: [
         "Vendedor(a)",
         "Promotor(a) de Ventas",
         "Ejecutivo de Ventas",
         "Asistente de Ventas",
+        "Supervisor de Ventas",
+        "Gerente de Ventas",
+        "Televentas",
       ],
       Marketing: [
         "Especialista en Marketing Digital",
@@ -29,11 +38,12 @@ export const adTypes = {
         "Publicidad Turística",
         "Community Manager",
       ],
-      Administración: [
+      Administrativo: [
         "Asistente Administrativo",
         "Secretario(a)",
         "Recepcionista Administrativa",
         "Personal de Atención al Cliente",
+        "Recursos Humanos",
       ],
       Finanzas: [
         "Contador",
@@ -47,12 +57,15 @@ export const adTypes = {
         "Ingeniero Civil",
         "Arquitecto",
         "Maestro de Obra",
+        "Electricista",
+        "Plomero",
       ],
       Logística: [
         "Chofer de Distribución",
         "Almacenero",
         "Auxiliar de Almacén",
         "Coordinador Logístico",
+        "Supervisor de Almacén",
       ],
       Educación: ["Profesor(a)", "Asistente Educativo", "Instructor(a)", "Tutor(a)"],
       Salud: [
@@ -61,32 +74,42 @@ export const adTypes = {
         "Asistente Dental",
         "Técnico en Enfermería",
         "Psicólogo(a)",
+        "Nutricionista",
+        "Fisioterapeuta",
+        "Farmacéutico(a)",
       ],
-      "Desarrollo de Software": [
-        "Desarrollador Frontend",
-        "Desarrollador Backend",
-        "Desarrollador Full Stack",
-      ],
-      "Soporte Técnico": [
-        "Técnico en Informática",
+      "Software": [
         "Soporte Técnico",
+        "Técnico en Informática",
         "Administrador de Sistemas",
+        "Desarrollador de Software",
+        "Frontend",
+        "Backend",
+        "Full-Stack",
       ],
-      "Limpieza y Mantenimiento": [
-        "Personal de Limpieza",
-        "Mantenimiento",
+      Hogar: [
+        "Niñera",
+        "Cuidador(a) de Adultos Mayores",
+        "Limpieza",
+        "Cocina",
         "Jardinería",
       ],
       Seguridad: ["Guardia de Seguridad", "Personal de Seguridad"],
-      Transporte: ["Chofer", "Conductor"],
-      Movilidad: ["Motorizado", "Repartidor"],
-      "Diseño Gráfico": [
+      Transporte: [ "Conductor", "Motorizado", "Repartidor"],
+      "Diseño": [
         "Diseñador Gráfico",
         "Diseñador Web",
         "Ilustrador",
+        "Artista", 
+        "Artesano",
+        "pintor(a)"
       ],
-      "Artes y Oficios": ["Artista", "Artesano"],
-      Otros: []
+        "Turismo": [
+            "Guía Turístico",
+            "Operador Turístico",
+            "Agente de Viajes",
+        ],
+      Otros: ["Teletrabajo", "Trabajos Temporales", "Prácticas Pre-Profesionales"],
     },
     Inmuebles: {
       Habitaciones: ["Alquiler", "Compartidas", "Amobladas", "Estudiantes"],
@@ -94,10 +117,10 @@ export const adTypes = {
       Casas: ["Alquiler", "Venta", "Nuevas", "Amobladas"],
       Terrenos: ["Venta", "Alquiler", "Agrícolas", "Urbanos"],
       Oficinas: ["Alquiler", "Venta", "Coworking", "Amobladas"],
-      Locales: ["Alquiler", "Venta", "Comerciales", "Industriales"],
+      Locales: ["Alquiler", "Venta", "Traspaso", "Comerciales", "Industriales"],
       Hoteles: ["Venta", "Alquiler", "Boutique", "Resorts"],
-      Anticresis: ["Habitaciones", "Apartamentos", "Casas"],
-      Otros: ["Garajes", "Depósitos"]
+      Anticresis: ["Habitaciones", "Apartamentos", "Casas", "Terrenos", "Locales"],
+      Otros: ["Garajes", "Depósitos", "Quintas", "Fincas"]
     },
     Vehicles: {
       Autos: ["Sedan", "SUV", "Deportivo", "Convertible"],
@@ -188,7 +211,7 @@ export const adTypes = {
           "Centros de Diversión",
           "Clubes Nocturnos"
         ],
-        "Educación y Capacitación": [
+        "Educación": [
           "Institutos",
           "Academias",
           "Centros de Idiomas",
