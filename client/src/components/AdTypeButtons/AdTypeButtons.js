@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AdTypeButtons.css';
 import JobsIcon from "../../icons/jobs.png";
 import EstateIcon from "../../icons/estate.png";
@@ -7,7 +8,7 @@ import ServiceIcon from "../../icons/services.png";
 import ProductIcon from "../../icons/products.png";
 import OtherIcon from "../../icons/others.png";
 import PlayStoreIcon from "../../icons/playstore.png";
-import { adTypes } from './AdTypes'; // Import the ad types
+import { adTypes } from './AdTypes';
 
 const adTypeIcons = {
   Empleos: JobsIcon,
@@ -19,20 +20,18 @@ const adTypeIcons = {
 };
 
 function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handleCategoryClick, handleSubCategoryClick }) {
+  const navigate = useNavigate();
   const [selectedAdType, setSelectedAdType] = useState(adType || 'Todos');
   const [selectedCategory, setSelectedCategory] = useState(category || null);
 
   const handleAdTypeSelection = (adTypeKey) => {
     setSelectedAdType(adTypeKey);
-    setSelectedCategory(null); // Reset category when adType changes
+    setSelectedCategory(null);
     handleAdTypeClick(adTypeKey);
   };
-
-  const handleAllClick = () => {
-    setSelectedAdType('Todos');
-    setSelectedCategory(null);
-    handleAdTypeClick(null); // Pasar null para manejar "Todos"
-  };
+const handleAllClick = () => {
+  navigate('/');
+}; // Added missing closing brace here
 
   const handleCategorySelection = (category) => {
     setSelectedCategory(category);
@@ -63,7 +62,6 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
               {adTypeKey}
             </button>
           ))}
-          {/* Botón para descargar la app desde la Play Store */}
           <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" className="adType-button download-app-button" target='_blank'>
             <img src={PlayStoreIcon} alt="Play Store" />
             Descargar App
