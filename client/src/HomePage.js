@@ -93,7 +93,7 @@ function HomePage() {
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
         <Route
-          path="/:adType/:category/:id"
+          path="/:adType/:category/:subcategory/:id"
           element={<AdModal anuncios={anuncios} selectedAd={selectedAd} />}
         />
       </Routes>
