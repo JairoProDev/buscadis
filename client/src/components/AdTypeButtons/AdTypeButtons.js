@@ -1,4 +1,3 @@
-// adTypeButtons.js
 import React, { useState } from 'react';
 import './AdTypeButtons.css';
 import JobsIcon from "../../icons/jobs.png";
@@ -8,6 +7,7 @@ import ServiceIcon from "../../icons/services.png";
 import ProductIcon from "../../icons/products.png";
 import OtherIcon from "../../icons/others.png";
 import PlayStoreIcon from "../../icons/playstore.png";
+import { adTypes } from './AdTypes'; // Import the ad types
 
 const adTypeIcons = {
   Empleos: JobsIcon,
@@ -18,17 +18,29 @@ const adTypeIcons = {
   Otros: OtherIcon
 };
 
-function AdTypeButtons({ adTypes, handleAdTypeClick, handleCategoryClick }) {
-  const [selectedAdType, setSelectedAdType] = useState('Todos');
+function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handleCategoryClick, handleSubCategoryClick }) {
+  const [selectedAdType, setSelectedAdType] = useState(adType || 'Todos');
+  const [selectedCategory, setSelectedCategory] = useState(category || null);
 
   const handleAdTypeSelection = (adTypeKey) => {
     setSelectedAdType(adTypeKey);
+    setSelectedCategory(null); // Reset category when adType changes
     handleAdTypeClick(adTypeKey);
   };
 
   const handleAllClick = () => {
     setSelectedAdType('Todos');
+    setSelectedCategory(null);
     handleAdTypeClick(null); // Pasar null para manejar "Todos"
+  };
+
+  const handleCategorySelection = (category) => {
+    setSelectedCategory(category);
+    handleCategoryClick(category);
+  };
+
+  const handleSubCategorySelection = (subCategory) => {
+    handleSubCategoryClick(subCategory);
   };
 
   return (
@@ -62,13 +74,29 @@ function AdTypeButtons({ adTypes, handleAdTypeClick, handleCategoryClick }) {
       {selectedAdType && adTypes[selectedAdType] && selectedAdType !== 'Todos' && (
         <div className="category-section">
           <div className="category-section-inner scroll-container">
-            {adTypes[selectedAdType].map((category) => (
+            {Object.keys(adTypes[selectedAdType]).map((category) => (
               <button
                 key={category}
-                onClick={() => handleCategoryClick(category)}
-                className="category-button"
+                onClick={() => handleCategorySelection(category)}
+                className={`category-button ${selectedCategory === category ? 'selected-category' : ''}`}
               >
                 {category}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {selectedCategory && adTypes[selectedAdType][selectedCategory] && (
+        <div className="subcategory-section">
+          <div className="subcategory-section-inner scroll-container">
+            {adTypes[selectedAdType][selectedCategory].map((subCategory) => (
+              <button
+                key={subCategory}
+                onClick={() => handleSubCategorySelection(subCategory)}
+                className="subcategory-button"
+              >
+                {subCategory}
               </button>
             ))}
           </div>

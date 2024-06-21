@@ -1,14 +1,11 @@
+// useAdFormLogic.js
 import { useRef, useState, useEffect } from "react";
+import { adTypes } from "../AdTypeButtons/AdTypes";
 
 export function useAdFormLogic(agregarAnuncioAlPrincipio) {
   const adTypeRef = useRef();
   const categoryRef = useRef();
   const subCategoryRef = useRef();
-  const [adType, setAdType] = useState("");
-  const setAdTypeRef = (ref) => {
-    adTypeRef.current = ref;
-    setAdType(ref.value);
-  };
   const titleRef = useRef();
   const descriptionRef = useRef();
   const amountRef = useRef();
@@ -18,6 +15,9 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
   const emailRef = useRef();
   const imageRef = useRef();
 
+  const [adType, setAdType] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
   const [images, setImages] = useState([]);
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
@@ -80,11 +80,9 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
   };
 
   useEffect(() => {
-    return () => {
-      if (images) {
-        images.forEach((url) => URL.revokeObjectURL(url));
-      }
-    };
+    if (images) {
+      images.forEach((url) => URL.revokeObjectURL(url));
+    }
   }, [images]);
 
   const handleSubmit = async (event) => {
@@ -96,9 +94,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
       const formData = {
         adType: adTypeRef.current.value,
         category: categoryRef.current ? categoryRef.current.value : "",
-        subCategory: subCategoryRef.current
-          ? subCategoryRef.current.value
-          : "",
+        subCategory: subCategoryRef.current ? subCategoryRef.current.value : "",
         title: titleRef.current.value,
         description: descriptionRef.current.value,
         phone: phoneRef.current.value,
@@ -130,13 +126,24 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     }
   };
 
+  useEffect(() => {
+    if (adType) {
+      setCategories(Object.keys(adTypes[adType] || {}));
+      setSubCategories([]);
+    }
+  }, [adType]);
+
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+    setSubCategories(adTypes[adType][selectedCategory] || []);
+  };
+
   return {
     adType,
     setAdType,
     adTypeRef,
     categoryRef,
     subCategoryRef,
-    setAdTypeRef,
     titleRef,
     descriptionRef,
     amountRef,
@@ -156,5 +163,8 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     handleDeletePreviewImage,
     handleDescriptionChange,
     handleSubmit,
+    categories,
+    subCategories,
+    handleCategoryChange,
   };
 }

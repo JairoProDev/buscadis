@@ -1,20 +1,11 @@
-// NewFeed.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdList from '../AdList/AdList';
 import AdTypeButtons from '../AdTypeButtons/AdTypeButtons';
-
-const adTypes = {
-  Empleos: [ 'Tecnología', 'Salud', 'Educación', 'Construcción', 'Practicantes', 'Ventas', 'Servicio al Cliente', 'Transporte', 'Administración', 'Hotelería', 'Agencias', 'Hogar', 'Logística', 'Operaciones', 'Turismo', 'Contabilidad', 'Seguridad', 'Panadería', 'Secretaría', 'Almacén', 'Cuidado', 'Marketing', 'Gastronomía', 'Belleza', 'Farmacia', 'Otros'],
-  Inmuebles: ['Habitaciones', 'Departamentos', 'Casas', 'Terrenos', 'Locales', 'Oficinas', 'Hoteles', 'Anticresis', 'Otros'],
-  Vehicles: ['Autos', 'Camionetas', 'Motos', 'Bicicletas', 'Maquinaria', 'Otros'],
-  Servicios: ['Educación', 'Reparaciones', 'Salud', 'Domésticos', 'Técnicos', 'Eventos', 'Otros'],
-  Productos: ['Tecnología', 'Ropa y Accesorios', 'Hogar', 'Deportes', 'Libros', 'Juegos y Juguetes', 'Otros'],
-  Otros: ['Eventos', 'Mascotas', 'Objetos Perdidos', 'Otros']
-};
+import { adTypes } from '../AdTypeButtons/AdTypes';
 
 function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, toggleForm }) {
-  const { adType, category } = useParams();
+  const { adType, category, subcategory } = useParams();
   const navigate = useNavigate();
   const [filteredAnuncios, setFilteredAnuncios] = useState([]);
 
@@ -26,22 +17,22 @@ function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, to
     if (category) {
       filtered = filtered.filter(anuncio => anuncio.category === category);
     }
-    if (!adType) {
-      filtered = anuncios; // Mostrar todos los anuncios cuando no hay adType
+    if (subcategory) {
+      filtered = filtered.filter(anuncio => anuncio.subCategory === subcategory);
     }
     setFilteredAnuncios(filtered);
-  }, [anuncios, adType, category]);
+  }, [anuncios, adType, category, subcategory]);
 
   const handleAdTypeClick = (adType) => {
-    if (adType === null) {
-      navigate('/');
-    } else {
-      navigate(`/${adType}`);
-    }
+    navigate(`/${adType}`);
   };
 
   const handleCategoryClick = (category) => {
     navigate(`/${adType}/${category}`);
+  };
+
+  const handleSubCategoryClick = (subcategory) => {
+    navigate(`/${adType}/${category}/${subcategory}`);
   };
 
   return (
@@ -49,8 +40,11 @@ function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, to
       <AdTypeButtons
         adTypes={adTypes}
         adType={adType}
+        category={category}
+        subCategory={subcategory}
         handleAdTypeClick={handleAdTypeClick}
         handleCategoryClick={handleCategoryClick}
+        handleSubCategoryClick={handleSubCategoryClick}
       />
       <AdList
         anuncios={filteredAnuncios}

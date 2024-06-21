@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+// AdForm.js
+import React from "react";
 import "./adForm.css";
 import PublishButton from "../PublishButton/PublishButton";
 import Payment from "../Payment/Payment";
-import { useAdFormLogic } from "./AdFormLogic";
+import { useAdFormLogic } from "./useAdFormLogic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,7 +14,6 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
     adTypeRef,
     categoryRef,
     subCategoryRef,
-    setAdTypeRef,
     titleRef,
     descriptionRef,
     amountRef,
@@ -28,234 +28,10 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
     handleDeletePreviewImage,
     handleDescriptionChange,
     handleSubmit,
+    categories,
+    subCategories,
+    handleCategoryChange,
   } = useAdFormLogic(agregarAnuncioAlPrincipio);
-
-  const [categories, setCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
-
-  useEffect(() => {
-    const categoriesMap = {
-      Empleos: [
-        "Restaurantes y Bares",
-        "Hoteles y Alojamiento",
-        "Ventas",
-        "Marketing y Publicidad",
-        "Administración",
-        "Finanzas",
-        "Construcción",
-        "Logística",
-        "Educación",
-        "Salud",
-        "Desarrollo de Software",
-        "Soporte Técnico",
-        "Limpieza y Mantenimiento",
-        "Seguridad",
-        "Transporte",
-        "Movilidad",
-        "Diseño Gráfico",
-        "Artes y Oficios",
-      ],
-      Inmuebles: ["Apartamentos", "Casas", "Oficinas", "Terrenos", "Locales"],
-      Vehicles: ["Autos", "Camionetas", "Motos", "Bicicletas", "Otros"],
-      Servicios: ["Educación", "Reparaciones", "Salud", "Técnicos", "Otros"],
-      Productos: [
-        "Tecnología",
-        "Hogar",
-        "Moda",
-        "Deportes",
-        "Mascotas",
-        "Libros",
-        "Otros",
-      ],
-      Otros: ["Eventos", "Mascotas", "Perdidos", "Otros"],
-    };
-
-    const subCategoriesMap = {
-      "Restaurantes y Bares": [
-        "Mozo/Moza",
-        "Pizzero/Ayudante Pizzero",
-        "Ayudante de Cocina",
-        "Maestro Parrillero/Especialista en Fast Food",
-        "Cajero/Cajera",
-        "Cocinero",
-        "Bartender",
-      ],
-      "Hoteles y Alojamiento": [
-        "Recepcionista",
-        "Personal de Housekeeping",
-        "Personal de Cafetería",
-        "Mantenimiento",
-        "Atención al Cliente",
-      ],
-      Ventas: [
-        "Vendedor(a)",
-        "Promotor(a) de Ventas",
-        "Ejecutivo de Ventas",
-        "Asistente de Ventas",
-      ],
-      "Marketing y Publicidad": [
-        "Especialista en Marketing Digital",
-        "Diseñador Gráfico",
-        "Publicidad Turística",
-        "Community Manager",
-      ],
-      Administración: [
-        "Asistente Administrativo",
-        "Secretario(a)",
-        "Recepcionista Administrativa",
-        "Personal de Atención al Cliente",
-      ],
-      Finanzas: [
-        "Contador",
-        "Técnico Contable",
-        "Asistente Contable",
-        "Auditor",
-        "Gestor de Recuperaciones",
-      ],
-      Construcción: [
-        "Albañil",
-        "Ingeniero Civil",
-        "Arquitecto",
-        "Maestro de Obra",
-      ],
-      Logística: [
-        "Chofer de Distribución",
-        "Almacenero",
-        "Auxiliar de Almacén",
-        "Coordinador Logístico",
-      ],
-      Educación: ["Profesor(a)", "Asistente Educativo", "Instructor(a)", "Tutor(a)"],
-      Salud: [
-        "Médico(a)",
-        "Enfermero(a)",
-        "Asistente Dental",
-        "Técnico en Enfermería",
-        "Psicólogo(a)",
-      ],
-      "Desarrollo de Software": [
-        "Desarrollador Frontend",
-        "Desarrollador Backend",
-        "Desarrollador Full Stack",
-      ],
-      "Soporte Técnico": [
-        "Técnico en Informática",
-        "Soporte Técnico",
-        "Administrador de Sistemas",
-      ],
-      "Limpieza y Mantenimiento": [
-        "Personal de Limpieza",
-        "Mantenimiento",
-        "Jardinería",
-      ],
-      Seguridad: ["Guardia de Seguridad", "Personal de Seguridad"],
-      Transporte: ["Chofer", "Conductor"],
-      Movilidad: ["Motorizado", "Repartidor"],
-      "Diseño Gráfico": [
-        "Diseñador Gráfico",
-        "Diseñador Web",
-        "Ilustrador",
-      ],
-      "Artes y Oficios": ["Artista", "Artesano"],
-    };
-
-    if (adType) {
-      setCategories(categoriesMap[adType] || []);
-      setSubCategories([]);
-    }
-  }, [adType]);
-
-  const handleCategoryChange = (event) => {
-    const selectedCategory = event.target.value;
-    const subCategoriesMap = {
-      "Restaurantes y Bares": [
-        "Mozo/Moza",
-        "Pizzero/Ayudante Pizzero",
-        "Ayudante de Cocina",
-        "Maestro Parrillero/Especialista en Fast Food",
-        "Cajero/Cajera",
-        "Cocinero",
-        "Bartender",
-      ],
-      "Hoteles y Alojamiento": [
-        "Recepcionista",
-        "Personal de Housekeeping",
-        "Personal de Cafetería",
-        "Mantenimiento",
-        "Atención al Cliente",
-      ],
-      Ventas: [
-        "Vendedor(a)",
-        "Promotor(a) de Ventas",
-        "Ejecutivo de Ventas",
-        "Asistente de Ventas",
-      ],
-      "Marketing y Publicidad": [
-        "Especialista en Marketing Digital",
-        "Diseñador Gráfico",
-        "Publicidad Turística",
-        "Community Manager",
-      ],
-      Administración: [
-        "Asistente Administrativo",
-        "Secretario(a)",
-        "Recepcionista Administrativa",
-        "Personal de Atención al Cliente",
-      ],
-      Finanzas: [
-        "Contador",
-        "Técnico Contable",
-        "Asistente Contable",
-        "Auditor",
-        "Gestor de Recuperaciones",
-      ],
-      Construcción: [
-        "Albañil",
-        "Ingeniero Civil",
-        "Arquitecto",
-        "Maestro de Obra",
-      ],
-      Logística: [
-        "Chofer de Distribución",
-        "Almacenero",
-        "Auxiliar de Almacén",
-        "Coordinador Logístico",
-      ],
-      Educación: ["Profesor(a)", "Asistente Educativo", "Instructor(a)", "Tutor(a)"],
-      Salud: [
-        "Médico(a)",
-        "Enfermero(a)",
-        "Asistente Dental",
-        "Técnico en Enfermería",
-        "Psicólogo(a)",
-      ],
-      "Desarrollo de Software": [
-        "Desarrollador Frontend",
-        "Desarrollador Backend",
-        "Desarrollador Full Stack",
-      ],
-      "Soporte Técnico": [
-        "Técnico en Informática",
-        "Soporte Técnico",
-        "Administrador de Sistemas",
-      ],
-      "Limpieza y Mantenimiento": [
-        "Personal de Limpieza",
-        "Mantenimiento",
-        "Jardinería",
-      ],
-      Seguridad: ["Guardia de Seguridad", "Personal de Seguridad"],
-      Transporte: ["Chofer", "Conductor"],
-      Movilidad: ["Motorizado", "Repartidor"],
-      "Diseño Gráfico": [
-        "Diseñador Gráfico",
-        "Diseñador Web",
-        "Ilustrador",
-      ],
-      "Artes y Oficios": ["Artista", "Artesano"],
-    };
-
-    setSubCategories(subCategoriesMap[selectedCategory] || []);
-  };
 
   return (
     <div className={`adForm form-container ${isVisible ? "show" : ""}`}>
@@ -286,6 +62,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
             <option value="Vehicles">Vehicles</option>
             <option value="Servicios">Servicios</option>
             <option value="Productos">Productos</option>
+            <option value="Negocios">Negocios</option>
             <option value="Otros">Otros</option>
           </select>
 

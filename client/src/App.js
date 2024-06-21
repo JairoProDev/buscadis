@@ -13,6 +13,7 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/:adType" element={<HomePage />} />
           <Route path="/:adType/:category" element={<HomePage />} />
+          <Route path="/:adType/:category/:subcategory" element={<HomePage />} />
           <Route path="/*" element={<HomePage />} />
           {/* <Route path="/anuncio/:id" element={<AdModal />} /> */}
         </Routes>

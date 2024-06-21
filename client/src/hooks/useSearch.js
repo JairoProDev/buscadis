@@ -17,6 +17,7 @@ function useSearch(anuncios, filter) {
               ad.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.adType?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              ad.subCategory?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.phone?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.phone2?.toLowerCase().includes(searchTerm.toLowerCase()) ||
               ad.email?.toLowerCase().includes(searchTerm.toLowerCase())
