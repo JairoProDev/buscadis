@@ -29,10 +29,10 @@ import "./HomePage.css";
 function HomePage() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
-  const { adType, category } = useParams();
+  const { adType, category, subcategory } = useParams();
 
   const { anuncios, agregarAnuncioAlPrincipio, error, hasMore, isLoading } =
-    useAds(page, adType, category, filter);
+    useAds(page, adType, category, subcategory, filter);
   const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);

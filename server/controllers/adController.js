@@ -56,7 +56,7 @@ const getAds = async (req, res) => {
   try {
     const anuncios = await Ad.find()
       .sort({ createdAt: -1 })
-      .limit(300)
+      .limit(100)
       .exec();
 
     if (!anuncios || anuncios.length === 0) {
@@ -90,7 +90,7 @@ const getAdsByAdType = async (req, res) => {
     const adType = req.params.adType;
     const anuncios = await Ad.find({ adType })
       .sort({ createdAt: -1 })
-      .limit(300)
+      .limit(100)
       .exec();
 
     if (!anuncios || anuncios.length === 0) {
@@ -111,7 +111,7 @@ const getAdsByAdTypeAndCategory = async (req, res) => {
 
     const ads = await Ad.find(query)
       .sort({ createdAt: -1 })
-      .limit(300)
+      .limit(100)
       .exec();
 
     if (!ads || ads.length === 0) {
