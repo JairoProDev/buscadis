@@ -1,5 +1,5 @@
 // React and Hooks
-import React, { Fragment, useCallback, useRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
@@ -13,8 +13,6 @@ import NewFeed from "./components/NewFeed/NewFeed";
 import AdForm from "./components/AdForm/AdForm";
 import AdModal from "./components/AdModal/AdModal";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
-import RegisterForm from "./components/AuthForm/RegisterForm";
-import LoginForm from "./components/AuthForm/LoginForm";
 import UserProfile from "./components/UserProfile/UserProfile";
 
 // Styles
@@ -27,11 +25,11 @@ import "./styles/navbar.css";
 import "./HomePage.css";
 
 function HomePage() {
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
   const [filter, setFilter] = useState("");
   const { adType, category, subcategory } = useParams();
 
-  const { anuncios, agregarAnuncioAlPrincipio, error, hasMore, isLoading } =
+  const { anuncios, agregarAnuncioAlPrincipio, error, isLoading } =
     useAds(page, adType, category, subcategory, filter);
   const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
   const [selectedAd, setSelectedAd] = useState(null);
@@ -43,19 +41,6 @@ function HomePage() {
   const hideForm = () => setIsFormVisible(false);
   const loader = useRef(null);
 
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [showRegisterForm, setShowRegisterForm] = useState(false);
-
-  const openLoginForm = () => {
-    setShowLoginForm(true);
-    setIsFormVisible(false);
-  };
-
-  const openRegisterForm = () => {
-    setShowRegisterForm(true);
-    setIsFormVisible(false);
-  };
-
   return (
     <Fragment>
       <div className="main-container">
@@ -63,8 +48,6 @@ function HomePage() {
           toggleForm={showForm}
           setFilter={setFilter}
           toggleSidebar={toggleSidebar}
-          openLoginForm={openLoginForm}
-          openRegisterForm={openRegisterForm}
           updateSearchTerm={updateSearchTerm}
         />
         <div className="container">

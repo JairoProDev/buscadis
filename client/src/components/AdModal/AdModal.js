@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function AdModal({ anuncios }) {
-  const { adType, category, subcategory, id } = useParams();
+  const { adType, id } = useParams();
   const navigate = useNavigate();
   const modalRef = useRef();
 

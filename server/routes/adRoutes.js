@@ -8,7 +8,6 @@ const {
   deleteAd,
   getAdsByAdType,
   getAdsByAdTypeAndCategory,
-  getAdsByAdTypeCategoryAndSubcategory
 } = require("../controllers/adController");
 
 router.post("/anuncios", createAd);
@@ -18,6 +17,5 @@ router.put("/anuncios/:id", updateAd);
 router.delete("/anuncios/:id", deleteAd);
 router.get("/anuncios/adType/:adType", getAdsByAdType);
 router.get("/anuncios/adType/:adType/:category", getAdsByAdTypeAndCategory);
-router.get("/anuncios/adType/:adType/:category/:subcategory", getAdsByAdTypeCategoryAndSubcategory);
 
 module.exports = router;

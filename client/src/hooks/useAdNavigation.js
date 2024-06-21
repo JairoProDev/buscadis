@@ -1,4 +1,3 @@
-// useAdNavigation.js
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -7,15 +6,15 @@ function useAdNavigation(anuncios) {
   const navigate = useNavigate();
   const currentIndex = anuncios.findIndex((anuncio) => anuncio._id === id);
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'ArrowLeft' && currentIndex > 0) {
-      navigate(`/${anuncios[currentIndex - 1].adType}/${anuncios[currentIndex - 1].category}/${anuncios[currentIndex - 1].subcategory}/${anuncios[currentIndex - 1]._id}`);
-    } else if (event.key === 'ArrowRight' && currentIndex < anuncios.length - 1) {
-      navigate(`/${anuncios[currentIndex + 1].adType}/${anuncios[currentIndex + 1].category}/${anuncios[currentIndex + 1].subcategory}/${anuncios[currentIndex + 1]._id}`);
-    }
-  };
-
   useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowLeft' && currentIndex > 0) {
+        navigate(`/${anuncios[currentIndex - 1].adType}/${anuncios[currentIndex - 1].category}/${anuncios[currentIndex - 1].subcategory}/${anuncios[currentIndex - 1]._id}`);
+      } else if (event.key === 'ArrowRight' && currentIndex < anuncios.length - 1) {
+        navigate(`/${anuncios[currentIndex + 1].adType}/${anuncios[currentIndex + 1].category}/${anuncios[currentIndex + 1].subcategory}/${anuncios[currentIndex + 1]._id}`);
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);

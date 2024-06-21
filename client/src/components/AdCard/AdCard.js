@@ -11,7 +11,7 @@ function AdCard({ anuncio, setSelectedAd, number }) {
   };
 
   const sizeClass = `ad-size-${anuncio.size || 'normal'}`;
-  const { adType, category, subCategory, title, description, amount, location, createdAt } = anuncio;
+  const { adType, category, title, description, amount, location, createdAt } = anuncio;
   const adTypeLower = adType ? adType.toLowerCase() : 'default';
   const adClass = `ad-card ${adTypeLower} ${sizeClass}`;
 
