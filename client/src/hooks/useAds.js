@@ -21,7 +21,7 @@ function useAds(adType, category, subcategory) {
             const url = `/api/anuncios?limit=100` + 
                         (adType ? `&adType=${adType}` : '') + 
                         (category ? `&category=${category}` : '') + 
-                        (subcategory ? `&subcategory=${subcategory}` : ''); // Añadir subcategory a la URL
+                        (subcategory ? `&subcategory=${subcategory}` : ''); 
             const respuesta = await fetch(url);
             const anuncios = await respuesta.json();
             if (anuncios) {

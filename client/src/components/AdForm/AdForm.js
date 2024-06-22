@@ -211,9 +211,10 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
       </form>
       <Payment />
       <div className="columna-anuncios">
-        {anuncios && anuncios.map((anuncio) => (
-          <Anuncio key={anuncio.id} anuncio={anuncio} />
-        ))}
+        {anuncios &&
+          anuncios.map((anuncio) => (
+            <Anuncio key={anuncio.id} anuncio={anuncio} />
+          ))}
       </div>
     </div>
   );
@@ -222,12 +223,19 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
 function Anuncio({ anuncio }) {
   const { title, description, phone } = anuncio;
   const halfDescription = description.substring(0, description.length / 2);
-  const message = encodeURIComponent(`Hola, estoy interesado en el anuncio: ${title}`);
+  const message = encodeURIComponent(
+    `Hola, estoy interesado en el anuncio: ${title}`
+  );
   const href = `https://wa.me/${phone}?text=${message}`;
 
   return (
     <div className="anuncio separador">
-      <p>{halfDescription} <a href={href} target="_blank" rel="noopener noreferrer">Contactar</a></p>
+      <p>
+        {halfDescription}{" "}
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          Contactar
+        </a>
+      </p>
     </div>
   );
 }

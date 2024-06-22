@@ -38,22 +38,24 @@ function AdModal({ anuncios }) {
 
   const handleClose = useCallback(() => {
     // Navegar a la URL anterior correspondiente a la adType y categoría
-  //   if (adType && category) {
-  //     navigate(`/${adType}/${category}`);
-  //   } else if (adType) {
-  //     navigate(`/${adType}`);
-  //   } else {
-  //     navigate('/');
-  //   }
-  // }, [adType, category, navigate]);
-  navigate('/');
-
+    //   if (adType && category) {
+    //     navigate(`/${adType}/${category}`);
+    //   } else if (adType) {
+    //     navigate(`/${adType}`);
+    //   } else {
+    //     navigate('/');
+    //   }
+    // }, [adType, category, navigate]);
+    navigate("/");
   }, [navigate]);
-  const handleClickOutside = useCallback((event) => {
-    if (event.target === modalRef.current) {
-      handleClose();
-    }
-  }, [handleClose]);
+  const handleClickOutside = useCallback(
+    (event) => {
+      if (event.target === modalRef.current) {
+        handleClose();
+      }
+    },
+    [handleClose]
+  );
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -98,7 +100,9 @@ function AdModal({ anuncios }) {
 
   const adUrl = window.location.href;
 
-  const modalClass = `modal-content ${adType.toLowerCase()} ${isForwardNavigation ? 'transition-right' : 'transition-left'}`;
+  const modalClass = `modal-content ${adType.toLowerCase()} ${
+    isForwardNavigation ? "transition-right" : "transition-left"
+  }`;
 
   return (
     <div
@@ -106,10 +110,7 @@ function AdModal({ anuncios }) {
       onClick={handleClickOutside}
       ref={modalRef}
     >
-      <div
-        className={modalClass}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={modalClass} onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div className="modal-header-left">
             <p className="ad-card__date">{formattedDate.split(" a las ")[0]}</p>
@@ -144,7 +145,12 @@ function AdModal({ anuncios }) {
           <p>{location}</p>
         </div>
         <div className="modal-footer">
-          <ContactButtons phone={ad.phone} phone2={ad.phone2} adType={ad.adType} url={adUrl} />
+          <ContactButtons
+            phone={ad.phone}
+            phone2={ad.phone2}
+            adType={ad.adType}
+            url={adUrl}
+          />
         </div>
       </div>
     </div>

@@ -6,13 +6,16 @@ function AdCard({ anuncio, setSelectedAd, number }) {
   const navigate = useNavigate();
 
   const handleAdClick = () => {
-    navigate(`/${anuncio.adType}/${anuncio.category}/${anuncio.subCategory}/${anuncio.id}`);
+    navigate(
+      `/${anuncio.adType}/${anuncio.category}/${anuncio.subCategory}/${anuncio.id}`
+    );
     setSelectedAd(anuncio);
   };
 
-  const sizeClass = `ad-size-${anuncio.size || 'normal'}`;
-  const { adType, category, title, description, amount, location, createdAt } = anuncio;
-  const adTypeLower = adType ? adType.toLowerCase() : 'default';
+  const sizeClass = `ad-size-${anuncio.size || "normal"}`;
+  const { adType, category, title, description, amount, location, createdAt } =
+    anuncio;
+  const adTypeLower = adType ? adType.toLowerCase() : "default";
   const adClass = `ad-card ${adTypeLower} ${sizeClass}`;
 
   const formattedDate = formatShortDistance(new Date(createdAt));
@@ -53,7 +56,7 @@ function AdCard({ anuncio, setSelectedAd, number }) {
     moda: "👗",
     deportes: "⚽",
     mascotas: "🐶",
-    otros: "🔍"
+    otros: "🔍",
   };
 
   return (
@@ -61,7 +64,9 @@ function AdCard({ anuncio, setSelectedAd, number }) {
       <div className="ad-card__content">
         <div className="ad-card__header">
           <p className="ad-card__number">#{number}</p>
-          <p className="ad-adType">{adTypeEmojis[adTypeLower] || adType} {category}</p>
+          <p className="ad-adType">
+            {adTypeEmojis[adTypeLower] || adType} {category}
+          </p>
           <p className="ad-card__date">Hace {formattedDate}</p>
         </div>
         <h3 className="ad-card__title">{title}</h3>

@@ -3,8 +3,7 @@ import React, { Fragment, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
-import { useParams } from 'react-router-dom';
-
+import { useParams } from "react-router-dom";
 
 // Components
 import Header from "./components/Header/Header";
@@ -29,8 +28,13 @@ function HomePage() {
   const [filter, setFilter] = useState("");
   const { adType, category, subcategory } = useParams();
 
-  const { anuncios, agregarAnuncioAlPrincipio, error, isLoading } =
-    useAds(page, adType, category, subcategory, filter);
+  const { anuncios, agregarAnuncioAlPrincipio, error, isLoading } = useAds(
+    page,
+    adType,
+    category,
+    subcategory,
+    filter
+  );
   const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
