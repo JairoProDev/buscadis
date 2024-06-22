@@ -9,7 +9,6 @@ import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
   const {
-    adType,
     setAdType,
     adTypeRef,
     categoryRef,
