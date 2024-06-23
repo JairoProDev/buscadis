@@ -4,6 +4,11 @@ const validator = require("validator");
 
 const anuncioSchema = new mongoose.Schema(
   {
+    adShortId: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
     adType: {
       type: String,
       enum: ["Empleos", "Inmuebles", "Vehicles", "Servicios", "Productos", "Negocios", "Otros"],

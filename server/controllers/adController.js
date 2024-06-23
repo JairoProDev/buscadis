@@ -1,4 +1,5 @@
 const Ad = require("../models/adModel");
+const getNextAdShortId = require("../utils/getNextAdShortId");
 
 const createAd = async (req, res) => {
   try {
@@ -21,6 +22,9 @@ const createAd = async (req, res) => {
       return res.status(400).json({ error: "Faltan campos requeridos" });
     }
 
+    // Obtener el siguiente adShortId
+    const adShortId = await getNextAdShortId();
+
     const newAd = new Ad({
       adType: adType,
       category: category,
@@ -33,6 +37,7 @@ const createAd = async (req, res) => {
       phone2: phone2,
       email: email,
       images: images,
+      adShortId: adShortId // Asignar el adShortId generado
     });
 
     console.log("New ad:", newAd);
@@ -136,7 +141,7 @@ const updateAd = async (req, res) => {
     Object.assign(anuncio, req.body);
 
     await anuncio.save();
-    res.status(200).json({ mensaje: "Anuncio actualizado", anuncio });
+    res.status(200).json({ mensaje: "Anuncio actualizado exitosamente", anuncio });
   } catch (error) {
     console.error("Error al actualizar el anuncio:", error);
     res.status(500).json({ error: "Error interno al actualizar el anuncio" });
@@ -151,8 +156,8 @@ const deleteAd = async (req, res) => {
       return res.status(404).json({ mensaje: "No se encontró el anuncio" });
     }
 
-    await anuncio.remove();
-    res.status(200).json({ mensaje: "Anuncio eliminado", anuncio });
+    await anuncio.deleteOne();
+    res.status(200).json({ mensaje: "Anuncio eliminado exitosamente" });
   } catch (error) {
     console.error("Error al eliminar el anuncio:", error);
     res.status(500).json({ error: "Error interno al eliminar el anuncio" });
@@ -163,8 +168,8 @@ module.exports = {
   createAd,
   getAds,
   getAdById,
-  updateAd,
-  deleteAd,
   getAdsByAdType,
   getAdsByAdTypeAndCategory,
+  updateAd,
+  deleteAd,
 };
