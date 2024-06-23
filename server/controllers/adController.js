@@ -1,5 +1,5 @@
 const Ad = require("../models/adModel");
-const getNextShortId = require("../utils/getNextShortId");
+// const getNextShortId = require("../utils/getNextShortId");
 
 const createAd = async (req, res) => {
   try {
@@ -30,10 +30,10 @@ const createAd = async (req, res) => {
     }
 
     // Obtener el siguiente shortId
-    const shortId = await getNextShortId();
+    // const shortId = await getNextShortId();
 
     const newAd = new Ad({
-      shortId: shortId,
+      // shortId: shortId,
       adType: adType,
       category: category,
       subCategory: subCategory,
