@@ -47,7 +47,7 @@ const SocialMedia = () => {
         <li className="icon tiktok">
           <span className="tooltip">TikTok</span>
           <a
-            href="https://www.tiktok.com/publicadis"
+            href="https://www.tiktok.com/@publicadis"
             target="_blank"
             rel="noreferrer"
           >
