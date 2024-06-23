@@ -32,8 +32,15 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     handleAdTypeClick(adTypeKey);
   };
 const handleAllClick = () => {
+  // Restablecer el tipo de anuncio seleccionado a 'Todos' y la categoría seleccionada a null
+  setSelectedAdType('Todos');
+  setSelectedCategory(null);
+  // Si es necesario, llamar a las funciones de manejo para reflejar el cambio
+  // Por ejemplo, si hay alguna acción que deba realizarse cuando se selecciona 'Todos'
+  handleAdTypeClick('Todos');
+  // Opcionalmente, navegar a la ruta raíz o a una ruta específica que muestre todos los anuncios
   navigate('/');
-}; // Added missing closing brace here
+};
 
   const handleCategorySelection = (category) => {
     setSelectedCategory(category);
