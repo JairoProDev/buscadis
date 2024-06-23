@@ -4,14 +4,22 @@ const validator = require("validator");
 
 const anuncioSchema = new mongoose.Schema(
   {
-    adShortId: {
+    shortId: {
       type: Number,
       required: true,
       unique: true,
     },
     adType: {
       type: String,
-      enum: ["Empleos", "Inmuebles", "Vehicles", "Servicios", "Productos", "Negocios", "Otros"],
+      enum: [
+        "Empleos",
+        "Inmuebles",
+        "Vehicles",
+        "Servicios",
+        "Productos",
+        "Negocios",
+        "Otros",
+      ],
       required: [true, "El tipo de anuncio es requerido"],
       index: true,
     },
@@ -31,13 +39,19 @@ const anuncioSchema = new mongoose.Schema(
       type: String,
       required: [true, "El título del anuncio es requerido"],
       trim: true,
-      maxlength: [80, "El título del anuncio no puede tener más de 80 caracteres"],
+      maxlength: [
+        80,
+        "El título del anuncio no puede tener más de 80 caracteres",
+      ],
     },
     description: {
       type: String,
       required: [true, "La descripción del anuncio es requerida"],
       trim: true,
-      maxlength: [600, "La descripción del anuncio no puede tener más de 600 caracteres"],
+      maxlength: [
+        600,
+        "La descripción del anuncio no puede tener más de 600 caracteres",
+      ],
     },
     location: {
       type: String,
@@ -50,7 +64,8 @@ const anuncioSchema = new mongoose.Schema(
         validator: function (v) {
           return /^(\+51)?\d{9}$/.test(v);
         },
-        message: (props) => `${props.value} no es un número de teléfono válido!`,
+        message: (props) =>
+          `${props.value} no es un número de teléfono válido!`,
       },
     },
     phone2: {
@@ -60,7 +75,8 @@ const anuncioSchema = new mongoose.Schema(
         validator: function (v) {
           return !v || /^(\+51)?\d{9}$/.test(v);
         },
-        message: (props) => `${props.value} no es un número de teléfono válido!`,
+        message: (props) =>
+          `${props.value} no es un número de teléfono válido!`,
       },
     },
     images: [String],
@@ -74,7 +90,8 @@ const anuncioSchema = new mongoose.Schema(
         validator: function (v) {
           return v ? validator.isEmail(v) : true;
         },
-        message: (props) => `${props.value} Por favor, introduce un correo electrónico válido!`,
+        message: (props) =>
+          `${props.value} Por favor, introduce un correo electrónico válido!`,
       },
     },
     user: {

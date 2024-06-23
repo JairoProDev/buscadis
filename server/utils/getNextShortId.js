@@ -1,13 +1,13 @@
-// utils/getNextAdShortId.js
+// utils/getNextShortId.js
 const Counter = require("../models/counterModel");
 
-const getNextAdShortId = async () => {
+const getNextShortId = async () => {
   const counter = await Counter.findByIdAndUpdate(
-    { _id: 'adShortId' },
+    { _id: "shortId" },
     { $inc: { sequenceValue: 1 } },
     { new: true, upsert: true }
   );
   return counter.sequenceValue;
 };
 
-module.exports = getNextAdShortId;
+module.exports = getNextShortId;

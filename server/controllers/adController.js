@@ -1,5 +1,5 @@
 const Ad = require("../models/adModel");
-const getNextAdShortId = require("../utils/getNextAdShortId");
+const getNextShortId = require("../utils/getNextShortId");
 
 const createAd = async (req, res) => {
   try {
@@ -18,12 +18,19 @@ const createAd = async (req, res) => {
       images,
     } = req.body;
 
-    if (!adType || !category || !subCategory || !title || !description || !phone) {
+    if (
+      !adType ||
+      !category ||
+      !subCategory ||
+      !title ||
+      !description ||
+      !phone
+    ) {
       return res.status(400).json({ error: "Faltan campos requeridos" });
     }
 
-    // Obtener el siguiente adShortId
-    const adShortId = await getNextAdShortId();
+    // Obtener el siguiente shortId
+    const shortId = await getNextShortId();
 
     const newAd = new Ad({
       adType: adType,
@@ -37,7 +44,7 @@ const createAd = async (req, res) => {
       phone2: phone2,
       email: email,
       images: images,
-      adShortId: adShortId // Asignar el adShortId generado
+      shortId: shortId, // Asignar el shortId generado
     });
 
     console.log("New ad:", newAd);
@@ -59,10 +66,7 @@ const createAd = async (req, res) => {
 
 const getAds = async (req, res) => {
   try {
-    const anuncios = await Ad.find()
-      .sort({ createdAt: -1 })
-      .limit(100)
-      .exec();
+    const anuncios = await Ad.find().sort({ createdAt: -1 }).limit(100).exec();
 
     if (!anuncios || anuncios.length === 0) {
       return res.status(200).json([]);
@@ -114,10 +118,7 @@ const getAdsByAdTypeAndCategory = async (req, res) => {
     const { adType, category } = req.params;
     const query = { adType, category };
 
-    const ads = await Ad.find(query)
-      .sort({ createdAt: -1 })
-      .limit(100)
-      .exec();
+    const ads = await Ad.find(query).sort({ createdAt: -1 }).limit(100).exec();
 
     if (!ads || ads.length === 0) {
       return res.status(200).json([]);
@@ -141,7 +142,9 @@ const updateAd = async (req, res) => {
     Object.assign(anuncio, req.body);
 
     await anuncio.save();
-    res.status(200).json({ mensaje: "Anuncio actualizado exitosamente", anuncio });
+    res
+      .status(200)
+      .json({ mensaje: "Anuncio actualizado exitosamente", anuncio });
   } catch (error) {
     console.error("Error al actualizar el anuncio:", error);
     res.status(500).json({ error: "Error interno al actualizar el anuncio" });
