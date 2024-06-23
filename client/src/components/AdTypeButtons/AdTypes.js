@@ -33,7 +33,7 @@ export const adTypes = {
         "Televentas",
       ],
       Marketing: [
-        "Especialista en Marketing Digital",
+        "Marketer Digital",
         "Diseñador Gráfico",
         "Publicidad Turística",
         "Community Manager",
@@ -42,7 +42,7 @@ export const adTypes = {
         "Asistente Administrativo",
         "Secretario(a)",
         "Recepcionista Administrativa",
-        "Personal de Atención al Cliente",
+        "Atención al Cliente",
         "Recursos Humanos",
       ],
       Finanzas: [
@@ -50,7 +50,6 @@ export const adTypes = {
         "Técnico Contable",
         "Asistente Contable",
         "Auditor",
-        "Gestor de Recuperaciones",
       ],
       Construcción: [
         "Albañil",

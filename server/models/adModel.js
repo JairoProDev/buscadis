@@ -6,7 +6,6 @@ const anuncioSchema = new mongoose.Schema(
   {
     shortId: {
       type: Number,
-      required: true,
       unique: true,
     },
     adType: {

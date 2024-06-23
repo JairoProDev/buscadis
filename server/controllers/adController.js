@@ -33,6 +33,7 @@ const createAd = async (req, res) => {
     const shortId = await getNextShortId();
 
     const newAd = new Ad({
+      shortId: shortId,
       adType: adType,
       category: category,
       subCategory: subCategory,
@@ -44,7 +45,6 @@ const createAd = async (req, res) => {
       phone2: phone2,
       email: email,
       images: images,
-      shortId: shortId, // Asignar el shortId generado
     });
 
     console.log("New ad:", newAd);
