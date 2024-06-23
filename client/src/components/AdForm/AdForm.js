@@ -37,6 +37,12 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
       <button className="form-close-button" onClick={hideForm}>
         X
       </button>
+      <div className="columna-anuncios">
+        {anuncios &&
+          anuncios.slice(0, 100).map((anuncio) => (
+            <Anuncio key={anuncio.id} anuncio={anuncio} />
+          ))}
+      </div>
       <form
         id="adForm"
         className="adForm"
@@ -209,32 +215,23 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
         </fieldset>
       </form>
       <Payment />
-      <div className="columna-anuncios">
-        {anuncios &&
-          anuncios.map((anuncio) => (
-            <Anuncio key={anuncio.id} anuncio={anuncio} />
-          ))}
-      </div>
+
     </div>
   );
 }
 
 function Anuncio({ anuncio }) {
   const { title, description, phone } = anuncio;
-  const halfDescription = description.substring(0, description.length / 2);
   const message = encodeURIComponent(
-    `Hola, estoy interesado en el anuncio: ${title}`
+    `Hola, estoy interesado en su aviso de https://Buscadis.com: ${title}`
   );
   const href = `https://wa.me/${phone}?text=${message}`;
 
   return (
     <div className="anuncio separador">
-      <p>
-        {halfDescription}{" "}
-        <a href={href} target="_blank" rel="noopener noreferrer">
-          Contactar
-        </a>
-      </p>
+      <a href={href} target="_blank" rel="noopener noreferrer">
+      <div className="anuncio-desc">{description}</div>{" "}
+      </a>
     </div>
   );
 }

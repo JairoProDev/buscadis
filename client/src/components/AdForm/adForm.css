@@ -162,12 +162,24 @@ textarea::placeholder {
 .anuncio h4 {
   font-size: 0.8em;
 }
-
 .anuncio p {
   font-size: 0.7em;
 }
+
+.anuncio-desc {
+  font-size: 0.7em;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
 .anuncio a {
   font-size: 0.9em;
+  color: #000;
+  text-decoration: none;
 }
 .separador {
   border-bottom: 1px solid #000; /* Cambia el color según tu preferencia */
