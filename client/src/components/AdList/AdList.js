@@ -5,7 +5,6 @@ import "./adList.css";
 import { Link } from "react-router-dom";
 
 function AdList({ anuncios, setSelectedAd }) {
-  console.log(anuncios);
 
   return (
     <div className="ads-container">
