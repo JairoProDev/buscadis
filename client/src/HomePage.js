@@ -14,6 +14,7 @@ import AdModal from "./components/AdModal/AdModal";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
 import UserProfile from "./components/UserProfile/UserProfile";
 import AdsColumn from "./components/AdsColumn/AdsColumn";
+import ButtomNavBar from "./components/BottomNavBar/BottomNavBar";
 
 // Styles
 import "./styles/root.css";
@@ -92,6 +93,7 @@ function HomePage() {
           </div>
           <SocialMedia />
         </div>
+        <ButtomNavBar showForm={showForm} />
       </div>
       <Routes>
         <Route path="/profile" element={<UserProfile />} />

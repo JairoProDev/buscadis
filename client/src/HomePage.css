@@ -20,6 +20,7 @@
 }
 
 .right-sidebar {
+  margin: auto;
   margin-top: 60px;
   display: flex;
   flex-direction: column;
@@ -37,6 +38,7 @@
   overflow-y: scroll;
   scrollbar-width: none;
   box-sizing: content-box;
+  
 }
 /* Ajuste para eliminar espacios no deseados entre adform y adscolumn */
 .right-sidebar > * {
