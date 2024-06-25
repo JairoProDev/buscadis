@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdTypeButtons.css';
-import JobsIcon from "../../icons/jobs.png";
-import EstateIcon from "../../icons/estate.png";
-import CarsIcon from "../../icons/vehicles.png";
-import ServiceIcon from "../../icons/services.png";
-import ProductIcon from "../../icons/products.png";
-import OtherIcon from "../../icons/others.png";
-import BusinessIcon from "../../icons/business.png";
-import PlayStoreIcon from "../../icons/playstore.png";
+import JobsIcon from "../../assets/icons/jobs.png";
+import EstateIcon from "../../assets/icons/estate.png";
+import CarsIcon from "../../assets/icons/vehicles.png";
+import ServiceIcon from "../../assets/icons/services.png";
+import ProductIcon from "../../assets/icons/products.png";
+import OtherIcon from "../../assets/icons/others.png";
+import BusinessIcon from "../../assets/icons/business.png";
+import PlayStoreIcon from "../../assets/icons/playstore.png";
 import { adTypes } from './AdTypes';
 
 const adTypeIcons = {
