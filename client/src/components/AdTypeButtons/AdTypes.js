@@ -2,9 +2,9 @@
 export const adTypes = {
     Empleos: {
       "Restaurantes": [
-        "Mozo/Moza",
+        "Mozo(a)",
         "Ayudante de Cocina",
-        "Cajero/Cajera",
+        "Cajero(a)",
         "Cocinero",
         "Bartender",
         "Lavaplatos",
