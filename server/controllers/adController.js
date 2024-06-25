@@ -66,7 +66,7 @@ const createAd = async (req, res) => {
 
 const getAds = async (req, res) => {
   try {
-    const anuncios = await Ad.find().sort({ createdAt: -1 }).limit(100).exec();
+    const anuncios = await Ad.find().sort({ createdAt: -1 }).limit(300).exec();
 
     if (!anuncios || anuncios.length === 0) {
       return res.status(200).json([]);

@@ -18,7 +18,7 @@ function useAds(adType, category, subcategory) {
         setIsLoading(true);
         setError(null);
         try {
-            const url = `/api/anuncios?limit=100` + 
+            const url = `/api/anuncios?limit=300` + 
                         (adType ? `&adType=${adType}` : '') + 
                         (category ? `&category=${category}` : '') + 
                         (subcategory ? `&subcategory=${subcategory}` : ''); 
