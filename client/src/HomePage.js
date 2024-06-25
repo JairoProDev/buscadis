@@ -73,7 +73,7 @@ function HomePage() {
           </div>
           <div className="right-sidebar">
           <button type="button" className="publish-button" onClick={toggleFormVisibility}>
-                {isFormVisible ? 'Ver avisos' : 'Publicar avisos'}
+                {isFormVisible ? 'buscar avisos gratis' : 'publicar aviso gratis'}
                 <span></span>
                 <span></span>
                 <span></span>
