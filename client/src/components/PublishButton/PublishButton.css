@@ -11,6 +11,16 @@ button[type="submit"] {
   transition: background-color 0.4s;
   font-size: 16px;
 }
+button[type="button"] {
+  background-color: #28A745;
+  color: #fff;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.4s;
+  font-size: 14px;
+}
 
 .publish-button {
   position: relative;
