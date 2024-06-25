@@ -13,6 +13,7 @@ import AdForm from "./components/AdForm/AdForm";
 import AdModal from "./components/AdModal/AdModal";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
 import UserProfile from "./components/UserProfile/UserProfile";
+import AdsColumn from "./components/AdsColumn/AdsColumn";
 
 // Styles
 import "./styles/root.css";
@@ -27,6 +28,8 @@ function HomePage() {
   const [page] = useState(1);
   const [filter, setFilter] = useState("");
   const { adType, category, subcategory } = useParams();
+
+  const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
 
   const { anuncios, agregarAnuncioAlPrincipio, error, isLoading } = useAds(
     page,
@@ -68,12 +71,25 @@ function HomePage() {
               toggleForm={showForm}
             />
           </div>
-          <AdForm
-            agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
-            isVisible={isFormVisible}
-            hideForm={hideForm}
-            anuncios={anuncios}
-          />
+          <div className="right-sidebar">
+          <button type="button" className="publish-button" onClick={toggleFormVisibility}>
+                {isFormVisible ? 'Ver avisos' : 'Publicar avisos'}
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+          {isFormVisible && (
+              <AdForm
+                agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
+                isVisible={isFormVisible}
+                hideForm={toggleFormVisibility} // Usa la misma función para ocultar
+                anuncios={anuncios}
+              />
+            )}
+          <AdsColumn anuncios={anuncios} />
+          </div>
           <SocialMedia />
         </div>
       </div>

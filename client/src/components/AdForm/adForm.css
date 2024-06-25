@@ -1,45 +1,5 @@
 /* Estilos generales del formulario */
-form {
-  margin: 0;
-  box-sizing: border-box;
-}
-.form-container {
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Añade una sombra para darle más profundidad y un efecto de relieve */
-  max-width: 30vh;
-  max-height: 100%;
-  font-family: "Roboto", sans-serif;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  box-sizing: content-box;
-}
-.form-container::-webkit-scrollbar {
-  display: none; /* Para Chrome, Safari y Edge */
-}
-button.form-close-button {
-  display: none;
-}
-.form-container input,
-.form-container button {
-  width: 100%; /* Asegúrate de que los elementos hijos no sean más anchos que su contenedor */
-  box-sizing: border-box; /* Incluye el padding y el border en el ancho total del elemento */
-}
-/* Estilos para los elementos de entrada del formulario */
 
-.form-container fieldset {
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
 .adForm legend {
   font-size: 16px;
   font-weight: 600;
@@ -142,46 +102,4 @@ textarea::placeholder {
 .adForm textarea:focus {
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 10px 30px rgba(0, 0, 0, 0.2); /* Aumenta la sombra cuando se pasa el cursor sobre la barra de búsqueda */
   transform: scale(1.1);
-}
-
-.columna-anuncios {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 300px; /* Ajusta el ancho según tus necesidades */
-  margin: auto;
-  background-color: #f7f7f7; /* Fondo similar al de la revista */
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Opcional: para darle un efecto elevado */
-}
-
-.anuncio {
-  margin-bottom: 6px;
-}
-
-.anuncio h4 {
-  font-size: 0.8em;
-}
-.anuncio p {
-  font-size: 0.7em;
-}
-
-.anuncio-desc {
-  font-size: 0.7em;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-}
-.anuncio a {
-  font-size: 0.9em;
-  color: #000;
-  text-decoration: none;
-}
-.separador {
-  border-bottom: 1px solid #000; /* Cambia el color según tu preferencia */
-  padding: 5px 0; /* Añade un poco de espacio alrededor de la línea */
 }
