@@ -1,0 +1,51 @@
+/* BottomNavBar.css */
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(to right, #f8f9fa, #eceff1); /* Gradiente de fondo */
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    padding: 10px 0;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Suaviza la transición de fondo */
+}
+
+.bottom-nav button {
+    height: 36px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    background-color: transparent; /* Fondo transparente para botones normales */
+    border: none; /* Elimina el borde por defecto */
+    transition: color 0.3s ease, transform 0.2s ease; /* Suaviza la transición de color y transformación */
+}
+
+.bottom-nav button:hover, .bottom-nav button:focus {
+    color: #0056b3; /* Oscurece el color al pasar el mouse o enfocar */
+    transform: translateY(-5px); /* Eleva ligeramente el botón */
+}
+
+.bottom-nav button.highlight {
+    background-color: #28A745; /* Color distintivo */
+    color: white; /* Texto blanco para contraste */
+    padding: 1px 10px; /* Aumenta el padding para un botón más grande */
+    border-radius: 50px; /* Hace el botón completamente redondo */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para efecto de elevación */
+    transform: translateY(-50%); /* Eleva el botón sobre la barra */
+    transition: background-color 0.3s ease; /* Transición suave al cambiar de color */
+}
+
+.bottom-nav button.highlight:hover {
+    background-color: #ff6b81; /* Color ligeramente más claro al pasar el mouse */
+}
+
+.bottom-nav img {
+    vertical-align: middle; /* Alinea el icono verticalmente */
+    width: 36px; /* Ajusta el tamaño del icono según sea necesario */
+    height: auto; /* Mantiene la proporción del icono */
+}
+
+.hidden {
+    transform: translateY(100%);
+}
