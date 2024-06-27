@@ -5,7 +5,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: linear-gradient(to right, #f8f9fa, #eceff1); /* Gradiente de fondo */
+    background: linear-gradient(to right, rgba(248, 249, 250, 0.5), rgba(236, 239, 241, 0.5)); /* Gradiente de fondo más transparente */
     box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
     padding: 10px 0;
     transition: transform 0.3s ease, background-color 0.3s ease; /* Suaviza la transición de fondo */
