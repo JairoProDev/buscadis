@@ -18,7 +18,7 @@ function BottomNavBar({showForm}) {
             <button onClick={showForm} className="highlight">
                 <img src={anunciarIcon} alt="Anunciar" />
             </button>
-            <Link to="/profile"><img src={perfilIcon} alt="Perfil" /></Link>
+            <a href="https://wa.me/937054328" target="_blank" rel="noopener noreferrer"><img src={perfilIcon} alt="Perfil" /></a>
         </div>
   );
 }
