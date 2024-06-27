@@ -49,7 +49,7 @@ function ContactButtons({ phone, phone2, adType, url }) {
   // Mensaje dividido en partes para fácil lectura
   const part1 = `Buen día, hemos publicado GRATIS su aviso de ${adType} por todo el día en nuestra plataforma para ayudarle a que más personas vean lo que ofrece.`;
   const part2 = `Puede verlo aquí: ${url}.`;
-  const part3 = "Si desea que su aviso esté publicado por más días, avisenos para no eliminarlo hoy. También podemos agregar imágenes, actualizar detalles o publicar un nuevo anuncio si es que lo necesita.";
+  const part3 = "Si desea que su aviso esté publicado por más días, avísenos para no eliminarlo hoy. También podemos agregar imágenes, actualizar detalles o publicar un nuevo anuncio si es que lo necesita.";
   // const part4 = "Estamos aquí para ayudarle a maximizar su visibilidad.";
   // const part5 = "Para aprovechar esta oferta, ¡responda a este mensaje! ¿Desea que su anuncio esté publicado por más días?";
 
