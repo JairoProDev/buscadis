@@ -134,7 +134,7 @@ export const adTypes = {
     Servicios: {
       Educación: ["Tutorías", "Clases Particulares", "Cursos en Línea", "Capacitación Empresarial"],
       Reparaciones: ["Electricista", "Plomero", "Carpintero", "Reparación de Electrodomésticos"],
-      Salud: ["Terapias", "Consultas Médicas", "Fisioterapia", "Nutrición"],
+      Salud: ["Terapias", "Consultas Médicas", "Fisioterapia", "Nutrición", "Veterinarios"],
       Domésticos: ["Limpieza", "Niñeras", "Cuidado de Adultos Mayores"],
       Técnicos: ["Reparación de Computadoras", "Reparación de Celulares", "Instalación de Software"],
       Eventos: ["Catering", "Organización de Eventos", "Alquiler de Equipos", "Decoración"],
