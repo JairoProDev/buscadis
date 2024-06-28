@@ -58,6 +58,10 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
           >
             Todos
           </button>
+          <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" className="adType-button download-app-button" target='_blank' rel='noreferrer'>
+            <img src={PlayStoreIcon} alt="Play Store" />
+            Bajar App
+          </a>
           {Object.keys(adTypes).map((adTypeKey) => (
             <button
               key={adTypeKey}
@@ -68,10 +72,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
               {adTypeKey}
             </button>
           ))}
-          <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" className="adType-button download-app-button" target='_blank'>
-            <img src={PlayStoreIcon} alt="Play Store" />
-            Bajar App
-          </a>
+
         </div>
       </div>
 
