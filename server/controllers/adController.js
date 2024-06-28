@@ -16,6 +16,7 @@ const createAd = async (req, res) => {
       phone2,
       email,
       images,
+      size,
     } = req.body;
 
     if (
@@ -24,7 +25,8 @@ const createAd = async (req, res) => {
       !subCategory ||
       !title ||
       !description ||
-      !phone
+      !phone ||
+      !size
     ) {
       return res.status(400).json({ error: "Faltan campos requeridos" });
     }
@@ -45,6 +47,7 @@ const createAd = async (req, res) => {
       phone2: phone2,
       email: email,
       images: images,
+      size: size,
     });
 
     console.log("New ad:", newAd);
@@ -66,7 +69,7 @@ const createAd = async (req, res) => {
 
 const getAds = async (req, res) => {
   try {
-    const anuncios = await Ad.find().sort({ createdAt: -1 }).limit(300).exec();
+    const anuncios = await Ad.find().sort({ createdAt: -1 }).limit(400).exec();
 
     if (!anuncios || anuncios.length === 0) {
       return res.status(200).json([]);
@@ -99,7 +102,7 @@ const getAdsByAdType = async (req, res) => {
     const adType = req.params.adType;
     const anuncios = await Ad.find({ adType })
       .sort({ createdAt: -1 })
-      .limit(100)
+      .limit(400)
       .exec();
 
     if (!anuncios || anuncios.length === 0) {
@@ -118,7 +121,7 @@ const getAdsByAdTypeAndCategory = async (req, res) => {
     const { adType, category } = req.params;
     const query = { adType, category };
 
-    const ads = await Ad.find(query).sort({ createdAt: -1 }).limit(100).exec();
+    const ads = await Ad.find(query).sort({ createdAt: -1 }).limit(400).exec();
 
     if (!ads || ads.length === 0) {
       return res.status(200).json([]);

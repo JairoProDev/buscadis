@@ -93,6 +93,12 @@ const anuncioSchema = new mongoose.Schema(
           `${props.value} Por favor, introduce un correo electrónico válido!`,
       },
     },
+    size: {
+      type: String,
+      enum: ["miniatura", "normal", "largo", "grande", "gigante"],
+      default: "normal",
+      required: [true, "El tamaño del anuncio es requerido"],
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
