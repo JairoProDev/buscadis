@@ -58,12 +58,12 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
             className="adForm-input"
             onChange={(e) => setAdType(e.target.value)}
           >
+            <option value="Negocios">Negocios</option>
             <option value="Empleos">Empleos</option>
             <option value="Inmuebles">Inmuebles</option>
             <option value="Vehicles">Vehicles</option>
             <option value="Servicios">Servicios</option>
             <option value="Productos">Productos</option>
-            <option value="Negocios">Negocios</option>
             <option value="Otros">Otros</option>
           </select>
 
