@@ -1,13 +1,8 @@
-// Importar las dependencias necesarias
 const path = require('path');
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-if (process.env.NODE_ENV === "development") {
-  require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
-} else if (process.env.NODE_ENV === "test") {
-  require("dotenv").config({ path: path.resolve(__dirname, "../.env.test") });
-} else {
-  require("dotenv").config();
-}
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`MONGODB_URI: ${process.env.MONGODB_URI}`);
 
 const cloudinary = require("cloudinary").v2;
 
