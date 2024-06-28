@@ -3,3 +3,4 @@ client/build/
 uploads
 seeds
 scripts
+.env
