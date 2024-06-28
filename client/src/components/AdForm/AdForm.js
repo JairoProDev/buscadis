@@ -13,6 +13,8 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
     adTypeRef,
     categoryRef,
     subCategoryRef,
+    size,
+    setSize,
     titleRef,
     descriptionRef,
     amountRef,
@@ -95,7 +97,14 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
               </option>
             ))}
           </select>
-
+          <label htmlFor="size">Size</label>
+          <select id="size" value={size} onChange={(e) => setSize(e.target.value)}>
+            <option value="miniatura">1x1 / periódico / s/15</option>
+            <option value="normal">1x1 / normal / s/30</option>
+            <option value="largo">2x1 / largo / s/50</option>
+            <option value="grande">2x2 / grande / s/80</option>
+            <option value="gigante">2x4 / gigante / s/120</option>
+          </select>
           <label htmlFor="title">Título de tu aviso:</label>
           <input
             className="adForm-input"

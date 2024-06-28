@@ -35,17 +35,6 @@
     margin-bottom: 50px;
   }
 
-  #ad-list li {
-    flex: 1 0 calc(50% - 10px); /* Ajusta este valor según tus necesidades */
-    max-width: calc(50% - 10px); /* Ajusta este valor según tus necesidades */
-    margin: 5px;
-    list-style: none;
-  }
-
-  .ad-card {
-    flex: 1 0 150px;
-    height: 200px !important;
-  }
 
   .ad-card__title {
     font-size: 16px;
@@ -54,8 +43,7 @@
     font-size: 1.2rem;
   }
   .sidebar {
-    overflow: hidden;
-    top: 0px;
+    display: none !important;
   }
 
   .portal {
@@ -67,10 +55,6 @@
   button.form-close-button {
     display: block;
   }
-  .ads-container {
-    padding-left: 24px !important;
-  }
-
 
   label,
   legend {

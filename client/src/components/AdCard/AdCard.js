@@ -7,7 +7,7 @@ function AdCard({ anuncio, setSelectedAd, number }) {
 
   const handleAdClick = () => {
     navigate(
-      `/${anuncio.adType}/${anuncio.category}/${anuncio.subCategory}/${anuncio.id}`
+      `/${anuncio.adType}/${anuncio.category}/${anuncio.subCategory}/${anuncio._id}`
     );
     setSelectedAd(anuncio);
   };
@@ -33,11 +33,11 @@ function AdCard({ anuncio, setSelectedAd, number }) {
     }
     interval = Math.floor(seconds / 86400);
     if (interval > 1) {
-      return `${interval} d`;
+      return `${interval} días`;
     }
     interval = Math.floor(seconds / 3600);
     if (interval > 1) {
-      return `${interval}h`;
+      return `${interval} horas`;
     }
     interval = Math.floor(seconds / 60);
     if (interval > 1) {

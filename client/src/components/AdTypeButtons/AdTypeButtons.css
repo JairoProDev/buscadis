@@ -90,6 +90,7 @@
   @media (max-width: 768px) {
     .scroll-container {
       padding: 5px;
+      margin: 10px;
     }
   
     .scroll-container .adType-button {
@@ -101,9 +102,7 @@
       padding: 6px 12px;
       font-size: 12px;
     }
-    .adType-container {
-      padding-left: 30px;
-    }
+
     .scroll-container .category-button {
       padding: 4px 8px;
       font-size: 10px;
