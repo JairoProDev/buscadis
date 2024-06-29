@@ -30,7 +30,7 @@ function NavList({ setFilter, toggleForm }) {
         <li className="nav-item">
           <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" target="_blank">
             <img src={PlaystoreIcon} alt="Playstore" className="nav-item-icon" />
-            <div>Bajar App</div>
+            <div>Descargar App</div>
           </a>
         </li>
         {/* <NavItem
