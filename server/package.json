@@ -1,5 +1,5 @@
 {
-  "name": "publicadis-core",
+  "name": "buscadis-core",
   "version": "3.1.0",
   "description": "Tercera versión del MVP de PublicAdis",
   "main": "app.js",
