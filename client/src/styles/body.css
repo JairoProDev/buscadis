@@ -1,4 +1,5 @@
 body {
+  zoom: 0.9;
   display: grid;
   grid-template-areas:
     "header"
@@ -42,4 +43,10 @@ body {
 .dark-mode body {
   background: rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) { 
+  body { 
+    zoom: 1; 
+  } 
 }
