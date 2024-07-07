@@ -6,6 +6,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
   const adTypeRef = useRef();
   const categoryRef = useRef();
   const subCategoryRef = useRef();
+  const sizeRef = useRef();
   const titleRef = useRef();
   const descriptionRef = useRef();
   const amountRef = useRef();
@@ -18,6 +19,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
   const [adType, setAdType] = useState("");
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
+  const [size, setSize] = useState("normal");
   const [images, setImages] = useState([]);
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
@@ -59,6 +61,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     if (phone2Ref.current) {
       phone2Ref.current.value = "";
     }
+    sizeRef.current.value = "normal";
     setImages([]);
   };
 
@@ -87,10 +90,10 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
       validateForm();
-
+  
       const formData = {
         adType: adTypeRef.current.value,
         category: categoryRef.current ? categoryRef.current.value : "",
@@ -102,8 +105,12 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
         location: locationRef.current ? locationRef.current.value : "",
         email: emailRef.current ? emailRef.current.value : "",
         amount: amountRef.current ? amountRef.current.value : "",
+        size: sizeRef.current ? sizeRef.current.value : "normal",
         images: images.map((image) => URL.createObjectURL(image)),
       };
+
+    // Log formData to ensure it's correctly formatted
+    console.log("Form Data:", formData);
 
       const adResponse = await fetch("/api/anuncios", {
         method: "POST",
@@ -114,7 +121,8 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
       });
 
       if (!adResponse.ok) {
-        throw new Error("Error al crear el anuncio");
+        const errorText = await adResponse.text();
+        throw new Error(`Error al crear el anuncio: ${errorText}`);
       }
 
       const responseJson = await adResponse.json();
@@ -123,6 +131,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
       clearForm();
     } catch (error) {
       setError(error.message);
+      console.error("Error details:", error); // Log the error details
     }
   };
 
@@ -152,10 +161,13 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     phone2Ref,
     emailRef,
     imageRef,
+    sizeRef,
     images,
     setImages,
     description,
     setDescription,
+    size,
+    setSize,
     error,
     setError,
     clearForm,

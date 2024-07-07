@@ -14,6 +14,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
     categoryRef,
     subCategoryRef,
     size,
+    sizeRef,
     setSize,
     titleRef,
     descriptionRef,
@@ -98,7 +99,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
             ))}
           </select>
           <label htmlFor="size">Size</label>
-          <select id="size" value={size} onChange={(e) => setSize(e.target.value)}>
+          <select id="size" ref={sizeRef} value={size} onChange={(e) => setSize(e.target.value)}>
             <option value="miniatura">1x1 / periódico / s/15</option>
             <option value="normal">1x1 / normal / s/30</option>
             <option value="largo">2x1 / largo / s/50</option>
