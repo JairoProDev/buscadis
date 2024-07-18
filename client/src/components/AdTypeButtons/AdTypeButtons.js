@@ -55,12 +55,9 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
           <button
             onClick={handleAllClick}
             className={`adType-button ${selectedAdType === 'Todos' ? 'selected-all' : ''}`}
-          >
-            Todos
-          </button>
+          >Todo</button>
           <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" className="adType-button download-app-button" target='_blank' rel='noreferrer'>
-            <img src={PlayStoreIcon} alt="Play Store" />
-            Bajar App
+            <img src={PlayStoreIcon} alt="Play Store"/>
           </a>
           {Object.keys(adTypes).map((adTypeKey) => (
             <button
