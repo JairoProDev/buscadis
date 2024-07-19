@@ -107,23 +107,23 @@
 }
 
 .ad-card.inmuebles {
-  background-color: #daffe5;
+  background-color: #c8f7c5; /* Verde suave */
 }
 
 .ad-card.empleos {
-  background-color: #d3e6ff;
+  background-color: #cce5ff; /* Azul suave */
 }
 
 .ad-card.vehicles {
-  background-color: #ffd9d9;
+  background-color: #ffcccc; /* Rojo claro */
 }
 
 .ad-card.servicios {
-  background-color: #fff1d6;
+  background-color: #fff5cc; /* Amarillo suave */
 }
 
 .ad-card.otros {
-  background-color: #ece7f3;
+  background-color: #e8e4f7; /* Púrpura suave */
 }
 
 .ad-card__image {
