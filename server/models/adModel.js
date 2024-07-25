@@ -30,7 +30,7 @@ const anuncioSchema = new mongoose.Schema(
     },
     subCategory: {
       type: String,
-      required: [true, "La subcategoría es requerida"],
+      required: false,
       trim: true,
       index: true,
     },
