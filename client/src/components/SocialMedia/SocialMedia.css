@@ -14,14 +14,14 @@
   border-radius: 50%;
   padding: 0px;
   margin: 5px;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   transition: all 0.2scubic-beizer(
       0.68,
       -0.55,
       cubic-bezier(0.68, -0.55, 0.265, 1.55)
     );
-  font-size: 1.75rem;
+  font-size: 2.75rem;
   display: flex;
   align-items: center;
   justify-content: center;

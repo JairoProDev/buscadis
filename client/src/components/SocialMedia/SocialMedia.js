@@ -14,7 +14,7 @@ const SocialMedia = () => {
   return (
     <div className="social-media">
       <ul className="wrapper">
-        <li className="icon facebook">
+        {/* <li className="icon facebook">
           <span className="tooltip">Facebook</span>
           <a
             href="https://www.facebook.com/publicadis"
@@ -53,10 +53,10 @@ const SocialMedia = () => {
           >
             <FontAwesomeIcon icon={faTiktok} />
           </a>
-        </li>
+        </li> */}
         <li className="icon whatsapp">
           <span className="tooltip">WhatsApp</span>
-          <a href="https://wa.me/937054328" target="_blank" rel="noreferrer">
+          <a href="https://api.whatsapp.com/send?phone=51937054328&text=Hola%2C%20vengo%20de%20la%20app%2C%20quiero%20unirme%20a%20la%20comunidad%20de%20WhatsApp%20y%20obtener%20m%C3%A1s%20beneficios" target="_blank" rel="noreferrer">
             <FontAwesomeIcon icon={faWhatsapp} />
           </a>
         </li>
