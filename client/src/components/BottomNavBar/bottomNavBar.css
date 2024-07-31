@@ -1,51 +1,67 @@
-/* BottomNavBar.css */
+/* General Styles */
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Bottom Navigation */
 .bottom-nav {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: linear-gradient(to right, rgba(248, 249, 250, 0.5), rgba(236, 239, 241, 0.5)); /* Gradiente de fondo más transparente */
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-    padding: 10px 0;
-    transition: transform 0.3s ease, background-color 0.3s ease; /* Suaviza la transición de fondo */
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+    padding: 8px 0; /* Reducción del padding para disminuir la altura */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
-.bottom-nav button {
-    height: 36px;
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    background-color: transparent; /* Fondo transparente para botones normales */
-    border: none; /* Elimina el borde por defecto */
-    transition: color 0.3s ease, transform 0.2s ease; /* Suaviza la transición de color y transformación */
+    color: #333;
+    width: 50px; /* Reducción del ancho */
+    height: 50px; /* Reducción de la altura */
+    border: none;
+    background: none;
+    transition: transform 0.2s, background-color 0.3s;
+    border-radius: 10px;
+    margin: 0 5px; /* Reducción del margen para disminuir el espacio horizontal */
 }
 
-.bottom-nav button:hover, .bottom-nav button:focus {
-    color: #0056b3; /* Oscurece el color al pasar el mouse o enfocar */
-    transform: translateY(-5px); /* Eleva ligeramente el botón */
+.bottom-nav-item:hover {
+    transform: scale(1.1);
+    background-color: #e0e0e0;
 }
 
-.bottom-nav button.highlight {
-    background-color: #28A745; /* Color distintivo */
-    color: white; /* Texto blanco para contraste */
-    padding: 1px 10px; /* Aumenta el padding para un botón más grande */
-    border-radius: 50px; /* Hace el botón completamente redondo */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para efecto de elevación */
-    transform: translateY(-50%); /* Eleva el botón sobre la barra */
-    transition: background-color 0.3s ease; /* Transición suave al cambiar de color */
+.highlight {
+    background-color: #4CAF50;
+    color: white;
+    width: 60px; /* Reducción del ancho */
+    height: 60px; /* Reducción de la altura */
 }
 
-.bottom-nav button.highlight:hover {
-    background-color: #ff6b81; /* Color ligeramente más claro al pasar el mouse */
+.bottom-nav-icon {
+    font-size: 20px; /* Reducción del tamaño de los iconos */
 }
 
-.bottom-nav img {
-    vertical-align: middle; /* Alinea el icono verticalmente */
-    width: 36px; /* Ajusta el tamaño del icono según sea necesario */
-    height: auto; /* Mantiene la proporción del icono */
+.bottom-nav-text {
+    font-size: 10px; /* Reducción del tamaño del texto */
+    margin-top: 3px; /* Ajuste del margen superior */
 }
 
-.hidden {
-    transform: translateY(100%);
+/* Responsive Design */
+@media (min-width: 768px) {
+    .bottom-nav {
+        display: none;
+    }
 }

@@ -1,26 +1,37 @@
-// BottomNavBar.js
 import React from 'react';
-import useScroll from '../../hooks/useScroll'; // Asegúrate de ajustar la ruta de importación según la estructura de tu proyecto
-import './bottomNavBar.css'; // Asegúrate de crear este archivo CSS para estilizar tu barra de navegación
+import useScroll from '../../hooks/useScroll';
 import { Link } from 'react-router-dom';
+import { FaHome, FaSearch, FaRegNewspaper, FaBullhorn, FaUser } from 'react-icons/fa'; // Asegúrate de incluir FaHome
 
+import './bottomNavBar.css'; // Importa el nuevo CSS
 
-import revistaIcon from '../../assets/icons/revista.png'; // Ajusta la ruta según sea necesario
-import anunciarIcon from '../../assets/icons/publish.png';
-import perfilIcon from '../../assets/icons/profile.png';
-
-function BottomNavBar({showForm}) {
-    const isHidden = useScroll();
+function BottomNavBar({ showForm }) {
+    const isHidden = useScroll(); // Mantén el uso del hook personalizado
 
     return (
         <div className={`bottom-nav ${isHidden ? 'hidden' : ''}`}>
-            <Link to="/"><img src={revistaIcon} alt="Revista" /></Link>
-            <button onClick={showForm} className="highlight">
-                <img src={anunciarIcon} alt="Anunciar" />
+            <Link to="/" className="bottom-nav-item">
+                <FaHome className="bottom-nav-icon" />
+                <div className="bottom-nav-text">Inicio</div>
+            </Link>
+            <Link to="/revista" className="bottom-nav-item">
+                <FaRegNewspaper className="bottom-nav-icon" />
+                <div className="bottom-nav-text">Revista</div>
+            </Link>
+            <button onClick={showForm} className="highlight bottom-nav-item">
+                <FaBullhorn className="bottom-nav-icon" />
+                <div className="bottom-nav-text">Anunciar</div>
             </button>
-            <a href="https://wa.me/937054328" target="_blank" rel="noopener noreferrer"><img src={perfilIcon} alt="Perfil" /></a>
+            <Link to="/buscar" className="bottom-nav-item"> {/* Link para la ruta de búsqueda */}
+                <FaSearch className="bottom-nav-icon" />
+                <div className="bottom-nav-text">Buscar</div>
+            </Link>
+            <a href="https://wa.me/937054328" target="_blank" rel="noopener noreferrer" className="bottom-nav-item">
+                <FaUser className="bottom-nav-icon" />
+                <div className="bottom-nav-text">Perfil</div>
+            </a>
         </div>
-  );
+    );
 }
 
 export default BottomNavBar;
