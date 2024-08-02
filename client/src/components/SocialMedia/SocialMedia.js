@@ -3,10 +3,6 @@ import React from "react";
 import "./SocialMedia.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFacebookF,
-  faInstagram,
-  faLinkedinIn,
-  faTiktok,
   faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 
