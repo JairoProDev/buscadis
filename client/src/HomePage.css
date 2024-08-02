@@ -32,13 +32,11 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Añade una sombra para darle más profundidad y un efecto de relieve */
-  max-width: 30vh;
   max-height: 100%;
   font-family: "Roboto", sans-serif;
   overflow-y: scroll;
   scrollbar-width: none;
   box-sizing: content-box;
-  
 }
 /* Ajuste para eliminar espacios no deseados entre adform y adscolumn */
 .right-sidebar > * {
