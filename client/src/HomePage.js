@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 
 // Components
 import Header from "./components/Header/Header";
-import Sidebar from "./components/Sidebar/Sidebar";
+// import Sidebar from "./components/Sidebar/Sidebar";
 import NewFeed from "./components/NewFeed/NewFeed";
 import AdForm from "./components/AdForm/AdForm";
 import AdModal from "./components/AdModal/AdModal";
@@ -41,9 +41,8 @@ function HomePage() {
   );
   const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
   const [selectedAd, setSelectedAd] = useState(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const toggleSidebar = () =>
-    setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
+  // const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // const toggleSidebar = () => setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const showForm = () => setIsFormVisible(true);
   const hideForm = () => setIsFormVisible(false);
@@ -55,11 +54,10 @@ function HomePage() {
         <Header
           toggleForm={showForm}
           setFilter={setFilter}
-          toggleSidebar={toggleSidebar}
           updateSearchTerm={updateSearchTerm}
         />
         <div className="container">
-          <Sidebar isOpen={isSidebarOpen} />
+          {/* <Sidebar isOpen={isSidebarOpen} /> */}
           <div className="portal">
             <NewFeed
               className="feed"

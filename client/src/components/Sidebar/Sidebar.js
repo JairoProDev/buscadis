@@ -2,187 +2,97 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./sidebar.css";
 
+// Lista de enlaces categorizados
+const categories = [
+  {
+    title: "Empleos",
+    links: [
+      { icon: "restaurant", label: "Cocina", path: "/cocina" },
+      { icon: "directions_bus", label: "Conducción", path: "/conduccion" },
+      { icon: "school", label: "Docencia", path: "/docencia" },
+      { icon: "hotel", label: "Hoteles", path: "/hoteles" },
+      { icon: "store_mall_directory", label: "Almacén", path: "/almacen" },
+      { icon: "local_shipping", label: "Repartidor", path: "/repartidor" },
+      { icon: "local_bar", label: "Bares", path: "/bares" },
+    ],
+  },
+  {
+    title: "Inmuebles",
+    links: [
+      { icon: "apartment", label: "Apartamentos", path: "/apartamentos" },
+      { icon: "house", label: "Casas", path: "/casas" },
+      { icon: "landscape", label: "Terrenos", path: "/terrenos" },
+      { icon: "store", label: "Locales", path: "/locales" },
+      { icon: "work", label: "Oficinas", path: "/oficinas" },
+      { icon: "storefront", label: "Bodegas", path: "/bodegas" },
+      { icon: "store_mall_directory", label: "Almacenes", path: "/almacenes" },
+    ],
+  },
+  {
+    title: "Vehículos",
+    links: [
+      { icon: "directions_car", label: "Autos", path: "/autos" },
+      { icon: "directions_bike", label: "Motos", path: "/motos" },
+      { icon: "local_shipping", label: "Camiones", path: "/camiones" },
+    ],
+  },
+  {
+    title: "Turismo",
+    links: [
+      { icon: "flight", label: "Vuelos", path: "/vuelos" },
+      { icon: "hotel", label: "Hoteles", path: "/turismo/hoteles" },
+      { icon: "local_activity", label: "Agencias de viaje", path: "/agencias-viaje" },
+      { icon: "restaurant", label: "Restaurantes", path: "/restaurantes" },
+    ],
+  },
+  {
+    title: "Otros",
+    links: [
+      { icon: "local_grocery_store", label: "Alimentos", path: "/alimentos" },
+      { icon: "kitchen", label: "Electrodomésticos", path: "/electrodomesticos" },
+      { icon: "devices", label: "Tecnología", path: "/tecnologia" },
+      { icon: "shopping_basket", label: "Moda y Accesorios", path: "/moda-accesorios" },
+      { icon: "house", label: "Hogar y Jardín", path: "/hogar-jardin" },
+      { icon: "spa", label: "Salud y Belleza", path: "/salud-belleza" },
+      { icon: "theaters", label: "Entretenimiento", path: "/entretenimiento" },
+      { icon: "pets", label: "Mascotas", path: "/mascotas" },
+    ],
+  },
+  {
+    title: "Varios",
+    links: [
+      { icon: "bar_chart", label: "Educación", path: "/educacion" },
+      { icon: "shopping_basket", label: "Ropa", path: "/ropa" },
+      { icon: "settings", label: "Servicios", path: "/servicios" },
+      { icon: "engineering", label: "Profesionales", path: "/profesionales" },
+      { icon: "school", label: "Clases y Cursos", path: "/clases-cursos" },
+      { icon: "event", label: "Eventos", path: "/eventos" },
+    ],
+  },
+];
+
 function Sidebar({ isOpen, updateSearchTerm }) {
-  const handleLinkClick = (event) => {
-    event.preventDefault();
-    const searchTerm = event.target.getAttribute("data-search-term");
+  const handleLinkClick = (searchTerm) => {
     updateSearchTerm(searchTerm);
   };
+
   return (
     <aside className="sidebar" style={{ display: isOpen ? "block" : "none" }}>
-      <ul className="adType-list">
-        <h4>Empleos</h4>
-        <ul className="enlaces">
-          <li>
-            <span className="material-symbols-outlined">restaurant</span>
-            <Link to="#">Cocina</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">directions_bus</span>
-            <Link to="#">Conducción</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">school</span>
-            <Link to="#">Docencia</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">hotel</span>
-            <Link to="#">Hoteles</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">
-              store_mall_directory
-            </span>
-            <Link to="#">Almacén</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">local_shipping</span>
-            <Link to="#">Repartidor</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">local_bar</span>
-            <Link to="#">Bares</Link>
-          </li>
-        </ul>
-
-        <h4>Inmuebles</h4>
-        <ul className="enlaces">
-          <li>
-            <span className="material-symbols-outlined">apartment</span>
-            <Link to="#">Apartamentos</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">house</span>
-            <Link to="#">Casas</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">landscape</span>
-            <Link to="#">Terrenos</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">store</span>
-            <Link to="#">Locales</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">work</span>
-            <Link to="#">Oficinas</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">storefront</span>
-            <Link to="#">Bodegas</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">
-              store_mall_directory
-            </span>
-            <Link to="#">Almacenes</Link>
-          </li>
-        </ul>
-
-        <h4>Vehículos</h4>
-        <ul className="enlaces">
-          <li>
-            <span className="material-symbols-outlined">directions_car</span>
-            <Link to="#">Autos</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">directions_bike</span>
-            <Link to="#">Motos</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">local_shipping</span>
-            <Link to="#">Camiones</Link>
-          </li>
-        </ul>
-
-        <h4>Turismo</h4>
-        <ul className="enlaces">
-          <li>
-            <span className="material-symbols-outlined">flight</span>
-            <Link to="#">Vuelos</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">hotel</span>
-            <Link to="#">Hoteles</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">local_activity</span>
-            <Link to="#">Agencias de viaje</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">restaurant</span>
-            <Link to="#">Restaurantes</Link>
-          </li>
-        </ul>
-
-        <h4>Servicios</h4>
-
-        <h4>Otros</h4>
-        <ul className="enlaces">
-          <li>
-            <span className="material-symbols-outlined">
-              local_grocery_store
-            </span>
-            <Link to="#">Alimentos</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">kitchen</span>
-            <Link to="#">Electrodomésticos</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">devices</span>
-            <Link to="#">Tecnología</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">shopping_basket</span>
-            <Link to="#">Moda y Accesorios</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">house</span>
-            <Link to="#">Hogar y Jardín</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">spa</span>
-            <Link to="#">Salud y Belleza</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">theaters</span>
-            <Link to="#">Entretenimiento</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">pets</span>
-            <Link to="#">Mascotas</Link>
-          </li>
-        </ul>
-
-        <h4>Varios</h4>
-        <ul className="enlaces">
-          <li>
-            <span className="material-symbols-outlined">bar_chart</span>
-            <Link to="#">Educación</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">shopping_basket</span>
-            <Link to="#">Ropa</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">settings</span>
-            <Link to="#">Servicios</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">engineering</span>
-            <Link to="#">Profesionales</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">school</span>
-            <Link to="#">Clases y Cursos</Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">event</span>
-            <Link to="#">Eventos</Link>
-          </li>
-        </ul>
-      </ul>
+      {categories.map((category, categoryIndex) => (
+        <div key={categoryIndex}>
+          <h4>{category.title}</h4>
+          <ul className="enlaces">
+            {category.links.map((link, linkIndex) => (
+              <li key={linkIndex} onClick={() => handleLinkClick(link.label)}>
+                <span className="material-symbols-outlined">{link.icon}</span>
+                <Link to={link.path} data-search-term={link.label} style={{ textDecoration: 'none' }}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </aside>
   );
 }
