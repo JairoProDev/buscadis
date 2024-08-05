@@ -36,7 +36,7 @@ app.use(express.json());
 // Usar las rutas de imágenes
 app.use("/api/images", imageRoutes);
 
-// const pdfRoutes = require('./routes/pdfRoutes')
+const pdfRoutes = require('./routes/pdfRoutes')
 // Contador para los intentos de conexión a la base de datos
 let dbConnectionAttempts = 0;
 
