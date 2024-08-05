@@ -36,6 +36,7 @@ app.use(express.json());
 // Usar las rutas de imágenes
 app.use("/api/images", imageRoutes);
 
+// const pdfRoutes = require('./routes/pdfRoutes')
 // Contador para los intentos de conexión a la base de datos
 let dbConnectionAttempts = 0;
 
@@ -112,6 +113,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
@@ -123,6 +125,9 @@ app.use((err, req, res, next) => {
 app.use((req, res, next) => {
   res.status(404).json({ message: 'Ruta no encontrada' });
 });
+
+// Usar la ruta de generación de PDF
+app.use("/api/pdf", pdfRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {
