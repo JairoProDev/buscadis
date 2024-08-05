@@ -44,8 +44,8 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
           <span className="icon">📖</span>
         </button> */}
         <div className="counters">
-          <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitas:</span> <span className="number">{totalVisitors}</span></p>
           <p className="advertisers"><span className="icon">📢</span> <span className="text">Avisos:</span> <span className="number">{adCount}</span></p>
+          <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitas:</span> <span className="number">{totalVisitors}</span></p>
         </div>
         {/* <UserMenu
           openLoginForm={openLoginForm}
