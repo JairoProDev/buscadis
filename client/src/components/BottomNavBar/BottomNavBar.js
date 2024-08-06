@@ -1,7 +1,7 @@
 import React from 'react';
 import useScroll from '../../hooks/useScroll';
 import { Link } from 'react-router-dom';
-import { FaHome, FaSearch, FaRegNewspaper, FaBullhorn, FaUser } from 'react-icons/fa'; // Asegúrate de incluir FaHome
+import { FaMobileAlt, FaSearch, FaRegNewspaper, FaBullhorn, FaUser } from 'react-icons/fa'; // Asegúrate de incluir FaHome
 
 import './bottomNavBar.css'; // Importa el nuevo CSS
 
@@ -11,12 +11,12 @@ function BottomNavBar({ showForm }) {
     return (
         <div className={`bottom-nav ${isHidden ? 'hidden' : ''}`}>
             <Link to="/" className="bottom-nav-item">
-                <FaHome className="bottom-nav-icon" />
-                <div className="bottom-nav-text">Inicio</div>
-            </Link>
-            <Link to="/revista" className="bottom-nav-item">
                 <FaRegNewspaper className="bottom-nav-icon" />
                 <div className="bottom-nav-text">Revista</div>
+            </Link>
+            <Link to="/tikshop" className="bottom-nav-item">
+                <FaMobileAlt className="bottom-nav-icon" />
+                <div className="bottom-nav-text">TikShop</div>
             </Link>
             <button onClick={showForm} className="highlight bottom-nav-item">
                 <FaBullhorn className="bottom-nav-icon" />
