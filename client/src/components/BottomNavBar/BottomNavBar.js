@@ -1,37 +1,50 @@
-import React from 'react';
-import useScroll from '../../hooks/useScroll';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaMobileAlt, FaSearch, FaRegNewspaper, FaBullhorn, FaUser } from 'react-icons/fa'; // Asegúrate de incluir FaHome
+import { FaMobileAlt, FaSearch, FaRegNewspaper, FaBullhorn, FaUser } from 'react-icons/fa';
+import './bottomNavBar.css';
 
-import './bottomNavBar.css'; // Importa el nuevo CSS
+const navItems = [
+  { name: 'Revista', icon: FaRegNewspaper, path: '/' },
+  { name: 'TikShop', icon: FaMobileAlt, path: '/tikshop' },
+  { name: 'Anunciar', icon: FaBullhorn, isButton: true },
+  { name: 'Buscar', icon: FaSearch, path: '/buscar' },
+  { name: 'Perfil', icon: FaUser, path: 'https://wa.me/937054328', isExternal: true }
+];
 
 function BottomNavBar({ showForm }) {
-    const isHidden = useScroll(); // Mantén el uso del hook personalizado
+  const [activeItem, setActiveItem] = useState(navItems[0].name);
 
-    return (
-        <div className={`bottom-nav ${isHidden ? 'hidden' : ''}`}>
-            <Link to="/" className="bottom-nav-item">
-                <FaRegNewspaper className="bottom-nav-icon" />
-                <div className="bottom-nav-text">Revista</div>
-            </Link>
-            <Link to="/tikshop" className="bottom-nav-item">
-                <FaMobileAlt className="bottom-nav-icon" />
-                <div className="bottom-nav-text">TikShop</div>
-            </Link>
-            <button onClick={showForm} className="highlight bottom-nav-item">
-                <FaBullhorn className="bottom-nav-icon" />
-                <div className="bottom-nav-text">Anunciar</div>
-            </button>
-            <Link to="/buscar" className="bottom-nav-item"> {/* Link para la ruta de búsqueda */}
-                <FaSearch className="bottom-nav-icon" />
-                <div className="bottom-nav-text">Buscar</div>
-            </Link>
-            <a href="https://wa.me/937054328" target="_blank" rel="noopener noreferrer" className="bottom-nav-item">
-                <FaUser className="bottom-nav-icon" />
-                <div className="bottom-nav-text">Perfil</div>
-            </a>
-        </div>
-    );
+  const handleClick = (item) => {
+    setActiveItem(item.name);
+    if (item.isButton) {
+      showForm();
+    }
+  };
+
+  return (
+    <div className="bottom-nav">
+      {navItems.map((item) => {
+        const Icon = item.icon;
+        return item.isExternal ? (
+          <a href={item.path} target="_blank" rel="noopener noreferrer" key={item.name} className="bottom-nav-item" onClick={() => handleClick(item)}>
+            <div className={`nav-item-container ${activeItem === item.name ? 'active' : ''}`}>
+              <Icon className="bottom-nav-icon" />
+              {activeItem === item.name && <div className="bottom-nav-highlight" />}
+            </div>
+            <div className="bottom-nav-text">{item.name}</div>
+          </a>
+        ) : (
+          <Link to={item.path} key={item.name} className="bottom-nav-item" onClick={() => handleClick(item)}>
+            <div className={`nav-item-container ${activeItem === item.name ? 'active' : ''}`}>
+              <Icon className="bottom-nav-icon" />
+              {activeItem === item.name && <div className="bottom-nav-highlight" />}
+            </div>
+            <div className="bottom-nav-text">{item.name}</div>
+          </Link>
+        );
+      })}
+    </div>
+  );
 }
 
 export default BottomNavBar;
