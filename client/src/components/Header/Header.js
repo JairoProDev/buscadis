@@ -7,10 +7,9 @@ import SearchBar from "../SearchBar/SearchBar";
 
 function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, updateSearchTerm }) {
   const isHidden = useScroll();
-  const [isFormVisible, setIsFormVisible] = useState(false);
+
   const searchInputRef = useRef(null); // Referencia para el campo de búsqueda
 
-  const showForm = () => setIsFormVisible(true);
 
   const [visitorCount, setVisitorCount] = useState(0);
   const [adCount, setAdCount] = useState(0);
