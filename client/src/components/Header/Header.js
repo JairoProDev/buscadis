@@ -1,19 +1,18 @@
 // Header.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
 import useScroll from "../../hooks/useScroll";
-import UserMenu from "../UserMenu/UserMenu";
 import SearchBar from "../SearchBar/SearchBar";
 
 function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, updateSearchTerm }) {
   const isHidden = useScroll();
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const searchInputRef = useRef(null); // Referencia para el campo de búsqueda
 
   const showForm = () => setIsFormVisible(true);
 
-  const [ visitorCount, setVisitorCount] = useState(0);
-
+  const [visitorCount, setVisitorCount] = useState(0);
   const [adCount, setAdCount] = useState(0);
 
   const totalVisitors = visitorCount + adCount + 2000;
@@ -39,19 +38,11 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
           <img src="../../images/logo.ico" alt="Logo" className="logo" />
           <h1 className="header-title">BuscAdis</h1>
         </Link>
-        <SearchBar updateSearchTerm={updateSearchTerm} />
-        {/* <button className="toggle-sidebar" onClick={toggleSidebar}>
-          <span className="icon">📖</span>
-        </button> */}
+        <SearchBar updateSearchTerm={updateSearchTerm} inputRef={searchInputRef} />
         <div className="counters">
           <p className="advertisers"><span className="icon">📢</span> <span className="text">Avisos:</span> <span className="number">{adCount}</span></p>
           <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitas:</span> <span className="number">{totalVisitors}</span></p>
         </div>
-        {/* <UserMenu
-          openLoginForm={openLoginForm}
-          openRegisterForm={openRegisterForm}
-          toggleForm={showForm}
-        /> */}
       </div>
     </header>
   );
