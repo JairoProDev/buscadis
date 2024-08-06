@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaMobileAlt, FaSearch, FaRegNewspaper, FaBullhorn, FaUser } from 'react-icons/fa';
 import './bottomNavBar.css';
+import useScroll from '../../hooks/useScroll';
 
 const navItems = [
   { name: 'Revista', icon: FaRegNewspaper, path: '/' },
@@ -13,6 +14,7 @@ const navItems = [
 
 function BottomNavBar({ showForm }) {
   const [activeItem, setActiveItem] = useState(navItems[0].name);
+  const isHidden = useScroll();
 
   const handleClick = (item) => {
     setActiveItem(item.name);
@@ -22,7 +24,7 @@ function BottomNavBar({ showForm }) {
   };
 
   return (
-    <div className="bottom-nav">
+    <div className={`bottom-nav ${isHidden ? 'hidden' : ''}`}> {/* Esto añade la clase 'hidden' cuando se desplaza hacia abajo */}
       {navItems.map((item) => {
         const Icon = item.icon;
         return item.isExternal ? (
