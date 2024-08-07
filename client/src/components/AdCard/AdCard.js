@@ -73,7 +73,7 @@ function AdCard({ anuncio, setSelectedAd, number }) {
         <p className="ad-card__description">{description}</p>
         <div className="ad-card__details">
           <p className="ad-card__price">{amount}</p>
-          <p className="ad-card__location">🌎{location}</p>
+          {location && <p className="ad-card__location">🌎{location}</p>}
         </div>
       </div>
     </div>

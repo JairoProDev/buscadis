@@ -79,8 +79,9 @@
   color: var(--text-color);
   font-size: 0.9rem;
   line-height: 1.2;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
+  mask-image: linear-gradient(180deg, #000 0, #000 75%, #0000);
+  overflow: hidden;
+  padding: 0.4rem;
 }
 
 .ad-card__details {
