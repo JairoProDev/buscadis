@@ -1,12 +1,14 @@
+// SearchBar.js
 import React, { useState, useEffect, useRef } from "react";
 import "./searchbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faMicrophone } from "@fortawesome/free-solid-svg-icons";
 
-function SearchBar({ updateSearchTerm }) {
+function SearchBar({ updateSearchTerm, inputRef }) {
+  console.log('inputRef in SearchBar:', inputRef); // Log para verificar la referencia
+
   const [inputValue, setInputValue] = useState("");
   const [isListening, setIsListening] = useState(false);
-  const inputRef = useRef(null); // Crea una referencia al campo de entrada
 
   const handleSearchChange = (event) => {
     const newValue = event.target.value;
@@ -15,7 +17,9 @@ function SearchBar({ updateSearchTerm }) {
   };
 
   const handleSearchClick = () => {
-    inputRef.current.focus(); // Enfoca el campo de entrada cuando se hace clic en la lupa
+    if (inputRef.current) {
+      inputRef.current.focus(); // Enfoca el campo de entrada cuando se hace clic en la lupa
+    }
   };
 
   useEffect(() => {

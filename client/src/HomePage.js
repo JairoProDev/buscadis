@@ -1,3 +1,5 @@
+//HomePage.js
+
 // React and Hooks
 import React, { Fragment, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
@@ -47,6 +49,7 @@ function HomePage() {
   const showForm = () => setIsFormVisible(true);
   const hideForm = () => setIsFormVisible(false);
   const loader = useRef(null);
+  const searchInputRef = useRef(null);
 
   return (
     <Fragment>
@@ -55,6 +58,7 @@ function HomePage() {
           toggleForm={showForm}
           setFilter={setFilter}
           updateSearchTerm={updateSearchTerm}
+          searchInputRef={searchInputRef} // Pasa la referencia al campo de búsqueda
         />
         <div className="container">
           {/* <Sidebar isOpen={isSidebarOpen} /> */}
@@ -91,8 +95,8 @@ function HomePage() {
           </div>
           <SocialMedia />
         </div>
-        <ButtomNavBar showForm={showForm} />
-      </div>
+        <ButtomNavBar showForm={showForm} searchInputRef={searchInputRef}/>
+      </div>  
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
         <Route

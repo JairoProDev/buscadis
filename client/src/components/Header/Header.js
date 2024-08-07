@@ -1,15 +1,12 @@
 // Header.js
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
 import useScroll from "../../hooks/useScroll";
 import SearchBar from "../SearchBar/SearchBar";
 
-function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, updateSearchTerm }) {
+function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, updateSearchTerm, searchInputRef }) {
   const isHidden = useScroll();
-
-  const searchInputRef = useRef(null); // Referencia para el campo de búsqueda
-
 
   const [visitorCount, setVisitorCount] = useState(0);
   const [adCount, setAdCount] = useState(0);
