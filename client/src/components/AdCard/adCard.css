@@ -9,25 +9,19 @@
   --button-hover-color: #46a049;
   --call-button-color: #007bff;
   --call-button-hover-color: #0056b3;
+  --background-color: #f8f9fa;
 }
 
 .ad-card {
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px var(--shadow-color);
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
-}
-
-.ad-card__image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 20px 20px 0 0;
 }
 
 .ad-card__content {
@@ -38,104 +32,114 @@
 }
 
 .ad-card:hover {
-  transform: scale(1.06);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px var(--hover-shadow-color);
 }
 
 .ad-card:active {
-  transform: scale(0.95);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transform: scale(0.98);
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.ad-card__image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--light-text-color);
 }
 
 .ad-card__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2px;
-  border-bottom: 1px solid var(--light-text-color);
-  font-size: 12px;
-  overflow: hidden;
+  font-size: 0.9rem;
+  color: var(--text-color);
 }
 
-.ad-adType {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.ad-card__type {
+  font-weight: 300;
+  color: var(--primary-color);
+  font-size: 12px;
 }
 
 .ad-card__date {
-  display: inline;
-  font-size: 0.8em;
-  line-height: 1;
+  font-size: 0.8rem;
+  color: var(--light-text-color);
 }
 
 .ad-card__title {
-  text-transform: uppercase;
+  font-size: 1.2rem;
   font-weight: bold;
-  padding-bottom: 0px;
-  font-size: 18px;
-  color: #000000;
-  text-align: center;
-  line-height: 1;
+  color: var(--text-color);
+  hyphens: auto;
 }
 
 .ad-card__description {
   color: var(--text-color);
   flex-grow: 1;
-  line-height: 1;
-  margin-bottom: 0rem;
-  overflow: hidden;
-  white-space: pre-line;
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+  font-size: 0.9rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
 }
 
-.ad-card__description::first-letter {
-  text-transform: uppercase;
+.ad-card__description::after {
+  content: '';
+  display: block;
+  height: 0.5rem; /* Añadir espacio extra al final */
 }
 
 .ad-card__details {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  font-size: 0.8rem;
-  margin-bottom: 0rem;
+  font-size: 0.9rem;
 }
 
 .ad-card__price {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
   color: var(--text-color);
-  font-weight: 700;
 }
 
 .ad-card__location {
   color: var(--light-text-color);
-  font-size: 0.7rem;
-  line-height: 0.9;
 }
 
 .ad-card.inmuebles {
-  background-color: #c8f7c5;
+  border-left: 4px solid #4caf50; /* Verde suave */
 }
 
 .ad-card.empleos {
-  background-color: #bfeff3;
+  border-left: 4px solid #007bff; /* Azul suave */
 }
 
 .ad-card.vehicles {
-  background-color: #ffcccc;
+  border-left: 4px solid #ff5722; /* Rojo suave */
 }
 
 .ad-card.servicios {
-  background-color: #fff5cc;
+  border-left: 4px solid #ffc107; /* Amarillo suave */
 }
 
 .ad-card.otros {
-  background-color: #e8e4f7;
+  border-left: 4px solid #9c27b0; /* Púrpura suave */
 }
 
 @media (max-width: 768px) {
-  .ad-card__header {
-    padding: 4px;
+  .ad-card__image {
+    height: 120px;
+  }
+
+  .ad-card__title {
+    font-size: 1rem;
+  }
+
+  .ad-card__description {
+    font-size: 0.8rem;
+  }
+
+  .ad-card__price,
+  .ad-card__location {
+    font-size: 0.8rem;
   }
 }

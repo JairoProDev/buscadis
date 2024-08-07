@@ -37,7 +37,7 @@ function AdCard({ anuncio, setSelectedAd, number }) {
     }
     interval = Math.floor(seconds / 3600);
     if (interval > 1) {
-      return `${interval} horas`;
+      return `${interval}h`;
     }
     interval = Math.floor(seconds / 60);
     if (interval > 1) {
@@ -63,11 +63,10 @@ function AdCard({ anuncio, setSelectedAd, number }) {
     <div className={adClass} onClick={handleAdClick}>
       <div className="ad-card__content">
         <div className="ad-card__header">
-          {/* <p className="ad-card__number">#{number}</p> */}
-          <p className="ad-adType">
+          <div className="ad-card__type">
             {adTypeEmojis[adTypeLower] || adType} {category}
-          </p>
-          <p className="ad-card__date">Hace {formattedDate}</p>
+          </div>
+          <div className="ad-card__date">⏰{formattedDate}</div>
         </div>
         {image && <img src={image} alt={title} className="ad-card__image" />}
         <h3 className="ad-card__title">{title}</h3>
