@@ -168,23 +168,23 @@ span {
 }
 
 .modal.inmuebles {
-  background-color: #fff1d6;
+  background-color: #c8f7c5;
 }
 
 .modal.empleos {
-  background-color: #d3e6ff;
+  background-color: #bfeff3;
 }
 
 .modal.vehicles {
-  background-color: #ffd9d9;
+  background-color: #ffcccc;
 }
 
 .modal.servicios {
-  background-color: #daffe5;
+  background-color: #fff5cc;
 }
 
 .modal.otros {
-  background-color: #ece7f3;
+  background-color: #e8e4f7;
 }
 
 /* adModal.css */
