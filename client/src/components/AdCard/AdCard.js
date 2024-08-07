@@ -13,7 +13,7 @@ function AdCard({ anuncio, setSelectedAd, number }) {
   };
 
   const sizeClass = `ad-size-${anuncio.size || "normal"}`;
-  const { adType, category, title, description, amount, location, createdAt } =
+  const { adType, category, title, description, amount, location, createdAt, image } =
     anuncio;
   const adTypeLower = adType ? adType.toLowerCase() : "default";
   const adClass = `ad-card ${adTypeLower} ${sizeClass}`;
@@ -63,12 +63,13 @@ function AdCard({ anuncio, setSelectedAd, number }) {
     <div className={adClass} onClick={handleAdClick}>
       <div className="ad-card__content">
         <div className="ad-card__header">
-          <p className="ad-card__number">#{number}</p>
+          {/* <p className="ad-card__number">#{number}</p> */}
           <p className="ad-adType">
             {adTypeEmojis[adTypeLower] || adType} {category}
           </p>
           <p className="ad-card__date">Hace {formattedDate}</p>
         </div>
+        {image && <img src={image} alt={title} className="ad-card__image" />}
         <h3 className="ad-card__title">{title}</h3>
         <p className="ad-card__description">{description}</p>
         <div className="ad-card__details">
