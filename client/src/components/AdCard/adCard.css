@@ -72,21 +72,15 @@
   font-weight: bold;
   color: var(--text-color);
   hyphens: auto;
+  line-height: 1.3;
 }
 
 .ad-card__description {
   color: var(--text-color);
-  flex-grow: 1;
   font-size: 0.9rem;
   line-height: 1.2;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
-}
-
-.ad-card__description::after {
-  content: '';
-  display: block;
-  height: 0.5rem; /* Añadir espacio extra al final */
 }
 
 .ad-card__details {
