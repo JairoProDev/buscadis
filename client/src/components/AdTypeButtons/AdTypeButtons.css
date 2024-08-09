@@ -90,8 +90,73 @@
     outline: none;
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
   }
-    
-      /* Ajustes adicionales para media queries */
+/* Clase genérica para todos los botones */
+.adType-button {
+  background-color: #f0f0f0;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Clase para Empleos */
+.adType-button.empleos-selected {
+  background-color: #007bff; /* Azul para Empleos */
+  color: #ffffff;
+}
+
+/* Clase para Inmuebles */
+.adType-button.inmuebles-selected {
+  background-color: #28a745; /* Verde para Inmuebles */
+  color: #ffffff;
+}
+
+/* Clase para Vehicles */
+.adType-button.vehicles-selected {
+  background-color: #ff5722; /* rojo para Vehicles */
+  color: #ffffff;
+}
+
+/* Clase para Servicios */
+.adType-button.servicios-selected {
+  background-color: #ffc107; /* Amarillo para Servicios */
+  color: #ffffff;
+}
+
+/* Clase para Productos */
+.adType-button.productos-selected {
+  background-color: #17a2b8; /* qué color sería para Productos? */
+  color: #ffffff;
+}
+
+/* Clase para Otros */
+.adType-button.otros-selected {
+  background-color: #9c27b0; /* Morado para Otros */
+  color: #ffffff;
+}
+
+/* Clase para Negocios */
+.adType-button.negocios-selected {
+  background-color: #343a40; /* Gris oscuro para Negocios */
+  color: #ffffff;
+}
+
+/* Clases adicionales para hover, active y focus */
+.scroll-container .adType-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 2px 2px 5px #bebebe, -2px -2px 5px #ffffff;
+}
+
+.scroll-container .adType-button:active {
+  transform: translateY(2px);
+  box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+}
+
+.scroll-container .adType-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+
+/* Ajustes adicionales para media queries */
 
   @media (max-width: 768px) {
     .scroll-container {

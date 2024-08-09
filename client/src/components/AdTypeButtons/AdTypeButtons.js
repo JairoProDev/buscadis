@@ -26,26 +26,17 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
   const [selectedAdType, setSelectedAdType] = useState(adType || 'Todos');
   const [selectedCategory, setSelectedCategory] = useState(category || null);
 
-  const handleAdTypeSelection = (adTypeKey) => {
+  function handleAdTypeSelection(adTypeKey) {
     setSelectedAdType(adTypeKey);
     setSelectedCategory(null);
     handleAdTypeClick(adTypeKey);
-  };
+  }
 
   const handleAllClick = () => {
     setSelectedAdType('Todos');
     setSelectedCategory(null);
     handleAdTypeClick('Todos');
     navigate('/');
-  };
-
-  const handleCategorySelection = (category) => {
-    setSelectedCategory(category);
-    handleCategoryClick(category);
-  };
-
-  const handleSubCategorySelection = (subCategory) => {
-    handleSubCategoryClick(subCategory);
   };
 
   return (
@@ -63,13 +54,13 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
             <button
               key={adTypeKey}
               onClick={() => handleAdTypeSelection(adTypeKey)}
-              className={`adType-button ${selectedAdType === adTypeKey ? 'selected-adType' : ''}`}
+              className={`adType-button ${selectedAdType === adTypeKey ? `${adTypeKey.toLowerCase()}-selected` : ''}`}
+              data-ad-type={adTypeKey}
             >
               <img src={adTypeIcons[adTypeKey]} alt={adTypeKey} />
               {adTypeKey}
             </button>
           ))}
-
         </div>
       </div>
 
@@ -79,7 +70,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
             {Object.keys(adTypes[selectedAdType]).map((category) => (
               <button
                 key={category}
-                onClick={() => handleCategorySelection(category)}
+                onClick={() => handleCategoryClick(category)}
                 className={`category-button ${selectedCategory === category ? 'selected-category' : ''}`}
               >
                 {category}
@@ -95,7 +86,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
             {adTypes[selectedAdType][selectedCategory].map((subCategory) => (
               <button
                 key={subCategory}
-                onClick={() => handleSubCategorySelection(subCategory)}
+                onClick={() => handleSubCategoryClick(subCategory)}
                 className="subcategory-button"
               >
                 {subCategory}
