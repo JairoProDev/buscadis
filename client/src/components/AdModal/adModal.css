@@ -45,23 +45,23 @@
 }
 
 .modal-content.inmuebles {
-  background-color: #fff1d6;
+  background-color: #c8f7c5;
 }
 
 .modal-content.empleos {
-  background-color: #d3e6ff;
+  background-color: #bfeff3;
 }
 
 .modal-content.vehicles {
-  background-color: #ffd9d9;
+  background-color: #ffcccc;
 }
 
 .modal-content.servicios {
-  background-color: #daffe5;
+  background-color: #fff5cc;
 }
 
 .modal-content.otros {
-  background-color: #ece7f3;
+  background-color: #e8e4f7;
 }
 
 .modal-title {
