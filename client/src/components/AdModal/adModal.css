@@ -59,6 +59,9 @@
 .modal-content.servicios {
   background-color: #fff5cc;
 }
+.modal-content.productos {
+  background-color: #ff9800;
+}
 
 .modal-content.otros {
   background-color: #e8e4f7;
