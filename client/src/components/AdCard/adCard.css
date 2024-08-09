@@ -120,6 +120,10 @@
   border-left: 4px solid #ffc107; /* Amarillo suave */
 }
 
+.ad-card.productos {
+  background-color: #f7f7f7;
+  border-left: 4px solid #ff9800; /* Orange suave */
+}
 .ad-card.otros {
   background-color: #e8e4f7;
   border-left: 4px solid #9c27b0; /* Púrpura suave */
