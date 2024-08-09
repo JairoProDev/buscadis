@@ -11,7 +11,7 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
   const [visitorCount, setVisitorCount] = useState(0);
   const [adCount, setAdCount] = useState(0);
 
-  const totalVisitors = visitorCount + adCount + 2000;
+  const totalVisitors = visitorCount + adCount;
 
   useEffect(() => {
     fetch('/visitorCount')
