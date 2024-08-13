@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faMicrophone } from "@fortawesome/free-solid-svg-icons";
 
 function SearchBar({ updateSearchTerm, inputRef }) {
-  console.log('inputRef in SearchBar:', inputRef); // Log para verificar la referencia
+  // console.log('inputRef in SearchBar:', inputRef); // Log para verificar la referencia
 
   const [inputValue, setInputValue] = useState("");
   const [isListening, setIsListening] = useState(false);
