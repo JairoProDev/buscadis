@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const LoginForm = ({ onClose }) => {
+const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate(); // Para redirigir
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,9 +18,10 @@ const LoginForm = ({ onClose }) => {
     try {
       const response = await axios.post('/api/auth/login', formData);
       localStorage.setItem('token', response.data.token);
-      setSuccessMessage('Inicio de sesión exitoso.');
+      setSuccessMessage('Inicio de sesión exitoso. ¡Redirigiendo a tu perfil!');
       setErrorMessage('');
-      if (onClose) onClose(); // Cierra el modal o redirige si es necesario
+      // Redirige al usuario a la página de perfil después de 1 segundo
+      setTimeout(() => navigate('/profile'), 1000);
     } catch (error) {
       setErrorMessage('Error en el inicio de sesión. ' + (error.response?.data?.message || error.message));
       setSuccessMessage('');
@@ -29,11 +32,25 @@ const LoginForm = ({ onClose }) => {
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="email">Correo electrónico</label>
-        <input type="email" name="email" id="email" placeholder="Email" onChange={handleChange} value={formData.email} />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          onChange={handleChange}
+          value={formData.email}
+        />
       </div>
       <div className="form-group">
         <label htmlFor="password">Contraseña</label>
-        <input type="password" name="password" id="password" placeholder="Password" onChange={handleChange} value={formData.password} />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          onChange={handleChange}
+          value={formData.password}
+        />
       </div>
       <button type="submit" className="auth-btn">Iniciar Sesión</button>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -42,4 +59,4 @@ const LoginForm = ({ onClose }) => {
   );
 };
 
-export default LoginForm;
+export default Login;

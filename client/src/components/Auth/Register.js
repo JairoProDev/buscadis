@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const RegisterForm = ({ onClose }) => {
+const Register = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -12,6 +13,7 @@ const RegisterForm = ({ onClose }) => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate(); // Para redirigir
 
   const handleChange = (e) => {
     setFormData({
@@ -25,9 +27,10 @@ const RegisterForm = ({ onClose }) => {
 
     try {
       await axios.post('/api/auth/register', formData);
-      setSuccessMessage('Registro exitoso. ¡Puedes iniciar sesión ahora!');
+      setSuccessMessage('Registro exitoso. ¡Ahora inicia sesión en tu cuenta!');
       setErrorMessage('');
-      if (onClose) onClose(); // Cierra el modal o redirige si es necesario
+      // Redirige al usuario a la página de inicio de sesión después de 2 segundos
+      setTimeout(() => navigate('/auth'), 2000);
     } catch (error) {
       setErrorMessage('Error al registrar el usuario. ' + (error.response?.data?.message || error.message));
       setSuccessMessage('');
@@ -36,25 +39,61 @@ const RegisterForm = ({ onClose }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {/* Tu formulario */}
       <div className="form-group">
         <label htmlFor="firstName">Nombres</label>
-        <input type="text" name="firstName" id="firstName" placeholder="First Name" onChange={handleChange} value={formData.firstName} />
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          placeholder="First Name"
+          onChange={handleChange}
+          value={formData.firstName}
+        />
       </div>
       <div className="form-group">
         <label htmlFor="lastName">Apellidos</label>
-        <input type="text" name="lastName" id="lastName" placeholder="Last Name" onChange={handleChange} value={formData.lastName} />
+        <input
+          type="text"
+          name="lastName"
+          id="lastName"
+          placeholder="Last Name"
+          onChange={handleChange}
+          value={formData.lastName}
+        />
       </div>
       <div className="form-group">
         <label htmlFor="phoneNumber">Número de celular</label>
-        <input type="text" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" onChange={handleChange} value={formData.phoneNumber} />
+        <input
+          type="text"
+          name="phoneNumber"
+          id="phoneNumber"
+          placeholder="Phone Number"
+          onChange={handleChange}
+          value={formData.phoneNumber}
+        />
       </div>
       <div className="form-group">
         <label htmlFor="email">Correo electrónico</label>
-        <input type="email" name="email" id="email" placeholder="Email" onChange={handleChange} value={formData.email} />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          onChange={handleChange}
+          value={formData.email}
+        />
       </div>
       <div className="form-group">
         <label htmlFor="password">Contraseña</label>
-        <input type="password" name="password" id="password" placeholder="Password" onChange={handleChange} value={formData.password} />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Password"
+          onChange={handleChange}
+          value={formData.password}
+        />
       </div>
       <button type="submit" className="auth-btn">Registrarse</button>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -63,4 +102,4 @@ const RegisterForm = ({ onClose }) => {
   );
 };
 
-export default RegisterForm;
+export default Register;
