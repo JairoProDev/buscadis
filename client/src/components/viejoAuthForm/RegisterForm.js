@@ -125,7 +125,7 @@ const Title = styled.h2`
 function RegisterForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [userName, setUserName] = useState("");
+
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -140,7 +140,6 @@ function RegisterForm() {
     console.log({
       firstName,
       lastName,
-      userName,
       phoneNumber,
       email,
       password,
@@ -157,7 +156,6 @@ function RegisterForm() {
         body: JSON.stringify({
           firstName,
           lastName,
-          userName,
           phoneNumber,
           email,
           password,
@@ -215,12 +213,6 @@ function RegisterForm() {
           </Icon>
         </InputBox>
         <InputBox>
-          <Input
-            type="text"
-            required
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
           <Label>
             <Span>Nombre de usuario:</Span>
           </Label>

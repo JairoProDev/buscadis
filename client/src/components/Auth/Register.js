@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Register = () => {
+const RegisterForm = ({ onClose }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    userName: '',
     phoneNumber: '',
     email: '',
     password: '',
   });
+
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -22,26 +24,43 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/auth/register', formData);
-      console.log('Registro exitoso:', response.data);
-      // Redirigir al usuario o mostrar un mensaje de éxito
+      await axios.post('/api/auth/register', formData);
+      setSuccessMessage('Registro exitoso. ¡Puedes iniciar sesión ahora!');
+      setErrorMessage('');
+      if (onClose) onClose(); // Cierra el modal o redirige si es necesario
     } catch (error) {
-      console.error('Error en el registro:', error.response?.data?.message);
-      // Manejar errores, mostrar mensajes, etc.
+      setErrorMessage('Error al registrar el usuario. ' + (error.response?.data?.message || error.message));
+      setSuccessMessage('');
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" name="firstName" placeholder="First Name" onChange={handleChange} />
-      <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} />
-      <input type="text" name="userName" placeholder="Username" onChange={handleChange} />
-      <input type="text" name="phoneNumber" placeholder="Phone Number" onChange={handleChange} />
-      <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-      <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-      <button type="submit">Register</button>
+      <div className="form-group">
+        <label htmlFor="firstName">Nombres</label>
+        <input type="text" name="firstName" id="firstName" placeholder="First Name" onChange={handleChange} value={formData.firstName} />
+      </div>
+      <div className="form-group">
+        <label htmlFor="lastName">Apellidos</label>
+        <input type="text" name="lastName" id="lastName" placeholder="Last Name" onChange={handleChange} value={formData.lastName} />
+      </div>
+      <div className="form-group">
+        <label htmlFor="phoneNumber">Número de celular</label>
+        <input type="text" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" onChange={handleChange} value={formData.phoneNumber} />
+      </div>
+      <div className="form-group">
+        <label htmlFor="email">Correo electrónico</label>
+        <input type="email" name="email" id="email" placeholder="Email" onChange={handleChange} value={formData.email} />
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Contraseña</label>
+        <input type="password" name="password" id="password" placeholder="Password" onChange={handleChange} value={formData.password} />
+      </div>
+      <button type="submit" className="auth-btn">Registrarse</button>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
     </form>
   );
 };
 
-export default Register;
+export default RegisterForm;

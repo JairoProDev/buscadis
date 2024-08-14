@@ -14,15 +14,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    userName: {
-      type: String,
-
-      trim: true,
-    },
     phoneNumber: {
       type: String,
       required: true,
       trim: true,
+      unique: true, // Asegura que cada número de teléfono sea único
     },
     email: {
       type: String,
@@ -62,7 +58,8 @@ userSchema.pre("save", async function (next) {
 
   try {
     if (user.isModified("password")) {
-      user.password = await bcrypt.hash(user.password, 8);
+      const salt = await bcrypt.genSalt(8);
+      user.password = await bcrypt.hash(user.password, salt);
     }
 
     next();
@@ -72,12 +69,5 @@ userSchema.pre("save", async function (next) {
     next(error);
   }
 });
-
-// Agrega el método removeUser a tu esquema de usuario
-userSchema.methods.removeUser = async function () {
-  const user = this;
-  console.log("Removing user:", user);
-  await user.remove();
-};
 
 module.exports = mongoose.model("User", userSchema);

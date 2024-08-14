@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+const LoginForm = ({ onClose }) => {
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -19,22 +15,31 @@ const Login = () => {
 
     try {
       const response = await axios.post('/api/auth/login', formData);
-      console.log('Inicio de sesión exitoso:', response.data);
-      localStorage.setItem('token', response.data.token); // Guardar el token JWT en el almacenamiento local
-      // Redirigir al usuario o mostrar un mensaje de éxito
+      localStorage.setItem('token', response.data.token);
+      setSuccessMessage('Inicio de sesión exitoso.');
+      setErrorMessage('');
+      if (onClose) onClose(); // Cierra el modal o redirige si es necesario
     } catch (error) {
-      console.error('Error en el inicio de sesión:', error.response?.data?.message);
-      // Manejar errores, mostrar mensajes, etc.
+      setErrorMessage('Error en el inicio de sesión. ' + (error.response?.data?.message || error.message));
+      setSuccessMessage('');
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-      <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-      <button type="submit">Login</button>
+      <div className="form-group">
+        <label htmlFor="email">Correo electrónico</label>
+        <input type="email" name="email" id="email" placeholder="Email" onChange={handleChange} value={formData.email} />
+      </div>
+      <div className="form-group">
+        <label htmlFor="password">Contraseña</label>
+        <input type="password" name="password" id="password" placeholder="Password" onChange={handleChange} value={formData.password} />
+      </div>
+      <button type="submit" className="auth-btn">Iniciar Sesión</button>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
     </form>
   );
 };
 
-export default Login;
+export default LoginForm;
