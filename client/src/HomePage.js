@@ -2,22 +2,18 @@
 
 // React and Hooks
 import React, { Fragment, useRef, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
-import { useParams } from "react-router-dom";
-
 // Components
 import Header from "./components/Header/Header";
-// import Sidebar from "./components/Sidebar/Sidebar";
 import NewFeed from "./components/NewFeed/NewFeed";
 import AdForm from "./components/AdForm/AdForm";
 import AdModal from "./components/AdModal/AdModal";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
 import UserProfile from "./components/UserProfile/UserProfile";
 import AdsColumn from "./components/AdsColumn/AdsColumn";
-import ButtomNavBar from "./components/BottomNavBar/BottomNavBar";
-
+import BottomNavBar from "./components/BottomNavBar/BottomNavBar";
 // Styles
 import "./styles/root.css";
 import "./styles/reset.css";
@@ -32,8 +28,6 @@ function HomePage() {
   const [filter, setFilter] = useState("");
   const { adType, category, subcategory } = useParams();
 
-  const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
-
   const { anuncios, agregarAnuncioAlPrincipio, error, isLoading } = useAds(
     page,
     adType,
@@ -43,11 +37,12 @@ function HomePage() {
   );
   const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
   const [selectedAd, setSelectedAd] = useState(null);
-  // const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  // const toggleSidebar = () => setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
   const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
   const showForm = () => setIsFormVisible(true);
   const hideForm = () => setIsFormVisible(false);
+
   const loader = useRef(null);
   const searchInputRef = useRef(null);
 
@@ -61,7 +56,6 @@ function HomePage() {
           searchInputRef={searchInputRef} // Pasa la referencia al campo de búsqueda
         />
         <div className="container">
-          {/* <Sidebar isOpen={isSidebarOpen} /> */}
           <div className="portal">
             <NewFeed
               className="feed"
@@ -75,15 +69,15 @@ function HomePage() {
             />
           </div>
           <div className="right-sidebar">
-          <button type="button" className="publish-button" onClick={toggleFormVisibility}>
-                {isFormVisible ? 'buscar avisos gratis' : 'publicar aviso'}
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+            <button type="button" className="publish-button" onClick={toggleFormVisibility}>
+              {isFormVisible ? 'buscar avisos gratis' : 'publicar aviso'}
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
             </button>
 
-          {isFormVisible && (
+            {isFormVisible && (
               <AdForm
                 agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
                 isVisible={isFormVisible}
@@ -91,12 +85,12 @@ function HomePage() {
                 anuncios={anuncios}
               />
             )}
-          <AdsColumn anuncios={anuncios} />
+            <AdsColumn anuncios={anuncios} />
           </div>
           <SocialMedia />
         </div>
-        <ButtomNavBar showForm={showForm} searchInputRef={searchInputRef}/>
-      </div>  
+        <BottomNavBar showForm={showForm} searchInputRef={searchInputRef} />
+      </div>
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
         <Route
