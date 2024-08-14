@@ -30,7 +30,7 @@ function BottomNavBar({ showForm, searchInputRef }) {
       if (user) {
         navigate('/profile'); 
       } else {
-        navigate('/auth'); 
+        navigate('/auth/register'); 
       }
     } else {
       navigate(item.path); 
