@@ -1,230 +1,37 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import "./UserProfile.css"; // Importa tu archivo CSS
+import React, { useContext, useState } from 'react';
+import './UserProfile.css';
+import ProfileHeader from './ProfileHeader';
+import ProfileInfo from './ProfileInfo';
+import ProfileActivity from './ProfileActivity';
+import ProfileSettings from './ProfileSettings';
+import { AuthContext } from '../Auth/AuthContext';
 
-function UserProfile() {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const [editing, setEditing] = useState(false);
-  const [firstName, setFirstName] = useState(currentUser?.firstName || "");
-  const [lastName, setLastName] = useState(currentUser?.lastName || "");
-  const [userName, setUserName] = useState(currentUser?.userName || "");
-  const [phoneNumber, setPhoneNumber] = useState(
-    currentUser?.phoneNumber || ""
-  );
-  const [email, setEmail] = useState(currentUser?.email || "");
-  const [profilePic, setProfilePic] = useState(currentUser?.profilePic || "");
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-
-  useEffect(() => {
-    if (currentUser) {
-      setFirstName(currentUser.firstName || "");
-      setLastName(currentUser.lastName || "");
-      setUserName(currentUser.userName || "");
-      setPhoneNumber(currentUser.phoneNumber || "");
-      setEmail(currentUser.email || "");
-      setProfilePic(currentUser.profilePic || "");
-    }
-  }, [currentUser]);
-
-  const isMounted = useRef(true);
-
-  useEffect(() => {
-      return () => {
-        isMounted.current = false;
-      };
-    }, []);
+const UserProfile = () => {
+  const { user, logout } = useContext(AuthContext);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleEdit = () => {
-    setEditing(true);
+    setIsEditing(true);
   };
 
-  const handleSave = async () => {
-    // Aquí puedes agregar el código para actualizar la información del usuario en el servidor
-    try {
-      const response = await fetch(`/api/auth/users/${currentUser.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${currentUser.token}`,
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          userName,
-          phoneNumber,
-          email,
-          profilePic,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error al actualizar el perfil: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setCurrentUser(data);
-      setSuccess("Perfil actualizado con éxito");
-    } catch (error) {
-      setError(error.message);
-    }
-
-    setEditing(false);
+  const handleLogout = () => {
+    logout();
   };
 
-  // const handleDelete = async () => {
-  //   // Aquí puedes agregar el código para eliminar la cuenta del usuario
-  //   const confirmed = window.confirm(
-  //     "¿Estás seguro de que quieres eliminar tu cuenta?"
-  //   );
+  const handleDeleteAccount = () => {
+    // Lógica para eliminar la cuenta
+  };
 
-  //   if (confirmed) {
-  //     try {
-  //       const response = await fetch(`/api/auth/users/${currentUser.id}`, {
-  //         method: "DELETE",
-  //         headers: {
-  //           Authorization: `Bearer ${currentUser.token}`,
-  //         },
-  //       });
+  const activity = ["Anuncio 1 publicado", "Anuncio 2 publicado"]; // Ejemplo de actividad
 
-  //       if (!response.ok) {
-  //         throw new Error(`Error al eliminar la cuenta: ${response.status}`);
-  //       }
-
-  //       setCurrentUser(null);
-  //       setSuccess("Cuenta eliminada con éxito");
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   }
-  // };
-
-  // Esta es la función que se llama cuando haces clic en el botón de eliminación
-  function deleteUser() {
-    console.log("deleteUser function called");
-    console.log("currentUser.id:", currentUser.id);
-
-    const confirmed = window.confirm(
-      "¿Estás seguro de que quieres eliminar tu cuenta?"
-    );
-    console.log("Confirmation:", confirmed);
-
-    if (currentUser && currentUser.id && confirmed) {
-      console.log(
-        `Sending DELETE request to /api/auth/users/${currentUser.id}`
-      );
-
-      fetch(`/api/auth/users/${currentUser.id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${currentUser.token}`,
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          console.log("Response:", response);
-          return response.json();
-        })
-        .then((data) => {
-          console.log("Data:", data);
-          if (data.message === "User deleted successfully") {
-            console.log("User deleted successfully");
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
-  }
   return (
-    <div className="user-profile">
-      <h1>Perfil de usuario</h1>
-
-      <img src={profilePic} alt="Foto de perfil" className="profile-pic" />
-
-      {editing ? (
-        <div>
-          <label>
-            Nombres:
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </label>
-          <label>
-            Apellidos:
-            <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </label>
-          <label>
-            Nombre de usuario:
-            <input
-              type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-          </label>
-          <label>
-            N° Celular:
-            <input
-              type="text"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </label>
-          <label>
-            Correo electrónico:
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-          <label>
-            Foto de perfil:
-            <input
-              type="file"
-              onChange={(e) =>
-                setProfilePic(URL.createObjectURL(e.target.files[0]))
-              }
-            />
-          </label>
-          <button onClick={handleSave}>Guardar cambios</button>
-        </div>
-      ) : (
-        <div>
-          <p>Nombres: {firstName}</p>
-          <p>Apellidos: {lastName}</p>
-          <p>Nombre de usuario: {userName}</p>
-          <p>N° Celular: {phoneNumber}</p>
-          <p>Correo electrónico: {email}</p>
-          <button onClick={handleEdit}>Editar perfil</button>
-        </div>
-      )}
-
-      <button onClick={deleteUser}>Eliminar cuenta</button>
-      <p>
-        Para solicitar la eliminación de tu cuenta y los datos asociados, por
-        favor{" "}
-        <a
-          href={`http://buscadis.com/api/auth/users/${currentUser.id}/delete_request`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          haz clic aquí
-        </a>
-        .
-      </p>
-      {error && <p className="error">{error}</p>}
-      {success && <p className="success">{success}</p>}
+    <div className="user-profile-container">
+      <ProfileHeader user={user} />
+      <ProfileInfo user={user} onEdit={handleEdit} />
+      <ProfileActivity activity={activity} />
+      <ProfileSettings onLogout={handleLogout} onDeleteAccount={handleDeleteAccount} />
     </div>
   );
-}
+};
 
 export default UserProfile;
