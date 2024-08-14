@@ -13,7 +13,7 @@ const Register = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const navigate = useNavigate(); // Para redirigir
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -27,10 +27,9 @@ const Register = () => {
 
     try {
       await axios.post('/api/auth/register', formData);
-      setSuccessMessage('Registro exitoso. ¡Ahora inicia sesión en tu cuenta!');
+      setSuccessMessage('Registro exitoso. ¡Redirigiendo al inicio de sesión!');
       setErrorMessage('');
-      // Redirige al usuario a la página de inicio de sesión después de 2 segundos
-      setTimeout(() => navigate('/auth'), 2000);
+      setTimeout(() => navigate('/auth/login'), 1000); // Cambia a la ruta /auth/login
     } catch (error) {
       setErrorMessage('Error al registrar el usuario. ' + (error.response?.data?.message || error.message));
       setSuccessMessage('');
@@ -39,7 +38,6 @@ const Register = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Tu formulario */}
       <div className="form-group">
         <label htmlFor="firstName">Nombres</label>
         <input

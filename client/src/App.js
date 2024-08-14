@@ -1,4 +1,3 @@
-// App.js
 import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
@@ -11,7 +10,8 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/auth" element={<AuthForm />} />
+          <Route path="/auth/login" element={<AuthForm isLoginForm={true} />} />
+          <Route path="/auth/register" element={<AuthForm isLoginForm={false} />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/:adType" element={<HomePage />} />
           <Route path="/:adType/:category" element={<HomePage />} />
