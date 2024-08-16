@@ -9,6 +9,8 @@ body {
   margin: 0;
   /* background: linear-gradient(270deg, #4c1a57, #00a8aa, #333333); */
   background-color: rgb(240, 248, 255);
+  background: linear-gradient(145deg, rgba(240,230,214,0.5) 25%, rgba(230,220,200,0.5) 25%, rgba(230,220,200,0.5) 50%, rgba(240,230,214,0.5) 50%, rgba(240,230,214,0.5) 75%, rgba(230,220,200,0.5) 75%, rgba(230,220,200,0.5) 100%);
+
   background-size: 600% 600%;
   animation: AnimationName 15s ease infinite;
   background-color: rgb(240, 248, 255);
