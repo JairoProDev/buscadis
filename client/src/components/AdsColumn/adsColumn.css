@@ -1,43 +1,58 @@
 .columna-anuncios {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  
-    width: 100%;
-    max-width: 300px; /* Ajusta el ancho según tus necesidades */
-    margin: auto;
-    background-color: #f7f7f7; /* Fondo similar al de la revista */
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Opcional: para darle un efecto elevado */
-  }
-  
-  .anuncio {
-    margin-bottom: 6px;
-  }
-  
-  .anuncio h4 {
-    font-size: 0.8em;
-  }
-  .anuncio p {
-    font-size: 0.7em;
-  }
-  
-  .anuncio-desc {
-    font-size: 0.7em;
-  
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;  
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-  }
-  .anuncio a {
-    font-size: 0.9em;
-    color: #000;
-    text-decoration: none;
-  }
-  .separador {
-    border-bottom: 1px solid #000; /* Cambia el color según tu preferencia */
-    padding: 5px 0; /* Añade un poco de espacio alrededor de la línea */
-  }
+  font-family: 'Georgia', serif; /* Tipografía serif similar a la del periódico */
+  background-color: #f4f4f4; /* Fondo de color similar al papel reciclado */
+  background: linear-gradient(145deg, rgba(240,230,214,0.2) 25%, rgba(230,220,200,0.2) 25%, rgba(230,220,200,0.2) 50%, rgba(240,230,214,0.2) 50%, rgba(240,230,214,0.2) 75%, rgba(230,220,200,0.2) 75%, rgba(230,220,200,0.2) 100%);
+  background-size: 30px 30px; /* Textura de fondo con tamaño ajustado */
+  color: #5a5a5a; /* Color del texto más apagado, similar al de la tinta de los periódicos */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra interna más suave */
+  border: 1px solid #c0b0a0; /* Bordes más suaves */
+}
+
+.anuncio {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #c0b0a0; /* Línea separadora más suave */
+}
+
+.anuncio h4 {
+  font-size: 0.85em;
+  color: #4b4b4b; /* Color del título */
+  font-weight: 600; /* Un poco más de peso para resaltar el título */
+  text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1); /* Sombra suave para simular la tinta impresa */
+}
+
+.anuncio p {
+  font-size: 0.75em;
+  color: #5a5a5a; /* Color del texto */
+  text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1); /* Sombra suave en el texto */
+}
+
+.anuncio-desc {
+  font-size: 0.75em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.anuncio a {
+  font-size: 0.85em;
+  color: #5477a0; /* Color azul para enlaces */
+  text-decoration: none;
+  font-weight: 100;
+}
+
+.separador {
+  border-bottom: 1px solid #c0b0a0; /* Línea separadora más sutil */
+  padding: 5px 0; /* Añade un poco de espacio alrededor de la línea */
+}
