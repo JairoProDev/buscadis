@@ -100,9 +100,14 @@ const getAdById = async (req, res) => {
 const getAdsByAdType = async (req, res) => {
   try {
     const adType = req.params.adType;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const skip = (page - 1) * limit;
+
     const anuncios = await Ad.find({ adType })
       .sort({ createdAt: -1 })
-      .limit(400)
+      .skip(skip)
+      .limit(limit)
       .exec();
 
     if (!anuncios || anuncios.length === 0) {
