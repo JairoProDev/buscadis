@@ -21,7 +21,7 @@ const adTypeIcons = {
   Negocios: BusinessIcon,
 };
 
-function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handleCategoryClick, handleSubCategoryClick }) {
+function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handleCategoryClick, handleSubCategoryClick, getAds }) {
   const navigate = useNavigate();
   const [selectedAdType, setSelectedAdType] = useState(adType || 'Todos');
   const [selectedCategory, setSelectedCategory] = useState(category || null);
@@ -30,6 +30,9 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     setSelectedAdType(adTypeKey);
     setSelectedCategory(null);
     handleAdTypeClick(adTypeKey);
+    if (getAds) {
+      getAds(adTypeKey, null, null);  // Cargar anuncios según el nuevo tipo seleccionado
+    }
   }
 
   const handleAllClick = () => {
@@ -37,6 +40,9 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     setSelectedCategory(null);
     handleAdTypeClick('Todos');
     navigate('/');
+    if (getAds) {
+      getAds(null, null, null);  // Cargar todos los anuncios
+    }
   };
 
   return (
@@ -46,11 +52,13 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
           <button
             onClick={handleAllClick}
             className={`adType-button ${selectedAdType === 'Todos' ? 'selected-all' : ''}`}
-          >Todo</button>
+          >
+            Todo
+          </button>
           <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" className="adType-button download-app-button" target='_blank' rel='noreferrer'>
-            <img src={PlayStoreIcon} alt="Play Store"/>
+            <img src={PlayStoreIcon} alt="Play Store" />
           </a>
-          {Object.keys(adTypes).map((adTypeKey) => (
+          {Object.keys(adTypeIcons).map((adTypeKey) => (
             <button
               key={adTypeKey}
               onClick={() => handleAdTypeSelection(adTypeKey)}
@@ -70,7 +78,13 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
             {Object.keys(adTypes[selectedAdType]).map((category) => (
               <button
                 key={category}
-                onClick={() => handleCategoryClick(category)}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  handleCategoryClick(category);
+                  if (getAds) {
+                    getAds(selectedAdType, category, null);  // Cargar anuncios de la categoría seleccionada
+                  }
+                }}
                 className={`category-button ${selectedCategory === category ? 'selected-category' : ''}`}
               >
                 {category}
@@ -86,7 +100,12 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
             {adTypes[selectedAdType][selectedCategory].map((subCategory) => (
               <button
                 key={subCategory}
-                onClick={() => handleSubCategoryClick(subCategory)}
+                onClick={() => {
+                  handleSubCategoryClick(subCategory);
+                  if (getAds) {
+                    getAds(selectedAdType, selectedCategory, subCategory);  // Cargar anuncios de la subcategoría seleccionada
+                  }
+                }}
                 className="subcategory-button"
               >
                 {subCategory}
