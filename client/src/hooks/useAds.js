@@ -1,31 +1,37 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
-function useAds(adType, category, subcategory) {
+function useAds() {
     const [anuncios, setAnuncios] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true); // Indica si hay más anuncios por cargar
 
     const showAds = useCallback((anunciosData) => {
         if (Array.isArray(anunciosData)) {
-            setAnuncios(anunciosData);
+            setAnuncios((prevAnuncios) => [...prevAnuncios, ...anunciosData]);
+            setHasMore(anunciosData.length > 0); // Si no hay más anuncios, desactivamos hasMore
         } else {
             console.error("anunciosData is not an array:", anunciosData);
             setError("Error: Data received is not an array");
         }
     }, []);
 
-    const getAds = useCallback(async () => {
+    const getAds = useCallback(async (adType, category, subcategory, page = 1, limit = 20) => {
         setIsLoading(true);
         setError(null);
         try {
-            const url = `/api/anuncios?limit=500` + 
-                        (adType ? `&adType=${adType}` : '') + 
-                        (category ? `&category=${category}` : '') + 
+            const url = `/api/anuncios?limit=${limit}&page=${page}` +
+                        (adType ? `&adType=${adType}` : '') +
+                        (category ? `&category=${category}` : '') +
                         (subcategory ? `&subcategory=${subcategory}` : ''); 
             const respuesta = await fetch(url);
             const anuncios = await respuesta.json();
             if (anuncios) {
-                showAds(anuncios);
+                if (page === 1) {
+                    setAnuncios(anuncios);  // Reinicia los anuncios si es la primera página
+                } else {
+                    showAds(anuncios);  // Agrega más anuncios si no es la primera página
+                }
             } else {
                 console.error('anuncios is null or undefined:', anuncios);
                 setError('Error: Data received is null or undefined');
@@ -35,11 +41,7 @@ function useAds(adType, category, subcategory) {
             setError('Error al obtener los anuncios');
         }
         setIsLoading(false);
-    }, [showAds, adType, category, subcategory]);
-
-    useEffect(() => {
-        getAds();
-    }, [getAds]);
+    }, [showAds]);
 
     const agregarAnuncioAlPrincipio = (anuncio) => {
         setAnuncios((prevAnuncios) => [anuncio, ...prevAnuncios.slice(0, 99)]);
@@ -50,6 +52,8 @@ function useAds(adType, category, subcategory) {
         agregarAnuncioAlPrincipio,
         error,
         isLoading,
+        hasMore, // Devuelve si hay más anuncios por cargar
+        getAds,  // Exponemos la función para obtener los anuncios
     };
 }
 
