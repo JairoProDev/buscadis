@@ -1,13 +1,19 @@
 import React from 'react';
 import './adsColumn.css';
 
-function AdsColumn({ anuncios }) {
+function AdsColumn({ anuncios, selectedAdType }) {
+  // Filtrar los anuncios por el tipo seleccionado
+  const filteredAds = anuncios.filter(anuncio => anuncio.adType === selectedAdType);
+
   return (
     <div className="columna-anuncios">
-      {anuncios &&
-        anuncios.slice(0, 100).map((anuncio) => (
-          <Anuncio key={anuncio.id} anuncio={anuncio} />
-        ))}
+      {filteredAds.length > 0 ? (
+        filteredAds.slice(0, 100).map((anuncio) => (
+          <Anuncio key={anuncio._id} anuncio={anuncio} />
+        ))
+      ) : (
+        <div>Selecciona, ¿qué tipo de aviso estás buscando?</div>
+      )}
     </div>
   );
 }
