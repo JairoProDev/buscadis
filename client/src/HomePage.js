@@ -3,7 +3,7 @@
 // React and Hooks
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import { Route, Routes, useParams, useNavigate } from "react-router-dom";
-import useAds from "./hooks/useAds";
+import useAds from "./hooks/useAds"; // Importamos el hook
 import useSearch from "./hooks/useSearch";
 import Header from "./components/Header/Header";
 import AdTypeButtons from "./components/AdTypeButtons/AdTypeButtons";
@@ -25,12 +25,13 @@ import "./HomePage.css";
 function HomePage() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
-  const { adType, category, subcategory } = useParams();  // Detectamos el adType de la URL
-  const navigate = useNavigate();  // Para redirigir a otras rutas si es necesario
-  const [isAdTypeSelected, setIsAdTypeSelected] = useState(false); // Controla si se ha seleccionado un tipo de anuncio
-  const [selectedAdType, setSelectedAdType] = useState(adType || null); // Tipo de anuncio seleccionado, inicializamos con el adType de la URL si está disponible
+  const { adType, category, subcategory } = useParams();
+  const navigate = useNavigate();
+  const [isAdTypeSelected, setIsAdTypeSelected] = useState(false);
+  const [selectedAdType, setSelectedAdType] = useState(adType || null);
 
   const { anuncios, agregarAnuncioAlPrincipio, error, isLoading, hasMore, getAds } = useAds();
+  console.log(getAds);
   const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -75,6 +76,13 @@ function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
+  console.log("getAds in HomePage:", getAds);
+
+  useEffect(() => {
+    console.log("Probando getAds directamente en HomePage");
+    getAds("Inmuebles"); // Prueba para ver si esta llamada funciona
+  }, [getAds]);
+  
   return (
     <Fragment>
       <div className="main-container">
@@ -87,7 +95,12 @@ function HomePage() {
         <div className="container">
           <div className="portal">
             {!isAdTypeSelected ? (
-              <AdTypeButtons handleAdTypeClick={handleAdTypeClick} />
+              <AdTypeButtons 
+                adType={selectedAdType}
+                handleAdTypeClick={handleAdTypeClick} 
+                getAds={getAds}
+              />
+
             ) : (
               <NewFeed
                 className="feed"
@@ -114,7 +127,7 @@ function HomePage() {
 
             {isFormVisible && (
               <AdForm
-                agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio} // Usamos la función del hook
+                agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
                 isVisible={isFormVisible}
                 hideForm={toggleFormVisibility}
                 anuncios={anuncios}
