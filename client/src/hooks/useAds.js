@@ -1,15 +1,15 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 
 function useAds() {
     const [anuncios, setAnuncios] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true); // Indica si hay más anuncios por cargar
+    const [hasMore, setHasMore] = useState(true);
 
     const showAds = useCallback((anunciosData) => {
         if (Array.isArray(anunciosData)) {
             setAnuncios((prevAnuncios) => [...prevAnuncios, ...anunciosData]);
-            setHasMore(anunciosData.length > 0); // Si no hay más anuncios, desactivamos hasMore
+            setHasMore(anunciosData.length > 0);
         } else {
             console.error("anunciosData is not an array:", anunciosData);
             setError("Error: Data received is not an array");
@@ -23,14 +23,14 @@ function useAds() {
             const url = `/api/anuncios?limit=${limit}&page=${page}` +
                         (adType ? `&adType=${adType}` : '') +
                         (category ? `&category=${category}` : '') +
-                        (subcategory ? `&subcategory=${subcategory}` : ''); 
+                        (subcategory ? `&subcategory=${subcategory}` : '');
             const respuesta = await fetch(url);
             const anuncios = await respuesta.json();
             if (anuncios) {
                 if (page === 1) {
-                    setAnuncios(anuncios);  // Reinicia los anuncios si es la primera página
+                    setAnuncios(anuncios);
                 } else {
-                    showAds(anuncios);  // Agrega más anuncios si no es la primera página
+                    showAds(anuncios);
                 }
             } else {
                 console.error('anuncios is null or undefined:', anuncios);
@@ -43,18 +43,16 @@ function useAds() {
         setIsLoading(false);
     }, [showAds]);
 
-    const agregarAnuncioAlPrincipio = (anuncio) => {
-        setAnuncios((prevAnuncios) => [anuncio, ...prevAnuncios.slice(0, 99)]);
-    };
-
-    return {
+    const adsHook = useMemo(() => ({
         anuncios,
-        agregarAnuncioAlPrincipio,
+        agregarAnuncioAlPrincipio: (anuncio) => setAnuncios((prevAnuncios) => [anuncio, ...prevAnuncios.slice(0, 99)]),
         error,
         isLoading,
-        hasMore, // Devuelve si hay más anuncios por cargar
-        getAds,  // Exponemos la función para obtener los anuncios
-    };
+        hasMore,
+        getAds,
+    }), [anuncios, error, isLoading, hasMore, getAds]);
+
+    return adsHook;
 }
 
 export default useAds;
