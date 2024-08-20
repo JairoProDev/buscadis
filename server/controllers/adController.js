@@ -1,9 +1,7 @@
 const Ad = require("../models/adModel");
-// const getNextShortId = require("../utils/getNextShortId");
 
 const createAd = async (req, res) => {
   try {
-    console.log("Creating new ad with data:", req.body);
     const {
       adType,
       category,
@@ -19,6 +17,7 @@ const createAd = async (req, res) => {
       size,
     } = req.body;
 
+    // Validar campos requeridos
     if (
       !adType ||
       !category ||
@@ -31,47 +30,50 @@ const createAd = async (req, res) => {
       return res.status(400).json({ error: "Faltan campos requeridos" });
     }
 
-    // Obtener el siguiente shortId
-    // const shortId = await getNextShortId();
-
     const newAd = new Ad({
-      // shortId: shortId,
-      adType: adType,
-      category: category,
-      subCategory: subCategory,
-      title: title,
-      description: description,
-      amount: amount,
-      location: location,
-      phone: phone,
-      phone2: phone2,
-      email: email,
-      images: images,
-      size: size,
+      adType,
+      category,
+      subCategory,
+      title,
+      description,
+      amount,
+      location,
+      phone,
+      phone2,
+      email,
+      images,
+      size,
     });
 
-    console.log("New ad:", newAd);
-    try {
-      await newAd.save();
-      console.log("Ad saved successfully");
-      res
-        .status(201)
-        .json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
-    } catch (error) {
-      console.error("Error al guardar el anuncio:", error);
-      res.status(500).json({ error: error.message });
-    }
+    await newAd.save();
+    res.status(201).json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
   } catch (error) {
     console.error("Error al crear el anuncio:", error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Error interno al crear el anuncio" });
   }
 };
 
 const getAds = async (req, res) => {
   try {
-    const anuncios = await Ad.find().sort({ createdAt: -1 }).limit(500).exec();
+    const { adType, category, subcategory, page = 1, limit = 20 } = req.query;
 
-    if (!anuncios || anuncios.length === 0) {
+    // Paginación
+    const skip = (page - 1) * limit;
+
+    // Crear un objeto de consulta basado en los filtros proporcionados
+    const query = {};
+    if (adType) query.adType = adType;
+    if (category) query.category = category;
+    if (subcategory) query.subcategory = subcategory;
+
+    // Consultar la base de datos con filtros, paginación y orden
+    const anuncios = await Ad.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit))
+      .exec();
+
+    if (anuncios.length === 0) {
       return res.status(200).json([]);
     }
 
@@ -150,9 +152,7 @@ const updateAd = async (req, res) => {
     Object.assign(anuncio, req.body);
 
     await anuncio.save();
-    res
-      .status(200)
-      .json({ mensaje: "Anuncio actualizado exitosamente", anuncio });
+    res.status(200).json({ mensaje: "Anuncio actualizado exitosamente", anuncio });
   } catch (error) {
     console.error("Error al actualizar el anuncio:", error);
     res.status(500).json({ error: "Error interno al actualizar el anuncio" });
