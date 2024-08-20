@@ -1,9 +1,6 @@
-//HomePage.js
-
-// React and Hooks
-import React, { Fragment, useRef, useState, useEffect } from "react";
+import React, { Fragment, useRef, useState, useEffect, useCallback } from "react";
 import { Route, Routes, useParams, useNavigate } from "react-router-dom";
-import useAds from "./hooks/useAds"; // Importamos el hook
+import useAds from "./hooks/useAds"; 
 import useSearch from "./hooks/useSearch";
 import Header from "./components/Header/Header";
 import AdTypeButtons from "./components/AdTypeButtons/AdTypeButtons";
@@ -31,7 +28,6 @@ function HomePage() {
   const [selectedAdType, setSelectedAdType] = useState(adType || null);
 
   const { anuncios, agregarAnuncioAlPrincipio, error, isLoading, hasMore, getAds } = useAds();
-  console.log(getAds);
   const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -43,30 +39,28 @@ function HomePage() {
   const loader = useRef(null);
   const searchInputRef = useRef(null);
 
-  // Manejar la selección del tipo de anuncio
-  const handleAdTypeClick = (adType) => {
-    setSelectedAdType(adType);
-    setIsAdTypeSelected(true);
-    setPage(1); // Reiniciar la página al seleccionar un nuevo tipo de anuncio
-    getAds(adType, category, subcategory, 1); // Llamar a la función para obtener los anuncios
-    navigate(`/${adType}`); // Navegar a la URL del tipo seleccionado
-  };
-
-  // Efecto para cargar anuncios si se accede directamente desde una URL con adType
-  useEffect(() => {
+  const loadAds = useCallback(() => {
     if (adType) {
-      setSelectedAdType(adType);
       setIsAdTypeSelected(true);
-      setPage(1);
+      setPage(1);  // Reiniciar la página al seleccionar un nuevo tipo de anuncio
+      console.log("Cargando anuncios para el tipo:", adType);
       getAds(adType, category, subcategory, 1);
     }
   }, [adType, category, subcategory, getAds]);
 
+  // Efecto para cargar anuncios cuando adType cambia
+  useEffect(() => {
+    loadAds();
+  }, [loadAds]);
+
   // Función para manejar el scroll e implementar lazy loading
   const handleScroll = () => {
     if (loader.current && loader.current.getBoundingClientRect().bottom <= window.innerHeight && hasMore && !isLoading) {
-      setPage(prevPage => prevPage + 1);
-      getAds(selectedAdType, category, subcategory, page + 1); // Obtener más anuncios al hacer scroll
+      setPage((prevPage) => {
+        const nextPage = prevPage + 1;
+        getAds(selectedAdType, category, subcategory, nextPage); 
+        return nextPage;
+      });
     }
   };
 
@@ -74,15 +68,8 @@ function HomePage() {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+  }, [handleScroll, selectedAdType, category, subcategory, hasMore, isLoading]);
 
-  console.log("getAds in HomePage:", getAds);
-
-  useEffect(() => {
-    console.log("Probando getAds directamente en HomePage");
-    getAds("Inmuebles"); // Prueba para ver si esta llamada funciona
-  }, [getAds]);
-  
   return (
     <Fragment>
       <div className="main-container">
@@ -97,10 +84,9 @@ function HomePage() {
             {!isAdTypeSelected ? (
               <AdTypeButtons 
                 adType={selectedAdType}
-                handleAdTypeClick={handleAdTypeClick} 
+                handleAdTypeClick={loadAds} 
                 getAds={getAds}
               />
-
             ) : (
               <NewFeed
                 className="feed"
