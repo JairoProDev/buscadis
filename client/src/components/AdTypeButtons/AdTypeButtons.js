@@ -31,6 +31,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     setSelectedCategory(null);
     handleAdTypeClick(adTypeKey);
     if (getAds) {
+      console.log("Llamando a getAds para el tipo:", adTypeKey);
       getAds(adTypeKey, null, null);  // Cargar anuncios según el nuevo tipo seleccionado
     }
   }

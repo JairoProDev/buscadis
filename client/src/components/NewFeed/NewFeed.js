@@ -10,6 +10,7 @@ function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, to
   const [filteredAnuncios, setFilteredAnuncios] = useState([]);
 
   useEffect(() => {
+    console.log("Anuncios antes del filtrado:", anuncios);
     let filtered = anuncios;
     if (adType) {
       filtered = filtered.filter(anuncio => anuncio.adType === adType);
@@ -20,6 +21,7 @@ function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, to
     if (subcategory) {
       filtered = filtered.filter(anuncio => anuncio.subCategory === subcategory);
     }
+    console.log("Anuncios después del filtrado:", filtered);
     setFilteredAnuncios(filtered);
   }, [anuncios, adType, category, subcategory]);
 
