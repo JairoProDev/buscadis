@@ -4,3 +4,4 @@ uploads
 seeds
 scripts
 .env
+utils
