@@ -1,10 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AdCard from "../AdCard/AdCard";
 import "./adList.css";
 import { Link } from "react-router-dom";
 
 function AdList({ anuncios, setSelectedAd }) {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    if (anuncios.length > 0) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
     console.log("Anuncios recibidos en AdList:", anuncios);
     console.log("Cantidad de anuncios:", anuncios.length);
   }, [anuncios]);
@@ -12,7 +19,9 @@ function AdList({ anuncios, setSelectedAd }) {
   return (
     <div className="ads-container">
       <ul id="ad-list" style={{ listStyleType: "none" }}>
-        {anuncios.length > 0 ? (
+        {loading ? (
+          <p>Cargando anuncios...</p>
+        ) : anuncios.length > 0 ? (
           anuncios.map((anuncio, index) => (
             <li key={anuncio._id} className={`ad-size-${anuncio.size || "normal"}`}>
               <Link
