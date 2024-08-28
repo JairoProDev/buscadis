@@ -1,58 +1,104 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback } from "react";
 
-function useAds() {
-    const [anuncios, setAnuncios] = useState([]);
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
+const useAds = () => {
+  const [ads, setAds] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
-    const showAds = useCallback((anunciosData) => {
-        if (Array.isArray(anunciosData)) {
-            setAnuncios((prevAnuncios) => [...prevAnuncios, ...anunciosData]);
-            setHasMore(anunciosData.length > 0);
+  const showAds = useCallback((adsData) => {
+    console.log(adsData)
+    if (Array.isArray(adsData)) {
+      setAds((prevAds) => [...prevAds, ...adsData]);
+      setHasMore(adsData.length > 0); // Actualiza hasMore basado en la longitud de adsData
+    } else {
+      console.error("adsData is not an array:", adsData);
+      setError("Error: Data received is not an array");
+    }
+  }, []);
+
+  const getAds = useCallback(async (adType, category, subcategory, page = 1, limit = 20) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // Determinar la URL correcta de la API basada en el tipo de anuncio
+      let url;
+      switch (adType) {
+        case 'Empleos':
+          url = `/api/jobs?limit=${limit}&page=${page}`;
+          break;
+        case 'Inmuebles':
+          url = `/api/realestate?limit=${limit}&page=${page}`;
+          break;
+        case 'Vehicles':
+          url = `/api/vehicles?limit=${limit}&page=${page}`;
+          break;
+        case 'Servicios':
+          url = `/api/services?limit=${limit}&page=${page}`;
+          break;
+        case 'Productos':
+          url = `/api/products?limit=${limit}&page=${page}`;
+          break;
+        case 'Negocios':
+          url = `/api/businesses?limit=${limit}&page=${page}`;
+          break;
+        case 'Otros':
+          url = `/api/others?limit=${limit}&page=${page}`;
+          break;
+        default:
+          url = `/api/ads?limit=${limit}&page=${page}`; // Para cualquier otro caso, tal vez un tipo de anuncio genérico
+          break;
+      }
+
+      if (category) {
+        url += `&category=${encodeURIComponent(category)}`;
+      }
+      if (subcategory) {
+        url += `&subcategory=${encodeURIComponent(subcategory)}`;
+      }
+
+      const response = await fetch(url);
+
+      // Verifica si la respuesta es correcta y es JSON
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const adsData = await response.json();
+
+        console.log('Datos recibidos desde la API:', adsData);  // <-- Añade este log
+
+        if (adsData) {
+          if (page === 1) {
+            setAds(adsData); // Si es la primera página, reemplaza el estado con los nuevos anuncios
+          } else {
+            showAds(adsData); // Si es una página posterior, añade los anuncios al estado existente
+          }
         } else {
-            console.error("anunciosData is not an array:", anunciosData);
-            setError("Error: Data received is not an array");
+          setError("Error: Data received is null or undefined");
         }
-    }, []);
+      } else {
+        throw new Error("Expected JSON, but received: " + contentType);
+      }
+    } catch (error) {
+      console.error('Error fetching ads:', error);
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [showAds]);
 
-    const getAds = useCallback(async (adType, category, subcategory, page = 1, limit = 20) => {
-        setIsLoading(true);
-        setError(null);
-        try {
-            const url = `/api/anuncios?limit=${limit}&page=${page}` +
-                        (adType ? `&adType=${adType}` : '') +
-                        (category ? `&category=${category}` : '') +
-                        (subcategory ? `&subcategory=${subcategory}` : '');
-            const respuesta = await fetch(url);
-            const anuncios = await respuesta.json();
-            if (anuncios) {
-                if (page === 1) {
-                    setAnuncios(anuncios);
-                } else {
-                    showAds(anuncios);
-                }
-            } else {
-                console.error('anuncios is null or undefined:', anuncios);
-                setError('Error: Data received is null or undefined');
-            }
-        } catch (error) {
-            console.error('Error al obtener los anuncios:', error);
-            setError('Error al obtener los anuncios');
-        }
-        setIsLoading(false);
-    }, [showAds]);
-
-    const adsHook = useMemo(() => ({
-        anuncios,
-        agregarAnuncioAlPrincipio: (anuncio) => setAnuncios((prevAnuncios) => [anuncio, ...prevAnuncios.slice(0, 99)]),
-        error,
-        isLoading,
-        hasMore,
-        getAds,
-    }), [anuncios, error, isLoading, hasMore, getAds]);
-
-    return adsHook;
-}
+  return {
+    ads,
+    addAdToTop: (ad) => setAds((prevAds) => [ad, ...prevAds.slice(0, 99)]), // Agrega un nuevo anuncio al principio
+    error,
+    isLoading,
+    hasMore,
+    getAds,
+  };
+};
 
 export default useAds;
