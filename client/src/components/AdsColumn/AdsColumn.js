@@ -1,9 +1,11 @@
 import React from 'react';
 import './adsColumn.css';
 
-function AdsColumn({ anuncios, selectedAdType }) {
-  // Filtrar los anuncios por el tipo seleccionado
-  const filteredAds = anuncios.filter(anuncio => anuncio.adType === selectedAdType);
+function AdsColumn({ anuncios = [], selectedAdType }) {
+  // we Ensure `anuncios` is an array before filtering
+  const filteredAds = Array.isArray(anuncios)
+    ? anuncios.filter(anuncio => anuncio.adType === selectedAdType)
+    : [];
 
   return (
     <div className="columna-anuncios">
@@ -28,7 +30,7 @@ function Anuncio({ anuncio }) {
   return (
     <div className="anuncio separador">
       <a href={href} target="_blank" rel="noopener noreferrer">
-        <div className="anuncio-desc">{description}</div>{" "}
+        <div className="anuncio-desc">{description}</div>
       </a>
     </div>
   );
