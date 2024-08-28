@@ -1,9 +1,6 @@
-//HomePage.js
-
-// React and Hooks
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import { Route, Routes, useParams, useNavigate } from "react-router-dom";
-import useAds from "./hooks/useAds"; // Importamos el hook
+import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
 import Header from "./components/Header/Header";
 import AdTypeButtons from "./components/AdTypeButtons/AdTypeButtons";
@@ -30,9 +27,8 @@ function HomePage() {
   const [isAdTypeSelected, setIsAdTypeSelected] = useState(false);
   const [selectedAdType, setSelectedAdType] = useState(adType || null);
 
-  const { anuncios, agregarAnuncioAlPrincipio, error, isLoading, hasMore, getAds } = useAds();
-  console.log(getAds);
-  const { filteredAds, updateSearchTerm } = useSearch(anuncios, filter);
+  const { ads, agregarAnuncioAlPrincipio, error, isLoading, hasMore, getAds } = useAds();
+  const { filteredAds, updateSearchTerm } = useSearch(ads, filter);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -43,46 +39,35 @@ function HomePage() {
   const loader = useRef(null);
   const searchInputRef = useRef(null);
 
-  // Manejar la selección del tipo de anuncio
   const handleAdTypeClick = (adType) => {
     setSelectedAdType(adType);
     setIsAdTypeSelected(true);
-    setPage(1); // Reiniciar la página al seleccionar un nuevo tipo de anuncio
-    getAds(adType, category, subcategory, 1); // Llamar a la función para obtener los anuncios
-    navigate(`/${adType}`); // Navegar a la URL del tipo seleccionado
+    setPage(1);
+    getAds(adType); // Ahora solo traemos los anuncios de este tipo desde la base de datos
+    navigate(`/${adType}`);
   };
 
-  // Efecto para cargar anuncios si se accede directamente desde una URL con adType
   useEffect(() => {
     if (adType) {
       setSelectedAdType(adType);
       setIsAdTypeSelected(true);
       setPage(1);
-      getAds(adType, category, subcategory, 1);
+      getAds(adType, category, subcategory);
     }
   }, [adType, category, subcategory, getAds]);
 
-  // Función para manejar el scroll e implementar lazy loading
   const handleScroll = () => {
     if (loader.current && loader.current.getBoundingClientRect().bottom <= window.innerHeight && hasMore && !isLoading) {
       setPage(prevPage => prevPage + 1);
-      getAds(selectedAdType, category, subcategory, page + 1); // Obtener más anuncios al hacer scroll
+      getAds(selectedAdType, category, subcategory, page + 1);
     }
   };
 
-  // Añadir el event listener para el scroll
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-  console.log("getAds in HomePage:", getAds);
-
-  useEffect(() => {
-    console.log("Probando getAds directamente en HomePage");
-    getAds("Inmuebles"); // Prueba para ver si esta llamada funciona
-  }, [getAds]);
-  
   return (
     <Fragment>
       <div className="main-container">
@@ -97,10 +82,9 @@ function HomePage() {
             {!isAdTypeSelected ? (
               <AdTypeButtons 
                 adType={selectedAdType}
-                handleAdTypeClick={handleAdTypeClick} 
+                handleAdTypeClick={handleAdTypeClick}
                 getAds={getAds}
               />
-
             ) : (
               <NewFeed
                 className="feed"
@@ -130,7 +114,7 @@ function HomePage() {
                 agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
                 isVisible={isFormVisible}
                 hideForm={toggleFormVisibility}
-                anuncios={anuncios}
+                anuncios={ads}
               />
             )}
             <AdsColumn anuncios={filteredAds} selectedAdType={selectedAdType} />
@@ -143,7 +127,7 @@ function HomePage() {
         <Route path="/profile" element={<UserProfile />} />
         <Route
           path="/:adType/:category/:subcategory/:id"
-          element={<AdModal anuncios={anuncios} selectedAd={selectedAd} />}
+          element={<AdModal anuncios={ads} selectedAd={selectedAd} />}
         />
       </Routes>
     </Fragment>
