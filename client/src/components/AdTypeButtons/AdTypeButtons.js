@@ -49,14 +49,14 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     <div className='adType-container'>
       <div className="adType-section">
         <div className="adType-section-inner scroll-container">
-          <button
+          {/* <button
             onClick={handleAllClick}
             className={`adType-button ${selectedAdType === 'Todos' ? 'selected-all' : ''}`}
           >
             Todo
-          </button>
+          </button> */}
           <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" className="adType-button download-app-button" target='_blank' rel='noreferrer'>
-            <img src={PlayStoreIcon} alt="Play Store" />
+            <img src={PlayStoreIcon} alt="Play Store" />App
           </a>
           {Object.keys(adTypeIcons).map((adTypeKey) => (
             <button

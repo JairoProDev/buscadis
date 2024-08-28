@@ -31,7 +31,10 @@
     width: 24px;
     height: 24px;
   }
-
+  .scroll-container a {
+    text-decoration: none;
+    color: #333;
+  }
   .scroll-container::-webkit-scrollbar {
     display: none; /* Ocultar la barra de desplazamiento en navegadores basados en WebKit */
   }
