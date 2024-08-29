@@ -27,7 +27,7 @@ function HomePage() {
   const [isAdTypeSelected, setIsAdTypeSelected] = useState(false);
   const [selectedAdType, setSelectedAdType] = useState(adType || null);
 
-  const { ads, agregarAnuncioAlPrincipio, error, isLoading, hasMore, getAds } = useAds();
+  const { ads, addAdToTop, error, isLoading, hasMore, getAds } = useAds();
   const { filteredAds, updateSearchTerm } = useSearch(ads, filter);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -57,15 +57,20 @@ function HomePage() {
   }, [adType, category, subcategory, getAds]);
 
   const handleScroll = () => {
-    if (loader.current && loader.current.getBoundingClientRect().bottom <= window.innerHeight && hasMore && !isLoading) {
-      setPage(prevPage => prevPage + 1);
+    if (
+      loader.current &&
+      loader.current.getBoundingClientRect().bottom <= window.innerHeight &&
+      hasMore &&
+      !isLoading
+    ) {
+      setPage((prevPage) => prevPage + 1);
       getAds(selectedAdType, category, subcategory, page + 1);
     }
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
   return (
@@ -80,7 +85,7 @@ function HomePage() {
         <div className="container">
           <div className="portal">
             {!isAdTypeSelected ? (
-              <AdTypeButtons 
+              <AdTypeButtons
                 adType={selectedAdType}
                 handleAdTypeClick={handleAdTypeClick}
                 getAds={getAds}
@@ -111,7 +116,7 @@ function HomePage() {
 
             {isFormVisible && (
               <AdForm
-                agregarAnuncioAlPrincipio={agregarAnuncioAlPrincipio}
+                addAdToTop={addAdToTop}
                 isVisible={isFormVisible}
                 hideForm={toggleFormVisibility}
                 anuncios={ads}
