@@ -2,9 +2,9 @@ import React from 'react';
 import './adsColumn.css';
 
 function AdsColumn({ anuncios = [], selectedAdType }) {
-  // we Ensure `anuncios` is an array before filtering
+  // Esto se asegura de que `anuncios` es un array antes de filtrar
   const filteredAds = Array.isArray(anuncios)
-    ? anuncios.filter(anuncio => anuncio.adType === selectedAdType)
+    ? anuncios.filter(anuncio => anuncio && anuncio.adType === selectedAdType)
     : [];
 
   return (
@@ -21,7 +21,12 @@ function AdsColumn({ anuncios = [], selectedAdType }) {
 }
 
 function Anuncio({ anuncio }) {
-  const { title, description, phone } = anuncio;
+  // Nos aseguramos de que `anuncio` tiene las propiedades necesarias
+  const { title, description, phone } = anuncio || {};
+  if (!title || !description || !phone) {
+    return null; // No renderizar si faltan propiedades
+  }
+
   const message = encodeURIComponent(
     `Hola, estoy interesado en su aviso de https://Buscadis.com: ${title}`
   );
