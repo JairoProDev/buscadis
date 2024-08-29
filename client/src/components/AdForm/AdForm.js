@@ -7,7 +7,7 @@ import { useAdFormLogic } from "./useAdFormLogic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
-function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
+function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
   const {
     setAdType,
     adTypeRef,
@@ -33,7 +33,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
     categories,
     subCategories,
     handleCategoryChange,
-  } = useAdFormLogic(agregarAnuncioAlPrincipio);
+  } = useAdFormLogic(addAdToTop);
 
   return (
     <div className={`adForm form-container ${isVisible ? "show" : ""}`}>
@@ -62,7 +62,7 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
             <option value="Negocios">Negocios</option>
             <option value="Empleos">Empleos</option>
             <option value="Inmuebles">Inmuebles</option>
-            <option value="Vehicles">Vehicles</option>
+            <option value="Vehicles">Vehículos</option>
             <option value="Servicios">Servicios</option>
             <option value="Productos">Productos</option>
             <option value="Otros">Otros</option>
@@ -99,7 +99,12 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
             ))}
           </select>
           <label htmlFor="size">Tamaño</label>
-          <select id="size" ref={sizeRef} value={size} onChange={(e) => setSize(e.target.value)}>
+          <select
+            id="size"
+            ref={sizeRef}
+            value={size}
+            onChange={(e) => setSize(e.target.value)}
+          >
             <option value="miniatura">1x1 / periódico / s/15</option>
             <option value="normal">1x1 / normal / s/30</option>
             <option value="largo">2x1 / largo / s/50</option>
@@ -219,7 +224,6 @@ function AdForm({ agregarAnuncioAlPrincipio, isVisible, hideForm, anuncios }) {
         </fieldset>
       </form>
       <Payment />
-
     </div>
   );
 }
