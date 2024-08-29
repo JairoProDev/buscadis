@@ -9,6 +9,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const cloudinary = require("cloudinary").v2;
 const morgan = require('morgan');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 const adRoutes = require("./routes/adRoutes");
 const imageRoutes = require("./routes/imageRoutes");
@@ -16,6 +18,15 @@ const authRoutes = require('./routes/authRoutes');
 const pdfRoutes = require('./routes/pdfRoutes');
 const VisitorCount = require('./models/VisitorCount');
 const adModel = require('./models/adModel');
+
+// Verificar que las variables de entorno necesarias están definidas
+if (!process.env.CLOUDINARY_CLOUD_NAME || 
+    !process.env.CLOUDINARY_API_KEY || 
+    !process.env.CLOUDINARY_API_SECRET || 
+    !process.env.MONGODB_URI) {
+  console.error("Por favor configura todas las variables de entorno necesarias.");
+  process.exit(1);
+}
 
 // Configurar Cloudinary
 cloudinary.config({
@@ -28,10 +39,31 @@ cloudinary.config({
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+if (!PORT) {
+  console.error("El puerto no está definido.");
+  process.exit(1);
+}
+
+// Middleware de seguridad
+app.use(helmet()); // Protege la aplicación estableciendo varias cabeceras HTTP
+
+// Limitador de solicitudes para prevenir ataques de fuerza bruta
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // Ventana de 15 minutos
+  max: 100 // Límite de 100 solicitudes por IP por ventana
+});
+app.use(limiter);
+
+// Middleware común
 app.use(cors());
 app.use(express.json()); // Parsear solicitudes JSON
-app.use(morgan('dev')); // Registrar solicitudes HTTP
+
+// Configurar morgan dependiendo del entorno
+if (process.env.NODE_ENV === 'production') {
+  app.use(morgan('common')); // Logs simples en producción
+} else {
+  app.use(morgan('dev')); // Logs detallados en desarrollo
+}
 
 // Contador para los intentos de conexión a la base de datos
 let dbConnectionAttempts = 0;
@@ -48,8 +80,10 @@ const connectToDb = () => {
 
       dbConnectionAttempts++;
       if (dbConnectionAttempts < 5) {
-        setTimeout(connectToDb, 5000);
+        console.log(`Reintentando conectar a MongoDB (Intento ${dbConnectionAttempts}/5)...`);
+        setTimeout(connectToDb, 5000); // Reintenta después de 5 segundos
       } else {
+        console.error("No se pudo conectar a MongoDB después de 5 intentos.");
         process.exit(1);
       }
     });
@@ -108,6 +142,7 @@ app.use((err, req, res, next) => {
 
 // Middleware para manejar rutas no encontradas
 app.use((req, res, next) => {
+  console.error(`Ruta no encontrada: ${req.originalUrl}`);
   res.status(404).json({ message: 'Ruta no encontrada' });
 });
 
