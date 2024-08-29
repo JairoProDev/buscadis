@@ -2,7 +2,8 @@
 import { useRef, useState, useEffect } from "react";
 import { adTypes } from "../AdTypeButtons/AdTypes";
 
-export function useAdFormLogic(agregarAnuncioAlPrincipio) {
+export function useAdFormLogic(addAdToTop) {
+  // Referencias a los elementos del formulario
   const adTypeRef = useRef();
   const categoryRef = useRef();
   const subCategoryRef = useRef();
@@ -16,6 +17,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
   const emailRef = useRef();
   const imageRef = useRef();
 
+  // Estados para manejar los datos y la lógica del formulario
   const [adType, setAdType] = useState("");
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
@@ -24,8 +26,10 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
 
+  // Función para obtener el valor de un campo a partir de su referencia
   const getRefValue = (ref) => (ref.current ? ref.current.value : "");
 
+  // Validación del formulario
   const validateForm = () => {
     if (
       !getRefValue(adTypeRef) ||
@@ -39,6 +43,7 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     }
   };
 
+  // Limpiar el formulario después de enviar los datos
   const clearForm = () => {
     adTypeRef.current.value = "";
     categoryRef.current.value = "";
@@ -46,25 +51,16 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     titleRef.current.value = "";
     descriptionRef.current.value = "";
     phoneRef.current.value = "";
-    if (amountRef.current) {
-      amountRef.current.value = "";
-    }
-    if (locationRef.current) {
-      locationRef.current.value = "";
-    }
-    if (emailRef.current) {
-      emailRef.current.value = "";
-    }
-    if (imageRef.current) {
-      imageRef.current.value = "";
-    }
-    if (phone2Ref.current) {
-      phone2Ref.current.value = "";
-    }
+    if (amountRef.current) amountRef.current.value = "";
+    if (locationRef.current) locationRef.current.value = "";
+    if (emailRef.current) emailRef.current.value = "";
+    if (imageRef.current) imageRef.current.value = "";
+    if (phone2Ref.current) phone2Ref.current.value = "";
     sizeRef.current.value = "normal";
     setImages([]);
   };
 
+  // Manejar el cambio de las imágenes
   const handleImageChange = (event) => {
     if (event.target.files) {
       const filesArray = Array.from(event.target.files);
@@ -72,47 +68,74 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
     }
   };
 
+  // Eliminar una imagen de la vista previa
   const handleDeletePreviewImage = (index) => {
     setImages(images.filter((_, i) => i !== index));
   };
 
+  // Manejar el cambio de la descripción para ajustar el tamaño del textarea
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
     event.target.style.height = "inherit";
     event.target.style.height = `${event.target.scrollHeight}px`;
   };
 
+  // Limpiar URLs de las imágenes cuando cambian
   useEffect(() => {
     if (images) {
       images.forEach((url) => URL.revokeObjectURL(url));
     }
   }, [images]);
 
+  // Manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
       validateForm();
-  
+
       const formData = {
-        adType: adTypeRef.current.value,
-        category: categoryRef.current ? categoryRef.current.value : "",
-        subCategory: subCategoryRef.current ? subCategoryRef.current.value : "",
-        title: titleRef.current.value,
-        description: descriptionRef.current.value,
-        phone: phoneRef.current.value,
-        phone2: phone2Ref.current ? phone2Ref.current.value : "",
-        location: locationRef.current ? locationRef.current.value : "",
-        email: emailRef.current ? emailRef.current.value : "",
-        amount: amountRef.current ? amountRef.current.value : "",
-        size: sizeRef.current ? sizeRef.current.value : "normal",
+        adType: getRefValue(adTypeRef),
+        category: getRefValue(categoryRef),
+        subCategory: getRefValue(subCategoryRef),
+        title: getRefValue(titleRef),
+        description: getRefValue(descriptionRef),
+        phone: getRefValue(phoneRef),
+        phone2: getRefValue(phone2Ref),
+        location: getRefValue(locationRef),
+        email: getRefValue(emailRef),
+        amount: getRefValue(amountRef),
+        size: getRefValue(sizeRef),
         images: images.map((image) => URL.createObjectURL(image)),
       };
 
-    // Log formData to ensure it's correctly formatted
-    console.log("Form Data:", formData);
+      console.log("Form Data:", formData);
 
-      const adResponse = await fetch("/api/anuncios", {
+      // Determina la URL de la API basada en el tipo de anuncio
+      let apiEndpoint;
+      switch (formData.adType) {
+        case "Empleos":
+          apiEndpoint = "/api/jobs";
+          break;
+        case "Inmuebles":
+          apiEndpoint = "/api/realestates";
+          break;
+        case "Vehiculos":
+          apiEndpoint = "/api/vehicles";
+          break;
+        case "Servicios":
+          apiEndpoint = "/api/services";
+          break;
+        case "Productos":
+          apiEndpoint = "/api/products";
+          break;
+        default:
+          throw new Error("Tipo de anuncio no válido");
+      }
+
+      console.log("API Endpoint:", apiEndpoint);
+
+      const adResponse = await fetch(apiEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -126,27 +149,34 @@ export function useAdFormLogic(agregarAnuncioAlPrincipio) {
       }
 
       const responseJson = await adResponse.json();
-      const anuncio = responseJson.anuncio;
-      agregarAnuncioAlPrincipio(anuncio);
+      console.log("Anuncio creado:", responseJson);
+      const anuncio = responseJson.anuncio || responseJson.job || responseJson.realestate || responseJson.vehicle || responseJson.service || responseJson.product;
+      addAdToTop(anuncio);
       clearForm();
     } catch (error) {
       setError(error.message);
-      console.error("Error details:", error); // Log the error details
+      console.error("Error details:", error);
     }
   };
 
+  // Actualizar las categorías y subcategorías cuando se selecciona un tipo de anuncio
   useEffect(() => {
-    if (adType) {
-      setCategories(Object.keys(adTypes[adType] || {}));
+    if (adType && adTypes.hasOwnProperty(adType)) {
+      setCategories(Object.keys(adTypes[adType]));
+      setSubCategories([]);
+    } else {
+      setCategories([]);
       setSubCategories([]);
     }
   }, [adType]);
 
+  // Manejar el cambio de categoría y actualizar las subcategorías
   const handleCategoryChange = (event) => {
     const selectedCategory = event.target.value;
     setSubCategories(adTypes[adType][selectedCategory] || []);
   };
 
+  // Retornar todos los estados y funciones necesarias para el componente del formulario
   return {
     adType,
     setAdType,
