@@ -3,6 +3,7 @@ const validator = require("validator");
 
 const jobSchema = new mongoose.Schema(
   {
+    adType: { type: String, required: true, trim: true },
     category: { type: String, required: false, trim: true },
     subCategory: { type: String, trim: true },
     title: { type: String, required: true, trim: true, maxlength: 100 },
