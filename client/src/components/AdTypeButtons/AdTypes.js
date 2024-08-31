@@ -1,115 +1,128 @@
 // adTypes.js
 export const adTypes = {
-    Empleos: {
-      "Restaurantes": [
-        "Mozo(a)",
-        "Ayudante de Cocina",
-        "Cajero(a)",
-        "Cocinero",
-        "Bartender",
-        "Lavaplatos",
-        "Pizzero",
-        "Personal de Limpieza",
-        "Maestro pollero",
-        "Maestro chifero",
-        "Maestro cevichero"
-      ],
-      "Hoteles": [
-        "Recepcionista",
-        "Housekeeping",
-        "Personal de Cafetería",
-        "Mantenimiento",
-        "Cocinero(a) de Hotel",
-        "Bartender de Hotel",
-        "Limpieza",
-      ],
+  Empleos: {
       Ventas: [
-        "Vendedor(a)",
-        "Promotor(a) de Ventas",
-        "Ejecutivo de Ventas",
-        "Asistente de Ventas",
-        "Supervisor de Ventas",
-        "Gerente de Ventas",
-        "Televentas",
+          "Promotor(a)",
+          "Asesor(a)",
+          "Vendedor(a)",
+          "Preventista",
+          "Televentas"
       ],
-      Marketing: [
-        "Marketer Digital",
-        "Diseñador Gráfico",
-        "Publicidad Turística",
-        "Community Manager",
+      Cocina: [
+          "Cocinero(a)",
+          "Ayudante",
+          "Jefe(a)",
+          "Lavaplatos",
+          "Maestro Pollero",
+          "Maestro Chifero",
+          "Maestro Cevichero",
+          "Pizzero"
       ],
-      Administrativo: [
-        "Asistente Administrativo",
-        "Secretario(a)",
-        "Recepcionista Administrativa",
-        "Atención al Cliente",
-        "Recursos Humanos",
+      Atención: [
+          "Recepcionista",
+          "Mozo(a)",
+          "Bartender",
+          "Housekeeping",
+          "Cajero(a)"
       ],
-      Finanzas: [
-        "Contador",
-        "Técnico Contable",
-        "Asistente Contable",
-        "Auditor",
+      Administración: [
+          "Asistente",
+          "Contador(a)",
+          "Administrador(a)",
+          "Recepcionista",
+          "Recursos Humanos"
       ],
-      Construcción: [
-        "Albañil",
-        "Ingeniero Civil",
-        "Arquitecto",
-        "Maestro de Obra",
-        "Electricista",
-        "Plomero",
+      Transporte: [
+          "Chofer",
+          "Operador(a)",
+          "Repartidor"
+      ],
+      Turismo: [
+          "Guía",
+          "Operador(a)",
+          "Hospitalidad"
+      ],
+      Mantenimiento: [
+          "General",
+          "Especializado"
+      ],
+      Creativo: [
+          "Diseñador(a)",
+          "Artista Visual",
+          "Audiovisual"
+      ],
+      Educación: [
+          "Instructor(a)",
+          "Profesor(a)",
+          "Tutor(a)"
+      ],
+      Producción: [
+          "Encargado(a)",
+          "Operario(a)"
+      ],
+      Servicios: [
+          "Hogar",
+          "Cuidado",
+          "Limpieza",
+          "Jardinería"
+      ],
+      Salud: [
+          "Dentista",
+          "Enfermera(o)",
+          "Asistente",
+          "Farmacéutico(a)",
+          "Psicólogo(a)",
+          "Nutricionista",
+          "Fisioterapeuta"
       ],
       Logística: [
-        "Chofer de Distribución",
-        "Almacenero",
-        "Auxiliar de Almacén",
-        "Coordinador Logístico",
-        "Supervisor de Almacén",
+          "Almacén",
+          "Distribución"
       ],
-      Educación: ["Profesor(a)", "Asistente Educativo", "Instructor(a)", "Tutor(a)"],
-      Salud: [
-        "Médico(a)",
-        "Enfermero(a)",
-        "Asistente Dental",
-        "Técnico en Enfermería",
-        "Psicólogo(a)",
-        "Nutricionista",
-        "Fisioterapeuta",
-        "Farmacéutico(a)",
+      Oficina: [
+          "Secretaria(o)",
+          "Administrativo(a)"
       ],
-      "Software": [
-        "Soporte Técnico",
-        "Técnico en Informática",
-        "Administrador de Sistemas",
-        "Desarrollador de Software",
-        "Frontend",
-        "Backend",
-        "Full-Stack",
+      Industrial: [
+          "Mecánico(a)",
+          "Electricidad"
       ],
-      Hogar: [
-        "Niñera",
-        "Cuidador(a) de Adultos Mayores",
-        "Limpieza",
-        "Cocina",
-        "Jardinería",
+      Tecnología: [
+          "Desarrollador(a)",
+          "Soporte",
+          "Redes",
+          "Webmaster"
       ],
-      Seguridad: ["Guardia de Seguridad", "Personal de Seguridad"],
-      Transporte: [ "Conductor", "Motorizado", "Repartidor"],
-      "Diseño": [
-        "Diseñador Gráfico",
-        "Diseñador Web",
-        "Ilustrador",
-        "Artista", 
-        "Artesano",
-        "pintor(a)"
+      Legal: [
+          "Asesor(a)",
+          "Administrativo(a)"
       ],
-        "Turismo": [
-            "Guía Turístico",
-            "Operador Turístico",
-            "Agente de Viajes",
-        ],
-      Otros: ["Teletrabajo", "Trabajos Temporales", "Prácticas Pre-Profesionales"],
-    },
+      Finanzas: [
+          "Banca",
+          "Contador(a)",
+          "Inversiones",
+          "Auditor(a)"
+      ],
+      Oficial : [
+          "Seguridad",
+          "Bombero(a)",
+          "Policía"
+      ],
+      Belleza: [
+          "Cosmetóloga",
+          "Peluquera",
+          "Barbero(a)",
+          "Manicurista"
+      ],
+      Construcción: [
+          "Albañil",
+          "Ingeniero Civil",
+          "Arquitecto",
+          "Maestro de Obra"
+      ],
+      Varios: ["Reparaciones, Consultoría, Entretenimiento, Agricultura, Ganadería, Artesanía, Reciclaje, Eventos"]
+  },
+
     Inmuebles: {
       Habitaciones: ["Alquiler", "Compartidas", "Amobladas", "Estudiantes"],
       Apartamentos: ["Alquiler", "Venta", "Amoblados", "Nuevos"],
