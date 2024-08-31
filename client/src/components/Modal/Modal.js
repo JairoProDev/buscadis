@@ -36,6 +36,55 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     alert("Reported!");
   };
 
+  // Event listener for keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowLeft") {
+        onPrev();
+      } else if (event.key === "ArrowRight") {
+        onNext();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onPrev, onNext]);
+
+  // Event listener for swipe navigation on touch devices
+  useEffect(() => {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const handleTouchStart = (event) => {
+      touchStartX = event.changedTouches[0].screenX;
+    };
+
+    const handleTouchEnd = (event) => {
+      touchEndX = event.changedTouches[0].screenX;
+      handleSwipeGesture();
+    };
+
+    const handleSwipeGesture = () => {
+      if (touchStartX - touchEndX > 50) {
+        onNext();
+      }
+      if (touchEndX - touchStartX > 50) {
+        onPrev();
+      }
+    };
+
+    document.addEventListener("touchstart", handleTouchStart);
+    document.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      document.removeEventListener("touchstart", handleTouchStart);
+      document.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [onPrev, onNext]);
+
   return (
     <div className={`modal-overlay ${isOpen ? "show" : ""}`} onClick={onClose}>
       <div
