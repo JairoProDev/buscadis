@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import AdCard from "../AdCard/AdCard";
-import Modal from "../Modal/Modal";  // Asegúrate de crear este componente
+import Modal from "../Modal/Modal";  
 import "./adList.css";
 
 function AdList({ anuncios }) {
   const [loading, setLoading] = useState(true);
   const [selectedAd, setSelectedAd] = useState(null);
+
+  const { adId } = useParams();  // Captura el ID del anuncio desde la URL
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (anuncios.length > 0) {
@@ -17,12 +21,26 @@ function AdList({ anuncios }) {
     console.log("Cantidad de anuncios:", anuncios.length);
   }, [anuncios]);
 
+  useEffect(() => {
+    if (!loading && adId) {
+      const ad = anuncios.find(anuncio => anuncio._id === adId);
+      if (ad) {
+        setSelectedAd(ad);
+        console.log("Anuncio encontrado y seleccionado:", ad);
+      } else {
+        console.warn(`Anuncio con ID ${adId} no encontrado.`);
+      }
+    }
+  }, [loading, adId, anuncios]);
+
   const handleAdClick = (anuncio) => {
-    setSelectedAd(anuncio);  // Al hacer clic en un anuncio, lo seleccionamos para mostrar en el modal
+    setSelectedAd(anuncio);
+    navigate(`/${anuncio.adType}/${anuncio.category}/${anuncio.subCategory}/${anuncio._id}`);
   };
 
   const closeModal = () => {
-    setSelectedAd(null);  // Esta función cierra el modal
+    setSelectedAd(null);
+    navigate('/');  // Vuelve a la página principal al cerrar el modal
   };
 
   return (
@@ -34,7 +52,7 @@ function AdList({ anuncios }) {
           anuncios.map((anuncio, index) => (
             <li key={anuncio._id} className={`ad-size-${anuncio.size || "normal"}`}>
               <div
-                onClick={() => handleAdClick(anuncio)}  // Ahora manejamos el clic para abrir el modal
+                onClick={() => handleAdClick(anuncio)} 
                 style={{ cursor: "pointer" }}
               >
                 <AdCard
