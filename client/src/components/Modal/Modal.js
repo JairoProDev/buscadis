@@ -4,15 +4,17 @@ import {
   faBookmark,
   faShareSquare,
   faFlag,
+  faArrowLeft,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import "./modal.css";
-import ContactButtons from "../ContactButtons/ContactButtons"; // Asumiendo que tienes este componente
+import ContactButtons from "../ContactButtons/ContactButtons";
 
-function Modal({ anuncio, onClose }) {
+function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    setIsOpen(true); // Abrir el modal cuando se monte
+    setIsOpen(true);
   }, []);
 
   const handleShare = () => {
@@ -37,16 +39,17 @@ function Modal({ anuncio, onClose }) {
   return (
     <div className={`modal-overlay ${isOpen ? "show" : ""}`} onClick={onClose}>
       <div
-        className={`modal-content ${anuncio.adType.toLowerCase()}`}
-        onClick={(e) => e.stopPropagation()} // Evitar que el clic dentro del modal cierre el modal
+        className={`modal-content ${anuncio.adType.toLowerCase()} show`}
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-header">
-          <button className="modal-close" onClick={onClose}>
-            &times;
-          </button>
           <div className="modal-header-info">
-            <p className="ad-card__date">{new Date(anuncio.createdAt).toLocaleDateString()}</p>
-            <p>{anuncio.adType}</p>
+            <p className="ad-card__date">
+              {new Date(anuncio.createdAt).toLocaleDateString()}
+            </p>
+            <p>
+              {anuncio.adType}/{anuncio.category}/{anuncio.subCategory}
+            </p>
           </div>
           <div className="modal-header-icons">
             <button onClick={handleShare}>
@@ -65,7 +68,9 @@ function Modal({ anuncio, onClose }) {
               <img key={index} src={image} alt={`Imagen ${index + 1}`} />
             ))}
           <p className="modal-info">Ubicación: {anuncio.location}</p>
-          {anuncio.email && <p className="modal-info">Email: {anuncio.email}</p>}
+          {anuncio.email && (
+            <p className="modal-info">Email: {anuncio.email}</p>
+          )}
         </div>
         <div className="modal-footer">
           <ContactButtons
@@ -74,6 +79,14 @@ function Modal({ anuncio, onClose }) {
             adType={anuncio.adType}
             url={window.location.href}
           />
+        </div>
+        <div className="modal-navigation">
+          <button onClick={onPrev} className="modal-nav-button">
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </button>
+          <button onClick={onNext} className="modal-nav-button">
+            <FontAwesomeIcon icon={faArrowRight} />
+          </button>
         </div>
       </div>
     </div>
