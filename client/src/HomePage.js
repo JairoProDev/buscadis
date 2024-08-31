@@ -6,7 +6,7 @@ import Header from "./components/Header/Header";
 import AdTypeButtons from "./components/AdTypeButtons/AdTypeButtons";
 import NewFeed from "./components/NewFeed/NewFeed";
 import AdForm from "./components/AdForm/AdForm";
-import AdModal from "./components/AdModal/AdModal";
+import Modal from "./components/Modal/Modal";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
 import UserProfile from "./components/UserProfile/UserProfile";
 import AdsColumn from "./components/AdsColumn/AdsColumn";
@@ -22,9 +22,9 @@ import "./HomePage.css";
 function HomePage() {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
-  const { adType, category, subcategory } = useParams();
+  const { adType, category, subcategory, id } = useParams();
   const navigate = useNavigate();
-  const [isAdTypeSelected, setIsAdTypeSelected] = useState(false);
+  const [isAdTypeSelected, setIsAdTypeSelected] = useState(!!adType);
   const [selectedAdType, setSelectedAdType] = useState(adType || null);
 
   const { ads, addAdToTop, error, isLoading, hasMore, getAds } = useAds();
@@ -32,18 +32,16 @@ function HomePage() {
   const [selectedAd, setSelectedAd] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
-  const showForm = () => setIsFormVisible(true);
-  const hideForm = () => setIsFormVisible(false);
-
   const loader = useRef(null);
   const searchInputRef = useRef(null);
+
+  const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
 
   const handleAdTypeClick = (adType) => {
     setSelectedAdType(adType);
     setIsAdTypeSelected(true);
     setPage(1);
-    getAds(adType); // Ahora solo traemos los anuncios de este tipo desde la base de datos
+    getAds(adType);
     navigate(`/${adType}`);
   };
 
@@ -55,6 +53,19 @@ function HomePage() {
       getAds(adType, category, subcategory);
     }
   }, [adType, category, subcategory, getAds]);
+
+  useEffect(() => {
+    if (id && ads.length > 0) {
+      const ad = ads.find((ad) => ad._id === id);
+      if (ad) {
+        setSelectedAd(ad);
+      } else {
+        // Si el anuncio no se encuentra, intenta cargar más anuncios
+        setPage(1);
+        getAds(adType, category, subcategory);
+      }
+    }
+  }, [id, ads, adType, category, subcategory, getAds]);
 
   const handleScroll = () => {
     if (
@@ -73,11 +84,16 @@ function HomePage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  const handleCloseModal = () => {
+    setSelectedAd(null);
+    navigate(`/${adType}/${category || ""}/${subcategory || ""}`);
+  };
+
   return (
     <Fragment>
       <div className="main-container">
         <Header
-          toggleForm={showForm}
+          toggleForm={toggleFormVisibility}
           setFilter={setFilter}
           updateSearchTerm={updateSearchTerm}
           searchInputRef={searchInputRef}
@@ -95,9 +111,9 @@ function HomePage() {
                 className="feed"
                 anuncios={filteredAds}
                 setSelectedAd={setSelectedAd}
-                loader={loader.current}
+                loader={loader}
                 setFilter={setFilter}
-                toggleForm={showForm}
+                toggleForm={toggleFormVisibility}
               />
             )}
           </div>
@@ -126,15 +142,18 @@ function HomePage() {
           </div>
           <SocialMedia />
         </div>
-        <BottomNavBar showForm={showForm} searchInputRef={searchInputRef} />
+        <BottomNavBar showForm={toggleFormVisibility} searchInputRef={searchInputRef} />
       </div>
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
-        <Route
+        {/* <Route
           path="/:adType/:category/:subcategory/:id"
           element={<AdModal anuncios={ads} selectedAd={selectedAd} />}
-        />
+        /> */}
       </Routes>
+      {selectedAd && (
+        <Modal anuncio={selectedAd} onClose={handleCloseModal} />
+      )}
     </Fragment>
   );
 }
