@@ -1,37 +1,130 @@
-/* modal.css */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 400px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-  }
-  
-  .modal-close {
-    position: relative;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 40px;
-    cursor: pointer;
-  }
-  
-  .modal-close:hover {
-    color: red;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 1000;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 18px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+  overflow: auto;
+  max-height: calc(100vh - 100px);
+  scrollbar-width: none;
+  transform: translateY(-100px);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.modal-content.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: red;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.modal-header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.modal-header-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-header-icons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.modal-title {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.modal-body {
+  font-size: 1em;
+  line-height: 1.5;
+  overflow: auto;
+  max-height: 60vh;
+}
+
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.modal-info {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.modal-footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-content.inmuebles {
+  background-color: #c8f7c5;
+}
+
+.modal-content.empleos {
+  background-color: #bfeff3;
+}
+
+.modal-content.vehicles {
+  background-color: #ffcccc;
+}
+
+.modal-content.servicios {
+  background-color: #fff5cc;
+}
+
+.modal-content.productos {
+  background-color: #ff9800;
+}
+
+.modal-content.otros {
+  background-color: #e8e4f7;
+}
