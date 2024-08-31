@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import AdCard from "../AdCard/AdCard";
-import Modal from "../Modal/Modal";  
+import Modal from "../Modal/Modal";
 import "./adList.css";
 
 function AdList({ anuncios }) {
   const [loading, setLoading] = useState(true);
   const [selectedAd, setSelectedAd] = useState(null);
 
-  const { adId } = useParams();  // Captura el ID del anuncio desde la URL
+  const { id } = useParams();  // Captura el ID del anuncio desde la URL
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,25 +22,20 @@ function AdList({ anuncios }) {
   }, [anuncios]);
 
   useEffect(() => {
-    if (!loading && adId) {
-      const ad = anuncios.find(anuncio => anuncio._id === adId);
+    if (!loading && id) {
+      const ad = anuncios.find(anuncio => anuncio._id === id);
       if (ad) {
         setSelectedAd(ad);
         console.log("Anuncio encontrado y seleccionado:", ad);
       } else {
-        console.warn(`Anuncio con ID ${adId} no encontrado.`);
+        console.warn(`Anuncio con ID ${id} no encontrado.`);
       }
     }
-  }, [loading, adId, anuncios]);
+  }, [loading, id, anuncios]);
 
   const handleAdClick = (anuncio) => {
     setSelectedAd(anuncio);
     navigate(`/${anuncio.adType}/${anuncio.category}/${anuncio.subCategory}/${anuncio._id}`);
-  };
-
-  const closeModal = () => {
-    setSelectedAd(null);
-    navigate('/');  // Vuelve a la página principal al cerrar el modal
   };
 
   return (
@@ -52,7 +47,7 @@ function AdList({ anuncios }) {
           anuncios.map((anuncio, index) => (
             <li key={anuncio._id} className={`ad-size-${anuncio.size || "normal"}`}>
               <div
-                onClick={() => handleAdClick(anuncio)} 
+                onClick={() => handleAdClick(anuncio)}
                 style={{ cursor: "pointer" }}
               >
                 <AdCard
@@ -67,10 +62,6 @@ function AdList({ anuncios }) {
           <p>No se encontraron anuncios para mostrar.</p>
         )}
       </ul>
-      
-      {selectedAd && (
-        <Modal anuncio={selectedAd} onClose={closeModal} />
-      )}
     </div>
   );
 }
