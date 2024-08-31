@@ -88,6 +88,24 @@ function HomePage() {
     setSelectedAd(null);
     navigate(`/${adType}/${category || ""}/${subcategory || ""}`);
   };
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    const currentIndex = ads.findIndex(ad => ad._id === selectedAd._id);
+    if (currentIndex !== -1) {
+      const nextIndex = (currentIndex + 1) % ads.length;
+      setSelectedAd(ads[nextIndex]);
+    }
+  };
+  
+  const handlePrev = () => {
+    const currentIndex = ads.findIndex(ad => ad._id === selectedAd._id);
+    if (currentIndex !== -1) {
+      const prevIndex = (currentIndex - 1 + ads.length) % ads.length;
+      setSelectedAd(ads[prevIndex]);
+    }
+  };
+  
 
   return (
     <Fragment>
@@ -146,13 +164,14 @@ function HomePage() {
       </div>
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
-        {/* <Route
-          path="/:adType/:category/:subcategory/:id"
-          element={<AdModal anuncios={ads} selectedAd={selectedAd} />}
-        /> */}
       </Routes>
       {selectedAd && (
-        <Modal anuncio={selectedAd} onClose={handleCloseModal} />
+        <Modal
+          anuncio={selectedAd}
+          onClose={handleCloseModal}
+          onNext={handleNext}
+          onPrev={handlePrev}
+        />
       )}
     </Fragment>
   );
