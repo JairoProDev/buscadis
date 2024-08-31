@@ -29,16 +29,18 @@ function ContactButton({ phone, type, adType, url }) {
     : `tel:${phone}`;
   const icon = isWhatsApp ? faWhatsapp : faPhone;
   const label = isWhatsApp ? "Contactar por WhatsApp" : "Llamar";
+  const buttonClass = isWhatsApp ? "contact-button--whatsapp" : "contact-button--call";
 
   return (
     <a
       href={href}
-      className="ad-card__button ad-card__button--contact"
+      className={`contact-button ${buttonClass}`}
       aria-label={label}
       target="_blank"
       rel="noopener noreferrer"
     >
       <FontAwesomeIcon icon={icon} />
+      {label}
     </a>
   );
 }
@@ -50,8 +52,6 @@ function ContactButtons({ phone, phone2, adType, url }) {
   const part1 = `Buen día, hemos publicado GRATIS su aviso de ${adType} por todo el día en nuestra plataforma para ayudarle a que más personas vean lo que ofrece.`;
   const part2 = `Puede verlo aquí: ${url}.`;
   const part3 = "Si desea que su aviso esté publicado por más días, avísenos para no eliminarlo hoy. También podemos agregar imágenes, actualizar detalles o publicar un nuevo anuncio si es que lo necesita.";
-  // const part4 = "Estamos aquí para ayudarle a maximizar su visibilidad.";
-  // const part5 = "Para aprovechar esta oferta, ¡responda a este mensaje! ¿Desea que su anuncio esté publicado por más días?";
 
   // Concatenar con \n para saltos de línea y luego codificar toda la cadena
   const adminMessage = part1 + "\n\n" + part2 + "\n\n" + part3;
@@ -61,45 +61,41 @@ function ContactButtons({ phone, phone2, adType, url }) {
   const whatsappLink = `https://wa.me/${phone}?text=${encodedMessage}`;
 
   return (
-    <>
-      <div>
-        {phone && (
+    <div className="contact-buttons-container">
+      {phone && (
+        <div className="contact-button-group">
           <ContactButton
             phone={phone}
             type="call"
             adType={adType}
             url={url}
           />
-        )}
-        {phone && (
           <ContactButton
             phone={phone}
             type="whatsapp"
             adType={adType}
             url={url}
           />
-        )}
-      </div>
-      <a href={whatsappLink} target="_blank" rel="noopener noreferrer">BuscAdis</a>
-      <div>
-        {phone2 && (
+        </div>
+      )}
+      {phone2 && (
+        <div className="contact-button-group">
           <ContactButton
             phone={phone2}
             type="call"
             adType={adType}
             url={url}
           />
-        )}
-        {phone2 && (
           <ContactButton
             phone={phone2}
             type="whatsapp"
             adType={adType}
             url={url}
           />
-        )}
-      </div>
-    </>
+        </div>
+      )}
+      <a href="https://Publicadis.com" className="admin-button" target="_blank" rel="noopener noreferrer">PublicAdis.com</a>
+    </div>
   );
 }
 

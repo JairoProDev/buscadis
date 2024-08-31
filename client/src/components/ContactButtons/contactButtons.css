@@ -1,45 +1,87 @@
-/* ContactButtons.css */
 :root {
-  --button-color: #007bff;
-  --button-hover-color: #0056b3;
-  --call-button-color: #28a745;
-  --call-button-hover-color: #218838;
-  --shadow-color: rgba(0, 0, 0, 0.15);
-  --hover-shadow-color: rgba(0, 0, 0, 0.25);
+  --button-call-color: #28a745;
+  --button-whatsapp-color: #25D366;
+  --button-background: #fff;
+  --button-shadow-color: rgba(0, 0, 0, 0.15);
+  --button-hover-shadow-color: rgba(0, 0, 0, 0.25);
+  --button-text-color: #fff;
+  --button-border-radius: 12px;
+  --button-font-size: 1rem;
 }
-.ad-card__button {
-  display: inline-block;
-  background-color: var(--button-color);
-  color: #fff;
+
+.contact-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 15px 0;
+}
+
+.contact-button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.contact-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px;
+  color: var(--button-text-color);
+  border-radius: var(--button-border-radius);
+  font-size: var(--button-font-size);
   text-decoration: none;
-  padding: 5px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.4s, transform 0.3s;
-  box-shadow: 0px 2px 5px var(--shadow-color);
-  font-size: 1rem;
-  margin-left: 0px;
-}
-.ad-card__button svg {
-  font-size: 1.5rem;
-}
-.ad-card__button:hover {
-  background-color: var(--button-hover-color);
-  box-shadow: 0px 4px 15px var(--hover-shadow-color);
-  transform: translateY(-6px);
+  width: 48%;
+  box-shadow: 0px 2px 5px var(--button-shadow-color);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-.ad-card__button--contact {
-  /* background-color: var(--call-button-color); */
+.contact-button svg {
+  margin-right: 8px;
 }
 
-.ad-card__button--contact:hover {
-  background-color: var(--call-button-hover-color);
+.contact-button--call {
+  background-color: var(--button-call-color);
+}
+
+.contact-button--whatsapp {
+  background-color: var(--button-whatsapp-color);
+}
+
+.contact-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 4px 15px var(--button-hover-shadow-color);
+}
+
+.contact-button--whatsapp:hover {
+  background-color: #20c354;
+}
+
+.contact-button--call:hover {
+  background-color: #218838;
+}
+
+.admin-button {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: var(--button-border-radius);
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.admin-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-4px);
 }
 
 @media (max-width: 600px) {
-  .ad-card__button svg {
-    /* Aquí puedes ajustar el tamaño del icono para móviles */
-    font-size: 1.2rem;
+  .contact-button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
   }
 }
