@@ -57,6 +57,7 @@ app.use(
       imgSrc: ["'self'", "https://maps.googleapis.com", "https://maps.gstatic.com", "data:"],
       styleSrc: ["'self'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com", "'unsafe-inline'"],
       fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+      connectSrc: ["'self'", "https://www.google-analytics.com"],
     },
   })
 );
