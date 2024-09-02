@@ -23,6 +23,7 @@
   border-radius: 18px;
   width: 90%;
   max-width: 90vh;
+  max-height: 80vh; /* Limita la altura máxima del modal */
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
   position: relative;
   transform: scale(0.9);
@@ -33,6 +34,7 @@
 .modal-content.show {
   transform: scale(1);
   opacity: 1;
+  overflow-y: auto; /* Permite el scroll vertical si el contenido es mayor al tamaño máximo */
 }
 
 .modal-header {
@@ -196,6 +198,7 @@
 @media (max-width: 600px) {
   .modal-content {
     width: 95%;
+    max-height: 80vh; /* Asegura que el modal no ocupe toda la altura en mobile */
   }
 
   .modal-title {
