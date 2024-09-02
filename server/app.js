@@ -51,15 +51,16 @@ app.use(helmet()); // Protege la aplicación estableciendo varias cabeceras HTTP
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: ["'self'"],                // Permite solo el contenido propio
-      frameSrc: ["'self'", "https://www.google.com"], // Permite iframes de google.com
-      scriptSrc: ["'self'", "https://maps.googleapis.com"], // Permite scripts de Google Maps
-      imgSrc: ["'self'", "https://maps.googleapis.com", "https://maps.gstatic.com"], // Permite imágenes de Google Maps
-      styleSrc: ["'self'", "https://fonts.googleapis.com"], // Permite estilos de Google Fonts, si los usas
-      fontSrc: ["'self'", "https://fonts.gstatic.com"], // Permite fuentes de Google Fonts, si los usas
+      defaultSrc: ["'self'"],
+      frameSrc: ["'self'", "https://www.google.com"],
+      scriptSrc: ["'self'", "https://maps.googleapis.com", "https://www.googletagmanager.com", "'unsafe-inline'"],
+      imgSrc: ["'self'", "https://maps.googleapis.com", "https://maps.gstatic.com", "data:"],
+      styleSrc: ["'self'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com", "'unsafe-inline'"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
     },
   })
 );
+
 
 // Limitador de solicitudes para prevenir ataques de fuerza bruta
 const limiter = rateLimit({
