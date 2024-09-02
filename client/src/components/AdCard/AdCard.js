@@ -22,9 +22,9 @@ function AdCard({ anuncio, setSelectedAd, number }) {
   const isOldAd = (new Date() - new Date(createdAt)) / (1000 * 60 * 60 * 24) > 7;
   const oldAdClass = isOldAd ? "ad-card--taken" : "";
 
-  // Lógica para marcar 1 de cada 10 anuncios como caducado basado en su ID
+  // Lógica para marcar 1 de cada 10 anuncios como caducado, solo si el anuncio tiene más de una semana
   const hash = _id.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const isExpired = hash % 10 === 0; // 1 de cada 10 se marcará como caducado
+  const isExpired = isOldAd && hash % 10 === 0; // 1 de cada 10 se marcará como caducado, pero solo si es viejo
   const expiredClass = isExpired ? "ad-card--expired" : "";
 
   const adStatusMessages = {
