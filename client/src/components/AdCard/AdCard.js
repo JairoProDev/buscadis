@@ -13,10 +13,32 @@ function AdCard({ anuncio, setSelectedAd, number }) {
   };
 
   const sizeClass = `ad-size-${anuncio.size || "normal"}`;
-  const { adType, category, title, description, amount, location, createdAt, image } =
+  const { adType, category, title, description, amount, location, createdAt, image, _id } =
     anuncio;
   const adTypeLower = adType ? adType.toLowerCase() : "default";
   const adClass = `ad-card ${adTypeLower} ${sizeClass}`;
+
+  // Calcular si el anuncio tiene más de una semana
+  const isOldAd = (new Date() - new Date(createdAt)) / (1000 * 60 * 60 * 24) > 7;
+  const oldAdClass = isOldAd ? "ad-card--taken" : "";
+
+  // Lógica para marcar 1 de cada 10 anuncios como caducado basado en su ID
+  const hash = _id.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const isExpired = hash % 10 === 0; // 1 de cada 10 se marcará como caducado
+  const expiredClass = isExpired ? "ad-card--expired" : "";
+
+  const adStatusMessages = {
+    empleos: "¡Contratación Exitosa!",
+    inmuebles: "¡Propiedad Tomada!",
+    vehiculos: "¡Vehículo Vendido!",
+    servicios: "¡Servicio Contratado!",
+    productos: "¡Producto Vendido!",
+    otros: "¡Oportunidad Tomada!",
+    default: "¡Anuncio Tomado!",
+  };
+
+  // Obtener el mensaje correspondiente al tipo de anuncio
+  const adStatusMessage = adStatusMessages[adTypeLower] || adStatusMessages.default;
 
   const formattedDate = formatShortDistance(new Date(createdAt));
 
@@ -60,7 +82,20 @@ function AdCard({ anuncio, setSelectedAd, number }) {
   };
 
   return (
-    <div className={adClass} onClick={handleAdClick}>
+    <div
+      className={`${adClass} ${oldAdClass} ${expiredClass}`}
+      onClick={isOldAd || isExpired ? null : handleAdClick}
+    >
+      {isOldAd && (
+        <div className="ad-card__overlay">
+          <span className="ad-card__overlay-text">{adStatusMessage}</span>
+        </div>
+      )}
+      {isExpired && (
+        <div className="ad-card__expired-overlay">
+          <span className="ad-card__expired-text">¡Anuncio Caducado!</span>
+        </div>
+      )}
       <div className="ad-card__content">
         <div className="ad-card__header">
           <div className="ad-card__type">

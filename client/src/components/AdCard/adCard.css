@@ -100,6 +100,15 @@
   color: var(--light-text-color);
 }
 
+.ad-card__content {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative; /* Asegura que el overlay esté en la parte superior */
+}
+
+
 .ad-card.inmuebles {
   background-color: #c8f7c5;
   border-left: 4px solid #4caf50; /* Verde suave */
@@ -127,6 +136,83 @@
 .ad-card.otros {
   background-color: #e8e4f7;
   border-left: 4px solid #9c27b0; /* Púrpura suave */
+}
+
+.ad-card--taken {
+  position: relative;
+  opacity: 0.6;
+}
+
+.ad-card__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  z-index: 1;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Colores translúcidos basados en los colores existentes */
+
+.ad-card.empleos .ad-card__overlay {
+  background-color: rgba(0, 123, 255, 0.6); /* Azul translúcido */
+}
+
+.ad-card.inmuebles .ad-card__overlay {
+  background-color: rgba(76, 175, 80, 0.6); /* Verde translúcido */
+}
+
+.ad-card.vehicles .ad-card__overlay {
+  background-color: rgba(255, 87, 34, 0.6); /* Rojo translúcido */
+}
+
+.ad-card.servicios .ad-card__overlay {
+  background-color: rgba(255, 193, 7, 0.6); /* Amarillo translúcido */
+}
+
+.ad-card.productos .ad-card__overlay {
+  background-color: rgba(255, 152, 0, 0.6); /* Naranja translúcido */
+}
+
+.ad-card.otros .ad-card__overlay {
+  background-color: rgba(156, 39, 176, 0.6); /* Púrpura translúcido */
+}
+
+
+/* Estilos para avisos caducados */
+
+.ad-card--expired {
+  position: relative;
+  opacity: 0.8;
+}
+
+.ad-card__expired-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.7); /* Gris translúcido */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.ad-card__expired-text {
+  text-align: center;
+  padding: 1rem;
 }
 
 @media (max-width: 768px) {
