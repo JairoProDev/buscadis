@@ -120,7 +120,7 @@ export const adTypes = {
           "Arquitecto",
           "Maestro de Obra"
       ],
-      Varios: ["Reparaciones, Consultoría, Entretenimiento, Agricultura, Ganadería, Artesanía, Reciclaje, Eventos"]
+      Otros: ["Varios, Reparaciones, Consultoría, Entretenimiento, Agricultura, Ganadería, Artesanía, Reciclaje, Eventos"]
   },
 
     Inmuebles: {
