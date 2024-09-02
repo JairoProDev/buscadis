@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faShareAlt, 
-  faFlag, 
-  faBookmark, 
+  faFlag,  
   faCopy, 
   faArrowLeft, 
   faArrowRight 
@@ -41,9 +40,9 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     alert("Enlace copiado al portapapeles");
   };
 
-  const handleSave = () => {
-    alert("Anuncio guardado");
-  };
+  // const handleSave = () => {
+  //   alert("Anuncio guardado");
+  // };
 
   const handleReport = () => {
     alert("Anuncio reportado");
@@ -99,9 +98,9 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
             </p>
           </div>
           <div className="modal-header-icons">
-            <button onClick={handleSave}>
+            {/* <button onClick={handleSave}>
               <FontAwesomeIcon icon={faBookmark} />
-            </button>
+            </button> */}
             <button onClick={handleCopyLink}>
               <FontAwesomeIcon icon={faCopy} />
             </button>
@@ -167,6 +166,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
               allowFullScreen=""
               aria-hidden="false"
               tabIndex="0"
+              title={`Mapa de la ubicación: ${anuncio.location}`}
             ></iframe>
           </div>
         )}
