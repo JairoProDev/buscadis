@@ -13,10 +13,10 @@ function App() {
           <Route path="/auth/login" element={<AuthForm isLoginForm={true} />} />
           <Route path="/auth/register" element={<AuthForm isLoginForm={false} />} />
           <Route path="/profile" element={<UserProfile />} />
-          <Route path="/:adType/:category/:subcategory/:id" element={<HomePage />} />
-          <Route path="/:adType/:category/:subcategory" element={<HomePage />} />
-          <Route path="/:adType/:category" element={<HomePage />} />
-          <Route path="/:adType" element={<HomePage />} />
+          <Route path="/:adType/:category/:subcategory/:id/*" element={<HomePage />} />
+          <Route path="/:adType/:category/:subcategory/*" element={<HomePage />} />
+          <Route path="/:adType/:category/*" element={<HomePage />} />
+          <Route path="/:adType/*" element={<HomePage />} />
           <Route path="/*" element={<HomePage />} />
         </Routes>
       </AuthProvider>
