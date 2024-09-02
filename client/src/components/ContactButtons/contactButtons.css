@@ -17,6 +17,13 @@
   padding: 15px 0;
 }
 
+.contact-button-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
 .contact-button-group {
   display: flex;
   justify-content: space-between;
@@ -33,9 +40,10 @@
   border-radius: var(--button-border-radius);
   font-size: var(--button-font-size);
   text-decoration: none;
-  width: 48%;
   box-shadow: 0px 2px 5px var(--button-shadow-color);
   transition: background-color 0.3s, transform 0.3s;
+  margin-bottom: 10px;
+  flex: 0 0 auto; /* Ajusta el tamaño del botón al contenido */
 }
 
 .contact-button svg {
@@ -44,10 +52,12 @@
 
 .contact-button--call {
   background-color: var(--button-call-color);
+  padding: 10px 20px; /* Ajuste para el botón de llamada */
 }
 
 .contact-button--whatsapp {
   background-color: var(--button-whatsapp-color);
+  padding: 10px 25px; /* Ajuste para el botón de WhatsApp */
 }
 
 .contact-button:hover {

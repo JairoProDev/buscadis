@@ -1,11 +1,12 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import "./contactButtons.css";
 
 function ContactButton({ phone, type, adType, url }) {
   const isWhatsApp = type === "whatsapp";
+  const isEmail = type === "email";
 
   let message;
   switch (adType) {
@@ -24,12 +25,30 @@ function ContactButton({ phone, type, adType, url }) {
     default:
       message = `Buen día, vi su aviso aquí: ${url} y me interesa, podría proporcionarme más información por favor?`;
   }
+
   const href = isWhatsApp
     ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
+    : isEmail
+    ? `mailto:${phone}`
     : `tel:${phone}`;
-  const icon = isWhatsApp ? faWhatsapp : faPhone;
-  const label = isWhatsApp ? "Contactar por WhatsApp" : "Llamar";
-  const buttonClass = isWhatsApp ? "contact-button--whatsapp" : "contact-button--call";
+
+  const icon = isWhatsApp
+    ? faWhatsapp
+    : isEmail
+    ? faEnvelope
+    : faPhone;
+    
+  const label = isWhatsApp
+    ? "Contactar por WhatsApp"
+    : isEmail
+    ? "Enviar Email"
+    : "Llamar";
+    
+  const buttonClass = isWhatsApp
+    ? "contact-button--whatsapp"
+    : isEmail
+    ? "contact-button--email"
+    : "contact-button--call";
 
   return (
     <a
@@ -45,50 +64,55 @@ function ContactButton({ phone, type, adType, url }) {
   );
 }
 
-function ContactButtons({ phone, phone2, adType, url }) {
-  if (!phone && !phone2) return null;
-
-  // Mensaje dividido en partes para fácil lectura
-  const part1 = `Buen día, hemos publicado GRATIS su aviso de ${adType} por todo el día en nuestra plataforma para ayudarle a que más personas vean lo que ofrece.`;
-  const part2 = `Puede verlo aquí: ${url}.`;
-  const part3 = "Si desea que su aviso esté publicado por más días, avísenos para no eliminarlo hoy. También podemos agregar imágenes, actualizar detalles o publicar un nuevo anuncio si es que lo necesita.";
-
-  // Concatenar con \n para saltos de línea y luego codificar toda la cadena
-  const adminMessage = part1 + "\n\n" + part2 + "\n\n" + part3;
-  const encodedMessage = encodeURIComponent(adminMessage);
-
-  // Crear el enlace de WhatsApp
-  const whatsappLink = `https://wa.me/${phone}?text=${encodedMessage}`;
+function ContactButtons({ phone, phone2, email, adType, url }) {
+  if (!phone && !phone2 && !email) return null;
 
   return (
     <div className="contact-buttons-container">
       {phone && (
-        <div className="contact-button-group">
-          <ContactButton
-            phone={phone}
-            type="call"
-            adType={adType}
-            url={url}
-          />
-          <ContactButton
-            phone={phone}
-            type="whatsapp"
-            adType={adType}
-            url={url}
-          />
+        <div className="contact-button-row">
+          <h4>Contacto 1:</h4>
+          <div className="contact-button-group">
+            <ContactButton
+              phone={phone}
+              type="whatsapp"
+              adType={adType}
+              url={url}
+            />
+            <ContactButton
+              phone={phone}
+              type="call"
+              adType={adType}
+              url={url}
+            />
+          </div>
         </div>
       )}
       {phone2 && (
+        <div className="contact-button-row">
+          <h4>Contacto 2:</h4>
+          <div className="contact-button-group">
+            <ContactButton
+              phone={phone2}
+              type="whatsapp"
+              adType={adType}
+              url={url}
+            />
+            <ContactButton
+              phone={phone2}
+              type="call"
+              adType={adType}
+              url={url}
+            />
+          </div>
+        </div>
+      )}
+      {email && (
         <div className="contact-button-group">
+          <h4>Contacto por Email:</h4>
           <ContactButton
-            phone={phone2}
-            type="call"
-            adType={adType}
-            url={url}
-          />
-          <ContactButton
-            phone={phone2}
-            type="whatsapp"
+            phone={email}
+            type="email"
             adType={adType}
             url={url}
           />
