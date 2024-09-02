@@ -9,9 +9,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./modal.css";
 import ContactButtons from "../ContactButtons/ContactButtons";
+import { WhatsappShareButton, FacebookShareButton, TiktokShareButton } from "react-share";
 
 function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const shareUrl = window.location.href;
+  const title = anuncio.title;
+
 
   useEffect(() => {
     setIsOpen(true);
@@ -93,9 +98,10 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
       >
         <div className="modal-header">
           <div className="modal-header-info">
-            <p className="ad-card__date">
-              {new Date(anuncio.createdAt).toLocaleDateString()}
-            </p>
+          <p className="ad-card__date">
+            {new Date(anuncio.createdAt).toLocaleDateString()} a las {new Date(anuncio.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          </p>
+
             <p>
               {anuncio.adType}/{anuncio.category}/{anuncio.subCategory}
             </p>
@@ -116,11 +122,30 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
             anuncio.images.map((image, index) => (
               <img key={index} src={image} alt={`Imagen ${index + 1}`} />
             ))}
-          <p className="modal-info">Ubicación: {anuncio.location}</p>
           {anuncio.email && (
-            <p className="modal-info">Email: {anuncio.email}</p>
+            <p className="modal-info">
+              Email: <a href={`mailto:${anuncio.email}`}>{anuncio.email}</a>
+            </p>
+          )}
+          {anuncio.amount && <p className="modal-info">Precio: {anuncio.amount}</p>}
+          {anuncio.location && (
+            <p className="modal-info">Ubicación: {anuncio.location}</p>
           )}
         </div>
+        {anuncio.location && (
+          <div className="modal-map">
+            <iframe
+              src={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}&output=embed`}
+              width="100%"
+              height="150"
+              frameBorder="0"
+              allowFullScreen=""
+              aria-hidden="false"
+              tabIndex="0"
+            ></iframe>
+          </div>
+        )}
+
         <div className="modal-footer">
           <ContactButtons
             phone={anuncio.phone}
