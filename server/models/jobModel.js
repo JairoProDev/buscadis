@@ -6,6 +6,8 @@ const jobSchema = new mongoose.Schema(
     adType: { type: String, required: true, trim: true },
     category: { type: String, required: false, trim: true },
     subCategory: { type: String, trim: true },
+    businessName: { type: String, trim: true },
+    businessType: { type: String, trim: true },
     title: { type: String, required: true, trim: true, maxlength: 100 },
     description: { type: String, required: true, trim: true, maxlength: 1800 },
     location: { type: String, trim: true },
