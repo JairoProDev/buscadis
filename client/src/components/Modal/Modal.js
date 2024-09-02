@@ -178,14 +178,17 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
             adType={anuncio.adType}
             url={window.location.href}
           />
-        </div>
-        <div className="modal-navigation">
-          <button onClick={onPrev} className="modal-nav-button">
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </button>
-          <button onClick={onNext} className="modal-nav-button">
-            <FontAwesomeIcon icon={faArrowRight} />
-          </button>
+          <div className="modal-navigation">
+            <div className="nav-buttons">
+              <button onClick={onPrev} className="modal-nav-button">
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </button>
+            <a href="https://Publicadis.com" className="admin-button" target="_blank" rel="noopener noreferrer">PublicAdis.com</a>
+              <button onClick={onNext} className="modal-nav-button">
+                <FontAwesomeIcon icon={faArrowRight} />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

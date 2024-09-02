@@ -118,7 +118,6 @@ function ContactButtons({ phone, phone2, email, adType, url }) {
           />
         </div>
       )}
-      <a href="https://Publicadis.com" className="admin-button" target="_blank" rel="noopener noreferrer">PublicAdis.com</a>
     </div>
   );
 }

@@ -163,6 +163,11 @@
   cursor: pointer;
 }
 
+.modal-navigation .nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
 .modal-content.inmuebles {
   background-color: #e0f7e0;
 }
