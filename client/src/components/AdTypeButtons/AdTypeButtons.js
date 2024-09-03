@@ -26,6 +26,16 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
   const [selectedAdType, setSelectedAdType] = useState(adType || 'Todos');
   const [selectedCategory, setSelectedCategory] = useState(category || null);
 
+  const adTypeLabels = {
+    Empleos: 'Empleos',
+    Inmuebles: 'Inmuebles',
+    Vehicles: 'Vehículos',
+    Servicios: 'Servicios',
+    Productos: 'Productos',
+    Otros: 'Otros',
+    Negocios: 'Negocios',
+  };
+  
   function handleAdTypeSelection(adTypeKey) {
     setSelectedAdType(adTypeKey);
     setSelectedCategory(null);
@@ -66,7 +76,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
               data-ad-type={adTypeKey}
             >
               <img src={adTypeIcons[adTypeKey]} alt={adTypeKey} />
-              {adTypeKey}
+              {adTypeLabels[adTypeKey]}
             </button>
           ))}
         </div>
