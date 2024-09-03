@@ -45,6 +45,13 @@ function HomePage() {
     navigate(`/${adType}`);
   };
 
+    // Redirigir a /Empleos si el usuario está en la ruta raíz
+    useEffect(() => {
+      if (!adType) {
+        navigate('/Empleos');
+      }
+    }, [adType, navigate]);
+    
   useEffect(() => {
     if (adType) {
       setSelectedAdType(adType);
