@@ -159,9 +159,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
           <div className="modal-map">
             {!iframeBlocked ? (
               <iframe
-                src={`https://www.google.com/maps?q=${encodeURIComponent(
-                  anuncio.location
-                )}&output=embed`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}&output=embed`}
                 width="100%"
                 height="250"
                 frameBorder="0"
@@ -171,13 +169,14 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
                 title={`Mapa de la ubicación: ${anuncio.location}`}
               ></iframe>
             ) : (
-              // Mostrar un mapa estático si el iframe es bloqueado
-              <img 
-                src={`https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(anuncio.location)}&zoom=15&size=600x300&markers=color:red%7C${encodeURIComponent(anuncio.location)}`} 
-                alt={`Mapa estático de la ubicación: ${anuncio.location}`} 
-                width="100%" 
-                height="250"
-              />
+              // Mostrar un enlace a Google Maps si el iframe es bloqueado
+              <a 
+                href={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Ver ubicación en Google Maps
+              </a>
             )}
           </div>
         )}
