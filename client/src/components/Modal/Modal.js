@@ -23,6 +23,7 @@ import {
 function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const [iframeBlocked, setIframeBlocked] = useState(false);
 
   useEffect(() => {
     setIsOpen(true);
@@ -48,24 +49,24 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     alert("Anuncio reportado");
   };
 
-  // Event listener for keyboard navigation
+  // Detectar si estamos dentro de un WebView
+  const isWebView = () => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    return (userAgent.includes('wv') || userAgent.includes('WebView')) || 
+           (userAgent.includes('Android') && userAgent.includes('Chrome') && userAgent.includes('Version'));
+  };
+
+  // Si estamos en un WebView, probar si el iframe carga o es bloqueado
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        onClose();
-      } else if (event.key === "ArrowLeft") {
-        onPrev();
-      } else if (event.key === "ArrowRight") {
-        onNext();
-      }
-    };
+    if (isWebView() && anuncio.location) {
+      // Usamos un temporizador para ver si el iframe fue bloqueado
+      const iframeCheckTimeout = setTimeout(() => {
+        setIframeBlocked(true); // Si en este tiempo no carga, consideramos que fue bloqueado
+      }, 3000); // Ajusta el tiempo según la velocidad de carga esperada
 
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [onPrev, onNext, onClose]);
+      return () => clearTimeout(iframeCheckTimeout); // Limpia el timeout cuando se desmonte
+    }
+  }, [anuncio.location]);
 
   const shareUrl = window.location.href;
   const title = anuncio.title;
@@ -156,18 +157,28 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
         </div>
         {anuncio.location && (
           <div className="modal-map">
-            <iframe
-              src={`https://www.google.com/maps?q=${encodeURIComponent(
-                anuncio.location
-              )}&output=embed`}
-              width="100%"
-              height="150"
-              frameBorder="0"
-              allowFullScreen=""
-              aria-hidden="false"
-              tabIndex="0"
-              title={`Mapa de la ubicación: ${anuncio.location}`}
-            ></iframe>
+            {!iframeBlocked ? (
+              <iframe
+                src={`https://www.google.com/maps?q=${encodeURIComponent(
+                  anuncio.location
+                )}&output=embed`}
+                width="100%"
+                height="250"
+                frameBorder="0"
+                allowFullScreen=""
+                aria-hidden="false"
+                tabIndex="0"
+                title={`Mapa de la ubicación: ${anuncio.location}`}
+              ></iframe>
+            ) : (
+              // Mostrar un mapa estático si el iframe es bloqueado
+              <img 
+                src={`https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(anuncio.location)}&zoom=15&size=600x300&markers=color:red%7C${encodeURIComponent(anuncio.location)}`} 
+                alt={`Mapa estático de la ubicación: ${anuncio.location}`} 
+                width="100%" 
+                height="250"
+              />
+            )}
           </div>
         )}
 
@@ -183,7 +194,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
               <button onClick={onPrev} className="modal-nav-button">
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>
-            <a href="https://Publicadis.com" className="admin-button" target="_blank" rel="noopener noreferrer">PublicAdis.com</a>
+              <a href="https://Publicadis.com" className="admin-button" target="_blank" rel="noopener noreferrer">PublicAdis.com</a>
               <button onClick={onNext} className="modal-nav-button">
                 <FontAwesomeIcon icon={faArrowRight} />
               </button>
