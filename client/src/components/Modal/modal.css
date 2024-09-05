@@ -37,6 +37,26 @@
   overflow-y: auto; /* Permite el scroll vertical si el contenido es mayor al tamaño máximo */
 }
 
+
+/* Flechas de navegación fuera del modal */
+.navigation-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5em;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.navigation-arrow-left {
+  left: 15px;
+}
+
+.navigation-arrow-right {
+  right: 15px;
+}
+
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -199,6 +219,15 @@
   .modal-content {
     width: 95%;
     max-height: 80vh; /* Asegura que el modal no ocupe toda la altura en mobile */
+  }
+
+  .navigation-arrow {
+    font-size: 1em;
+    color: #000;
+    border-radius: 50%;
+    padding: 5px 10px;
+    background: rgb(128, 128, 128, 0.5);
+    
   }
 
   .modal-title {

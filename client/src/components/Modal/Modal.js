@@ -24,12 +24,41 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [iframeBlocked, setIframeBlocked] = useState(false);
+  let touchStartX = 0;
 
   useEffect(() => {
     setIsOpen(true);
     const modalElement = document.getElementById("modal-content");
     if (modalElement) modalElement.focus();
-  }, []);
+
+    // Agregar evento de teclado para cambio de anuncio
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowLeft") {
+        onPrev();
+      } else if (e.key === "ArrowRight") {
+        onNext();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onPrev, onNext]);
+
+  const handleTouchStart = (e) => {
+    touchStartX = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    const touchEndX = e.touches[0].clientX;
+    if (touchStartX - touchEndX > 50) {
+      onNext();
+    } else if (touchEndX - touchStartX > 50) {
+      onPrev();
+    }
+  };
 
   const toggleShareMenu = (e) => {
     e.stopPropagation();
@@ -40,10 +69,6 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     navigator.clipboard.writeText(window.location.href);
     alert("Enlace copiado al portapapeles");
   };
-
-  // const handleSave = () => {
-  //   alert("Anuncio guardado");
-  // };
 
   const handleReport = () => {
     alert("Anuncio reportado");
@@ -75,6 +100,8 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     <div 
       className={`modal-overlay ${isOpen ? "show" : ""}`} 
       onClick={onClose}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
     >
       <div
         id="modal-content"
@@ -99,9 +126,6 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
             </p>
           </div>
           <div className="modal-header-icons">
-            {/* <button onClick={handleSave}>
-              <FontAwesomeIcon icon={faBookmark} />
-            </button> */}
             <button onClick={handleCopyLink}>
               <FontAwesomeIcon icon={faCopy} />
             </button>
@@ -188,18 +212,27 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
             adType={anuncio.adType}
             url={window.location.href}
           />
-          <div className="modal-navigation">
-            <div className="nav-buttons">
-              <button onClick={onPrev} className="modal-nav-button">
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </button>
-              <a href="https://Publicadis.com" className="admin-button" target="_blank" rel="noopener noreferrer">PublicAdis.com</a>
-              <button onClick={onNext} className="modal-nav-button">
-                <FontAwesomeIcon icon={faArrowRight} />
-              </button>
-            </div>
-          </div>
         </div>
+      </div>
+
+      {/* Flechas de navegación fuera del modal */}
+      <div
+        className="navigation-arrow navigation-arrow-left"
+        onClick={(e) => {
+          e.stopPropagation();
+          onPrev();
+        }}
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </div>
+      <div
+        className="navigation-arrow navigation-arrow-right"
+        onClick={(e) => {
+          e.stopPropagation();
+          onNext();
+        }}
+      >
+        <FontAwesomeIcon icon={faArrowRight} />
       </div>
     </div>
   );
