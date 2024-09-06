@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faShareAlt } from "@fortawesome/free-solid-svg-icons";
-import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faWhatsapp, faFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 import "./contactButtons.css";
 
 function ContactButton({ phone, type, adType, url }) {
   const isWhatsApp = type === "whatsapp";
-  const isEmail = type === "email";
   const isShare = type === "share";
 
   let message;
@@ -30,32 +29,16 @@ function ContactButton({ phone, type, adType, url }) {
 
   const href = isWhatsApp
     ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
-    : isShare
-    ? `https://wa.me/?text=${encodeURIComponent(`Mira esta oportunidad: ${url}`)}`
     : `tel:${phone}`;
 
-  const icon = isWhatsApp
-    ? faWhatsapp
-    : isShare
-    ? faShareAlt
-    : faPhone;
+  const icon = isWhatsApp ? faWhatsapp : faPhone;
 
-  const label = isWhatsApp
-    ? "WhatsApp"
-    : isShare
-    ? "Compartir"
-    : "Llamar";
-
-  const buttonClass = isWhatsApp
-    ? "contact-button--whatsapp"
-    : isShare
-    ? "contact-button--share"
-    : "contact-button--call";
+  const label = isWhatsApp ? "WhatsApp" : "Llamar";
 
   return (
     <a
       href={href}
-      className={`contact-button ${buttonClass}`}
+      className={`contact-button ${isWhatsApp ? "contact-button--whatsapp" : "contact-button--call"}`}
       aria-label={label}
       target="_blank"
       rel="noopener noreferrer"
@@ -66,21 +49,56 @@ function ContactButton({ phone, type, adType, url }) {
   );
 }
 
+function ShareButton({ url }) {
+  const [showShareOptions, setShowShareOptions] = useState(false);
+
+  const toggleShareOptions = () => setShowShareOptions(!showShareOptions);
+
+  const shareOptions = [
+    { label: 'WhatsApp', link: `https://wa.me/?text=${encodeURIComponent(`Mira esta oportunidad: ${url}`)}`, icon: faWhatsapp },
+    { label: 'Facebook', link: `https://www.facebook.com/sharer/sharer.php?u=${url}`, icon: faFacebook },
+    { label: 'Twitter', link: `https://twitter.com/intent/tweet?url=${url}`, icon: faTwitter },
+    { label: 'Copiar enlace', link: '#', icon: faShareAlt, onClick: () => navigator.clipboard.writeText(url) }
+  ];
+
+  return (
+    <div className="share-button-container">
+      <button onClick={toggleShareOptions} className="contact-button contact-button--share">
+        <FontAwesomeIcon icon={faShareAlt} /> Compartir
+      </button>
+      {showShareOptions && (
+        <div className="share-options">
+          {shareOptions.map((option, index) => (
+            <a
+              key={index}
+              href={option.link}
+              onClick={option.onClick}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="share-option"
+            >
+              <FontAwesomeIcon icon={option.icon} /> {option.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ContactButtons({ phone, phone2, adType, url }) {
   return (
     <div className="contact-buttons-container">
       <div className="contact-button-group">
         {/* Botón de llamada */}
-        <ContactButton phone={phone} type="call" adType={adType} url={url} />
-        {phone2 && (
-          <ContactButton phone={phone2} type="call" adType={adType} url={url} />
-        )}
+        {phone && <ContactButton phone={phone} type="call" adType={adType} url={url} />}
+        {phone2 && <ContactButton phone={phone2} type="call" adType={adType} url={url} />}
 
         {/* Botón de compartir */}
-        <ContactButton type="share" adType={adType} url={url} />
+        <ShareButton url={url} />
 
         {/* Botón de WhatsApp */}
-        <ContactButton phone={phone} type="whatsapp" adType={adType} url={url} />
+        {phone && <ContactButton phone={phone} type="whatsapp" adType={adType} url={url} />}
         {phone2 && (
           <ContactButton phone={phone2} type="whatsapp" adType={adType} url={url} />
         )}

@@ -6,7 +6,7 @@
   --button-shadow-color: rgba(0, 0, 0, 0.15);
   --button-hover-shadow-color: rgba(0, 0, 0, 0.25);
   --button-text-color: #fff;
-  --button-border-radius: 8px;
+  --button-border-radius: 12px;
   --button-font-size: 1rem;
 }
 
@@ -71,6 +71,35 @@
 
 .contact-button--share:hover {
   background-color: #0056b3;
+}
+
+.share-button-container {
+  position: relative;
+}
+
+.share-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.share-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  padding: 10px 0;
+  text-decoration: none;
+}
+
+.share-option:hover {
+  background-color: #f0f0f0;
 }
 
 @media (max-width: 600px) {
