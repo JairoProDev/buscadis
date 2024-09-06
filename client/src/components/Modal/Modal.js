@@ -9,6 +9,11 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [iframeBlocked, setIframeBlocked] = useState(false);
+  const [activeRightTab, setActiveRightTab] = useState("detalles"); // Para manejar las pestañas de la derecha
+  const [viewCount, setViewCount] = useState(250); // Simulación de vistas
+  const [applicationsCount, setApplicationsCount] = useState(15); // Simulación de aplicaciones
+  const [availablePositions, setAvailablePositions] = useState(2); // Posiciones disponibles
+  
   let touchStartX = 0;
 
   useEffect(() => {
@@ -139,17 +144,22 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
                 <div className="business-name">
                   <p>{anuncio.businessName ? anuncio.businessName : anuncio.adType} disponibles en Buscadis:</p>
                 </div>
-
               </div>
               <div className="modal-description" id="modal-description">
-              <QRCodeCanvas className="qr-code-description" value={shareUrl} size={100} />
-              <p>{anuncio.description.replace(/\d{9}/g, "")}</p>
+                <QRCodeCanvas className="qr-code-description" value={shareUrl} size={100} />
+                <p>{anuncio.description.replace(/\d{9}/g, "")}</p>
               </div>
             </div>
 
-            {/* Columna derecha: Mapas/Imágenes */}
+            {/* Columna derecha: Mapas/Imágenes/Detalles */}
             <div className="modal-right">
-              {anuncio.location && (
+              <div className="right-tabs">
+                <button onClick={() => setActiveRightTab("detalles")}>Detalles</button>
+                <button onClick={() => setActiveRightTab("mapa")}>Mapa</button>
+                <button onClick={() => setActiveRightTab("imagenes")}>Imágenes</button>
+              </div>
+
+              {activeRightTab === "mapa" && (
                 <div className="modal-map">
                   {!iframeBlocked ? (
                     <iframe
@@ -171,6 +181,24 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
                       Ver ubicación en Google Maps
                     </a>
                   )}
+                </div>
+              )}
+
+              {activeRightTab === "imagenes" && (
+                <div className="modal-images">
+                  <img src={anuncio.image1} alt="Imagen 1" />
+                  <img src={anuncio.image2} alt="Imagen 2" />
+                </div>
+              )}
+
+              {activeRightTab === "detalles" && (
+                <div className="detalles-content">
+                  <p><strong>Estadísticas:</strong></p>
+                  <ul>
+                    <li>{viewCount} personas han visto este anuncio.</li>
+                    <li>{applicationsCount} personas han aplicado.</li>
+                    <li>{availablePositions} posiciones disponibles.</li>
+                  </ul>
                 </div>
               )}
             </div>

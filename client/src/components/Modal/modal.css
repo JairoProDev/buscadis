@@ -18,7 +18,7 @@
 }
 
 .modal-content {
-  background-color: #f0f4ff; /* Color de fondo restaurado */
+  background-color: #f0f4ff;
   padding: 20px;
   border-radius: 18px;
   width: 90%;
@@ -108,10 +108,6 @@
 
 .modal-options li:hover {
   background-color: #f0f0f0;
-}
-
-.modal-options li svg {
-  margin-right: 8px;
 }
 
 .modal-title {
@@ -245,6 +241,7 @@
 }
 
 /* Para dividir la descripción y el mapa en columnas */
+
 .modal-description-map {
   display: flex;
   gap: 20px;
@@ -269,19 +266,58 @@
 }
 
 .modal-map {
-  flex-grow: 1; /* Permite que el mapa ocupe el espacio restante */
-  height: 100%; /* Asegura que el mapa ocupe toda la altura */
+  flex-grow: 1;
+  height: 100%;
   width: 100%;
 }
 
-/* Aseguramos que el iframe (mapa) también ocupe toda la altura del contenedor */
 .modal-map iframe {
-  height: 100%; /* El iframe ocupa toda la altura disponible */
-  width: 100%; /* Asegura que el iframe sea del 100% de ancho */
+  height: 100%;
+  width: 100%;
   border: none;
 }
 
+.qr-code-description {
+  float: left;
+  margin-right: 10px;
+  width: 120px;
+  height: 120px;
+}
 
+.right-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.right-tabs button {
+  flex: 1;
+  padding: 10px;
+  background-color: #f0f4ff;
+  border: none;
+  cursor: pointer;
+}
+
+.right-tabs button:hover {
+  background-color: #007bff;
+}
+
+.modal-map iframe, .modal-images img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.imagenes-carousel img {
+  width: 100%;
+  height: auto;
+}
+
+.detalles-content {
+  padding: 20px;
+}
+
+/* Responsive Design */
 /* Estilos para pantallas pequeñas (móviles) */
 @media (max-width: 600px) {
   .modal-content {
@@ -323,7 +359,6 @@
   }
 
   .modal-map {
-    margin-top: 20px; /* Añade espacio entre la descripción y el mapa */
     height: auto; /* Permite que el mapa se ajuste automáticamente a su contenido */
   }
 
