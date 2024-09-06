@@ -73,15 +73,15 @@ function ContactButtons({ phone, phone2, email, adType, url }) {
         <div className="contact-button-row">
           <h4>Contacto 1:</h4>
           <div className="contact-button-group">
-            <ContactButton
+          <ContactButton
               phone={phone}
-              type="whatsapp"
+              type="call"
               adType={adType}
               url={url}
             />
             <ContactButton
               phone={phone}
-              type="call"
+              type="whatsapp"
               adType={adType}
               url={url}
             />
@@ -92,15 +92,15 @@ function ContactButtons({ phone, phone2, email, adType, url }) {
         <div className="contact-button-row">
           <h4>Contacto 2:</h4>
           <div className="contact-button-group">
-            <ContactButton
+          <ContactButton
               phone={phone2}
-              type="whatsapp"
+              type="call"
               adType={adType}
               url={url}
             />
             <ContactButton
               phone={phone2}
-              type="call"
+              type="whatsapp"
               adType={adType}
               url={url}
             />
