@@ -151,7 +151,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
               </div>
             </div>
 
-            {/* Columna derecha: Mapas/Imágenes/Detalles */}
+            {{/* Columna derecha: Mapas/Imágenes/Detalles *}
             <div className="modal-right">
               <div className="right-tabs">
                 <button onClick={() => setActiveRightTab("detalles")}>Detalles</button>
@@ -207,6 +207,12 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
         <div className="modal-footer">
           <ContactButtons
+            phone
+          </div>
+        </div>
+
+        <div className="modal-footer">
+          <ContactButtons
             phone={anuncio.phone}
             phone2={anuncio.phone2}
             adType={anuncio.adType}
@@ -216,7 +222,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
       </div>
 
       <div className="navigation-arrow navigation-arrow-left" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
-        <FontAwesomeIcon icon={faArrowLeft} />
+    <FontAwesomeIcon icon={faArrowLeft} />
       </div>
       <div className="navigation-arrow navigation-arrow-right" onClick={(e) => { e.stopPropagation(); onNext(); }}>
         <FontAwesomeIcon icon={faArrowRight} />
