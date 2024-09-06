@@ -5,6 +5,7 @@
   --button-text-color: #fff;
   --button-border-radius: 12px;
   --button-font-size: 1rem;
+  --button-icon-size: 1.2rem;  /* Uniformamos el tamaño del icono */
   --button-shadow-color: rgba(0, 0, 0, 0.15);
   --button-hover-shadow-color: rgba(0, 0, 0, 0.25);
 }
@@ -42,15 +43,17 @@
   box-shadow: 0px 2px 5px var(--button-shadow-color);
   transition: background-color 0.3s, transform 0.3s;
   margin: 0 5px;
-}
-
-.contact-button.small-icon {
-  padding: 8px 10px;
-  font-size: 1.2rem;
+  min-width: 60px;  /* Aseguramos que todos los botones tengan el mismo ancho mínimo */
 }
 
 .contact-button svg {
+  font-size: var(--button-icon-size); /* Ajustamos el tamaño del icono */
   margin-right: 8px;
+}
+
+.contact-button.small-icon {
+  padding: 8px 12px;
+  font-size: 1rem;
 }
 
 .contact-button--call {
@@ -58,7 +61,6 @@
 }
 
 .contact-button--whatsapp {
-  font-size: 1.2rem;
   background-color: var(--button-whatsapp-color);
 }
 
@@ -91,18 +93,13 @@
   }
 
   .contact-button-group {
-    justify-content: center; /* Centrar los botones */
-  }
-
-  .contact-button--call .button-label {
-    display: inline-block;
-    font-size: 1rem;
+    justify-content: center;
   }
 
   /* El botón "Llamar" se vuelve "1" en móviles */
   .contact-button--call .button-label {
-    content: "1";
     display: inline-block;
+    font-size: 1rem;
   }
 
   .contact-button--whatsapp .button-label {
