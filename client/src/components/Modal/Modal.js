@@ -9,7 +9,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [iframeBlocked, setIframeBlocked] = useState(false);
-  const [activeRightTab, setActiveRightTab] = useState("detalles"); // Para manejar las pestañas de la derecha
+  const [activeRightTab, setActiveRightTab] = useState("detalles");
   const [viewCount, setViewCount] = useState(250); // Simulación de vistas
   const [applicationsCount, setApplicationsCount] = useState(15); // Simulación de aplicaciones
   const [availablePositions, setAvailablePositions] = useState(2); // Posiciones disponibles
@@ -151,12 +151,12 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
               </div>
             </div>
 
-            {{/* Columna derecha: Mapas/Imágenes/Detalles *}
+            {/* Columna derecha: Mapas/Imágenes/Detalles */}
             <div className="modal-right">
               <div className="right-tabs">
-                <button onClick={() => setActiveRightTab("detalles")}>Detalles</button>
-                <button onClick={() => setActiveRightTab("mapa")}>Mapa</button>
-                <button onClick={() => setActiveRightTab("imagenes")}>Imágenes</button>
+                <button className={activeRightTab === "detalles" ? "active" : ""} onClick={() => setActiveRightTab("detalles")}>Detalles</button>
+                <button className={activeRightTab === "mapa" ? "active" : ""} onClick={() => setActiveRightTab("mapa")}>Mapa</button>
+                <button className={activeRightTab === "imagenes" ? "active" : ""} onClick={() => setActiveRightTab("imagenes")}>Imágenes</button>
               </div>
 
               {activeRightTab === "mapa" && (
@@ -186,8 +186,14 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
               {activeRightTab === "imagenes" && (
                 <div className="modal-images">
-                  <img src={anuncio.image1} alt="Imagen 1" />
-                  <img src={anuncio.image2} alt="Imagen 2" />
+                  {anuncio.image1 ? (
+                    <>
+                      <img src={anuncio.image1} alt="Imagen 1" />
+                      <img src={anuncio.image2} alt="Imagen 2" />
+                    </>
+                  ) : (
+                    <p>Este anuncio no tiene imágenes.</p>
+                  )}
                 </div>
               )}
 
@@ -207,12 +213,6 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
         <div className="modal-footer">
           <ContactButtons
-            phone
-          </div>
-        </div>
-
-        <div className="modal-footer">
-          <ContactButtons
             phone={anuncio.phone}
             phone2={anuncio.phone2}
             adType={anuncio.adType}
@@ -220,13 +220,12 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
           />
         </div>
       </div>
-
-      <div className="navigation-arrow navigation-arrow-left" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
-    <FontAwesomeIcon icon={faArrowLeft} />
-      </div>
-      <div className="navigation-arrow navigation-arrow-right" onClick={(e) => { e.stopPropagation(); onNext(); }}>
-        <FontAwesomeIcon icon={faArrowRight} />
-      </div>
+        <div className="navigation-arrow navigation-arrow-left" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </div>
+        <div className="navigation-arrow navigation-arrow-right" onClick={(e) => { e.stopPropagation(); onNext(); }}>
+          <FontAwesomeIcon icon={faArrowRight} />
+        </div>
     </div>
   );
 }

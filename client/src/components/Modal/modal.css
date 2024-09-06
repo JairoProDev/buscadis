@@ -126,11 +126,6 @@
   border-radius: 10px;
 }
 
-.modal-info {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
 .modal-footer {
   display: flex;
   flex-direction: column;
@@ -296,13 +291,22 @@
   background-color: #f0f4ff;
   border: none;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.right-tabs button.active {
+  background-color: #007bff;
+  color: white;
 }
 
 .right-tabs button:hover {
   background-color: #007bff;
+  color: white;
 }
 
-.modal-map iframe, .modal-images img {
+/* Mapa, Imágenes, Detalles */
+.modal-map iframe,
+.modal-images img {
   width: 100%;
   height: auto;
   border-radius: 10px;
@@ -317,12 +321,36 @@
   padding: 20px;
 }
 
+.qr-code-description {
+  float: left;
+  margin-right: 10px;
+  width: 120px;
+  height: 120px;
+}
+
+.modal-business-info {
+  display: flex;
+  align-items: center;
+}
+
+.modal-business-info img {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+}
+
+.business-name {
+  margin-left: 10px;
+  font-size: 1em;
+  font-weight: bold;
+  color: #007bff;
+}
+
 /* Responsive Design */
-/* Estilos para pantallas pequeñas (móviles) */
 @media (max-width: 600px) {
   .modal-content {
     width: 95%;
-    max-height: 80vh; /* Asegura que el modal no ocupe toda la altura en mobile */
+    max-height: 80vh;
   }
 
   .navigation-arrow {
@@ -348,23 +376,23 @@
   .modal-header-link {
     font-size: 1em;
   }
-  /* Aquí es donde se ajusta la disposición para pantallas móviles */
+
   .modal-description-map {
-    flex-direction: column; /* Apila la descripción y el mapa verticalmente en móviles */
+    flex-direction: column;
     gap: 0;
   }
 
   .modal-left, .modal-right {
-    width: 100%; /* Ocupan todo el ancho */
+    width: 100%;
   }
 
   .modal-map {
-    height: auto; /* Permite que el mapa se ajuste automáticamente a su contenido */
+    height: auto;
   }
 
   .qr-code-description {
-    margin-right: 10px; /* Mantiene el QR alineado a la izquierda */
-    width: 100px; /* Ajusta el tamaño del QR en pantallas pequeñas */
+    margin-right: 10px;
+    width: 100px;
     height: 100px;
   }
 }
