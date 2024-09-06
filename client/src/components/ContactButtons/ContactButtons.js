@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faShareAlt } from "@fortawesome/free-solid-svg-icons";
-import { faWhatsapp, faFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons";
-
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import "./contactButtons.css";
 
-function ContactButton({ phone, type, adType, url }) {
-  const isWhatsApp = type === "whatsapp";
-  const isShare = type === "share";
-
+function ContactButton({ phone, phone2, type, adType, url }) {
   let message;
   switch (adType) {
     case "Vehicles":
@@ -27,60 +23,38 @@ function ContactButton({ phone, type, adType, url }) {
       message = `Buen día, vi su aviso aquí: ${url} y me interesa, podría proporcionarme más información por favor?`;
   }
 
-  const href = isWhatsApp
+  const href = type === "whatsapp"
     ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
     : `tel:${phone}`;
 
-  const icon = isWhatsApp ? faWhatsapp : faPhone;
+  const href2 = phone2 && (type === "whatsapp"
+    ? `https://wa.me/${phone2}?text=${encodeURIComponent(message)}`
+    : `tel:${phone2}`);
 
-  const label = isWhatsApp ? "WhatsApp" : "Llamar";
-
-  return (
-    <a
-      href={href}
-      className={`contact-button ${isWhatsApp ? "contact-button--whatsapp" : "contact-button--call"}`}
-      aria-label={label}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <FontAwesomeIcon icon={icon} />
-      {label}
-    </a>
-  );
-}
-
-function ShareButton({ url }) {
-  const [showShareOptions, setShowShareOptions] = useState(false);
-
-  const toggleShareOptions = () => setShowShareOptions(!showShareOptions);
-
-  const shareOptions = [
-    { label: 'WhatsApp', link: `https://wa.me/?text=${encodeURIComponent(`Mira esta oportunidad: ${url}`)}`, icon: faWhatsapp },
-    { label: 'Facebook', link: `https://www.facebook.com/sharer/sharer.php?u=${url}`, icon: faFacebook },
-    { label: 'Twitter', link: `https://twitter.com/intent/tweet?url=${url}`, icon: faTwitter },
-    { label: 'Copiar enlace', link: '#', icon: faShareAlt, onClick: () => navigator.clipboard.writeText(url) }
-  ];
+  const icon = type === "whatsapp" ? faWhatsapp : faPhone;
+  const label = type === "whatsapp" ? "WhatsApp" : "Llamar";
 
   return (
-    <div className="share-button-container">
-      <button onClick={toggleShareOptions} className="contact-button contact-button--share">
-        <FontAwesomeIcon icon={faShareAlt} /> Compartir
-      </button>
-      {showShareOptions && (
-        <div className="share-options">
-          {shareOptions.map((option, index) => (
-            <a
-              key={index}
-              href={option.link}
-              onClick={option.onClick}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="share-option"
-            >
-              <FontAwesomeIcon icon={option.icon} /> {option.label}
-            </a>
-          ))}
-        </div>
+    <div className="contact-button-wrapper">
+      <a
+        href={href}
+        className={`contact-button ${type === "whatsapp" ? "contact-button--whatsapp" : "contact-button--call"}`}
+        aria-label={label}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FontAwesomeIcon icon={icon} /> {label}
+      </a>
+      {phone2 && (
+        <a
+          href={href2}
+          className={`contact-button small-icon ${type === "whatsapp" ? "contact-button--whatsapp" : "contact-button--call"}`}
+          aria-label={`${label} 2`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FontAwesomeIcon icon={icon} /> 2
+        </a>
       )}
     </div>
   );
@@ -90,18 +64,21 @@ function ContactButtons({ phone, phone2, adType, url }) {
   return (
     <div className="contact-buttons-container">
       <div className="contact-button-group">
-        {/* Botón de llamada */}
-        {phone && <ContactButton phone={phone} type="call" adType={adType} url={url} />}
-        {phone2 && <ContactButton phone={phone2} type="call" adType={adType} url={url} />}
+        {/* Botones de llamada */}
+        <ContactButton phone={phone} phone2={phone2} type="call" adType={adType} url={url} />
 
         {/* Botón de compartir */}
-        <ShareButton url={url} />
+        <a
+          href={`https://wa.me/?text=${encodeURIComponent(`Mira esta oportunidad: ${url}`)}`}
+          className="contact-button contact-button--share"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FontAwesomeIcon icon={faShareAlt} /> Compartir
+        </a>
 
-        {/* Botón de WhatsApp */}
-        {phone && <ContactButton phone={phone} type="whatsapp" adType={adType} url={url} />}
-        {phone2 && (
-          <ContactButton phone={phone2} type="whatsapp" adType={adType} url={url} />
-        )}
+        {/* Botones de WhatsApp */}
+        <ContactButton phone={phone} phone2={phone2} type="whatsapp" adType={adType} url={url} />
       </div>
     </div>
   );

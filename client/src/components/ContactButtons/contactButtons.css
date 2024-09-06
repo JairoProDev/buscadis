@@ -2,12 +2,11 @@
   --button-call-color: #28a745;
   --button-whatsapp-color: #25D366;
   --button-share-color: #007bff;
-  --button-background: #fff;
-  --button-shadow-color: rgba(0, 0, 0, 0.15);
-  --button-hover-shadow-color: rgba(0, 0, 0, 0.25);
   --button-text-color: #fff;
   --button-border-radius: 12px;
   --button-font-size: 1rem;
+  --button-shadow-color: rgba(0, 0, 0, 0.15);
+  --button-hover-shadow-color: rgba(0, 0, 0, 0.25);
 }
 
 .contact-buttons-container {
@@ -15,15 +14,19 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 15px 0;
-  border-top: 1px solid #e0e0e0;
-  background-color: #f9f9f9;
+  padding: 0;
+  border-top: none;
 }
 
 .contact-button-group {
   display: flex;
   justify-content: space-around;
   width: 100%;
+}
+
+.contact-button-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 .contact-button {
@@ -38,6 +41,11 @@
   box-shadow: 0px 2px 5px var(--button-shadow-color);
   transition: background-color 0.3s, transform 0.3s;
   margin: 0 5px;
+}
+
+.contact-button.small-icon {
+  padding: 8px 12px;
+  font-size: 0.9rem;
 }
 
 .contact-button svg {
@@ -71,35 +79,6 @@
 
 .contact-button--share:hover {
   background-color: #0056b3;
-}
-
-.share-button-container {
-  position: relative;
-}
-
-.share-options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: absolute;
-  background-color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  padding: 10px;
-  border-radius: 8px;
-  z-index: 1;
-}
-
-.share-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-  padding: 10px 0;
-  text-decoration: none;
-}
-
-.share-option:hover {
-  background-color: #f0f0f0;
 }
 
 @media (max-width: 600px) {
