@@ -7,6 +7,7 @@ import "./contactButtons.css";
 
 function ContactButton({ phone, type, adType, url }) {
   const isWhatsApp = type === "whatsapp";
+  const isEmail = type === "email";
   const isShare = type === "share";
 
   let message;
@@ -30,7 +31,7 @@ function ContactButton({ phone, type, adType, url }) {
   const href = isWhatsApp
     ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
     : isShare
-    ? `https://wa.me/?text=${encodeURIComponent(`Mira este anuncio: ${url}`)}`
+    ? `https://wa.me/?text=${encodeURIComponent(`Mira esta oportunidad: ${url}`)}`
     : `tel:${phone}`;
 
   const icon = isWhatsApp
@@ -80,6 +81,9 @@ function ContactButtons({ phone, phone2, adType, url }) {
 
         {/* Botón de WhatsApp */}
         <ContactButton phone={phone} type="whatsapp" adType={adType} url={url} />
+        {phone2 && (
+          <ContactButton phone={phone2} type="whatsapp" adType={adType} url={url} />
+        )}
       </div>
     </div>
   );
