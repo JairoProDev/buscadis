@@ -85,7 +85,15 @@
   background-color: #0056b3;
 }
 
-/* Ocultar texto y cambiar el label de "Llamar" a "1" en pantallas pequeñas */
+.desktop-label {
+  display: inline; /* Visible en pantallas grandes */
+}
+
+.mobile-label {
+  display: none; /* Oculto en pantallas grandes */
+}
+
+/* En pantallas móviles */
 @media (max-width: 600px) {
   .contact-button {
     font-size: 0.9rem;
@@ -93,22 +101,14 @@
   }
 
   .contact-button-group {
-    justify-content: center;
+    justify-content: center; /* Centrar los botones */
   }
 
-  /* El botón "Llamar" se vuelve "1" en móviles */
-  .contact-button--call .button-label {
-    display: inline-block;
-    font-size: 1rem;
+  .desktop-label {
+    display: none; /* Ocultamos en móviles */
   }
 
-  .contact-button--whatsapp .button-label {
-    content: "1";
-    display: inline-block;
-  }
-
-  /* Ocultar el texto de "Compartir" en pantallas pequeñas */
-  .contact-button--share .button-label {
-    display: none;
+  .mobile-label {
+    display: inline; /* Mostramos "1" o "2" en móviles */
   }
 }

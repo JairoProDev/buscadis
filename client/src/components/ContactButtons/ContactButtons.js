@@ -44,7 +44,8 @@ function ContactButton({ phone, phone2, type, adType, url }) {
         rel="noopener noreferrer"
       >
         <FontAwesomeIcon icon={icon} />
-        <span className="button-label">1</span> {/* En pantallas pequeñas, será "1" */}
+        <span className="button-label desktop-label">{label}</span> {/* Texto en desktop */}
+        <span className="button-label mobile-label">1</span> {/* Texto en mobile */}
       </a>
       {phone2 && (
         <a
@@ -54,7 +55,9 @@ function ContactButton({ phone, phone2, type, adType, url }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon icon={icon} /> 2
+          <FontAwesomeIcon icon={icon} />
+          <span className="button-label desktop-label">{label} 2</span> {/* Texto en desktop */}
+          <span className="button-label mobile-label">2</span> {/* Texto en mobile */}
         </a>
       )}
     </div>
@@ -76,7 +79,8 @@ function ContactButtons({ phone, phone2, adType, url }) {
           rel="noopener noreferrer"
         >
           <FontAwesomeIcon icon={faShareAlt} />
-          <span className="button-label">Compartir</span>
+          <span className="button-label desktop-label">Compartir</span>
+          <span className="button-label mobile-label"> </span>
         </a>
 
         {/* Botones de WhatsApp */}
