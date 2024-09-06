@@ -1,12 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faShareAlt } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+
 import "./contactButtons.css";
 
 function ContactButton({ phone, type, adType, url }) {
   const isWhatsApp = type === "whatsapp";
-  const isEmail = type === "email";
+  const isShare = type === "share";
 
   let message;
   switch (adType) {
@@ -28,26 +29,26 @@ function ContactButton({ phone, type, adType, url }) {
 
   const href = isWhatsApp
     ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
-    : isEmail
-    ? `mailto:${phone}`
+    : isShare
+    ? `https://wa.me/?text=${encodeURIComponent(`Mira este anuncio: ${url}`)}`
     : `tel:${phone}`;
 
   const icon = isWhatsApp
     ? faWhatsapp
-    : isEmail
-    ? faEnvelope
+    : isShare
+    ? faShareAlt
     : faPhone;
-    
+
   const label = isWhatsApp
-    ? "Contactar por WhatsApp"
-    : isEmail
-    ? "Enviar Email"
+    ? "WhatsApp"
+    : isShare
+    ? "Compartir"
     : "Llamar";
-    
+
   const buttonClass = isWhatsApp
     ? "contact-button--whatsapp"
-    : isEmail
-    ? "contact-button--email"
+    : isShare
+    ? "contact-button--share"
     : "contact-button--call";
 
   return (
@@ -64,60 +65,22 @@ function ContactButton({ phone, type, adType, url }) {
   );
 }
 
-function ContactButtons({ phone, phone2, email, adType, url }) {
-  if (!phone && !phone2 && !email) return null;
-
+function ContactButtons({ phone, phone2, adType, url }) {
   return (
     <div className="contact-buttons-container">
-      {phone && (
-        <div className="contact-button-row">
-          <h4>Contacto 1:</h4>
-          <div className="contact-button-group">
-          <ContactButton
-              phone={phone}
-              type="call"
-              adType={adType}
-              url={url}
-            />
-            <ContactButton
-              phone={phone}
-              type="whatsapp"
-              adType={adType}
-              url={url}
-            />
-          </div>
-        </div>
-      )}
-      {phone2 && (
-        <div className="contact-button-row">
-          <h4>Contacto 2:</h4>
-          <div className="contact-button-group">
-          <ContactButton
-              phone={phone2}
-              type="call"
-              adType={adType}
-              url={url}
-            />
-            <ContactButton
-              phone={phone2}
-              type="whatsapp"
-              adType={adType}
-              url={url}
-            />
-          </div>
-        </div>
-      )}
-      {email && (
-        <div className="contact-button-group">
-          <h4>Contacto por Email:</h4>
-          <ContactButton
-            phone={email}
-            type="email"
-            adType={adType}
-            url={url}
-          />
-        </div>
-      )}
+      <div className="contact-button-group">
+        {/* Botón de llamada */}
+        <ContactButton phone={phone} type="call" adType={adType} url={url} />
+        {phone2 && (
+          <ContactButton phone={phone2} type="call" adType={adType} url={url} />
+        )}
+
+        {/* Botón de compartir */}
+        <ContactButton type="share" adType={adType} url={url} />
+
+        {/* Botón de WhatsApp */}
+        <ContactButton phone={phone} type="whatsapp" adType={adType} url={url} />
+      </div>
     </div>
   );
 }

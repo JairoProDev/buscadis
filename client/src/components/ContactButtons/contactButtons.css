@@ -1,31 +1,28 @@
 :root {
   --button-call-color: #28a745;
   --button-whatsapp-color: #25D366;
+  --button-share-color: #007bff;
   --button-background: #fff;
   --button-shadow-color: rgba(0, 0, 0, 0.15);
   --button-hover-shadow-color: rgba(0, 0, 0, 0.25);
   --button-text-color: #fff;
-  --button-border-radius: 12px;
+  --button-border-radius: 8px;
   --button-font-size: 1rem;
 }
 
 .contact-buttons-container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 15px 0;
-}
-
-.contact-button-row {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  border-top: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
 }
 
 .contact-button-group {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
 }
 
@@ -33,15 +30,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 15px;
+  padding: 12px 20px;
   color: var(--button-text-color);
   border-radius: var(--button-border-radius);
   font-size: var(--button-font-size);
   text-decoration: none;
   box-shadow: 0px 2px 5px var(--button-shadow-color);
   transition: background-color 0.3s, transform 0.3s;
-  margin-bottom: 10px;
-  flex: 0 0 auto; /* Ajusta el tamaño del botón al contenido */
+  margin: 0 5px;
 }
 
 .contact-button svg {
@@ -50,12 +46,14 @@
 
 .contact-button--call {
   background-color: var(--button-call-color);
-  padding: 10px 20px; /* Ajuste para el botón de llamada */
 }
 
 .contact-button--whatsapp {
   background-color: var(--button-whatsapp-color);
-  padding: 10px 25px; /* Ajuste para el botón de WhatsApp */
+}
+
+.contact-button--share {
+  background-color: var(--button-share-color);
 }
 
 .contact-button:hover {
@@ -63,28 +61,16 @@
   box-shadow: 0px 4px 15px var(--button-hover-shadow-color);
 }
 
-.contact-button--whatsapp:hover {
-  background-color: #20c354;
-}
-
 .contact-button--call:hover {
   background-color: #218838;
 }
 
-.admin-button {
-  background-color: #007bff;
-  color: #fff;
-  border-radius: var(--button-border-radius);
-  padding: 8px 12px;
-  text-align: center;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.3s;
+.contact-button--whatsapp:hover {
+  background-color: #20c354;
 }
 
-.admin-button:hover {
+.contact-button--share:hover {
   background-color: #0056b3;
-  transform: translateY(-4px);
 }
 
 @media (max-width: 600px) {
