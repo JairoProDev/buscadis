@@ -137,7 +137,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
                   />
                 </div>
                 <div className="business-name">
-                  <p>{anuncio.businessName ? anuncio.businessName : anuncio.adType}</p>
+                  <p>{anuncio.businessName ? anuncio.businessName : anuncio.adType} disponibles en Buscadis:</p>
                 </div>
 
               </div>
