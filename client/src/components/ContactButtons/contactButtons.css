@@ -22,6 +22,7 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
+  align-items: center;
 }
 
 .contact-button-wrapper {
@@ -33,7 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 20px;
+  padding: 10px 15px;
   color: var(--button-text-color);
   border-radius: var(--button-border-radius);
   font-size: var(--button-font-size);
@@ -44,8 +45,8 @@
 }
 
 .contact-button.small-icon {
-  padding: 8px 12px;
-  font-size: 0.9rem;
+  padding: 8px 10px;
+  font-size: 1.2rem;
 }
 
 .contact-button svg {
@@ -57,6 +58,7 @@
 }
 
 .contact-button--whatsapp {
+  font-size: 1.2rem;
   background-color: var(--button-whatsapp-color);
 }
 
@@ -81,9 +83,35 @@
   background-color: #0056b3;
 }
 
+/* Ocultar texto y cambiar el label de "Llamar" a "1" en pantallas pequeñas */
 @media (max-width: 600px) {
   .contact-button {
     font-size: 0.9rem;
-    padding: 8px 12px;
+    padding: 8px 10px;
+  }
+
+  .contact-button-group {
+    justify-content: center; /* Centrar los botones */
+  }
+
+  .contact-button--call .button-label {
+    display: inline-block;
+    font-size: 1rem;
+  }
+
+  /* El botón "Llamar" se vuelve "1" en móviles */
+  .contact-button--call .button-label {
+    content: "1";
+    display: inline-block;
+  }
+
+  .contact-button--whatsapp .button-label {
+    content: "1";
+    display: inline-block;
+  }
+
+  /* Ocultar el texto de "Compartir" en pantallas pequeñas */
+  .contact-button--share .button-label {
+    display: none;
   }
 }

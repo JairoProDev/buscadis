@@ -43,7 +43,8 @@ function ContactButton({ phone, phone2, type, adType, url }) {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <FontAwesomeIcon icon={icon} /> {label}
+        <FontAwesomeIcon icon={icon} />
+        <span className="button-label">1</span> {/* En pantallas pequeñas, será "1" */}
       </a>
       {phone2 && (
         <a
@@ -74,7 +75,8 @@ function ContactButtons({ phone, phone2, adType, url }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon icon={faShareAlt} /> Compartir
+          <FontAwesomeIcon icon={faShareAlt} />
+          <span className="button-label">Compartir</span>
         </a>
 
         {/* Botones de WhatsApp */}
