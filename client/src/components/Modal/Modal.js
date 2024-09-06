@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { 
-  faShareAlt, 
-  faFlag,  
-  faCopy, 
-  faArrowLeft, 
-  faArrowRight 
-} from "@fortawesome/free-solid-svg-icons";
-import { 
-  faFacebook, 
-  faTwitter, 
-  faWhatsapp 
-} from "@fortawesome/free-brands-svg-icons";
-import "./modal.css";
+import { faEllipsisV, faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { QRCodeCanvas } from "qrcode.react";
 import ContactButtons from "../ContactButtons/ContactButtons";
-import { 
-  FacebookShareButton, 
-  TwitterShareButton, 
-  WhatsappShareButton 
-} from "react-share";
+import "./modal.css";
 
 function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +16,6 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     const modalElement = document.getElementById("modal-content");
     if (modalElement) modalElement.focus();
 
-    // Agregar evento de teclado para cambio de anuncio
     const handleKeyDown = (e) => {
       if (e.key === "ArrowLeft") {
         onPrev();
@@ -65,31 +49,28 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     setIsShareOpen(!isShareOpen);
   };
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    alert("Enlace copiado al portapapeles");
-  };
+  const formattedDate = new Date(anuncio.createdAt).toLocaleDateString("es-ES", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+  const formattedTime = new Date(anuncio.createdAt).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
-  const handleReport = () => {
-    alert("Anuncio reportado");
-  };
-
-  // Detectar si estamos dentro de un WebView
   const isWebView = () => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     return (userAgent.includes('wv') || userAgent.includes('WebView')) || 
            (userAgent.includes('Android') && userAgent.includes('Chrome') && userAgent.includes('Version'));
   };
 
-  // Si estamos en un WebView, probar si el iframe carga o es bloqueado
   useEffect(() => {
     if (isWebView() && anuncio.location) {
-      // Usamos un temporizador para ver si el iframe fue bloqueado
       const iframeCheckTimeout = setTimeout(() => {
-        setIframeBlocked(true); // Si en este tiempo no carga, consideramos que fue bloqueado
-      }, 3000); // Ajusta el tiempo según la velocidad de carga esperada
-
-      return () => clearTimeout(iframeCheckTimeout); // Limpia el timeout cuando se desmonte
+        setIframeBlocked(true);
+      }, 3000);
+      return () => clearTimeout(iframeCheckTimeout);
     }
   }, [anuncio.location]);
 
@@ -113,97 +94,88 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-header">
-          <div className="modal-header-info">
-            <p className="ad-card__date">
-              {new Date(anuncio.createdAt).toLocaleDateString()} a las{" "}
-              {new Date(anuncio.createdAt).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </p>
-            <p>
-              {anuncio.adType}/{anuncio.category}/{anuncio.subCategory}
-            </p>
+          <a href="https://publicadis.com" className="modal-header-link">
+            BuscAdis.com
+          </a>
+          <div className="modal-route">
+            {anuncio.adType} / {anuncio.category} / {anuncio.subCategory}
           </div>
-          <div className="modal-header-icons">
-            <button onClick={handleCopyLink}>
-              <FontAwesomeIcon icon={faCopy} />
-            </button>
-            <div className="share-icon" onClick={toggleShareMenu}>
-              <FontAwesomeIcon icon={faShareAlt} />
-              {isShareOpen && (
-                <div className="share-menu" onClick={(e) => e.stopPropagation()}>
-                  <FacebookShareButton url={shareUrl} quote={title} className="facebook">
-                    <FontAwesomeIcon icon={faFacebook} />
-                  </FacebookShareButton>
-                  <TwitterShareButton url={shareUrl} title={title} className="twitter">
-                    <FontAwesomeIcon icon={faTwitter} />
-                  </TwitterShareButton>
-                  <WhatsappShareButton url={shareUrl} title={title} className="whatsapp">
-                    <FontAwesomeIcon icon={faWhatsapp} />
-                  </WhatsappShareButton>
-                  <button className="more-options">...</button>
+          <p className="ad-card__date">{formattedDate} a las {formattedTime}</p>
+          <button className="modal-options-button" onClick={toggleShareMenu}>
+            <FontAwesomeIcon icon={faEllipsisV} />
+          </button>
+        </div>
+
+        {isShareOpen && (
+          <div className="modal-options">
+            <ul>
+              <li onClick={() => alert("Reportar anuncio")}>
+                Reportar
+              </li>
+              <li onClick={() => alert("Copiar enlace")}>
+                Copiar enlace
+              </li>
+              <li onClick={() => alert("Compartir")}>
+                Compartir
+              </li>
+            </ul>
+          </div>
+        )}
+
+        <h2 id="modal-title" className="modal-title">{anuncio.title}</h2>
+
+        <div className="modal-body">
+          <div className="modal-description-map">
+            {/* Columna izquierda: Logo, QR, descripción */}
+            <div className="modal-left">
+              <div className="modal-business-info">
+                <div className="business-logo">
+                  <img
+                    src={anuncio.logo ? anuncio.logo : "/images/logo192.png"}
+                    alt="Logo"
+                    className="business-logo-img"
+                  />
+                </div>
+                <div className="business-name">
+                  <p>{anuncio.businessName ? anuncio.businessName : anuncio.adType}</p>
+                </div>
+
+              </div>
+              <div className="modal-description" id="modal-description">
+              <QRCodeCanvas className="qr-code-description" value={shareUrl} size={100} />
+              <p>{anuncio.description.replace(/\d{9}/g, "")}</p>
+              </div>
+            </div>
+
+            {/* Columna derecha: Mapas/Imágenes */}
+            <div className="modal-right">
+              {anuncio.location && (
+                <div className="modal-map">
+                  {!iframeBlocked ? (
+                    <iframe
+                      src={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}&output=embed`}
+                      width="100%"
+                      height="250"
+                      frameBorder="0"
+                      allowFullScreen=""
+                      aria-hidden="false"
+                      tabIndex="0"
+                      title={`Mapa de la ubicación: ${anuncio.location}`}
+                    ></iframe>
+                  ) : (
+                    <a
+                      href={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Ver ubicación en Google Maps
+                    </a>
+                  )}
                 </div>
               )}
             </div>
-            <button onClick={handleReport}>
-              <FontAwesomeIcon icon={faFlag} />
-            </button>
           </div>
         </div>
-        <h2 id="modal-title" className="modal-title">
-          {anuncio.title}
-        </h2>
-        <div id="modal-description" className="modal-body">
-          <p className="modal-description">{anuncio.description}</p>
-          {anuncio.images &&
-            anuncio.images.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt={`Imagen ${index + 1}`}
-                onError={(e) => {
-                  e.target.src = "/path/to/default-image.png";
-                }}
-              />
-            ))}
-          {anuncio.email && (
-            <p className="modal-info">
-              Email: <a href={`mailto:${anuncio.email}`}>{anuncio.email}</a>
-            </p>
-          )}
-          {anuncio.amount && (
-            <p className="modal-info">Precio: {anuncio.amount}</p>
-          )}
-          {anuncio.location && (
-            <p className="modal-info">Ubicación: {anuncio.location}</p>
-          )}
-        </div>
-        {anuncio.location && (
-          <div className="modal-map">
-            {!iframeBlocked ? (
-              <iframe
-                src={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}&output=embed`}
-                width="100%"
-                height="250"
-                frameBorder="0"
-                allowFullScreen=""
-                aria-hidden="false"
-                tabIndex="0"
-                title={`Mapa de la ubicación: ${anuncio.location}`}
-              ></iframe>
-            ) : (
-              // Mostrar un enlace a Google Maps si el iframe es bloqueado
-              <a 
-                href={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}`} 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                Ver ubicación en Google Maps
-              </a>
-            )}
-          </div>
-        )}
 
         <div className="modal-footer">
           <ContactButtons
@@ -215,23 +187,10 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
         </div>
       </div>
 
-      {/* Flechas de navegación fuera del modal */}
-      <div
-        className="navigation-arrow navigation-arrow-left"
-        onClick={(e) => {
-          e.stopPropagation();
-          onPrev();
-        }}
-      >
+      <div className="navigation-arrow navigation-arrow-left" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
         <FontAwesomeIcon icon={faArrowLeft} />
       </div>
-      <div
-        className="navigation-arrow navigation-arrow-right"
-        onClick={(e) => {
-          e.stopPropagation();
-          onNext();
-        }}
-      >
+      <div className="navigation-arrow navigation-arrow-right" onClick={(e) => { e.stopPropagation(); onNext(); }}>
         <FontAwesomeIcon icon={faArrowRight} />
       </div>
     </div>
