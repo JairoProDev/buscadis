@@ -248,6 +248,7 @@
 .modal-description-map {
   display: flex;
   gap: 20px;
+  align-items: stretch;
 }
 
 .modal-left {
@@ -256,6 +257,9 @@
 
 .modal-right {
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
 }
 
 .modal-description {
@@ -265,7 +269,16 @@
 }
 
 .modal-map {
+  flex-grow: 1; /* Permite que el mapa ocupe el espacio restante */
+  height: 100%; /* Asegura que el mapa ocupe toda la altura */
   width: 100%;
+}
+
+/* Aseguramos que el iframe (mapa) también ocupe toda la altura del contenedor */
+.modal-map iframe {
+  height: 100%; /* El iframe ocupa toda la altura disponible */
+  width: 100%; /* Asegura que el iframe sea del 100% de ancho */
+  border: none;
 }
 
 
@@ -311,7 +324,7 @@
 
   .modal-map {
     margin-top: 20px; /* Añade espacio entre la descripción y el mapa */
-    width: 100%;
+    height: auto; /* Permite que el mapa se ajuste automáticamente a su contenido */
   }
 
   .qr-code-description {
