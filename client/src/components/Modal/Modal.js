@@ -11,7 +11,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [iframeBlocked, setIframeBlocked] = useState(false);
   const [activeRightTab, setActiveRightTab] = useState("detalles");
   const [viewCount, setViewCount] = useState(250); // Simulación de vistas
-  const [applicationsCount, setApplicationsCount] = useState(15); // Simulación de aplicaciones
+  const [contactsCount, setContactsCount] = useState(15); // Simulación de aplicaciones
   const [availablePositions, setAvailablePositions] = useState(2); // Posiciones disponibles
   
   let touchStartX = 0;
@@ -155,7 +155,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
             <div className="modal-right">
               <div className="right-tabs">
                 <button className={activeRightTab === "detalles" ? "active" : ""} onClick={() => setActiveRightTab("detalles")}>Detalles</button>
-                <button className={activeRightTab === "mapa" ? "active" : ""} onClick={() => setActiveRightTab("mapa")}>Mapa</button>
+                <button className={activeRightTab === "mapa" ? "active" : ""} onClick={() => setActiveRightTab("mapa")}>Ubicación</button>
                 <button className={activeRightTab === "imagenes" ? "active" : ""} onClick={() => setActiveRightTab("imagenes")}>Imágenes</button>
               </div>
 
@@ -201,9 +201,9 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
                 <div className="detalles-content">
                   <p><strong>Estadísticas:</strong></p>
                   <ul>
-                    <li>{viewCount} personas han visto este anuncio.</li>
-                    <li>{applicationsCount} personas han aplicado.</li>
-                    <li>{availablePositions} posiciones disponibles.</li>
+                    <li>👁️ Vistas: {viewCount}</li>
+                    <li>📲 Contáctaron: {contactsCount}</li>
+                    <li>⌛ Tiempo restante: {availablePositions}</li>
                   </ul>
                 </div>
               )}
