@@ -10,14 +10,29 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [iframeBlocked, setIframeBlocked] = useState(false);
   const [activeRightTab, setActiveRightTab] = useState("detalles");
-  const [viewCount, setViewCount] = useState(250); // Simulación de vistas
-  const [contactsCount, setContactsCount] = useState(15); // Simulación de aplicaciones
-  const [availablePositions, setAvailablePositions] = useState(2); // Posiciones disponibles
+  const [viewCount, setViewCount] = useState(anuncio.viewCount); // Inicializamos con el valor real del anuncio
+  const [contactsCount, setContactsCount] = useState(anuncio.contactsCount); // Inicializamos con el valor real del anuncio
+  const [remainingTime, setRemainingTime] = useState(""); // Almacena el tiempo restante en formato "hh:mm"
   
   let touchStartX = 0;
 
   useEffect(() => {
     setIsOpen(true);
+
+    // Incrementar el contador de vistas cada vez que el modal se abra
+    setViewCount((prevCount) => prevCount + 1);
+
+    // Enviar las vistas al backend
+    fetch(`/api/anuncios/${anuncio.id}/increment-view`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // Calcular el tiempo restante
+    calculateRemainingTime();
+
     const modalElement = document.getElementById("modal-content");
     if (modalElement) modalElement.focus();
 
@@ -36,6 +51,22 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     };
   }, [onPrev, onNext]);
 
+  const calculateRemainingTime = () => {
+    const currentTime = new Date();
+    const createdAt = new Date(anuncio.createdAt);
+    const timeElapsed = currentTime - createdAt;
+    const totalDuration = 72 * 60 * 60 * 1000; // 72 horas en milisegundos
+    const remainingTimeMs = totalDuration - timeElapsed;
+
+    if (remainingTimeMs <= 0) {
+      setRemainingTime("Expirado");
+    } else {
+      const remainingHours = Math.floor(remainingTimeMs / (1000 * 60 * 60));
+      const remainingMinutes = Math.floor((remainingTimeMs % (1000 * 60 * 60)) / (1000 * 60));
+      setRemainingTime(`${remainingHours}h ${remainingMinutes}m`);
+    }
+  };
+
   const handleTouchStart = (e) => {
     touchStartX = e.touches[0].clientX;
   };
@@ -47,6 +78,19 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     } else if (touchEndX - touchStartX > 50) {
       onPrev();
     }
+  };
+
+  const handleContactClick = (method) => {
+    setContactsCount((prevCount) => prevCount + 1);
+  
+    // Registrar el contacto en el backend
+    fetch(`/api/anuncios/${anuncio.id}/register-contact`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ method }), // Método de contacto: wpp o llamada
+    });
   };
 
   const toggleShareMenu = (e) => {
@@ -203,7 +247,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
                   <ul>
                     <li>👁️ Vistas: {viewCount}</li>
                     <li>📲 Contáctaron: {contactsCount}</li>
-                    <li>⌛ Tiempo restante: {availablePositions}</li>
+                    <li>⌛ Tiempo restante: {remainingTime}</li> {/* Aquí mostramos el tiempo restante */}
                   </ul>
                 </div>
               )}
@@ -217,6 +261,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
             phone2={anuncio.phone2}
             adType={anuncio.adType}
             url={window.location.href}
+            onContactClick={handleContactClick}
           />
         </div>
       </div>
