@@ -10,16 +10,14 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [iframeBlocked, setIframeBlocked] = useState(false);
   const [activeRightTab, setActiveRightTab] = useState("detalles");
-  const [viewCount, setViewCount] = useState(anuncio.viewCount); // Inicializamos con el valor real del anuncio
-  const [contactsCount, setContactsCount] = useState(anuncio.contactsCount); // Inicializamos con el valor real del anuncio
-  const [remainingTime, setRemainingTime] = useState(""); // Almacena el tiempo restante en formato "hh:mm"
-  
+  const [viewCount, setViewCount] = useState(anuncio.viewCount);
+  const [contactsCount, setContactsCount] = useState(anuncio.contactsCount);
+  const [remainingTime, setRemainingTime] = useState("");
+
   let touchStartX = 0;
 
   useEffect(() => {
     setIsOpen(true);
-
-    // Incrementar el contador de vistas cada vez que el modal se abra
     setViewCount((prevCount) => prevCount + 1);
 
     // Enviar las vistas al backend
@@ -30,9 +28,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
       },
     });
 
-    // Calcular el tiempo restante
     calculateRemainingTime();
-
     const modalElement = document.getElementById("modal-content");
     if (modalElement) modalElement.focus();
 
@@ -82,14 +78,13 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
   const handleContactClick = (method) => {
     setContactsCount((prevCount) => prevCount + 1);
-  
-    // Registrar el contacto en el backend
+
     fetch(`/api/anuncios/${anuncio.id}/register-contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ method }), // Método de contacto: wpp o llamada
+      body: JSON.stringify({ method }),
     });
   };
 
@@ -110,8 +105,11 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
   const isWebView = () => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    return (userAgent.includes('wv') || userAgent.includes('WebView')) || 
-           (userAgent.includes('Android') && userAgent.includes('Chrome') && userAgent.includes('Version'));
+    return (
+      userAgent.includes("wv") ||
+      userAgent.includes("WebView") ||
+      (userAgent.includes("Android") && userAgent.includes("Chrome") && userAgent.includes("Version"))
+    );
   };
 
   useEffect(() => {
@@ -124,7 +122,6 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   }, [anuncio.location]);
 
   const shareUrl = window.location.href;
-  const title = anuncio.title;
 
   return (
     <div 
@@ -149,7 +146,9 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
           <div className="modal-route">
             {anuncio.adType} / {anuncio.category} / {anuncio.subCategory}
           </div>
-          <p className="ad-card__date">{formattedDate} a las {formattedTime}</p>
+          <p className="ad-card__date">
+            {formattedDate} a las {formattedTime}
+          </p>
           <button className="modal-options-button" onClick={toggleShareMenu}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
@@ -158,32 +157,23 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
         {isShareOpen && (
           <div className="modal-options">
             <ul>
-              <li onClick={() => alert("Reportar anuncio")}>
-                Reportar
-              </li>
-              <li onClick={() => alert("Copiar enlace")}>
-                Copiar enlace
-              </li>
-              <li onClick={() => alert("Compartir")}>
-                Compartir
-              </li>
+              <li onClick={() => alert("Reportar anuncio")}>Reportar</li>
+              <li onClick={() => alert("Copiar enlace")}>Copiar enlace</li>
+              <li onClick={() => alert("Compartir")}>Compartir</li>
             </ul>
           </div>
         )}
 
-        <h2 id="modal-title" className="modal-title">{anuncio.title}</h2>
+        <h2 id="modal-title" className="modal-title">
+          {anuncio.title}
+        </h2>
 
         <div className="modal-body">
           <div className="modal-description-map">
-            {/* Columna izquierda: Logo, QR, descripción */}
             <div className="modal-left">
               <div className="modal-business-info">
                 <div className="business-logo">
-                  <img
-                    src={anuncio.logo ? anuncio.logo : "/images/logo192.png"}
-                    alt="Logo"
-                    className="business-logo-img"
-                  />
+                  <img src={anuncio.logo ? anuncio.logo : "/images/logo192.png"} alt="Logo" className="business-logo-img" />
                 </div>
                 <div className="business-name">
                   <p>{anuncio.businessName ? anuncio.businessName : anuncio.adType} disponibles en Buscadis:</p>
@@ -195,12 +185,17 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
               </div>
             </div>
 
-            {/* Columna derecha: Mapas/Imágenes/Detalles */}
             <div className="modal-right">
               <div className="right-tabs">
-                <button className={activeRightTab === "detalles" ? "active" : ""} onClick={() => setActiveRightTab("detalles")}>Detalles</button>
-                <button className={activeRightTab === "mapa" ? "active" : ""} onClick={() => setActiveRightTab("mapa")}>Ubicación</button>
-                <button className={activeRightTab === "imagenes" ? "active" : ""} onClick={() => setActiveRightTab("imagenes")}>Imágenes</button>
+                <button className={activeRightTab === "detalles" ? "active" : ""} onClick={() => setActiveRightTab("detalles")}>
+                  Detalles
+                </button>
+                <button className={activeRightTab === "mapa" ? "active" : ""} onClick={() => setActiveRightTab("mapa")}>
+                  Ubicación
+                </button>
+                <button className={activeRightTab === "imagenes" ? "active" : ""} onClick={() => setActiveRightTab("imagenes")}>
+                  Imágenes
+                </button>
               </div>
 
               {activeRightTab === "mapa" && (
@@ -243,11 +238,13 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
               {activeRightTab === "detalles" && (
                 <div className="detalles-content">
-                  <p><strong>Estadísticas:</strong></p>
+                  <p>
+                    <strong>Estadísticas:</strong>
+                  </p>
                   <ul>
                     <li>👁️ Vistas: {viewCount}</li>
                     <li>📲 Contáctaron: {contactsCount}</li>
-                    <li>⌛ Tiempo restante: {remainingTime}</li> {/* Aquí mostramos el tiempo restante */}
+                    <li>⌛ Tiempo restante: {remainingTime}</li>
                   </ul>
                 </div>
               )}
@@ -265,12 +262,12 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
           />
         </div>
       </div>
-        <div className="navigation-arrow navigation-arrow-left" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </div>
-        <div className="navigation-arrow navigation-arrow-right" onClick={(e) => { e.stopPropagation(); onNext(); }}>
-          <FontAwesomeIcon icon={faArrowRight} />
-        </div>
+      <div className="navigation-arrow navigation-arrow-left" onClick={(e) => e.stopPropagation(onPrev)}>
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </div>
+      <div className="navigation-arrow navigation-arrow-right" onClick={(e) => e.stopPropagation(onNext)}>
+        <FontAwesomeIcon icon={faArrowRight} />
+      </div>
     </div>
   );
 }
