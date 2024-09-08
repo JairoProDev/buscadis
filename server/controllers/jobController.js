@@ -58,4 +58,38 @@ const deleteJob = async (req, res) => {
   }
 };
 
-module.exports = { createJob, getJobs, getJobById, updateJob, deleteJob };
+// Incrementar vistas del anuncio
+const incrementViewCount = async (req, res) => {
+  try {
+    const job = await Job.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { viewCount: 1 } },
+      { new: true }
+    );
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+    res.status(200).json({ message: "View count updated", job });
+  } catch (error) {
+    res.status(500).json({ error: "Error al actualizar las vistas" });
+  }
+};
+
+// Incrementar contactos del anuncio
+const incrementContactsCount = async (req, res) => {
+  try {
+    const job = await Job.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { contactsCount: 1 } },
+      { new: true }
+    );
+    if (!job) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+    res.status(200).json({ message: "Contacts count updated", job });
+  } catch (error) {
+    res.status(500).json({ error: "Error al actualizar los contactos" });
+  }
+};
+
+module.exports = { createJob, getJobs, getJobById, updateJob, deleteJob, incrementViewCount, incrementContactsCount };
