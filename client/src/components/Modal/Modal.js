@@ -124,8 +124,8 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const shareUrl = window.location.href;
 
   return (
-    <div 
-      className={`modal-overlay ${isOpen ? "show" : ""}`} 
+    <div
+      className={`modal-overlay ${isOpen ? "show" : ""}`}
       onClick={onClose}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -143,12 +143,15 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
           <a href="https://publicadis.com" className="modal-header-link">
             BuscAdis.com
           </a>
-          <div className="modal-route">
-            {anuncio.adType} / {anuncio.category} / {anuncio.subCategory}
+          <div className="modal-header-details">
+            <div className="modal-route">
+              {anuncio.adType} / {anuncio.category} / {anuncio.subCategory}
+            </div>
+            <div className="modal-date-time">
+              <p>{formattedDate}</p>
+              <p>{formattedTime}</p>
+            </div>
           </div>
-          <p className="ad-card__date">
-            {formattedDate} a las {formattedTime}
-          </p>
           <button className="modal-options-button" onClick={toggleShareMenu}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
@@ -164,20 +167,19 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
           </div>
         )}
 
-        <h2 id="modal-title" className="modal-title">
-          {anuncio.title}
-        </h2>
-
         <div className="modal-body">
+          <h2 id="modal-title" className="modal-title">
+            {anuncio.title}
+          </h2>
           <div className="modal-description-map">
             <div className="modal-left">
-              <div className="modal-business-info">
-                <div className="business-logo">
+            <div className="modal-business-info">
+                {/* <div className="business-logo">
                   <img src={anuncio.logo ? anuncio.logo : "/images/logo192.png"} alt="Logo" className="business-logo-img" />
                 </div>
                 <div className="business-name">
                   <p>{anuncio.businessName ? anuncio.businessName : anuncio.adType} disponibles en Buscadis:</p>
-                </div>
+                </div> */}
               </div>
               <div className="modal-description" id="modal-description">
                 <QRCodeCanvas className="qr-code-description" value={shareUrl} size={100} />
@@ -187,13 +189,22 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
             <div className="modal-right">
               <div className="right-tabs">
-                <button className={activeRightTab === "detalles" ? "active" : ""} onClick={() => setActiveRightTab("detalles")}>
+                <button
+                  className={activeRightTab === "detalles" ? "active" : ""}
+                  onClick={() => setActiveRightTab("detalles")}
+                >
                   Detalles
                 </button>
-                <button className={activeRightTab === "mapa" ? "active" : ""} onClick={() => setActiveRightTab("mapa")}>
+                <button
+                  className={activeRightTab === "mapa" ? "active" : ""}
+                  onClick={() => setActiveRightTab("mapa")}
+                >
                   Ubicación
                 </button>
-                <button className={activeRightTab === "imagenes" ? "active" : ""} onClick={() => setActiveRightTab("imagenes")}>
+                <button
+                  className={activeRightTab === "imagenes" ? "active" : ""}
+                  onClick={() => setActiveRightTab("imagenes")}
+                >
                   Imágenes
                 </button>
               </div>
