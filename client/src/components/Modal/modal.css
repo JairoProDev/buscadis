@@ -1,3 +1,4 @@
+/* General Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -34,8 +35,7 @@
 .modal-header, 
 .modal-body, 
 .modal-footer, 
-.modal-left, 
-.modal-right {
+.modal-left {
   background-color: white;
   border-radius: 12px; /* Esquinas redondeadas */
   padding: 15px;
@@ -49,7 +49,60 @@
   overflow-y: auto;
 }
 
-/* Flechas de navegación */
+/* Header Styles */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+}
+
+.modal-header a.modal-header-link {
+  font-size: 1.2em;
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+  flex: 1 0 100%; /* Ocupa el 100% en móviles */
+}
+
+.modal-header-details {
+  flex: 1 0 100%; /* Ocupa el 100% en móviles */
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+}
+
+.modal-route {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.modal-date-time {
+  font-size: 0.9em;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.modal-date-time p {
+  margin: 0;
+}
+
+.modal-options-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #333;
+}
+
+/* Navigation Arrows */
 .navigation-arrow {
   position: fixed;
   top: 50%;
@@ -68,71 +121,14 @@
   right: 15px;
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  color: white;
-  padding: 15px;
-  border-radius: 12px; /* Esquinas redondeadas */
-}
-
-.modal-header-link {
-  font-weight: bold;
-  font-size: 1.3em;
-  color: #007bff;
-  text-decoration: none;
-}
-
-.modal-route {
-  font-size: 0.9em;
-  color: #555;
-}
-
-.modal-options-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.5em;
-}
-
-.modal-options {
-  position: absolute;
-  top: 50px;
-  right: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 2000;
-}
-
-.modal-options ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 10px;
-}
-
-.modal-options li {
-  padding: 10px;
-  cursor: pointer;
-  font-size: 0.9em;
-  display: flex;
-  align-items: center;
-}
-
-.modal-options li:hover {
-  background-color: #f0f0f0;
-}
-
-.modal-title {
-  font-size: 2em;
-  text-align: center;
-}
-
+/* Modal Body */
 .modal-body {
   font-size: 1.2em;
   line-height: 1.5;
+  background-color: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .modal-body img {
@@ -141,6 +137,7 @@
   border-radius: 10px;
 }
 
+/* Modal Footer */
 .modal-footer {
   display: flex;
   flex-direction: column;
@@ -148,24 +145,7 @@
   border-top: 1px solid #ccc;
 }
 
-.modal-navigation {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.modal-nav-button {
-  background: none;
-  border: none;
-  font-size: 2em;
-  cursor: pointer;
-}
-
-.modal-navigation .nav-buttons {
-  display: flex;
-  gap: 10px;
-}
-
+/* Tabs (Detalles, Ubicación, Imágenes) */
 /* Estilos para tipos de anuncios */
 .modal-content.inmuebles {
   background-color: #e0f7e0;
@@ -191,48 +171,7 @@
   background-color: #f0e6ff;
 }
 
-/* Diseño responsive */
-@media (max-width: 600px) {
-  .modal-content {
-    width: 95%;
-    max-height: 80vh; /* Asegura que el modal no ocupe toda la altura en mobile */
-  }
-
-  .navigation-arrow {
-    font-size: 1em;
-    color: #000;
-    border-radius: 50%;
-    padding: 5px 10px;
-    background: rgb(128, 128, 128, 0.5);
-  }
-
-  .modal-title {
-    font-size: 1.6em;
-  }
-
-  .modal-body {
-    font-size: 1em;
-  }
-
-  .modal-nav-button {
-    font-size: 1.5em;
-  }
-
-  .modal-map {
-    width: 100%;
-  }
-}
-
-/* Nuevas mejoras */
-.qr-code-description {
-  float: left;
-  margin-right: 10px; /* Ajusta la distancia del QR al texto */
-  width: 120px; /* Ancho del QR */
-  height: 120px; /* Asegura que tenga una altura constante */
-}
-
-
-.modal-business-info {
+/* .modal-business-info {
   display: flex;
   align-items: center;
 }
@@ -248,51 +187,7 @@
   font-size: 1em;
   font-weight: bold;
   color: #007bff;
-}
-
-/* Para dividir la descripción y el mapa en columnas */
-
-.modal-description-map {
-  display: flex;
-  gap: 20px;
-  align-items: stretch;
-}
-
-.modal-left {
-  width: 50%;
-}
-
-.modal-right {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-}
-
-.modal-description {
-  font-size: 1em;
-  text-align: justify;
-  white-space: pre-wrap; /* Mantiene los saltos de línea y espacios en blanco */
-}
-
-.modal-map {
-  flex-grow: 1;
-  height: 100%;
-  width: 100%;
-}
-
-.modal-map iframe {
-  height: 100%;
-  width: 100%;
-  border: none;
-}
-
-.qr-code-description {
-  float: left;
-  margin-right: 10px;
-  width: 120px;
-  height: 120px;
-}
+} */
 
 .right-tabs {
   display: flex;
@@ -320,7 +215,7 @@
   color: white;
 }
 
-/* Mapa, Imágenes, Detalles */
+/* Map, Images, Details */
 .modal-map iframe,
 .modal-images img {
   width: 100%;
@@ -328,26 +223,30 @@
   border-radius: 10px;
 }
 
-.imagenes-carousel img {
+.modal-map {
+  flex-grow: 1;
   width: 100%;
-  height: auto;
+  height: 100%;
+  border: none;
 }
 
-/* Mejora de las estadísticas */
+/* Modal Statistics */
 .detalles-content {
   background-color: #f7f9fc;
-  border-radius: 12px; /* Esquinas redondeadas */
+  border-radius: 12px;
   padding: 15px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* QR Code */
 .qr-code-description {
-  float: left;
-  margin-right: 10px;
+  float: right;
+  margin-left: 10px;
   width: 120px;
   height: 120px;
 }
 
+/* Business Info */
 .modal-business-info {
   display: flex;
   align-items: center;
@@ -378,11 +277,12 @@
     color: #000;
     border-radius: 50%;
     padding: 5px 10px;
-    background: rgb(128, 128, 128, 0.5);
+    background: rgba(128, 128, 128, 0.5);
   }
 
   .modal-title {
     font-size: 1.6em;
+    text-transform: uppercase;
   }
 
   .modal-body {
@@ -402,7 +302,8 @@
     gap: 0;
   }
 
-  .modal-left, .modal-right {
+  .modal-left, 
+  .modal-right {
     width: 100%;
   }
 
@@ -412,7 +313,9 @@
 
   .qr-code-description {
     margin-right: 10px;
-    width: 100px;
-    height: 100px;
+  }
+
+  .modal-options-button {
+    align-self: flex-end; /* Alinea los tres puntos a la derecha */
   }
 }
