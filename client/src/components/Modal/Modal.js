@@ -14,7 +14,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [contactsCount, setContactsCount] = useState(anuncio.contactsCount || 0);
   const [remainingTime, setRemainingTime] = useState("");
   const [viewedAnuncios, setViewedAnuncios] = useState({}); // Estado para llevar el registro de anuncios ya vistos.
-  let touchStartX = 0;
+  // let touchStartX = 0;
 
   useEffect(() => {
     setIsOpen(true);
@@ -78,18 +78,18 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     }
   };
 
-  const handleTouchStart = (e) => {
-    touchStartX = e.touches[0].clientX;
-  };
+  // const handleTouchStart = (e) => {
+  //   touchStartX = e.touches[0].clientX;
+  // };
 
-  const handleTouchMove = (e) => {
-    const touchEndX = e.touches[0].clientX;
-    if (touchStartX - touchEndX > 50) {
-      onNext();
-    } else if (touchEndX - touchStartX > 50) {
-      onPrev();
-    }
-  };
+  // const handleTouchMove = (e) => {
+  //   const touchEndX = e.touches[0].clientX;
+  //   if (touchStartX - touchEndX > 200) {
+  //     onNext();
+  //   } else if (touchEndX - touchStartX > 50) {
+  //     onPrev();
+  //   }
+  // };
 
   const handleContactClick = (method) => {
     setContactsCount((prevCount) => prevCount + 1);
@@ -144,8 +144,8 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     <div
       className={`modal-overlay ${isOpen ? "show" : ""}`}
       onClick={onClose}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
+      // onTouchStart={handleTouchStart}
+      // onTouchMove={handleTouchMove}
     >
       <div
         id="modal-content"
