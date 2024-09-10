@@ -40,6 +40,8 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     }
 
     calculateRemainingTime();
+    const intervalId = setInterval(calculateRemainingTime, 1000); // Actualiza cada segundo
+
     const modalElement = document.getElementById("modal-content");
     if (modalElement) modalElement.focus();
 
@@ -54,6 +56,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
+      clearInterval(intervalId); // Limpia el intervalo al desmontar el componente
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [anuncio, onPrev, onNext]);
