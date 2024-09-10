@@ -52,14 +52,21 @@ function HomePage() {
       }
     }, [adType, navigate]);
     
-  useEffect(() => {
-    if (adType) {
-      setSelectedAdType(adType);
-      setIsAdTypeSelected(true);
-      setPage(1);
-      getAds(adType, category, subcategory);
-    }
-  }, [adType, category, subcategory, getAds]);
+    useEffect(() => {
+      if (adType) {
+        setSelectedAdType(adType);
+        setIsAdTypeSelected(true);
+        setPage(1);
+    
+        // Si estamos en un modal de anuncio (cuando `id` está presente), no filtrar por subcategoría
+        if (id) {
+          getAds(adType, category); // Solo filtrar por categoría
+        } else {
+          getAds(adType, category, subcategory); // Filtrar por subcategoría solo si no hay anuncio seleccionado
+        }
+      }
+    }, [adType, category, subcategory, id, getAds]);
+    
 
   useEffect(() => {
     if (id && ads.length > 0) {
@@ -93,8 +100,9 @@ function HomePage() {
 
   const handleCloseModal = () => {
     setSelectedAd(null);
-    navigate(`/${adType}/${category || ""}/${subcategory || ""}`);
+    navigate(`/${adType}/${category || ""}`); // Redirige solo a la categoría
   };
+  
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
