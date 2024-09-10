@@ -62,15 +62,16 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     const currentTime = new Date();
     const createdAt = new Date(anuncio.createdAt);
     const timeElapsed = currentTime - createdAt;
-    const totalDuration = 72 * 60 * 60 * 1000; // 72 horas en milisegundos
-    const remainingTimeMs = totalDuration - timeElapsed;
+    const totalDuration = 72 * 60 * 60; // 72 horas en segundos
+    const remainingTimeSec = totalDuration - Math.floor(timeElapsed / 1000);
 
-    if (remainingTimeMs <= 0) {
-      setRemainingTime("Expirado");
+    if (remainingTimeSec <= 0) {
+      setRemainingTime("Aviso Expirado");
     } else {
-      const remainingHours = Math.floor(remainingTimeMs / (1000 * 60 * 60));
-      const remainingMinutes = Math.floor((remainingTimeMs % (1000 * 60 * 60)) / (1000 * 60));
-      setRemainingTime(`${remainingHours}h ${remainingMinutes}m`);
+      const remainingHours = Math.floor(remainingTimeSec / 3600);
+      const remainingMinutes = Math.floor((remainingTimeSec % 3600) / 60);
+      const remainingSeconds = remainingTimeSec % 60;
+      setRemainingTime(`${remainingHours}h ${remainingMinutes}m ${remainingSeconds}s`);
     }
   };
 
