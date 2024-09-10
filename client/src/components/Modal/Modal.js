@@ -1,32 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisV, faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import ModalOptions from "./ModalOptions";
 import { QRCodeCanvas } from "qrcode.react";
 import ContactButtons from "../ContactButtons/ContactButtons";
 import "./modal.css";
 
 function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isShareOpen, setIsShareOpen] = useState(false);
   const [iframeBlocked, setIframeBlocked] = useState(false);
   const [activeRightTab, setActiveRightTab] = useState("detalles");
-  const [viewCount, setViewCount] = useState(anuncio.viewCount);
-  const [contactsCount, setContactsCount] = useState(anuncio.contactsCount);
+  const [viewCount, setViewCount] = useState(anuncio.viewCount || 0);
+  const [contactsCount, setContactsCount] = useState(anuncio.contactsCount || 0);
   const [remainingTime, setRemainingTime] = useState("");
-
+  const [viewedAnuncios, setViewedAnuncios] = useState({}); // Estado para llevar el registro de anuncios ya vistos.
   let touchStartX = 0;
 
   useEffect(() => {
     setIsOpen(true);
-    setViewCount((prevCount) => prevCount + 1);
 
-    // Enviar las vistas al backend
-    fetch(`/api/anuncios/${anuncio.id}/increment-view`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    // Si el anuncio no ha sido visto, incrementa la vista y marca como visto.
+    if (!viewedAnuncios[anuncio.id]) {
+      setViewedAnuncios((prev) => ({ ...prev, [anuncio.id]: true }));
+      setViewCount((prevCount) => prevCount + 1);
+
+      // Enviar las vistas al backend
+      if (anuncio.id) {
+        fetch(`/api/anuncios/${anuncio.id}/increment-view`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => {
+          if (!response.ok) {
+            console.error("Error al incrementar vistas:", response.statusText);
+          }
+        }).catch((error) => console.error("Error incrementando vistas:", error));
+      }
+    }
 
     calculateRemainingTime();
     const modalElement = document.getElementById("modal-content");
@@ -45,7 +56,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [onPrev, onNext]);
+  }, [anuncio, onPrev, onNext]);
 
   const calculateRemainingTime = () => {
     const currentTime = new Date();
@@ -79,18 +90,20 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const handleContactClick = (method) => {
     setContactsCount((prevCount) => prevCount + 1);
 
+    // Enviar el click de contacto al backend
     fetch(`/api/anuncios/${anuncio.id}/register-contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ method }),
-    });
-  };
-
-  const toggleShareMenu = (e) => {
-    e.stopPropagation();
-    setIsShareOpen(!isShareOpen);
+    })
+    .then((response) => {
+      if (!response.ok) {
+        console.error("Error al registrar contacto:", response.statusText);
+      }
+    })
+    .catch((error) => console.error("Error registrando contacto:", error));
   };
 
   const formattedDate = new Date(anuncio.createdAt).toLocaleDateString("es-ES", {
@@ -153,21 +166,9 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
               <p>{formattedDate}</p>
               <p>{formattedTime}</p>
             </div>
-          <button className="modal-options-button" onClick={toggleShareMenu}>
-            <FontAwesomeIcon icon={faEllipsisV} />
-          </button>
+            <ModalOptions />
           </div>
         </div>
-
-        {isShareOpen && (
-          <div className="modal-options">
-            <ul>
-              <li onClick={() => alert("Reportar anuncio")}>Reportar</li>
-              <li onClick={() => alert("Copiar enlace")}>Copiar enlace</li>
-              <li onClick={() => alert("Compartir")}>Compartir</li>
-            </ul>
-          </div>
-        )}
 
         <div className="modal-body">
           <h2 id="modal-title" className="modal-title">
@@ -175,16 +176,16 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
           </h2>
           <div className="modal-description-map">
             <div className="modal-left">
-            <div className="modal-business-info">
-                {/* <div className="business-logo">
+              {/* <div className="modal-business-info">
+                <div className="business-logo">
                   <img src={anuncio.logo ? anuncio.logo : "/images/logo192.png"} alt="Logo" className="business-logo-img" />
                 </div>
                 <div className="business-name">
                   <p>{anuncio.businessName ? anuncio.businessName : anuncio.adType} disponibles en Buscadis:</p>
-                </div> */}
-              </div>
+                </div>
+              </div> */}
               <div className="modal-description" id="modal-description">
-                <QRCodeCanvas className="qr-code-description" value={shareUrl} size={100} />
+                <QRCodeCanvas className="qr-code-description" value={window.location.href} size={100} />
                 <p>{anuncio.description.replace(/\d{9}/g, "")}</p>
               </div>
             </div>
@@ -214,16 +215,16 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
               {activeRightTab === "mapa" && (
                 <div className="modal-map">
                   {!iframeBlocked ? (
-                    <iframe
-                      src={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}&output=embed`}
-                      width="100%"
-                      height="250"
-                      frameBorder="0"
-                      allowFullScreen=""
-                      aria-hidden="false"
-                      tabIndex="0"
-                      title={`Mapa de la ubicación: ${anuncio.location}`}
-                    ></iframe>
+                  <iframe
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}&output=embed`}
+                    width="100%"
+                    height="250"
+                    frameBorder="0"
+                    allowFullScreen=""
+                    aria-hidden="false"
+                    tabIndex="0"
+                    title={`Mapa de la ubicación: ${anuncio.location}`}
+                  ></iframe>
                   ) : (
                     <a
                       href={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}`}
@@ -251,13 +252,9 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
               {activeRightTab === "detalles" && (
                 <div className="detalles-content">
-                  <p>
-                    <strong>Estadísticas:</strong>
-                  </p>
+                  <p><strong>Estadísticas:</strong></p>
                   <ul>
-                    <li>👁️ Vistas: {viewCount}</li>
-                    <li>📲 Contáctaron: {contactsCount}</li>
-                    <li>⌛ Tiempo restante: {remainingTime}</li>
+                    <li>⌛ Tiempo restante: <span>{remainingTime}</span></li>
                   </ul>
                 </div>
               )}
@@ -275,13 +272,13 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
           />
         </div>
       </div>
-        <div className="navigation-arrow navigation-arrow-left" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </div>
-        <div className="navigation-arrow navigation-arrow-right" onClick={(e) => { e.stopPropagation(); onNext(); }}>
-          <FontAwesomeIcon icon={faArrowRight} />
-        </div>
 
+      <div className="navigation-arrow navigation-arrow-left" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </div>
+      <div className="navigation-arrow navigation-arrow-right" onClick={(e) => { e.stopPropagation(); onNext(); }}>
+        <FontAwesomeIcon icon={faArrowRight} />
+      </div>
     </div>
   );
 }
