@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisV, faFlag, faLink, faShareAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsisV,
+  faFlag,
+  faLink,
+  faShareAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import "./modalOptions.css";
 
 function ModalOptions() {
@@ -13,7 +18,8 @@ function ModalOptions() {
 
   const copyLinkToClipboard = () => {
     // Intentar copiar el enlace al portapapeles
-    navigator.clipboard.writeText(window.location.href)
+    navigator.clipboard
+      .writeText(window.location.href)
       .then(() => {
         alert("Enlace copiado al portapapeles");
       })
@@ -25,23 +31,26 @@ function ModalOptions() {
   const shareAd = () => {
     if (navigator.share) {
       // Usar la API Web Share si está disponible
-      navigator.share({
-        title: 'BuscAdis.com',
-        text: 'Echa un vistazo a este anuncio en BuscAdis!',
-        url: window.location.href,
-      })
-        .then(() => console.log('Anuncio compartido exitosamente'))
-        .catch((error) => console.error('Error al compartir:', error));
+      navigator
+        .share({
+          title: "BuscAdis.com",
+          text: "Echa un vistazo a este anuncio en BuscAdis!",
+          url: window.location.href,
+        })
+        .then(() => console.log("Anuncio compartido exitosamente"))
+        .catch((error) => console.error("Error al compartir:", error));
     } else {
       alert("Tu navegador no soporta la funcionalidad de compartir.");
     }
   };
 
   const reportAd = () => {
-    // Aquí puedes reemplazar este alert con tu lógica real para reportar un anuncio.
-    alert("Reportar anuncio: Abriendo formulario de reporte...");
-    // Ejemplo de redireccionar a una página de reporte
-    // window.location.href = `/report?adId=${window.location.href}`;
+    const message = "Hola, quiero reportar este anuncio:";
+    const phoneNumber = "937054328";
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, "_blank");
   };
 
   return (
