@@ -80,7 +80,6 @@ function ContactButtons({ phone, phone2, adType, url }) {
         >
           <FontAwesomeIcon icon={faShareAlt} />
           <span className="button-label desktop-label">Compartir</span>
-          <span className="button-label mobile-label"> </span>
         </a>
 
         {/* Botones de WhatsApp */}

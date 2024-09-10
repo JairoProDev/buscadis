@@ -140,21 +140,23 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="modal-header">
-          <a href="https://publicadis.com" className="modal-header-link">
-            BuscAdis.com
-          </a>
-          <div className="modal-header-details">
+          <div className="modal-header-left">
+            <a href="https://publicadis.com" className="modal-header-link">
+              BuscAdis.com
+            </a>
             <div className="modal-route">
               {anuncio.adType} / {anuncio.category} / {anuncio.subCategory}
             </div>
+          </div>
+          <div className="modal-header-right">
             <div className="modal-date-time">
               <p>{formattedDate}</p>
               <p>{formattedTime}</p>
             </div>
-          </div>
           <button className="modal-options-button" onClick={toggleShareMenu}>
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
+          </div>
         </div>
 
         {isShareOpen && (
@@ -273,12 +275,13 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
           />
         </div>
       </div>
-      <div className="navigation-arrow navigation-arrow-left" onClick={(e) => e.stopPropagation(onPrev)}>
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </div>
-      <div className="navigation-arrow navigation-arrow-right" onClick={(e) => e.stopPropagation(onNext)}>
-        <FontAwesomeIcon icon={faArrowRight} />
-      </div>
+        <div className="navigation-arrow navigation-arrow-left" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </div>
+        <div className="navigation-arrow navigation-arrow-right" onClick={(e) => { e.stopPropagation(); onNext(); }}>
+          <FontAwesomeIcon icon={faArrowRight} />
+        </div>
+
     </div>
   );
 }
