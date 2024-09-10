@@ -45,6 +45,9 @@
   white-space: normal;
 }
 
+.anuncio-desc:hover {
+  color: #2bc55e;
+}
 .anuncio a {
   font-size: 0.85em;
   color: #5477a0; /* Color azul para enlaces */
