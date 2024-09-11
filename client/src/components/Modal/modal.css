@@ -255,12 +255,13 @@
   justify-content: center;
   align-items: center;
   z-index: 1003;
+  transition: all 0.3s ease; /* Suave transición al mostrar el modal */
 }
 
 .image-modal-content {
   position: relative;
-  max-width: 85%; /* Reduce el tamaño para que no se sienta tan apretado en escritorio */
-  max-height: 85%;
+  max-width: 75%; /* Reduce el tamaño en desktop */
+  max-height: 75%; /* Asegura que no se corte la imagen */
   background-color: white;
   border-radius: 10px;
   padding: 15px;
@@ -268,6 +269,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  transition: transform 0.3s ease; /* Animación suave para aparecer el modal */
 }
 
 .ampliada-img {
@@ -277,11 +280,11 @@
 }
 
 .image-modal-content img {
-  width: auto;
+  width: auto; /* Ajusta automáticamente el ancho */
   max-width: 100%;
   max-height: 100%;
-  border-radius: 12px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 12px; /* Esquinas redondeadas */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3); /* Sombra para destacar la imagen */
 }
 
 /* Botón para cerrar */
@@ -297,6 +300,7 @@
   padding: 0 10px;
   border-radius: 50%;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
 }
 
 .close-button:hover {
@@ -314,9 +318,15 @@
   font-size: 2rem;
   color: #333;
   padding: 0 10px;
-  border-radius: 50px;
+  border-radius: 50%;
   cursor: pointer;
   z-index: 1001;
+  transition: background-color 0.3s ease;
+}
+
+.prev-image:hover, .next-image:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
 }
 
 .prev-image {
