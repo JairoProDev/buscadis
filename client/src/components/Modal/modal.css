@@ -197,11 +197,13 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .right-tabs button.active {
   background-color: #007bff;
   color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Añadimos una sombra más destacada */
 }
 
 .right-tabs button:hover {
@@ -240,6 +242,53 @@
   margin-left: 10px;
   width: 120px;
   height: 120px;
+}
+
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Mayor oscuridad para resaltar la imagen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1003;
+}
+
+.image-modal-content {
+  position: relative;
+  max-width: 90%; /* Ocupa casi todo el ancho de la pantalla */
+  max-height: 90%; /* Ocupa casi todo el alto de la pantalla */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-modal-content img {
+  width: auto; /* Ajusta automáticamente el ancho */
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 12px; /* Esquinas redondeadas */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3); /* Sombra para destacar la imagen */
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  font-size: 1.5em;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-radius: 50px; /* Botón circular */
+}
+
+.close-button:hover {
+  background: rgba(0, 0, 0, 0.9);
 }
 
 /* Responsive Design */
