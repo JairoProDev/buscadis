@@ -46,7 +46,7 @@ if (!PORT) {
 
 // Middleware de seguridad
 app.use(helmet()); // Protege la aplicación estableciendo varias cabeceras HTTP
-
+app.set('trust proxy', 1); // Esto le dice a Express que confíe en el proxy
 // Configuración personalizada de CSP
 app.use(
   helmet.contentSecurityPolicy({
