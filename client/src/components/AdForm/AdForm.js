@@ -1,4 +1,3 @@
-// AdForm.js
 import React from "react";
 import "./adForm.css";
 import PublishButton from "../PublishButton/PublishButton";
@@ -45,6 +44,7 @@ function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
         className="adForm"
         action="/api/anuncios"
         method="POST"
+        encType="multipart/form-data"
         onSubmit={handleSubmit}
       >
         {error && <p className="error-message">{error}</p>}
@@ -187,6 +187,7 @@ function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
             placeholder="tu-correo@gmail.com"
           />
 
+          {/* Botón personalizado para subir imágenes */}
           <label htmlFor="image" className="custom-file-upload-button">
             <FontAwesomeIcon icon={faUpload} /> Subir imágenes
           </label>
@@ -200,6 +201,7 @@ function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
             hidden // Oculta el botón de subida de archivos predeterminado
           />
 
+          {/* Contenedor de vistas previas de imágenes */}
           <div className="preview-images-container">
             {images &&
               images.map((image, index) => (
