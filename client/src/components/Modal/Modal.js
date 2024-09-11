@@ -243,16 +243,16 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
               {activeRightTab === "imagenes" && (
                 <div className="modal-images">
-                  {anuncio.image1 ? (
-                    <>
-                      <img src={anuncio.image1} alt="Imagen 1" />
-                      <img src={anuncio.image2} alt="Imagen 2" />
-                    </>
+                  {anuncio.images && anuncio.images.length > 0 ? (
+                    anuncio.images.map((image, index) => (
+                      <img key={index} src={image} alt={`Imagen ${index + 1}`} />
+                    ))
                   ) : (
                     <p>Este anuncio no tiene imágenes.</p>
                   )}
                 </div>
               )}
+
 
               {activeRightTab === "detalles" && (
                 <div className="detalles-content">
