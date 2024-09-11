@@ -136,6 +136,18 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
   const shareUrl = window.location.href;
 
+  const navigateToPrevImage = () => {
+    const currentIndex = anuncio.images.indexOf(selectedImage);
+    const prevIndex = (currentIndex - 1 + anuncio.images.length) % anuncio.images.length;
+    setSelectedImage(anuncio.images[prevIndex]);
+  };
+  
+  const navigateToNextImage = () => {
+    const currentIndex = anuncio.images.indexOf(selectedImage);
+    const nextIndex = (currentIndex + 1) % anuncio.images.length;
+    setSelectedImage(anuncio.images[nextIndex]);
+  };
+  
   return (
     <div className={`modal-overlay ${isOpen ? "show" : ""}`} onClick={onClose}>
       <div
@@ -284,11 +296,19 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
       {selectedImage && (
         <div className="image-modal" onClick={closeImageModal}>
           <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={selectedImage} alt="Imagen ampliada" />
-            <button className="close-button" onClick={closeImageModal}>✕</button>
+            <img src={selectedImage} alt="Imagen ampliada" className="ampliada-img" />
+            <button className="close-button" onClick={closeImageModal}>X</button>
+            {/* Agrega los botones de navegación para cambiar de imagen */}
+            <button className="prev-image" onClick={(e) => {
+              e.stopPropagation();
+              navigateToPrevImage();
+            }}>←</button>
+            <button className="next-image" onClick={(e) => {
+              e.stopPropagation();
+              navigateToNextImage();
+            }}>→</button>
           </div>
         </div>
-
       )}
     </div>
   );
