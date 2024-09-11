@@ -241,18 +241,21 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
                 </div>
               )}
 
-              {activeRightTab === "imagenes" && (
+                {activeRightTab === "imagenes" && (
                   <div className="modal-images">
-                      {anuncio.images && anuncio.images.length > 0 ? (
-                          anuncio.images.map((imageUrl, index) => (
-                              <img key={index} src={imageUrl} alt={`Imagen ${index + 1}`} />
-                          ))
-                      ) : (
-                          <p>Este anuncio no tiene imágenes.</p>
-                      )}
+                    {anuncio.images && anuncio.images.length > 0 ? (
+                      anuncio.images.map((imageUrl, index) => (
+                        <img
+                          key={index}
+                          src={imageUrl}
+                          alt={`Imagen ${index + 1}`}
+                        />
+                      ))
+                    ) : (
+                      <p>Este anuncio no tiene imágenes.</p>
+                    )}
                   </div>
-              )}
-
+                )}
 
               {activeRightTab === "detalles" && (
                 <div className="detalles-content">
