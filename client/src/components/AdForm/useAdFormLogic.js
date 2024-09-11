@@ -1,4 +1,3 @@
-// useAdFormLogic.js
 import { useRef, useState, useEffect } from "react";
 import { adTypes } from "../AdTypeButtons/AdTypes";
 
@@ -94,7 +93,38 @@ export function useAdFormLogic(addAdToTop) {
     try {
       validateForm();
 
-      const formData = {
+      // Crear un objeto FormData para manejar las imágenes
+      const formData = new FormData();
+      formData.append("adType", getRefValue(adTypeRef));
+      formData.append("category", getRefValue(categoryRef));
+      formData.append("subCategory", getRefValue(subCategoryRef));
+      formData.append("title", getRefValue(titleRef));
+      formData.append("description", getRefValue(descriptionRef));
+      formData.append("phone", getRefValue(phoneRef));
+      formData.append("phone2", getRefValue(phone2Ref));
+      formData.append("location", getRefValue(locationRef));
+      formData.append("email", getRefValue(emailRef));
+      formData.append("amount", getRefValue(amountRef));
+      formData.append("size", getRefValue(sizeRef));
+
+      // Añadir imágenes al FormData
+      images.forEach(image => formData.append("image", image));
+
+      // Subir las imágenes al backend para obtener las URLs de Cloudinary
+      const uploadResponse = await fetch('/api/images/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text();
+        throw new Error(`Error al subir las imágenes: ${errorText}`);
+      }
+
+      const { imageUrls } = await uploadResponse.json();
+
+      // Preparar los datos para enviar el anuncio con las URLs de las imágenes subidas a Cloudinary
+      const adData = {
         adType: getRefValue(adTypeRef),
         category: getRefValue(categoryRef),
         subCategory: getRefValue(subCategoryRef),
@@ -106,14 +136,12 @@ export function useAdFormLogic(addAdToTop) {
         email: getRefValue(emailRef),
         amount: getRefValue(amountRef),
         size: getRefValue(sizeRef),
-        images: images.map((image) => URL.createObjectURL(image)),
+        images: imageUrls,  // Aquí estamos usando las URLs de Cloudinary
       };
-
-      console.log("Form Data:", formData);
 
       // Determina la URL de la API basada en el tipo de anuncio
       let apiEndpoint;
-      switch (formData.adType) {
+      switch (adData.adType) {
         case "Empleos":
           apiEndpoint = "/api/jobs";
           break;
@@ -133,14 +161,12 @@ export function useAdFormLogic(addAdToTop) {
           throw new Error("Tipo de anuncio no válido");
       }
 
-      console.log("API Endpoint:", apiEndpoint);
-
       const adResponse = await fetch(apiEndpoint, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(adData),
       });
 
       if (!adResponse.ok) {
@@ -148,14 +174,13 @@ export function useAdFormLogic(addAdToTop) {
         throw new Error(`Error al crear el anuncio: ${errorText}`);
       }
 
-      const responseJson = await adResponse.json();
-      console.log("Anuncio creado:", responseJson);
-      const anuncio = responseJson.anuncio || responseJson.job || responseJson.realestate || responseJson.vehicle || responseJson.service || responseJson.product;
-      addAdToTop(anuncio);
+      const createdAd = await adResponse.json();
+      console.log("Anuncio creado:", createdAd);
+      addAdToTop(createdAd.anuncio || createdAd.job || createdAd.realestate || createdAd.vehicle || createdAd.service || createdAd.product);
       clearForm();
     } catch (error) {
       setError(error.message);
-      console.error("Error details:", error);
+      console.error("Error:", error);
     }
   };
 
