@@ -54,7 +54,7 @@ app.use(
       defaultSrc: ["'self'"],
       frameSrc: ["'self'", "https://www.google.com"],
       scriptSrc: ["'self'", "https://maps.googleapis.com", "https://www.googletagmanager.com", "'unsafe-inline'"],
-      imgSrc: ["'self'", "https://maps.googleapis.com", "https://maps.gstatic.com", "data:"],
+      imgSrc: ["'self'", "https://res.cloudinary.com", "https://maps.googleapis.com", "https://maps.gstatic.com", "data:"],
       styleSrc: ["'self'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com", "'unsafe-inline'"],
       fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
       connectSrc: ["'self'", "https://www.google-analytics.com"],
