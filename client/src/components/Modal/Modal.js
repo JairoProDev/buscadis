@@ -13,18 +13,17 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const [viewCount, setViewCount] = useState(anuncio.viewCount || 0);
   const [contactsCount, setContactsCount] = useState(anuncio.contactsCount || 0);
   const [remainingTime, setRemainingTime] = useState("");
-  const [viewedAnuncios, setViewedAnuncios] = useState({}); // Estado para llevar el registro de anuncios ya vistos.
-  // let touchStartX = 0;
+  const [viewedAnuncios, setViewedAnuncios] = useState({});
+  
+  // Nuevo estado para la imagen ampliada
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     setIsOpen(true);
 
-    // Si el anuncio no ha sido visto, incrementa la vista y marca como visto.
     if (!viewedAnuncios[anuncio.id]) {
       setViewedAnuncios((prev) => ({ ...prev, [anuncio.id]: true }));
       setViewCount((prevCount) => prevCount + 1);
-
-      // Enviar las vistas al backend
       if (anuncio.id) {
         fetch(`/api/anuncios/${anuncio.id}/increment-view`, {
           method: "POST",
@@ -40,8 +39,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     }
 
     calculateRemainingTime();
-    const intervalId = setInterval(calculateRemainingTime, 1000); // Actualiza cada segundo
-
+    const intervalId = setInterval(calculateRemainingTime, 1000);
     const modalElement = document.getElementById("modal-content");
     if (modalElement) modalElement.focus();
 
@@ -56,7 +54,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      clearInterval(intervalId); // Limpia el intervalo al desmontar el componente
+      clearInterval(intervalId);
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [anuncio, onPrev, onNext]);
@@ -65,7 +63,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     const currentTime = new Date();
     const createdAt = new Date(anuncio.createdAt);
     const timeElapsed = currentTime - createdAt;
-    const totalDuration = 72 * 60 * 60; // 72 horas en segundos
+    const totalDuration = 72 * 60 * 60;
     const remainingTimeSec = totalDuration - Math.floor(timeElapsed / 1000);
 
     if (remainingTimeSec <= 0) {
@@ -78,19 +76,17 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     }
   };
 
-  // const handleTouchStart = (e) => {
-  //   touchStartX = e.touches[0].clientX;
-  // };
+  // Nueva función para mostrar la imagen ampliada
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+  };
 
-  // const handleTouchMove = (e) => {
-  //   const touchEndX = e.touches[0].clientX;
-  //   if (touchStartX - touchEndX > 200) {
-  //     onNext();
-  //   } else if (touchEndX - touchStartX > 50) {
-  //     onPrev();
-  //   }
-  // };
+  // Nueva función para cerrar el modal de imagen ampliada
+  const closeImageModal = () => {
+    setSelectedImage(null);
+  };
 
+  
   const handleContactClick = (method) => {
     setContactsCount((prevCount) => prevCount + 1);
 
@@ -141,12 +137,7 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
   const shareUrl = window.location.href;
 
   return (
-    <div
-      className={`modal-overlay ${isOpen ? "show" : ""}`}
-      onClick={onClose}
-      // onTouchStart={handleTouchStart}
-      // onTouchMove={handleTouchMove}
-    >
+    <div className={`modal-overlay ${isOpen ? "show" : ""}`} onClick={onClose}>
       <div
         id="modal-content"
         className={`modal-content ${anuncio.adType.toLowerCase()} show`}
@@ -167,8 +158,8 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
           </div>
           <div className="modal-header-right">
             <div className="modal-date-time">
-              <p>{formattedDate}</p>
-              <p>{formattedTime}</p>
+              <p>{new Date(anuncio.createdAt).toLocaleDateString()}</p>
+              <p>{new Date(anuncio.createdAt).toLocaleTimeString()}</p>
             </div>
             <ModalOptions />
           </div>
@@ -241,21 +232,23 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
                 </div>
               )}
 
-                {activeRightTab === "imagenes" && (
-                  <div className="modal-images">
-                    {anuncio.images && anuncio.images.length > 0 ? (
-                      anuncio.images.map((imageUrl, index) => (
-                        <img
-                          key={index}
-                          src={imageUrl}
-                          alt={`Imagen ${index + 1}`}
-                        />
-                      ))
-                    ) : (
-                      <p>Este anuncio no tiene imágenes.</p>
-                    )}
-                  </div>
-                )}
+              {activeRightTab === "imagenes" && (
+                <div className="modal-images">
+                  {anuncio.images && anuncio.images.length > 0 ? (
+                    anuncio.images.map((imageUrl, index) => (
+                      <img
+                        key={index}
+                        src={imageUrl}
+                        alt={`Imagen ${index + 1}`}
+                        onClick={() => handleImageClick(imageUrl)}
+                        style={{ cursor: "pointer" }}
+                      />
+                    ))
+                  ) : (
+                    <p>Este anuncio no tiene imágenes.</p>
+                  )}
+                </div>
+              )}
 
               {activeRightTab === "detalles" && (
                 <div className="detalles-content">
@@ -286,6 +279,17 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
       <div className="navigation-arrow navigation-arrow-right" onClick={(e) => { e.stopPropagation(); onNext(); }}>
         <FontAwesomeIcon icon={faArrowRight} />
       </div>
+
+      {/* Modal para la imagen ampliada */}
+      {selectedImage && (
+        <div className="image-modal" onClick={closeImageModal}>
+          <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={selectedImage} alt="Imagen ampliada" />
+            <button className="close-button" onClick={closeImageModal}>✕</button>
+          </div>
+        </div>
+
+      )}
     </div>
   );
 }
