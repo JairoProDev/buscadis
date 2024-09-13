@@ -2,12 +2,12 @@ const RealEstate = require("../models/realEstateModel");
 
 const createRealEstate = async (req, res) => {
   try {
+    console.log("Datos recibidos en el cuerpo de la solicitud:", req.body); // Agregar este log
     const realEstate = new RealEstate(req.body);
     await realEstate.save();
-    res
-      .status(201)
-      .json({ message: "Real estate created successfully", realEstate });
+    res.status(201).json({ message: "Real estate created successfully", realEstate });
   } catch (error) {
+    console.error("Error al crear anuncio de bienes raíces:", error); // Agregar este log para detectar errores
     res.status(500).json({ error: error.message });
   }
 };
