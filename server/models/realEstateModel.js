@@ -4,7 +4,7 @@ const validator = require("validator");
 const realEstateSchema = new mongoose.Schema(
   {
     adType: { type: String, required: true, trim: true },
-    category: { type: String, required: false, trim: true },
+    category: { type: String, required: true, trim: true },
     subCategory: { type: String, trim: true },
     title: { type: String, required: true, trim: true, maxlength: 100 },
     description: { type: String, required: true, trim: true, maxlength: 1800 },
@@ -16,7 +16,7 @@ const realEstateSchema = new mongoose.Schema(
         validator: function (v) {
           return /^(\+51)?\d{9}$/.test(v);
         },
-        message: (props) => `${props.value} is not a valid phone number!`,
+        message: (props) => `${props.value} no es un número de teléfono válido!`,
       },
     },
     phone2: {
@@ -26,7 +26,7 @@ const realEstateSchema = new mongoose.Schema(
         validator: function (v) {
           return !v || /^(\+51)?\d{9}$/.test(v);
         },
-        message: (props) => `${props.value} is not a valid phone number!`,
+        message: (props) => `${props.value} no es un número de teléfono válido!`,
       },
     },
     amount: { type: String },
@@ -37,11 +37,17 @@ const realEstateSchema = new mongoose.Schema(
         validator: function (v) {
           return v ? validator.isEmail(v) : true;
         },
-        message: (props) => `${props.value} is not a valid email address!`,
+        message: (props) => `${props.value} no es un correo electrónico válido!`,
       },
     },
-    size: { type: String, enum: ["miniature", "normal", "long", "large", "giant"], default: "normal" },
+    size: {
+      type: String,
+      enum: ["miniatura", "normal", "largo", "grande", "gigante"],
+      default: "normal",
+    },
     images: [String],
+    viewCount: { type: Number, default: 0 }, // Añadido para contar vistas
+    contactsCount: { type: Number, default: 0 }, // Añadido para contar contactos
   },
   { timestamps: true }
 );
