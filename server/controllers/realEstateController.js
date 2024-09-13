@@ -12,13 +12,13 @@ const createRealEstate = async (req, res) => {
   }
 };
 
-const getRealEstates = async (req, res) => {
+const getRealEstate = async (req, res) => {
   try {
-    const realEstates = await RealEstate.find()
+    const realEstate = await RealEstate.find()
       .sort({ createdAt: -1 })
       .limit(100)
       .exec();
-    res.status(200).json(realEstates);
+    res.status(200).json(realEstate);
   } catch (error) {
     res.status(500).json({ error: "Internal error fetching real estates" });
   }
@@ -67,7 +67,7 @@ const deleteRealEstate = async (req, res) => {
 
 module.exports = {
   createRealEstate,
-  getRealEstates,
+  getRealEstate,
   getRealEstateById,
   updateRealEstate,
   deleteRealEstate,

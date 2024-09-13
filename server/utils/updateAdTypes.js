@@ -19,7 +19,7 @@ db.once('open', async function () {
     await updateAdTypeForCollection('jobs', 'Empleos');
 
     // Actualizar la colección de bienes raíces
-    await updateAdTypeForCollection('realestates', 'Inmuebles');
+    await updateAdTypeForCollection('realestate', 'Inmuebles');
 
     // Actualizar la colección de vehículos
     await updateAdTypeForCollection('vehicles', 'Vehicles');

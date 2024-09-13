@@ -19,7 +19,7 @@ router.delete("/jobs/:id", jobController.deleteJob);
 
 // Rutas para los anuncios de bienes raíces
 router.post("/realestate", realEstateController.createRealEstate);
-router.get("/realestate", realEstateController.getRealEstates);
+router.get("/realestate", realEstateController.getRealEstate);
 router.get("/realestate/:id", realEstateController.getRealEstateById);
 router.put("/realestate/:id", realEstateController.updateRealEstate);
 router.delete("/realestate/:id", realEstateController.deleteRealEstate);
