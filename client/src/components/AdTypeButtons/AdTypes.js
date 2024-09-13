@@ -134,7 +134,7 @@ export const adTypes = {
       Anticresis: ["Habitaciones", "Apartamentos", "Casas", "Terrenos", "Locales"],
       Otros: ["Garajes", "Depósitos", "Quintas", "Fincas"]
     },
-    Vehicles: {
+    Vehiculos: {
       Autos: ["Sedan", "SUV", "Deportivo", "Convertible"],
       Camionetas: ["Pick-Up", "4x4", "Doble Cabina"],
       Motos: ["Scooter", "Deportiva", "Touring", "Cross"],

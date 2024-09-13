@@ -62,7 +62,7 @@ function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
             <option value="Negocios">Negocios</option>
             <option value="Empleos">Empleos</option>
             <option value="Inmuebles">Inmuebles</option>
-            <option value="Vehicles">Vehículos</option>
+            <option value="Vehiculos">Vehículos</option>
             <option value="Servicios">Servicios</option>
             <option value="Productos">Productos</option>
             <option value="Otros">Otros</option>

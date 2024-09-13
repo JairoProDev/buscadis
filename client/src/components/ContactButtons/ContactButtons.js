@@ -7,7 +7,7 @@ import "./contactButtons.css";
 function ContactButton({ phone, phone2, type, adType, url }) {
   let message;
   switch (adType) {
-    case "Vehicles":
+    case "Vehiculos":
       message = `¡Hola! Vi su aviso sobre el Vehículo que tiene en venta aquí: ${url} y me interesa. ¿Podría proporcionarme más información, por favor?`;
       break;
     case "Empleos":

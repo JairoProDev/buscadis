@@ -31,7 +31,7 @@ const useAds = () => {
         case 'Inmuebles':
           url = `/api/realestate?limit=${limit}&page=${page}`;
           break;
-        case 'Vehicles':
+        case 'Vehiculos':
           url = `/api/vehicles?limit=${limit}&page=${page}`;
           break;
         case 'Servicios':

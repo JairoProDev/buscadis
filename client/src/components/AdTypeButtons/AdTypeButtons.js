@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './AdTypeButtons.css';
 import JobsIcon from "../../assets/icons/jobs.png";
 import EstateIcon from "../../assets/icons/estate.png";
-import CarsIcon from "../../assets/icons/vehicles.png";
+import VehiclesIcon from "../../assets/icons/vehicles.png";
 import ServiceIcon from "../../assets/icons/services.png";
 import ProductIcon from "../../assets/icons/products.png";
 import OtherIcon from "../../assets/icons/others.png";
@@ -14,7 +14,7 @@ import { adTypes } from './AdTypes';
 const adTypeIcons = {
   Empleos: JobsIcon,
   Inmuebles: EstateIcon,
-  Vehicles: CarsIcon,
+  Vehiculos: VehiclesIcon,
   Servicios: ServiceIcon,
   Productos: ProductIcon,
   Otros: OtherIcon,
@@ -22,14 +22,14 @@ const adTypeIcons = {
 };
 
 function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handleCategoryClick, handleSubCategoryClick, getAds }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [selectedAdType, setSelectedAdType] = useState(adType || 'Todos');
   const [selectedCategory, setSelectedCategory] = useState(category || null);
 
   const adTypeLabels = {
     Empleos: 'Empleos',
     Inmuebles: 'Inmuebles',
-    Vehicles: 'Vehículos',
+    Vehiculos: 'Vehículos',
     Servicios: 'Servicios',
     Productos: 'Productos',
     Otros: 'Otros',
@@ -45,15 +45,15 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     }
   }
 
-  const handleAllClick = () => {
-    setSelectedAdType('Todos');
-    setSelectedCategory(null);
-    handleAdTypeClick('Todos');
-    navigate('/');
-    if (getAds) {
-      getAds(null, null, null);  // Cargar todos los anuncios
-    }
-  };
+  // const handleAllClick = () => {
+  //   setSelectedAdType('Todos');
+  //   setSelectedCategory(null);
+  //   handleAdTypeClick('Todos');
+  //   navigate('/');
+  //   if (getAds) {
+  //     getAds(null, null, null);  // Cargar todos los anuncios
+  //   }
+  // };
 
   return (
     <div className='adType-container'>

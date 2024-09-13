@@ -13,7 +13,7 @@ const anuncioSchema = new mongoose.Schema(
       enum: [
         "Empleos",
         "Inmuebles",
-        "Vehicles",
+        "Vehiculos",
         "Servicios",
         "Productos",
         "Negocios",
