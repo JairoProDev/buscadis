@@ -30,6 +30,15 @@ export function useAdFormLogic(addAdToTop) {
 
   // Validación del formulario
   const validateForm = () => {
+    console.log("Valores del formulario:", {
+      adType: getRefValue(adTypeRef),
+      category: getRefValue(categoryRef),
+      subCategory: getRefValue(subCategoryRef),
+      title: getRefValue(titleRef),
+      description: getRefValue(descriptionRef),
+      phone: getRefValue(phoneRef),
+    });
+
     if (
       !getRefValue(adTypeRef) ||
       !getRefValue(categoryRef) ||
@@ -89,8 +98,10 @@ export function useAdFormLogic(addAdToTop) {
   // Manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Tipo de anuncio:", adType);
 
     try {
+      // Validar el formulario
       validateForm();
 
       // Crear un objeto FormData para manejar las imágenes
@@ -107,10 +118,13 @@ export function useAdFormLogic(addAdToTop) {
       formData.append("amount", getRefValue(amountRef));
       formData.append("size", getRefValue(sizeRef));
 
-      // Añadir imágenes al FormData
-      images.forEach(image => formData.append("image", image));
+      let imageUrls = [];
 
-      // Subir las imágenes al backend para obtener las URLs de Cloudinary
+      // Añadir imágenes al FormData
+    images.forEach(image => formData.append("image", image));
+
+    // Si hay imágenes, subirlas al backend para obtener las URLs de Cloudinary
+    if (images.length > 0) {
       const uploadResponse = await fetch('/api/images/upload', {
         method: 'POST',
         body: formData
@@ -121,9 +135,11 @@ export function useAdFormLogic(addAdToTop) {
         throw new Error(`Error al subir las imágenes: ${errorText}`);
       }
 
-      const { imageUrls } = await uploadResponse.json();
+      const data = await uploadResponse.json();
+      imageUrls = data.imageUrls; // Obtener las URLs de las imágenes subidas
+    }
 
-      // Preparar los datos para enviar el anuncio con las URLs de las imágenes subidas a Cloudinary
+      // Preparar los datos para enviar el anuncio
       const adData = {
         adType: getRefValue(adTypeRef),
         category: getRefValue(categoryRef),
@@ -131,15 +147,15 @@ export function useAdFormLogic(addAdToTop) {
         title: getRefValue(titleRef),
         description: getRefValue(descriptionRef),
         phone: getRefValue(phoneRef),
-        phone2: getRefValue(phone2Ref),
-        location: getRefValue(locationRef),
-        email: getRefValue(emailRef),
-        amount: getRefValue(amountRef),
+        phone2: getRefValue(phone2Ref) || undefined,
+        location: getRefValue(locationRef) || undefined,
+        email: getRefValue(emailRef) || undefined,
+        amount: getRefValue(amountRef) || undefined,
         size: getRefValue(sizeRef),
-        images: imageUrls,  // Aquí estamos usando las URLs de Cloudinary
+        images: imageUrls.length > 0 ? imageUrls : [], // Usar URLs de las imágenes subidas, o un array vacío si no hay imágenes
       };
 
-      // Determina la URL de la API basada en el tipo de anuncio
+      // Determinar la URL de la API basada en el tipo de anuncio
       let apiEndpoint;
       switch (adData.adType) {
         case "Empleos":
