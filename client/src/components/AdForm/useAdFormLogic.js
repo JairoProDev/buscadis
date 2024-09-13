@@ -121,23 +121,23 @@ export function useAdFormLogic(addAdToTop) {
       let imageUrls = [];
 
       // Añadir imágenes al FormData
-    images.forEach(image => formData.append("image", image));
+      images.forEach(image => formData.append("image", image));
 
-    // Si hay imágenes, subirlas al backend para obtener las URLs de Cloudinary
-    if (images.length > 0) {
-      const uploadResponse = await fetch('/api/images/upload', {
-        method: 'POST',
-        body: formData
-      });
+      // Si hay imágenes, subirlas al backend para obtener las URLs de Cloudinary
+      if (images.length > 0) {
+        const uploadResponse = await fetch('/api/images/upload', {
+          method: 'POST',
+          body: formData
+        });
 
-      if (!uploadResponse.ok) {
-        const errorText = await uploadResponse.text();
-        throw new Error(`Error al subir las imágenes: ${errorText}`);
+        if (!uploadResponse.ok) {
+          const errorText = await uploadResponse.text();
+          throw new Error(`Error al subir las imágenes: ${errorText}`);
+        }
+
+        const data = await uploadResponse.json();
+        imageUrls = data.imageUrls; // Obtener las URLs de las imágenes subidas
       }
-
-      const data = await uploadResponse.json();
-      imageUrls = data.imageUrls; // Obtener las URLs de las imágenes subidas
-    }
 
       // Preparar los datos para enviar el anuncio
       const adData = {
@@ -162,7 +162,7 @@ export function useAdFormLogic(addAdToTop) {
           apiEndpoint = "/api/jobs";
           break;
         case "Inmuebles":
-          apiEndpoint = "/api/realestate";
+          apiEndpoint = "/api/realEstate";
           break;
         case "Vehiculos":
           apiEndpoint = "/api/vehicles";
@@ -192,8 +192,24 @@ export function useAdFormLogic(addAdToTop) {
 
       const createdAd = await adResponse.json();
       console.log("Anuncio creado:", createdAd);
-      addAdToTop(createdAd.anuncio || createdAd.job || createdAd.realestate || createdAd.vehicle || createdAd.service || createdAd.product);
+      
+      const createdAdData =
+        createdAd.anuncio ||
+        createdAd.job ||
+        createdAd.realEstate ||
+        createdAd.vehicle ||
+        createdAd.service ||
+        createdAd.product;
+      
+      if (!createdAdData) {
+        console.error("Ad data is missing or undefined", createdAd);
+        setError("Error: Ad data is missing.");
+        return; // Exit early if there's an issue with the ad data
+      }
+      
+      addAdToTop(createdAdData); // Now you are sure that `createdAdData` exists
       clearForm();
+
     } catch (error) {
       setError(error.message);
       console.error("Error:", error);
