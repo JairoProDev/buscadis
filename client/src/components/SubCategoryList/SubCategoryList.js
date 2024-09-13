@@ -5,7 +5,7 @@ const CategoryList = () => {
   const categories = {
     'Empleos': ['Turismo', 'Restaurantes', 'Hotelería', 'Ventas'],
     'Inmuebles': ['Habitaciones', 'Departamentos', 'Casas'],
-    'Vehículos': ['Autos', 'Camionetas', 'Motos'],
+    'Vehiculos': ['Autos', 'Camionetas', 'Motos'],
     'Servicios': ['Educación', 'Reparaciones', 'Salud'],
     'Productos': ['Tecnología', 'Ropa', 'Hogar']
   };
