@@ -162,7 +162,7 @@ export function useAdFormLogic(addAdToTop) {
           apiEndpoint = "/api/jobs";
           break;
         case "Inmuebles":
-          apiEndpoint = "/api/realestates";
+          apiEndpoint = "/api/realestate";
           break;
         case "Vehiculos":
           apiEndpoint = "/api/vehicles";
