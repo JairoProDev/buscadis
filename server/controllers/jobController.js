@@ -12,7 +12,7 @@ const createJob = async (req, res) => {
 
 const getJobs = async (req, res) => {
   try {
-    const jobs = await Job.find().sort({ createdAt: -1 }).limit(100).exec();
+    const jobs = await Job.find().sort({ createdAt: -1 }).limit(200).exec();
     res.status(200).json(jobs); // Siempre enviamos JSON válido
   } catch (error) {
     res.status(500).json({ error: "Error interno al obtener los empleos" });
