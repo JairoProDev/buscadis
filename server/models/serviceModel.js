@@ -25,9 +25,9 @@ const serviceSchema = new mongoose.Schema(
       trim: true,
       validate: {
         validator: function (v) {
-          return !v || /^(\+51)?d{9}$/.test(v);
+          return !v || /^(\+51)?\d{9}$/.test(v);
         },
-        message: (props) => `${props.value} is not a valid phone number!`,
+        message: (props) => `${props.value} no es un número de teléfono válido!`,
       },
     },
     amount: { type: String },
