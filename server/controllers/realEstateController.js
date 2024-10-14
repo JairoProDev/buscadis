@@ -16,7 +16,7 @@ const getRealEstate = async (req, res) => {
   try {
     const realEstate = await RealEstate.find()
       .sort({ createdAt: -1 })
-      .limit(200)
+      .limit(300)
       .exec();
     res.status(200).json(realEstate);
   } catch (error) {
