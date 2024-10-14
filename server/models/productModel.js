@@ -40,11 +40,7 @@ const productSchema = new mongoose.Schema(
         message: (props) => `${props.value} is not a valid email address!`,
       },
     },
-    size: {
-      type: String,
-      enum: ["miniature", "normal", "long", "large", "giant"],
-      default: "normal",
-    },
+    size: { type: String, enum: ["miniatura", "normal", "largo", "grande", "gigante"], default: "normal" },
     images: [String],
   },
   { timestamps: true }
