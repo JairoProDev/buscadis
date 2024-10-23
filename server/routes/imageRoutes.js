@@ -13,14 +13,7 @@ cloudinary.config({
 });
 
 // Configuración de multer para subir archivos a la carpeta temporal local
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Directorio temporal donde se almacenan los archivos antes de subir a Cloudinary
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Renombrar los archivos con un identificador único
-  }
-});
+const storage = multer.memoryStorage(); // Almacenar las imágenes en memoria
 
 const upload = multer({ storage: storage });
 
@@ -34,13 +27,19 @@ router.post('/upload', upload.array('image', 10), async (req, res) => {
   try {
     const imageUrls = [];
 
-    // Subir cada archivo a Cloudinary
+    // Subir cada archivo desde la memoria a Cloudinary
     for (const file of req.files) {
-      const result = await cloudinary.uploader.upload(file.path); // Subida a Cloudinary
+      const result = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream((error, result) => {
+          if (result) {
+            resolve(result);
+          } else {
+            reject(error);
+          }
+        });
+        stream.end(file.buffer); // Subir el archivo desde el buffer
+      });
       imageUrls.push(result.secure_url); // Guardar la URL de Cloudinary en el array
-
-      // Eliminar el archivo local después de la subida
-      fs.unlinkSync(file.path);
     }
 
     console.log("Image URLs:", imageUrls); // Asegúrate de que las URLs sean correctas
@@ -49,9 +48,6 @@ router.post('/upload', upload.array('image', 10), async (req, res) => {
     res.status(200).json({ imageUrls });
   } catch (error) {
     console.error('Error al subir las imágenes a Cloudinary:', error);
-
-    // Eliminar los archivos locales si hay un error
-    req.files.forEach(file => fs.unlinkSync(file.path));
 
     res.status(500).json({ error: 'Error uploading images', message: error.message });
   }
