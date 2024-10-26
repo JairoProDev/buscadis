@@ -1,8 +1,8 @@
 const path = require('path');
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
-console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-console.log(`MONGODB_URI: ${process.env.MONGODB_URI}`);
+// console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+// console.log(`MONGODB_URI: ${process.env.MONGODB_URI}`);
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -86,10 +86,7 @@ let dbConnectionAttempts = 0;
 
 // Función para conectar a la base de datos
 const connectToDb = () => {
-  mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => {
       console.error("Error connecting to MongoDB", err);
