@@ -43,7 +43,7 @@ const serviceSchema = new mongoose.Schema(
     },
     size: {
       type: String,
-      enum: ["miniature", "normal", "long", "large", "giant"],
+      enum: ["miniatura", "normal", "largo", "grande", "gigante"],
       default: "normal",
     },
     images: [String],
