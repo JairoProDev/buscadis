@@ -1,10 +1,7 @@
 // SocialMedia.js
 import React from "react";
 import "./SocialMedia.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faWhatsapp,
-} from "@fortawesome/free-brands-svg-icons";
+import adisImage from "../../images/adis.webp"; // Ajusta la ruta según la ubicación real de la imagen
 
 const SocialMedia = () => {
   return (
@@ -51,9 +48,9 @@ const SocialMedia = () => {
           </a>
         </li> */}
         <li className="icon whatsapp">
-          <span className="tooltip">WhatsApp</span>
+          <span className="tooltip">ADIS</span>
           <a href="https://api.whatsapp.com/send?phone=51937054328&text=Hola%2C%20vengo%20de%20la%20app%2C%20quiero%20unirme%20a%20la%20version%20beta%20de%20ADIS%20y%20probar%20su%inteligencia%artificial" target="_blank" rel="noreferrer">
-            <FontAwesomeIcon icon={faWhatsapp} />
+          <img class="adis-image" src={adisImage} alt="WhatsApp" style={{ width: '80px', height: '80px' }} />
           </a>
         </li>
       </ul>

@@ -13,8 +13,8 @@
   border-radius: 50%;
   padding: 0px;
   margin-right: 10px;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   transition: all 0.2scubic-beizer(
       0.68,
       -0.55,
@@ -125,4 +125,8 @@
 .wrapper .tiktok:hover .tooltip::before {
   background: #69c9d0;
   color: #000;
+}
+
+.adis-image {
+  margin-top: 10px; /* Ajusta este valor según sea necesario */
 }
