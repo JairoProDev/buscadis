@@ -6,22 +6,21 @@
 /* Contenedor de botones */
 .scroll-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas */
   padding: 20px;
   gap: 15px;
-  overflow-x: auto; /* Habilitar el scroll horizontal */
   white-space: nowrap; /* Asegura que los botones se mantengan en una línea */
+  overflow-x: auto; /* Habilitar el scroll horizontal */
 }
 
 /* Estilos de los botones principales */
 .scroll-container .adType-button {
   display: flex;
-  flex-direction: column; /* Coloca la imagen encima del texto */
+  flex-direction: column; /* Imagen encima del texto */
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #1cd7d4 25%, #f9cc00 100%);
   color: #fff;
-  font-size: 16px;
   border: none;
   border-radius: 15px;
   padding: 20px;
@@ -133,10 +132,10 @@ span.adType-label {
 /* Estilos para el título seleccionado */
 .selected-title {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: left;
-  height: 200px; /* Ajusta según sea necesario */
+  flex-direction: row; /* Cambiado a fila */
+  align-items: center; /* Alineado al centro verticalmente */
+  justify-content: flex-start; /* Alineado a la izquierda */
+  height: auto; /* Ajusta según sea necesario */
   background: rgba(37, 117, 252, 0.1);
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -148,7 +147,7 @@ span.adType-label {
 .selected-title .selected-icon {
   width: 80px;
   height: 80px;
-  margin: 20px;
+  margin: 20px; /* Espacio entre el icono y el título */
   /* animation: rotateIcon 2s infinite linear; */
 }
 
@@ -158,7 +157,7 @@ span.adType-label {
 }
 
 .selected-title h1 {
-  font-size: 2.5rem;
+  font-size: 2rem; /* Ajustado para ocupar menos espacio horizontal */
   color: #1d62dd;
   text-transform: capitalize;
   animation: slideDown 0.6s forwards;
@@ -170,11 +169,17 @@ span.adType-label {
 }
 
 /* Botón de retroceso */
+.back-button-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 10px; /* Espacio entre el botón y el contenido */
+}
 .back-button {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   background-color: #ff5252;
   color: #fff;
   border: none;
@@ -257,11 +262,6 @@ span.adType-label {
   color: #ffffff;
 }
 
-/* Clase para Otros */
-.adType-button.otros-selected {
-  background-color: #9c27b0; /* Morado para Otros */
-  color: #ffffff;
-}
 
 /* Clase para Negocios */
 .adType-button.negocios-selected {
@@ -269,42 +269,58 @@ span.adType-label {
   color: #ffffff;
 }
 
-/* Clases adicionales para hover, active y focus */
-.scroll-container .adType-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 2px 2px 5px #bebebe, -2px -2px 5px #ffffff;
+/* Clase para Eventos */
+.adType-button.eventos-selected {
+  background-color: #ff4081; /* Rosa para Eventos */
+  color: #ffffff;
 }
 
-.scroll-container .adType-button:active {
-  transform: translateY(2px);
-  box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+/* Clase para Turismo */
+.adType-button.turismo-selected {
+  background-color: #00bcd4; /* Cian para Turismo */
+  color: #ffffff;
 }
 
-.scroll-container .adType-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
+/* Clase para Educación */
+.adType-button.educacion-selected {
+  background-color: #4caf50; /* Verde para Educación */
+  color: #ffffff;
 }
 
-/* Ajustes adicionales para media queries */
+/* Clase para Mascotas */
+.adType-button.mascotas-selected {
+  background-color: #ff9800; /* Naranja para Mascotas */
+  color: #ffffff;
+}
+
+/* Responsividad */
 @media (max-width: 768px) {
   .scroll-container {
-    flex-wrap: nowrap;
+    flex-wrap: nowrap; /* Cambiado de wrap a nowrap (no modificar esto) Asegura que los botones se mantengan en una línea */
     max-width: 100vw; /* Asegura que ocupe todo el ancho de la pantalla */
     overflow-x: scroll; /* Habilitar el scroll horizontal */
   }
-  .selected-title h1 {
-    font-size: 1.5rem;
+
+  .adType-button {
+    width: 100%;
+    max-width: 300px;
+    height: auto; /* Ajusta la altura automáticamente */
   }
-  .selected-title .selected-icon {
-    width: 50px;
-    height: 50px;
+
+  .selected-title {
+    height: auto;
+  }
+
+  .selected-title h1 {
+    font-size: 2rem;
   }
 }
 
-/* Estilos específicos para pantallas más grandes */
-@media (min-width: 769px) {
-  .scroll-container {
-    max-width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
-  }
+/* Ajustes Adicionales para Nuevos Tipos de Anuncios */
+#adTypeButtons .adType-section-inner {
+  overflow: hidden; /* Asegura que no haya desbordamiento */
+}
 
+#adTypeButtons .subcategory-section-inner {
+  overflow: hidden;
 }
