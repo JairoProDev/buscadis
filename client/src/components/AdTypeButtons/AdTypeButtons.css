@@ -1,186 +1,191 @@
 .adType-container {
-  padding-top: 5px;
+  padding-top: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Contenedor de botones */
 .scroll-container {
   display: flex;
-  flex-wrap: wrap; /* Asegura que los botones se rompan en varias líneas */
-  padding: 10px;
-  gap: 10px;
-  white-space: nowrap; /* Asegura que los botones se mantengan en una línea */
+  flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas */
+  padding: 20px;
+  gap: 15px;
+  justify-content: center;
 }
 
+/* Estilos de los botones principales */
 .scroll-container .adType-button {
   display: flex;
-  flex-direction: column; /* Coloca la imagen encima del texto */
+  flex-direction: column; /* Imagen encima del texto */
   align-items: center;
   justify-content: center;
-  background-color: #f0f0f0;
-  color: #333;
+  background: linear-gradient(135deg, #1cd7d4 25%, #f9cc00 100%);
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+  padding: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+  width: 120px;
+  height: 120px;
+  white-space: normal; /* Permite que el texto se rompa en varias líneas */
+}
+
+.adType-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.scroll-container .adType-button:hover {
+  transform: translateY(-5px) scale(1.05);
+  background: linear-gradient(135deg, #e5e4e2 0%, #848484 100%);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de descarga de la App */
+.download-app-button {
+  background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+}
+
+.download-app-button:hover {
+  background: linear-gradient(135deg, #e6724d 0%, #fc9a5a 100%);
+}
+
+span.adType-label {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* Animaciones */
+.fade-in {
+  animation: fadeIn 0.6s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.6s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+/* Estilos para el título seleccionado */
+.selected-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  height: 200px; /* Ajusta según sea necesario */
+  background: rgba(37, 117, 252, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+  animation: fadeIn 0.6s forwards;
+}
+
+.selected-title .selected-icon {
+  width: 80px;
+  height: 80px;
+  margin: 20px;
+  /* animation: rotateIcon 2s infinite linear; */
+}
+
+@keyframes rotateIcon {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.selected-title h1 {
+  font-size: 2.5rem;
+  color: #1d62dd;
+  text-transform: capitalize;
+  animation: slideDown 0.6s forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botón de retroceso */
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #ff5252;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+  background-color: #ff1744;
+  transform: translateY(-3px);
+}
+
+.back-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.5);
+}
+
+/* Estilos para las secciones de categorías y subcategorías */
+.category-section, .subcategory-section {
+  margin-top: 30px;
+}
+
+.category-button, .subcategory-button {
+  padding: 10px 20px;
+  background-color: #b39ddb;
+  color: #5e35b1;
   border: none;
   border-radius: 12px;
-  padding: 10px;
   cursor: pointer;
-  font-size: 16px;
-  box-shadow: 4px 4px 8px #bebebe, -4px -4px 8px #ffffff;
-  transition: transform 0.3s, box-shadow 0.3s;
-  white-space: normal; /* Permite que el texto se rompa en varias líneas si es necesario */
-  width: 120px; /* Ancho y alto iguales para hacer los botones cuadrados */
-  height: 90px;
-  text-align: center; /* Centrar el texto debajo de la imagen */
+  transition: background-color 0.3s, transform 0.3s;
+  font-size: 1rem;
 }
 
-.scroll-container .adType-button img {
-  margin-bottom: 5px;
-  width: 48px;
-  height: 48px;
+.category-button:hover, .subcategory-button:hover {
+  background-color: #9575cd;
+  transform: scale(1.05);
 }
 
-.scroll-container a {
-  text-decoration: none;
-  color: #333;
-}
-
-.scroll-container::-webkit-scrollbar {
-  display: none; /* Ocultar la barra de desplazamiento en navegadores basados en WebKit */
-}
-
-.scroll-container .adType-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 2px 2px 5px #bebebe, -2px -2px 5px #ffffff;
-}
-
-.scroll-container .adType-button:active {
-  transform: translateY(2px);
-  box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
-}
-
-.scroll-container .adType-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
-}
-
-/* Clases para los botones seleccionados */
-.scroll-container .adType-button.selected-all {
-  background-color: #28a745;
-  color: #ffffff;
-  box-shadow: 4px 4px 8px #19692c, -4px -4px 8px #37d258;
-}
-
-.scroll-container .adType-button.selected-adType {
-  background-color: #007bff;
-  color: #ffffff;
-  box-shadow: 4px 4px 8px #0056b3, -4px -4px 8px #0099ff;
-}
-
-/* Estilos para las categorías */
-.scroll-container .category-button {
-  background-color: #e0e0e0;
-  color: #666;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 14px;
-  box-shadow: 2px 2px 4px #bebebe, -2px -2px 4px #ffffff;
-  transition: transform 0.3s, box-shadow 0.3s;
-  white-space: nowrap;
-}
-
-.scroll-container .category-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 1px 1px 3px #bebebe, -1px -1px 3px #ffffff;
-}
-
-.scroll-container .category-button:active {
-  transform: translateY(2px);
-  box-shadow: inset 1px 1px 3px #bebebe, inset -1px -1px 3px #ffffff;
-}
-
-.scroll-container .category-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
-}
-
-/* Estilos específicos para botones seleccionados según el tipo de anuncio */
-
-/* Clase genérica para todos los botones */
-.adType-button {
-  background-color: #f0f0f0;
-  color: #333;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* Clase para Empleos */
-.adType-button.empleos-selected {
-  background-color: #007bff; /* Azul para Empleos */
+.selected-category {
+  background-color: #7e57c2;
   color: #ffffff;
 }
 
-/* Clase para Inmuebles */
-.adType-button.inmuebles-selected {
-  background-color: #28a745; /* Verde para Inmuebles */
-  color: #ffffff;
-}
-
-/* Clase para Vehicles */
-.adType-button.vehicles-selected {
-  background-color: #ff5722; /* Naranja para Vehículos */
-  color: #ffffff;
-}
-
-/* Clase para Servicios */
-.adType-button.servicios-selected {
-  background-color: #ffc107; /* Amarillo para Servicios */
-  color: #ffffff;
-}
-
-/* Clase para Productos */
-.adType-button.productos-selected {
-  background-color: #ff9800; /* Naranja oscuro para Productos */
-  color: #ffffff;
-}
-
-/* Clase para Otros */
-.adType-button.otros-selected {
-  background-color: #9c27b0; /* Morado para Otros */
-  color: #ffffff;
-}
-
-/* Clase para Negocios */
-.adType-button.negocios-selected {
-  background-color: #343a40; /* Gris oscuro para Negocios */
-  color: #ffffff;
-}
-
-/* Clases adicionales para hover, active y focus */
-.scroll-container .adType-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 2px 2px 5px #bebebe, -2px -2px 5px #ffffff;
-}
-
-.scroll-container .adType-button:active {
-  transform: translateY(2px);
-  box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
-}
-
-.scroll-container .adType-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
-}
-
-/* Ajustes adicionales para media queries */
+/* Responsividad */
 @media (max-width: 768px) {
   .scroll-container {
-    flex-wrap: nowrap;
-    max-width: 100vw; /* Asegura que ocupe todo el ancho de la pantalla */
-    overflow-x: scroll; /* Habilitar el scroll horizontal */
-  }    
-}
-
-/* Estilos específicos para pantallas más grandes */
-@media (min-width: 769px) {
-  .scroll-container {
+    flex-wrap: wrap; /* Cambiado de nowrap a wrap */
     max-width: 100%; /* Asegura que ocupe todo el ancho del contenedor */
+    overflow-x: hidden; /* Oculta el scroll horizontal */
+    align-items: center;
+  }
+
+  .adType-button {
+    width: 100%;
+    max-width: 300px;
+    height: auto; /* Ajusta la altura automáticamente */
+  }
+
+  .selected-title {
+    height: auto;
+  }
+
+  .selected-title h1 {
+    font-size: 2rem;
   }
 }
