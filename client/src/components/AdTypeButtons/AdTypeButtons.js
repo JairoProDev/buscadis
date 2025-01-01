@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import './AdTypeButtons.css';
 import JobsIcon from "../../assets/icons/jobs.png";
 import EstateIcon from "../../assets/icons/estate.png";
 import VehiclesIcon from "../../assets/icons/vehicles.png";
 import ServiceIcon from "../../assets/icons/services.png";
 import ProductIcon from "../../assets/icons/products.png";
-import OtherIcon from "../../assets/icons/others.png";
 import BusinessIcon from "../../assets/icons/business.png";
+import EventosIcon from "../../assets/icons/events.png";
+import TurismoIcon from "../../assets/icons/tourism.png";
+import EducacionIcon from "../../assets/icons/education.png";
+import MascotasIcon from "../../assets/icons/pets.png";
 import PlayStoreIcon from "../../assets/icons/playstore.png";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { adTypes } from './AdTypes';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const adTypeIcons = {
   Empleos: JobsIcon,
@@ -17,27 +22,34 @@ const adTypeIcons = {
   Vehiculos: VehiclesIcon,
   Servicios: ServiceIcon,
   Productos: ProductIcon,
-  Otros: OtherIcon,
+  Eventos: EventosIcon, // Nuevo
+  Turismo: TurismoIcon, // Nuevo
+  Educación: EducacionIcon, // Nuevo
+  Mascotas: MascotasIcon, // Nuevo
   Negocios: BusinessIcon,
 };
 
+const adTypeLabels = {
+  Empleos: 'Empleos',
+  Inmuebles: 'Inmuebles',
+  Vehiculos: 'Vehículos',
+  Servicios: 'Servicios',
+  Productos: 'Productos',
+  Eventos: 'Eventos',
+  Turismo: 'Turismo',
+  Educación: 'Educación',
+  Mascotas: 'Mascotas',
+  Negocios: 'Negocios',
+};
+
 function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handleCategoryClick, handleSubCategoryClick, getAds }) {
-  // const navigate = useNavigate();
   const [selectedAdType, setSelectedAdType] = useState(adType || 'Todos');
   const [selectedCategory, setSelectedCategory] = useState(category || null);
+  const [isSelected, setIsSelected] = useState(false); // Nuevo estado para la animación
 
-  const adTypeLabels = {
-    Empleos: 'Empleos',
-    Inmuebles: 'Inmuebles',
-    Vehiculos: 'Vehículos',
-    Servicios: 'Servicios',
-    Productos: 'Productos',
-    Otros: 'Otros',
-    Negocios: 'Negocios',
-  };
-  
   function handleAdTypeSelection(adTypeKey) {
     setSelectedAdType(adTypeKey);
+    setIsSelected(true); // Activar la animación
     setSelectedCategory(null);
     handleAdTypeClick(adTypeKey);
     if (getAds) {
@@ -45,42 +57,81 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     }
   }
 
-  // const handleAllClick = () => {
-  //   setSelectedAdType('Todos');
-  //   setSelectedCategory(null);
-  //   handleAdTypeClick('Todos');
-  //   navigate('/');
-  //   if (getAds) {
-  //     getAds(null, null, null);  // Cargar todos los anuncios
-  //   }
-  // };
+  function handleBack() {
+    setIsSelected(false);
+    setSelectedAdType('Todos');
+    setSelectedCategory(null); // Restablecer la categoría seleccionada
+    handleAdTypeClick('Todos');
+    if (getAds) {
+      getAds('Todos', null, null); // Cargar todos los anuncios
+    }
+  }
+
+  // Variantes para Framer Motion
+  const containerVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } },
+    exit: { opacity: 0, scale: 0.95, transition: { duration: 0.6 } },
+  };
+
+  const selectedVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    exit: { opacity: 0, y: 20, transition: { duration: 0.6 } },
+  };
 
   return (
     <div className='adType-container'>
-      <div className="adType-section">
-        <div className="adType-section-inner scroll-container">
-          {/* <button
-            onClick={handleAllClick}
-            className={`adType-button ${selectedAdType === 'Todos' ? 'selected-all' : ''}`}
+      <AnimatePresence>
+        {!isSelected ? (
+          <motion.div
+            className='adType-section'
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
           >
-            Todo
-          </button> */}
-          <a href="https://play.google.com/store/apps/details?id=buscadis.publicadis" className="adType-button download-app-button" target='_blank' rel='noreferrer'>
-            <img src={PlayStoreIcon} alt="Play Store" />App
-          </a>
-          {Object.keys(adTypeIcons).map((adTypeKey) => (
-            <button
-              key={adTypeKey}
-              onClick={() => handleAdTypeSelection(adTypeKey)}
-              className={`adType-button ${selectedAdType === adTypeKey ? `${adTypeKey.toLowerCase()}-selected` : ''}`}
-              data-ad-type={adTypeKey}
-            >
-              <img src={adTypeIcons[adTypeKey]} alt={adTypeKey} />
-              {adTypeLabels[adTypeKey]}
+            <div className="adType-section-inner scroll-container">
+              <a
+                href="https://play.google.com/store/apps/details?id=buscadis.publicadis"
+                className="adType-button download-app-button"
+                target='_blank'
+                rel='noreferrer'
+              >
+                <img src={PlayStoreIcon} alt="Play Store" className="download-icon" />
+                <span className="download-text">App</span>
+              </a>
+              {Object.keys(adTypeIcons).map((adTypeKey) => (
+                <button
+                  key={adTypeKey}
+                  onClick={() => handleAdTypeSelection(adTypeKey)}
+                  className={`adType-button ${selectedAdType === adTypeKey ? `${adTypeKey.toLowerCase()}-selected` : ''}`}
+                  data-ad-type={adTypeKey}
+                  aria-label={`Seleccionar tipo de anuncio ${adTypeLabels[adTypeKey]}`}
+                >
+                  <img src={adTypeIcons[adTypeKey]} alt={adTypeKey} className="adType-icon" />
+                  <span className="adType-label">{adTypeLabels[adTypeKey]}</span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            className='selected-title'
+            variants={selectedVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <button className='back-button' onClick={handleBack} aria-label="Volver">
+              <FontAwesomeIcon icon={faArrowLeft} />
+              <span className="back-text">Volver</span>
             </button>
-          ))}
-        </div>
-      </div>
+            <img src={adTypeIcons[selectedAdType]} alt={selectedAdType} className="selected-icon" />
+            <h1 className="selected-label">{adTypeLabels[selectedAdType]}</h1>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {selectedAdType && adTypes[selectedAdType] && selectedAdType !== 'Todos' && (
         <div className="category-section">
@@ -96,6 +147,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
                   }
                 }}
                 className={`category-button ${selectedCategory === category ? 'selected-category' : ''}`}
+                aria-label={`Seleccionar categoría ${category}`}
               >
                 {category}
               </button>
@@ -104,7 +156,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
         </div>
       )}
 
-      {selectedCategory && adTypes[selectedAdType][selectedCategory] && (
+      {selectedCategory && adTypes[selectedAdType] && adTypes[selectedAdType][selectedCategory] && (
         <div className="subcategory-section">
           <div className="subcategory-section-inner scroll-container">
             {adTypes[selectedAdType][selectedCategory].map((subCategory) => (
@@ -117,6 +169,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
                   }
                 }}
                 className="subcategory-button"
+                aria-label={`Seleccionar subcategoría ${subCategory}`}
               >
                 {subCategory}
               </button>
