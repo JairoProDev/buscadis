@@ -1,6 +1,62 @@
 .adType-container {
   padding-top: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+}
+
+/* Botón de retroceso */
+.back-button-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px; /* Espacio entre el botón y el contenido */
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #ff5252;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+}
+
+.back-button:hover {
+  background-color: #ff1744;
+  transform: translateY(-3px);
+}
+
+.back-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.5);
+}
+
+/* Ruta de navegación */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 50px; /* Espacio para el botón de retroceso */
+  font-size: 1rem;
+  color: #666;
+}
+
+.breadcrumb span {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.breadcrumb span:hover {
+  text-decoration: underline;
 }
 
 /* Contenedor de botones */
@@ -166,38 +222,6 @@ span.adType-label {
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-/* Botón de retroceso */
-.back-button-container {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-  margin-bottom: 10px; /* Espacio entre el botón y el contenido */
-}
-.back-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 10px;
-  background-color: #ff5252;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.back-button:hover {
-  background-color: #ff1744;
-  transform: translateY(-3px);
-}
-
-.back-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.5);
 }
 
 /* Estilos para las secciones de categorías y subcategorías */

@@ -67,6 +67,13 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     }
   }
 
+  // Generar breadcrumb
+  const breadcrumbPath = [];
+  breadcrumbPath.push('Inicio');
+  if (selectedAdType !== 'Todos') breadcrumbPath.push(adTypeLabels[selectedAdType]);
+  if (selectedCategory) breadcrumbPath.push(selectedCategory);
+  if (subCategory) breadcrumbPath.push(subCategory);
+
   // Variantes para Framer Motion
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.95 },
@@ -82,6 +89,18 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
 
   return (
     <div className='adType-container'>
+      <button className='back-button' onClick={handleBack} aria-label="Volver">
+        <FontAwesomeIcon icon={faArrowLeft} />
+        <span className="back-text">Volver</span>
+      </button>
+      <div className="breadcrumb">
+        {breadcrumbPath.map((item, index) => (
+          <React.Fragment key={index}>
+            <span>{item}</span>
+            {index < breadcrumbPath.length - 1 && <span className="breadcrumb-separator">/</span>}
+          </React.Fragment>
+        ))}
+      </div>
       <AnimatePresence>
         {!isSelected ? (
           <motion.div
@@ -123,10 +142,6 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
             animate="visible"
             exit="exit"
           >
-            <button className='back-button' onClick={handleBack} aria-label="Volver">
-              <FontAwesomeIcon icon={faArrowLeft} />
-              <span className="back-text">Volver</span>
-            </button>
             <img src={adTypeIcons[selectedAdType]} alt={selectedAdType} className="selected-icon" />
             <h1 className="selected-label">{adTypeLabels[selectedAdType]}</h1>
           </motion.div>
