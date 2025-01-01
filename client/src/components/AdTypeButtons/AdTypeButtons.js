@@ -22,10 +22,10 @@ const adTypeIcons = {
   Vehiculos: VehiclesIcon,
   Servicios: ServiceIcon,
   Productos: ProductIcon,
-  Eventos: EventosIcon, // Nuevo
-  Turismo: TurismoIcon, // Nuevo
-  Educación: EducacionIcon, // Nuevo
-  Mascotas: MascotasIcon, // Nuevo
+  Eventos: EventosIcon,
+  Turismo: TurismoIcon,
+  Educación: EducacionIcon,
+  Mascotas: MascotasIcon,
   Negocios: BusinessIcon,
 };
 

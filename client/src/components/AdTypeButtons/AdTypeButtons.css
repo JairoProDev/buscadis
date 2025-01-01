@@ -28,8 +28,8 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
   width: 120px;
-  height: 100px;
-  white-space: normal; /* Permite que el texto se rompa en varias líneas si es necesario */
+  height: 120px;
+  white-space: normal; /* Permite que el texto se rompa en varias líneas */
 }
 
 .adType-icon {
@@ -147,7 +147,7 @@ span.adType-label {
 .selected-title .selected-icon {
   width: 80px;
   height: 80px;
-  margin: 20px; /* Espacio entre el icono y el título */
+  margin-right: 20px; /* Espacio entre el icono y el título */
   /* animation: rotateIcon 2s infinite linear; */
 }
 
@@ -261,7 +261,6 @@ span.adType-label {
   background-color: #ff9800; /* Naranja oscuro para Productos */
   color: #ffffff;
 }
-
 
 /* Clase para Negocios */
 .adType-button.negocios-selected {
