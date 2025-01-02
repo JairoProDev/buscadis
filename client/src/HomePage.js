@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState, useEffect } from "react";
+import React, { Fragment, useRef, useState, useEffect, useCallback } from "react";
 import { Route, Routes, useParams, useNavigate } from "react-router-dom";
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
@@ -27,7 +27,7 @@ function HomePage() {
   const [isAdTypeSelected, setIsAdTypeSelected] = useState(!!adType);
   const [selectedAdType, setSelectedAdType] = useState(adType || null);
 
-  const { ads, addAdToTop, error, isLoading, hasMore, getAds } = useAds();
+  const { ads, addAdToTop, isLoading, hasMore, getAds } = useAds();
   const { filteredAds, updateSearchTerm } = useSearch(ads, filter);
   const [selectedAd, setSelectedAd] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -79,7 +79,7 @@ function HomePage() {
     }
   }, [id, ads, adType, category, subcategory, getAds]);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (
       loader.current &&
       loader.current.getBoundingClientRect().bottom <= window.innerHeight &&
@@ -89,7 +89,7 @@ function HomePage() {
       setPage((prevPage) => prevPage + 1);
       getAds(selectedAdType, category, subcategory, page + 1);
     }
-  };
+  }, [hasMore, isLoading, selectedAdType, category, subcategory, page, getAds]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -100,8 +100,6 @@ function HomePage() {
     setSelectedAd(null);
     navigate(`/${adType}/${category || ""}`); // Redirige solo a la categoría
   };
-
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
     const currentIndex = ads.findIndex((ad) => ad._id === selectedAd._id);

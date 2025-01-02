@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import AdCard from "../AdCard/AdCard";
-import Modal from "../Modal/Modal";
 import "./adList.css";
 
 function AdList({ adisos }) {
   const [loading, setLoading] = useState(true);
-  const [selectedAd, setSelectedAd] = useState(null);
+  const [setSelectedAd] = useState(null);
 
   const { id } = useParams(); // Captura el ID del adiso desde la URL
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ function AdList({ adisos }) {
         console.warn(`Anuncio con ID ${id} no encontrado.`);
       }
     }
-  }, [loading, id, adisos]);
+  }, [setSelectedAd, loading, id, adisos]);
 
   const handleAdClick = (adiso) => {
     setSelectedAd(adiso);

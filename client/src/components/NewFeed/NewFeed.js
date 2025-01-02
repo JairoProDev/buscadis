@@ -42,7 +42,7 @@ function Feed({
         setFilteredAnuncios(filtered);
       }
     }
-  }, [adisos, adType, category, subcategory]); // Dependencies ensure this runs only when these change
+  }, [filteredAnuncios, adisos, adType, category, subcategory]); // Dependencies ensure this runs only when these change
 
   const handleAdTypeClick = (adType) => {
     navigate(`/${adType}`);

@@ -79,7 +79,7 @@
   color: var(--text-color);
   font-size: 0.9rem;
   line-height: 1.2;
-  mask-image: linear-gradient(180deg, #000 0, #000 75%, #0000);
+  /* mask-image: linear-gradient(180deg, #000 0, #000 75%, #0000); */
   overflow: hidden;
   padding: 0.4rem;
 }
