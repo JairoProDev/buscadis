@@ -8,6 +8,10 @@ const vehicleController = require("../controllers/vehicleController");
 const serviceController = require("../controllers/serviceController");
 const productController = require("../controllers/productController");
 const businessController = require("../controllers/businessController");
+const eventController = require("../controllers/eventController");
+const tourismController = require("../controllers/tourismController");
+const educationController = require("../controllers/educationController");
+const petController = require("../controllers/petController");
 
 // Rutas para los anuncios de empleo
 router.post("/jobs", jobController.createJob);
@@ -51,34 +55,37 @@ router.get("/businesses/:id", businessController.getBusinessById);
 router.put("/businesses/:id", businessController.updateBusiness);
 router.delete("/businesses/:id", businessController.deleteBusiness);
 
-const {
-  createAd,
-  getAds,
-  getAdById,
-  getAdsByAdType,
-  getAdsByAdTypeAndCategory,
-  updateAd,
-  deleteAd,
-} = require("../controllers/adController");
-const Counter = require('../models/postCounterModel');
+// Rutas para los anuncios de eventos
+router.post("/events", eventController.createEvent);
+router.get("/events", eventController.getEvents);
+router.get("/events/:id", eventController.getEventById);
+router.put("/events/:id", eventController.updateEvent);
+router.delete("/events/:id", eventController.deleteEvent);
 
-// Rutas para los anuncios
-router.post("/ads", createAd);
-router.get("/ads", getAds);
-router.get("/ads/:id", getAdById);
-router.get("/ads/adType/:adType", getAdsByAdType);
-router.get("/ads/adType/:adType/category/:category", getAdsByAdTypeAndCategory);
-router.put("/ads/:id", updateAd);
-router.delete("/ads/:id", deleteAd);
+// Rutas para los anuncios de turismo
+router.post("/tourism", tourismController.createTourism);
+router.get("/tourism", tourismController.getTourisms);
+router.get("/tourism/:id", tourismController.getTourismById);
+router.put("/tourism/:id", tourismController.updateTourism);
+router.delete("/tourism/:id", tourismController.deleteTourism);
+
+// Rutas para los anuncios de educación
+router.post("/education", educationController.createEducation);
+router.get("/education", educationController.getEducations);
+router.get("/education/:id", educationController.getEducationById);
+router.put("/education/:id", educationController.updateEducation);
+router.delete("/education/:id", educationController.deleteEducation);
+
+// Rutas para los anuncios de mascotas
+router.post("/pets", petController.createPet);
+router.get("/pets", petController.getPets);
+router.get("/pets/:id", petController.getPetById);
+router.put("/pets/:id", petController.updatePet);
+router.delete("/pets/:id", petController.deletePet);
+
+const { getPostCount } = require("../controllers/postCounterController");
 
 // Ruta para obtener el contador de avisos
-router.get('/adCount', async (req, res) => {
-  try {
-    const counter = await Counter.findById('adId');
-    res.json({ adCount: counter ? counter.sequenceValue : 0 });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+router.get('/postCount', getPostCount);
 
 module.exports = router;

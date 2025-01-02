@@ -44,8 +44,8 @@ const jobSchema = new mongoose.Schema(
     },
     size: { type: String, enum: ["miniatura", "normal", "largo", "grande", "gigante"], default: "normal" },
     images: [String],
-    viewCount: { type: Number, default: 0 }, // Añadido para contar vistas
-    contactsCount: { type: Number, default: 0 }, // Añadido para contar contactos
+    viewCount: { type: Number, default: 0 },
+    contactsCount: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
