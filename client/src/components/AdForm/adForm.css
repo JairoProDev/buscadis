@@ -8,7 +8,7 @@
   padding: 0; /* Eliminar padding para ocupar todo el espacio */
   box-sizing: border-box;
   background-color: #ffffff; /* Fondo blanco para parecer una nueva página */
-  z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
+  z-index: 100; /* Asegurarse de que esté por encima de otros elementos */
 }
 
 .adForm {

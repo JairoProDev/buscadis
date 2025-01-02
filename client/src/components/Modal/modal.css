@@ -11,7 +11,7 @@
   align-items: center;
   opacity: 0;
   transition: opacity 0.5s ease;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .modal-overlay.show {
@@ -93,7 +93,7 @@
   font-size: 2.5em;
   color: #fff;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 101;
 }
 
 .navigation-arrow-left {
@@ -254,7 +254,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1003;
+  z-index: 103;
   transition: all 0.3s ease; /* Suave transición al mostrar el modal */
 }
 
@@ -321,7 +321,7 @@
   padding: 0 10px;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 101;
   transition: background-color 0.3s ease;
 }
 
