@@ -12,17 +12,28 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
   const totalVisitors = visitorCount + postCount;
 
   useEffect(() => {
-    fetch('/visitorCount')
-      .then(response => response.json())
-      .then(data => setVisitorCount(data.visitorCount))
-      .catch(error => console.error('Error:', error));
-  }, []);
+    const fetchVisitorCount = async () => {
+      try {
+        const response = await fetch('/visitorCount');
+        const data = await response.json();
+        setVisitorCount(data.visitorCount);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
 
-  useEffect(() => {
-    fetch('/postCount')
-      .then(response => response.json())
-      .then(data => setPostCount(data.postCount))
-      .catch(error => console.error('Error:', error));
+    const fetchPostCount = async () => {
+      try {
+        const response = await fetch('/postCount');
+        const data = await response.json();
+        setPostCount(data.postCount);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchVisitorCount();
+    fetchPostCount();
   }, []);
 
   return (
