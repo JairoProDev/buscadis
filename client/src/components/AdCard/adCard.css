@@ -108,7 +108,6 @@
   position: relative; /* Asegura que el overlay esté en la parte superior */
 }
 
-
 .ad-card.inmuebles {
   background-color: #c8f7c5;
   border-left: 4px solid #4caf50; /* Verde suave */
@@ -186,8 +185,7 @@
   background-color: rgba(156, 39, 176, 0.6); /* Púrpura translúcido */
 }
 
-
-/* Estilos para avisos caducados */
+/* Estilos para adisos caducados */
 
 .ad-card--expired {
   position: relative;

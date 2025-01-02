@@ -1,7 +1,16 @@
-.columna-anuncios {
-  font-family: 'Georgia', serif; /* Tipografía serif similar a la del periódico */
+.columna-adisos {
+  font-family: "Georgia", serif; /* Tipografía serif similar a la del periódico */
   background-color: #f4f4f4; /* Fondo de color similar al papel reciclado */
-  background: linear-gradient(145deg, rgba(240,230,214,0.2) 25%, rgba(230,220,200,0.2) 25%, rgba(230,220,200,0.2) 50%, rgba(240,230,214,0.2) 50%, rgba(240,230,214,0.2) 75%, rgba(230,220,200,0.2) 75%, rgba(230,220,200,0.2) 100%);
+  background: linear-gradient(
+    145deg,
+    rgba(240, 230, 214, 0.2) 25%,
+    rgba(230, 220, 200, 0.2) 25%,
+    rgba(230, 220, 200, 0.2) 50%,
+    rgba(240, 230, 214, 0.2) 50%,
+    rgba(240, 230, 214, 0.2) 75%,
+    rgba(230, 220, 200, 0.2) 75%,
+    rgba(230, 220, 200, 0.2) 100%
+  );
   background-size: 30px 30px; /* Textura de fondo con tamaño ajustado */
   color: #5a5a5a; /* Color del texto más apagado, similar al de la tinta de los periódicos */
 
@@ -16,26 +25,26 @@
   border: 1px solid #c0b0a0; /* Bordes más suaves */
 }
 
-.anuncio {
+.adiso {
   margin-bottom: 10px;
   padding-bottom: 8px;
   border-bottom: 1px solid #c0b0a0; /* Línea separadora más suave */
 }
 
-.anuncio h4 {
+.adiso h4 {
   font-size: 0.85em;
   color: #4b4b4b; /* Color del título */
   font-weight: 600; /* Un poco más de peso para resaltar el título */
   text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1); /* Sombra suave para simular la tinta impresa */
 }
 
-.anuncio p {
+.adiso p {
   font-size: 0.75em;
   color: #5a5a5a; /* Color del texto */
   text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1); /* Sombra suave en el texto */
 }
 
-.anuncio-desc {
+.adiso-desc {
   font-size: 0.75em;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -45,10 +54,10 @@
   white-space: normal;
 }
 
-.anuncio-desc:hover {
+.adiso-desc:hover {
   color: #2bc55e;
 }
-.anuncio a {
+.adiso a {
   font-size: 0.85em;
   color: #5477a0; /* Color azul para enlaces */
   text-decoration: none;

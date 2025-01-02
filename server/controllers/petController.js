@@ -5,7 +5,7 @@ const createPet = async (req, res) => {
   try {
     const pet = new Pet(req.body);
     await pet.save();
-    await incrementPostCounter(); // Incrementar el contador de avisos
+    await incrementPostCounter(); // Incrementar el contador de adisos
     res.status(201).json({ message: "Pet created successfully", pet });
   } catch (error) {
     res.status(500).json({ error: error.message });

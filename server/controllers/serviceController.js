@@ -5,7 +5,7 @@ const createService = async (req, res) => {
   try {
     const service = new Service(req.body);
     await service.save();
-    await incrementPostCounter(); // Incrementar el contador de avisos
+    await incrementPostCounter(); // Incrementar el contador de adisos
     res.status(201).json({ message: "Service created successfully", service });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -14,7 +14,10 @@ const createService = async (req, res) => {
 
 const getServices = async (req, res) => {
   try {
-    const services = await Service.find().sort({ createdAt: -1 }).limit(300).exec();
+    const services = await Service.find()
+      .sort({ createdAt: -1 })
+      .limit(300)
+      .exec();
     res.status(200).json(services);
   } catch (error) {
     res.status(500).json({ error: "Error interno al obtener los servicios" });

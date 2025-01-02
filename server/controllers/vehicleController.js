@@ -5,7 +5,7 @@ const createVehicle = async (req, res) => {
   try {
     const vehicle = new Vehicle(req.body);
     await vehicle.save();
-    await incrementPostCounter(); // Incrementar el contador de avisos
+    await incrementPostCounter(); // Incrementar el contador de adisos
     res.status(201).json({ message: "Vehicle created successfully", vehicle });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -14,7 +14,10 @@ const createVehicle = async (req, res) => {
 
 const getVehicles = async (req, res) => {
   try {
-    const vehicles = await Vehicle.find().sort({ createdAt: -1 }).limit(300).exec();
+    const vehicles = await Vehicle.find()
+      .sort({ createdAt: -1 })
+      .limit(300)
+      .exec();
     res.status(200).json(vehicles);
   } catch (error) {
     res.status(500).json({ error: "Error interno al obtener los vehículos" });

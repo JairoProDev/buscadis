@@ -4,10 +4,10 @@ const validator = require("validator");
 
 const vehicleSchema = new mongoose.Schema(
   {
-    adType: { type: String, required: true, trim: true }, // tipo de anuncio
+    adType: { type: String, required: true, trim: true }, // tipo de adiso
     category: { type: String, required: true, trim: true }, // categoría de vehículo, como 'Auto', 'Moto', etc.
     subCategory: { type: String, trim: true }, // subcategoría, como 'SUV', 'Sedán', 'Camioneta'
-    title: { type: String, required: true, trim: true, maxlength: 100 }, // título del anuncio
+    title: { type: String, required: true, trim: true, maxlength: 100 }, // título del adiso
     description: { type: String, required: true, trim: true, maxlength: 1800 }, // descripción
     location: { type: String, trim: true }, // ubicación del vehículo
     phone: {
@@ -17,7 +17,8 @@ const vehicleSchema = new mongoose.Schema(
         validator: function (v) {
           return /^(\+51)?\d{9}$/.test(v);
         },
-        message: (props) => `${props.value} no es un número de teléfono válido!`,
+        message: (props) =>
+          `${props.value} no es un número de teléfono válido!`,
       },
     },
     phone2: {
@@ -27,7 +28,8 @@ const vehicleSchema = new mongoose.Schema(
         validator: function (v) {
           return !v || /^(\+51)?\d{9}$/.test(v);
         },
-        message: (props) => `${props.value} no es un número de teléfono válido!`,
+        message: (props) =>
+          `${props.value} no es un número de teléfono válido!`,
       },
     },
     amount: { type: String },
@@ -38,7 +40,8 @@ const vehicleSchema = new mongoose.Schema(
         validator: function (v) {
           return v ? validator.isEmail(v) : true;
         },
-        message: (props) => `${props.value} no es un correo electrónico válido!`,
+        message: (props) =>
+          `${props.value} no es un correo electrónico válido!`,
       },
     },
     size: {

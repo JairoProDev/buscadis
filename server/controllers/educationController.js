@@ -5,8 +5,10 @@ const createEducation = async (req, res) => {
   try {
     const education = new Education(req.body);
     await education.save();
-    await incrementPostCounter(); // Incrementar el contador de avisos
-    res.status(201).json({ message: "Education created successfully", education });
+    await incrementPostCounter(); // Incrementar el contador de adisos
+    res
+      .status(201)
+      .json({ message: "Education created successfully", education });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -14,7 +16,10 @@ const createEducation = async (req, res) => {
 
 const getEducations = async (req, res) => {
   try {
-    const educations = await Education.find().sort({ createdAt: -1 }).limit(300).exec();
+    const educations = await Education.find()
+      .sort({ createdAt: -1 })
+      .limit(300)
+      .exec();
     res.status(200).json(educations);
   } catch (error) {
     res.status(500).json({ error: "Error interno al obtener las educaciones" });
@@ -41,7 +46,9 @@ const updateEducation = async (req, res) => {
     }
     Object.assign(education, req.body);
     await education.save();
-    res.status(200).json({ message: "Education updated successfully", education });
+    res
+      .status(200)
+      .json({ message: "Education updated successfully", education });
   } catch (error) {
     res.status(500).json({ error: "Error interno al actualizar la educación" });
   }

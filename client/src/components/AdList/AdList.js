@@ -4,26 +4,26 @@ import AdCard from "../AdCard/AdCard";
 import Modal from "../Modal/Modal";
 import "./adList.css";
 
-function AdList({ anuncios }) {
+function AdList({ adisos }) {
   const [loading, setLoading] = useState(true);
   const [selectedAd, setSelectedAd] = useState(null);
 
-  const { id } = useParams();  // Captura el ID del anuncio desde la URL
+  const { id } = useParams(); // Captura el ID del adiso desde la URL
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (anuncios.length > 0) {
+    if (adisos.length > 0) {
       setLoading(false);
     } else {
       setLoading(true);
     }
-    console.log("Anuncios recibidos en AdList:", anuncios);
-    console.log("Cantidad de anuncios:", anuncios.length);
-  }, [anuncios]);
+    console.log("Anuncios recibidos en AdList:", adisos);
+    console.log("Cantidad de adisos:", adisos.length);
+  }, [adisos]);
 
   useEffect(() => {
     if (!loading && id) {
-      const ad = anuncios.find(anuncio => anuncio._id === id);
+      const ad = adisos.find((adiso) => adiso._id === id);
       if (ad) {
         setSelectedAd(ad);
         console.log("Anuncio encontrado y seleccionado:", ad);
@@ -31,27 +31,29 @@ function AdList({ anuncios }) {
         console.warn(`Anuncio con ID ${id} no encontrado.`);
       }
     }
-  }, [loading, id, anuncios]);
+  }, [loading, id, adisos]);
 
-  const handleAdClick = (anuncio) => {
-    setSelectedAd(anuncio);
-    navigate(`/${anuncio.adType}/${anuncio.category}/${anuncio.subCategory}/${anuncio._id}`);
+  const handleAdClick = (adiso) => {
+    setSelectedAd(adiso);
+    navigate(
+      `/${adiso.adType}/${adiso.category}/${adiso.subCategory}/${adiso._id}`
+    );
   };
 
   return (
     <div className="ads-container">
       <ul id="ad-list" style={{ listStyleType: "none" }}>
         {loading ? (
-          <p>Cargando anuncios...</p>
-        ) : anuncios.length > 0 ? (
-          anuncios.map((anuncio, index) => (
-            <li key={anuncio._id} className={`ad-size-${anuncio.size || "normal"}`}>
+          <p>Cargando adisos...</p>
+        ) : adisos.length > 0 ? (
+          adisos.map((adiso, index) => (
+            <li key={adiso._id} className={`ad-size-${adiso.size || "normal"}`}>
               <div
-                onClick={() => handleAdClick(anuncio)}
+                onClick={() => handleAdClick(adiso)}
                 style={{ cursor: "pointer" }}
               >
                 <AdCard
-                  anuncio={anuncio}
+                  adiso={adiso}
                   number={index + 1}
                   setSelectedAd={setSelectedAd}
                 />
@@ -59,7 +61,7 @@ function AdList({ anuncios }) {
             </li>
           ))
         ) : (
-          <p>No se encontraron anuncios para mostrar.</p>
+          <p>No se encontraron adisos para mostrar.</p>
         )}
       </ul>
     </div>

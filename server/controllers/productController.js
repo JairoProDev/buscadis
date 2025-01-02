@@ -5,7 +5,7 @@ const createProduct = async (req, res) => {
   try {
     const product = new Product(req.body);
     await product.save();
-    await incrementPostCounter(); // Incrementar el contador de avisos
+    await incrementPostCounter(); // Incrementar el contador de adisos
     res.status(201).json({ message: "Product created successfully", product });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -14,7 +14,10 @@ const createProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
-    const products = await Product.find().sort({ createdAt: -1 }).limit(300).exec();
+    const products = await Product.find()
+      .sort({ createdAt: -1 })
+      .limit(300)
+      .exec();
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ error: "Error interno al obtener los productos" });

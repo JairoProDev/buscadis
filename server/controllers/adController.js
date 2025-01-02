@@ -49,48 +49,48 @@ const createAd = async (req, res) => {
     console.log("New ad:", newAd);
     try {
       await newAd.save();
-      await incrementPostCounter(); // Incrementar el contador de avisos
+      await incrementPostCounter(); // Incrementar el contador de adisos
       console.log("Ad saved successfully");
       res
         .status(201)
-        .json({ mensaje: "Anuncio creado exitosamente", anuncio: newAd });
+        .json({ mensaje: "Anuncio creado exitosamente", adiso: newAd });
     } catch (error) {
-      console.error("Error al guardar el anuncio:", error);
+      console.error("Error al guardar el adiso:", error);
       res.status(500).json({ error: error.message });
     }
   } catch (error) {
-    console.error("Error al crear el anuncio:", error);
+    console.error("Error al crear el adiso:", error);
     res.status(500).json({ error: error.message });
   }
 };
 
 const getAds = async (req, res) => {
   try {
-    const anuncios = await Ad.find().sort({ createdAt: -1 }).limit(100).exec();
+    const adisos = await Ad.find().sort({ createdAt: -1 }).limit(100).exec();
 
-    if (!anuncios || anuncios.length === 0) {
+    if (!adisos || adisos.length === 0) {
       return res.status(200).json([]);
     }
 
-    res.status(200).json(anuncios);
+    res.status(200).json(adisos);
   } catch (error) {
-    console.error("Error al obtener los anuncios:", error);
-    res.status(500).json({ error: "Error interno al obtener los anuncios" });
+    console.error("Error al obtener los adisos:", error);
+    res.status(500).json({ error: "Error interno al obtener los adisos" });
   }
 };
 
 const getAdById = async (req, res) => {
   try {
-    const anuncio = await Ad.findById(req.params.id);
+    const adiso = await Ad.findById(req.params.id);
 
-    if (!anuncio) {
-      return res.status(404).json({ mensaje: "No se encontró el anuncio" });
+    if (!adiso) {
+      return res.status(404).json({ mensaje: "No se encontró el adiso" });
     }
 
-    res.status(200).json(anuncio);
+    res.status(200).json(adiso);
   } catch (error) {
-    console.error("Error al obtener el anuncio:", error);
-    res.status(500).json({ error: "Error interno al obtener el anuncio" });
+    console.error("Error al obtener el adiso:", error);
+    res.status(500).json({ error: "Error interno al obtener el adiso" });
   }
 };
 
@@ -101,20 +101,20 @@ const getAdsByAdType = async (req, res) => {
     const limit = parseInt(req.query.limit) || 20;
     const skip = (page - 1) * limit;
 
-    const anuncios = await Ad.find({ adType })
+    const adisos = await Ad.find({ adType })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .exec();
 
-    if (!anuncios || anuncios.length === 0) {
+    if (!adisos || adisos.length === 0) {
       return res.status(200).json([]);
     }
 
-    res.status(200).json(anuncios);
+    res.status(200).json(adisos);
   } catch (error) {
-    console.error("Error al obtener los anuncios:", error);
-    res.status(500).json({ error: "Error interno al obtener los anuncios" });
+    console.error("Error al obtener los adisos:", error);
+    res.status(500).json({ error: "Error interno al obtener los adisos" });
   }
 };
 
@@ -131,44 +131,44 @@ const getAdsByAdTypeAndCategory = async (req, res) => {
 
     res.status(200).json(ads);
   } catch (error) {
-    console.error("Error al obtener los anuncios:", error);
-    res.status(500).json({ error: "Error interno al obtener los anuncios" });
+    console.error("Error al obtener los adisos:", error);
+    res.status(500).json({ error: "Error interno al obtener los adisos" });
   }
 };
 
 const updateAd = async (req, res) => {
   try {
-    const anuncio = await Ad.findById(req.params.id);
+    const adiso = await Ad.findById(req.params.id);
 
-    if (!anuncio) {
-      return res.status(404).json({ mensaje: "No se encontró el anuncio" });
+    if (!adiso) {
+      return res.status(404).json({ mensaje: "No se encontró el adiso" });
     }
 
-    Object.assign(anuncio, req.body);
+    Object.assign(adiso, req.body);
 
-    await anuncio.save();
+    await adiso.save();
     res
       .status(200)
-      .json({ mensaje: "Anuncio actualizado exitosamente", anuncio });
+      .json({ mensaje: "Anuncio actualizado exitosamente", adiso });
   } catch (error) {
-    console.error("Error al actualizar el anuncio:", error);
-    res.status(500).json({ error: "Error interno al actualizar el anuncio" });
+    console.error("Error al actualizar el adiso:", error);
+    res.status(500).json({ error: "Error interno al actualizar el adiso" });
   }
 };
 
 const deleteAd = async (req, res) => {
   try {
-    const anuncio = await Ad.findById(req.params.id);
+    const adiso = await Ad.findById(req.params.id);
 
-    if (!anuncio) {
-      return res.status(404).json({ mensaje: "No se encontró el anuncio" });
+    if (!adiso) {
+      return res.status(404).json({ mensaje: "No se encontró el adiso" });
     }
 
-    await anuncio.deleteOne();
+    await adiso.deleteOne();
     res.status(200).json({ mensaje: "Anuncio eliminado exitosamente" });
   } catch (error) {
-    console.error("Error al eliminar el anuncio:", error);
-    res.status(500).json({ error: "Error interno al eliminar el anuncio" });
+    console.error("Error al eliminar el adiso:", error);
+    res.status(500).json({ error: "Error interno al eliminar el adiso" });
   }
 };
 

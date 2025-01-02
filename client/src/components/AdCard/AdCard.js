@@ -2,27 +2,37 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./adCard.css";
 
-function AdCard({ anuncio, setSelectedAd, number }) {
+function AdCard({ adiso, setSelectedAd, number }) {
   const navigate = useNavigate();
 
   const handleAdClick = () => {
     navigate(
-      `/${anuncio.adType}/${anuncio.category}/${anuncio.subCategory}/${anuncio._id}`
+      `/${adiso.adType}/${adiso.category}/${adiso.subCategory}/${adiso._id}`
     );
-    setSelectedAd(anuncio);
+    setSelectedAd(adiso);
   };
 
-  const sizeClass = `ad-size-${anuncio.size || "normal"}`;
-  const { adType, category, title, description, amount, location, createdAt, image, _id } =
-    anuncio;
+  const sizeClass = `ad-size-${adiso.size || "normal"}`;
+  const {
+    adType,
+    category,
+    title,
+    description,
+    amount,
+    location,
+    createdAt,
+    image,
+    _id,
+  } = adiso;
   const adTypeLower = adType ? adType.toLowerCase() : "default";
   const adClass = `ad-card ${adTypeLower} ${sizeClass}`;
 
-  // Calcular si el anuncio tiene más de una semana
-  const isOldAd = (new Date() - new Date(createdAt)) / (1000 * 60 * 60 * 24) > 7;
+  // Calcular si el adiso tiene más de una semana
+  const isOldAd =
+    (new Date() - new Date(createdAt)) / (1000 * 60 * 60 * 24) > 7;
   const oldAdClass = isOldAd ? "ad-card--taken" : "";
 
-  // Lógica para marcar 1 de cada 10 anuncios como caducado, solo si el anuncio tiene más de una semana
+  // Lógica para marcar 1 de cada 10 adisos como caducado, solo si el adiso tiene más de una semana
   const hash = _id.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
   const isExpired = isOldAd && hash % 10 === 0; // 1 de cada 10 se marcará como caducado, pero solo si es viejo
   const expiredClass = isExpired ? "ad-card--expired" : "";
@@ -37,8 +47,9 @@ function AdCard({ anuncio, setSelectedAd, number }) {
     default: "¡Anuncio Tomado!",
   };
 
-  // Obtener el mensaje correspondiente al tipo de anuncio
-  const adStatusMessage = adStatusMessages[adTypeLower] || adStatusMessages.default;
+  // Obtener el mensaje correspondiente al tipo de adiso
+  const adStatusMessage =
+    adStatusMessages[adTypeLower] || adStatusMessages.default;
 
   const formattedDate = formatShortDistance(new Date(createdAt));
 

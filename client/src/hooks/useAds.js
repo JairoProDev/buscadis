@@ -7,7 +7,7 @@ const useAds = () => {
   const [hasMore, setHasMore] = useState(true);
 
   const showAds = useCallback((adsData) => {
-    console.log(adsData)
+    console.log(adsData);
     if (Array.isArray(adsData)) {
       setAds((prevAds) => [...prevAds, ...adsData]);
       setHasMore(adsData.length > 0); // Actualiza hasMore basado en la longitud de adsData
@@ -17,80 +17,83 @@ const useAds = () => {
     }
   }, []);
 
-  const getAds = useCallback(async (adType, category, subcategory, page = 1, limit = 20) => {
-    setIsLoading(true);
-    setError(null);
+  const getAds = useCallback(
+    async (adType, category, subcategory, page = 1, limit = 20) => {
+      setIsLoading(true);
+      setError(null);
 
-    try {
-      // Determinar la URL correcta de la API basada en el tipo de anuncio
-      let url;
-      switch (adType) {
-        case 'Empleos':
-          url = `/api/jobs?limit=${limit}&page=${page}`;
-          break;
-        case 'Inmuebles':
-          url = `/api/realestate?limit=${limit}&page=${page}`;
-          break;
-        case 'Vehiculos':
-          url = `/api/vehicles?limit=${limit}&page=${page}`;
-          break;
-        case 'Servicios':
-          url = `/api/services?limit=${limit}&page=${page}`;
-          break;
-        case 'Productos':
-          url = `/api/products?limit=${limit}&page=${page}`;
-          break;
-        case 'Negocios':
-          url = `/api/businesses?limit=${limit}&page=${page}`;
-          break;
-        default:
-          url = `/api/ads?limit=${limit}&page=${page}`; // Para cualquier otro caso, tal vez un tipo de anuncio genérico
-          break;
-      }
+      try {
+        // Determinar la URL correcta de la API basada en el tipo de adiso
+        let url;
+        switch (adType) {
+          case "Empleos":
+            url = `/api/jobs?limit=${limit}&page=${page}`;
+            break;
+          case "Inmuebles":
+            url = `/api/realestate?limit=${limit}&page=${page}`;
+            break;
+          case "Vehiculos":
+            url = `/api/vehicles?limit=${limit}&page=${page}`;
+            break;
+          case "Servicios":
+            url = `/api/services?limit=${limit}&page=${page}`;
+            break;
+          case "Productos":
+            url = `/api/products?limit=${limit}&page=${page}`;
+            break;
+          case "Negocios":
+            url = `/api/businesses?limit=${limit}&page=${page}`;
+            break;
+          default:
+            url = `/api/ads?limit=${limit}&page=${page}`; // Para cualquier otro caso, tal vez un tipo de adiso genérico
+            break;
+        }
 
-      if (category) {
-        url += `&category=${encodeURIComponent(category)}`;
-      }
-      if (subcategory) {
-        url += `&subcategory=${encodeURIComponent(subcategory)}`;
-      }
+        if (category) {
+          url += `&category=${encodeURIComponent(category)}`;
+        }
+        if (subcategory) {
+          url += `&subcategory=${encodeURIComponent(subcategory)}`;
+        }
 
-      const response = await fetch(url);
+        const response = await fetch(url);
 
-      // Verifica si la respuesta es correcta y es JSON
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+        // Verifica si la respuesta es correcta y es JSON
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        const adsData = await response.json();
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const adsData = await response.json();
 
-        console.log('Datos recibidos desde la API:', adsData);  // <-- Añade este log
+          console.log("Datos recibidos desde la API:", adsData); // <-- Añade este log
 
-        if (adsData) {
-          if (page === 1) {
-            setAds(adsData); // Si es la primera página, reemplaza el estado con los nuevos anuncios
+          if (adsData) {
+            if (page === 1) {
+              setAds(adsData); // Si es la primera página, reemplaza el estado con los nuevos adisos
+            } else {
+              showAds(adsData); // Si es una página posterior, añade los adisos al estado existente
+            }
           } else {
-            showAds(adsData); // Si es una página posterior, añade los anuncios al estado existente
+            setError("Error: Data received is null or undefined");
           }
         } else {
-          setError("Error: Data received is null or undefined");
+          throw new Error("Expected JSON, but received: " + contentType);
         }
-      } else {
-        throw new Error("Expected JSON, but received: " + contentType);
+      } catch (error) {
+        console.error("Error fetching ads:", error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error('Error fetching ads:', error);
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [showAds]);
+    },
+    [showAds]
+  );
 
   return {
     ads,
-    addAdToTop: (ad) => setAds((prevAds) => [ad, ...prevAds.slice(0, 99)]), // Agrega un nuevo anuncio al principio
+    addAdToTop: (ad) => setAds((prevAds) => [ad, ...prevAds.slice(0, 99)]), // Agrega un nuevo adiso al principio
     error,
     isLoading,
     hasMore,

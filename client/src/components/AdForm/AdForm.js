@@ -6,7 +6,7 @@ import { useAdFormLogic } from "./useAdFormLogic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
-function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
+function AdForm({ addAdToTop, isVisible, hideForm, adisos }) {
   const {
     setAdType,
     adTypeRef,
@@ -42,7 +42,7 @@ function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
       <form
         id="adForm"
         className="adForm"
-        action="/api/anuncios"
+        action="/api/adisos"
         method="POST"
         encType="multipart/form-data"
         onSubmit={handleSubmit}
@@ -50,7 +50,7 @@ function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
         {error && <p className="error-message">{error}</p>}
         <fieldset>
           <legend>!ANUNCIA EN BUSCADIS!</legend>
-          <label htmlFor="adType">Tipo de anuncio:</label>
+          <label htmlFor="adType">Tipo de adiso:</label>
           <select
             id="adType"
             name="adType"
@@ -111,7 +111,7 @@ function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
             <option value="grande">2x2 / grande / s/80</option>
             <option value="gigante">2x4 / gigante / s/120</option>
           </select>
-          <label htmlFor="title">Título de tu aviso:</label>
+          <label htmlFor="title">Título de tu adiso:</label>
           <input
             className="adForm-input"
             type="text"
@@ -123,7 +123,7 @@ function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
             placeholder="Se busca..."
           />
 
-          <label htmlFor="description">Descripción de tu aviso:</label>
+          <label htmlFor="description">Descripción de tu adiso:</label>
           <textarea
             id="description"
             name="description"
@@ -131,7 +131,7 @@ function AdForm({ addAdToTop, isVisible, hideForm, anuncios }) {
             ref={descriptionRef}
             defaultValue={description}
             onInput={handleDescriptionChange}
-            placeholder="Escribe una descripción detallada de tu anuncio"
+            placeholder="Escribe una descripción detallada de tu adiso"
             className="adForm-input"
           ></textarea>
 

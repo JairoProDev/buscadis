@@ -5,7 +5,7 @@ const createTourism = async (req, res) => {
   try {
     const tourism = new Tourism(req.body);
     await tourism.save();
-    await incrementPostCounter(); // Incrementar el contador de avisos
+    await incrementPostCounter(); // Incrementar el contador de adisos
     res.status(201).json({ message: "Tourism created successfully", tourism });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -14,7 +14,10 @@ const createTourism = async (req, res) => {
 
 const getTourisms = async (req, res) => {
   try {
-    const tourisms = await Tourism.find().sort({ createdAt: -1 }).limit(300).exec();
+    const tourisms = await Tourism.find()
+      .sort({ createdAt: -1 })
+      .limit(300)
+      .exec();
     res.status(200).json(tourisms);
   } catch (error) {
     res.status(500).json({ error: "Error interno al obtener los turismos" });

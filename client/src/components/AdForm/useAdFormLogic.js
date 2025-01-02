@@ -98,7 +98,7 @@ export function useAdFormLogic(addAdToTop) {
   // Manejar el envío del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Tipo de anuncio:", adType);
+    console.log("Tipo de adiso:", adType);
 
     try {
       // Validar el formulario
@@ -121,13 +121,13 @@ export function useAdFormLogic(addAdToTop) {
       let imageUrls = [];
 
       // Añadir imágenes al FormData
-      images.forEach(image => formData.append("image", image));
+      images.forEach((image) => formData.append("image", image));
 
       // Si hay imágenes, subirlas al backend para obtener las URLs de Cloudinary
       if (images.length > 0) {
-        const uploadResponse = await fetch('/api/images/upload', {
-          method: 'POST',
-          body: formData
+        const uploadResponse = await fetch("/api/images/upload", {
+          method: "POST",
+          body: formData,
         });
 
         if (!uploadResponse.ok) {
@@ -139,7 +139,7 @@ export function useAdFormLogic(addAdToTop) {
         imageUrls = data.imageUrls; // Obtener las URLs de las imágenes subidas
       }
 
-      // Preparar los datos para enviar el anuncio
+      // Preparar los datos para enviar el adiso
       const adData = {
         adType: getRefValue(adTypeRef),
         category: getRefValue(categoryRef),
@@ -155,7 +155,7 @@ export function useAdFormLogic(addAdToTop) {
         images: imageUrls.length > 0 ? imageUrls : [], // Usar URLs de las imágenes subidas, o un array vacío si no hay imágenes
       };
 
-      // Determinar la URL de la API basada en el tipo de anuncio
+      // Determinar la URL de la API basada en el tipo de adiso
       let apiEndpoint;
       switch (adData.adType) {
         case "Empleos":
@@ -174,49 +174,48 @@ export function useAdFormLogic(addAdToTop) {
           apiEndpoint = "/api/products";
           break;
         default:
-          throw new Error("Tipo de anuncio no válido");
+          throw new Error("Tipo de adiso no válido");
       }
 
       const adResponse = await fetch(apiEndpoint, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(adData),
       });
 
       if (!adResponse.ok) {
         const errorText = await adResponse.text();
-        throw new Error(`Error al crear el anuncio: ${errorText}`);
+        throw new Error(`Error al crear el adiso: ${errorText}`);
       }
 
       const createdAd = await adResponse.json();
       console.log("Anuncio creado:", createdAd);
-      
+
       const createdAdData =
-        createdAd.anuncio ||
+        createdAd.adiso ||
         createdAd.job ||
         createdAd.realEstate ||
         createdAd.vehicle ||
         createdAd.service ||
         createdAd.product;
-      
+
       if (!createdAdData) {
         console.error("Ad data is missing or undefined", createdAd);
         setError("Error: Ad data is missing.");
         return; // Exit early if there's an issue with the ad data
       }
-      
+
       addAdToTop(createdAdData); // Now you are sure that `createdAdData` exists
       clearForm();
-
     } catch (error) {
       setError(error.message);
       console.error("Error:", error);
     }
   };
 
-  // Actualizar las categorías y subcategorías cuando se selecciona un tipo de anuncio
+  // Actualizar las categorías y subcategorías cuando se selecciona un tipo de adiso
   useEffect(() => {
     if (adType && adTypes.hasOwnProperty(adType)) {
       setCategories(Object.keys(adTypes[adType]));

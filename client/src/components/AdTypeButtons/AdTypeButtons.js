@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import './AdTypeButtons.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import "./AdTypeButtons.css";
 import JobsIcon from "../../assets/icons/jobs.png";
 import EstateIcon from "../../assets/icons/estate.png";
 import VehiclesIcon from "../../assets/icons/vehicles.png";
@@ -12,10 +12,10 @@ import TurismoIcon from "../../assets/icons/tourism.png";
 import EducacionIcon from "../../assets/icons/education.png";
 import MascotasIcon from "../../assets/icons/pets.png";
 import PlayStoreIcon from "../../assets/icons/playstore.png";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { adTypes } from './AdTypes';
-import { motion, AnimatePresence } from 'framer-motion';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { adTypes } from "./AdTypes";
+import { motion, AnimatePresence } from "framer-motion";
 
 const adTypeIcons = {
   Empleos: JobsIcon,
@@ -31,28 +31,36 @@ const adTypeIcons = {
 };
 
 const adTypeLabels = {
-  Empleos: 'Empleos',
-  Inmuebles: 'Inmuebles',
-  Vehiculos: 'Vehículos',
-  Servicios: 'Servicios',
-  Productos: 'Productos',
-  Eventos: 'Eventos',
-  Turismo: 'Turismo',
-  Educación: 'Educación',
-  Mascotas: 'Mascotas',
-  Negocios: 'Negocios',
+  Empleos: "Empleos",
+  Inmuebles: "Inmuebles",
+  Vehiculos: "Vehículos",
+  Servicios: "Servicios",
+  Productos: "Productos",
+  Eventos: "Eventos",
+  Turismo: "Turismo",
+  Educación: "Educación",
+  Mascotas: "Mascotas",
+  Negocios: "Negocios",
 };
 
-function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handleCategoryClick, handleSubCategoryClick, getAds }) {
-  const [selectedAdType, setSelectedAdType] = useState(adType || 'Todos');
+function AdTypeButtons({
+  adType,
+  category,
+  subCategory,
+  handleAdTypeClick,
+  handleCategoryClick,
+  handleSubCategoryClick,
+  getAds,
+}) {
+  const [selectedAdType, setSelectedAdType] = useState(adType || "Todos");
   const [selectedCategory, setSelectedCategory] = useState(category || null);
   const [isSelected, setIsSelected] = useState(false); // Nuevo estado para la animación
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === '/') {
-      setSelectedAdType('Todos');
+    if (location.pathname === "/") {
+      setSelectedAdType("Todos");
       setSelectedCategory(null);
       setIsSelected(false);
     } else if (adType) {
@@ -69,7 +77,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     handleAdTypeClick(adTypeKey);
     navigate(`/${adTypeKey}`);
     if (getAds) {
-      getAds(adTypeKey, null, null);  // Cargar anuncios según el nuevo tipo seleccionado
+      getAds(adTypeKey, null, null); // Cargar adisos según el nuevo tipo seleccionado
     }
   }
 
@@ -78,7 +86,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     handleCategoryClick(categoryKey);
     navigate(`/${selectedAdType}/${categoryKey}`);
     if (getAds) {
-      getAds(selectedAdType, categoryKey, null);  // Cargar anuncios de la categoría seleccionada
+      getAds(selectedAdType, categoryKey, null); // Cargar adisos de la categoría seleccionada
     }
   }
 
@@ -86,7 +94,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     handleSubCategoryClick(subCategoryKey);
     navigate(`/${selectedAdType}/${selectedCategory}/${subCategoryKey}`);
     if (getAds) {
-      getAds(selectedAdType, selectedCategory, subCategoryKey);  // Cargar anuncios de la subcategoría seleccionada
+      getAds(selectedAdType, selectedCategory, subCategoryKey); // Cargar adisos de la subcategoría seleccionada
     }
   }
 
@@ -95,13 +103,14 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
   }
 
   function handleHome() {
-    navigate('/'); // Ir al inicio
+    navigate("/"); // Ir al inicio
   }
 
   // Generar breadcrumb
   const breadcrumbPath = [];
-  breadcrumbPath.push('Inicio');
-  if (selectedAdType !== 'Todos') breadcrumbPath.push(adTypeLabels[selectedAdType]);
+  breadcrumbPath.push("Inicio");
+  if (selectedAdType !== "Todos")
+    breadcrumbPath.push(adTypeLabels[selectedAdType]);
   if (selectedCategory) breadcrumbPath.push(selectedCategory);
   if (subCategory) breadcrumbPath.push(subCategory);
 
@@ -119,22 +128,28 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
   };
 
   return (
-    <div className='adType-container'>
+    <div className="adType-container">
       <div className="breadcrumb">
-        <button className='breadcrumb-back-button' onClick={handleBack} aria-label="Volver">
+        <button
+          className="breadcrumb-back-button"
+          onClick={handleBack}
+          aria-label="Volver"
+        >
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
         {breadcrumbPath.map((item, index) => (
           <React.Fragment key={index}>
             <span onClick={index === 0 ? handleHome : null}>{item}</span>
-            {index < breadcrumbPath.length - 1 && <span className="breadcrumb-separator">/</span>}
+            {index < breadcrumbPath.length - 1 && (
+              <span className="breadcrumb-separator">/</span>
+            )}
           </React.Fragment>
         ))}
       </div>
       <AnimatePresence>
         {!isSelected ? (
           <motion.div
-            className='adType-section'
+            className="adType-section"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -144,73 +159,95 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
               <a
                 href="https://play.google.com/store/apps/details?id=buscadis.publicadis"
                 className="adType-button download-app-button"
-                target='_blank'
-                rel='noreferrer'
+                target="_blank"
+                rel="noreferrer"
               >
-                <img src={PlayStoreIcon} alt="Play Store" className="download-icon" />
+                <img
+                  src={PlayStoreIcon}
+                  alt="Play Store"
+                  className="download-icon"
+                />
                 <span className="download-text">App</span>
               </a>
               {Object.keys(adTypeIcons).map((adTypeKey) => (
                 <button
                   key={adTypeKey}
                   onClick={() => handleAdTypeSelection(adTypeKey)}
-                  className={`adType-button ${selectedAdType === adTypeKey ? 'selected-adType' : ''}`}
+                  className={`adType-button ${
+                    selectedAdType === adTypeKey ? "selected-adType" : ""
+                  }`}
                   data-ad-type={adTypeKey}
-                  aria-label={`Seleccionar tipo de anuncio ${adTypeLabels[adTypeKey]}`}
+                  aria-label={`Seleccionar tipo de adiso ${adTypeLabels[adTypeKey]}`}
                 >
-                  <img src={adTypeIcons[adTypeKey]} alt={adTypeKey} className="adType-icon" />
-                  <span className="adType-label">{adTypeLabels[adTypeKey]}</span>
+                  <img
+                    src={adTypeIcons[adTypeKey]}
+                    alt={adTypeKey}
+                    className="adType-icon"
+                  />
+                  <span className="adType-label">
+                    {adTypeLabels[adTypeKey]}
+                  </span>
                 </button>
               ))}
             </div>
           </motion.div>
         ) : (
           <motion.div
-            className='selected-title'
+            className="selected-title"
             variants={selectedVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
-            <img src={adTypeIcons[selectedAdType]} alt={selectedAdType} className="selected-icon" />
+            <img
+              src={adTypeIcons[selectedAdType]}
+              alt={selectedAdType}
+              className="selected-icon"
+            />
             <h1 className="selected-label">{adTypeLabels[selectedAdType]}</h1>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {selectedAdType && adTypes[selectedAdType] && selectedAdType !== 'Todos' && (
-        <div className="category-section">
-          <div className="category-section-inner scroll-container">
-            {Object.keys(adTypes[selectedAdType]).map((category) => (
-              <button
-                key={category}
-                onClick={() => handleCategorySelection(category)}
-                className={`category-button ${selectedCategory === category ? 'selected-category' : ''}`}
-                aria-label={`Seleccionar categoría ${category}`}
-              >
-                {category}
-              </button>
-            ))}
+      {selectedAdType &&
+        adTypes[selectedAdType] &&
+        selectedAdType !== "Todos" && (
+          <div className="category-section">
+            <div className="category-section-inner scroll-container">
+              {Object.keys(adTypes[selectedAdType]).map((category) => (
+                <button
+                  key={category}
+                  onClick={() => handleCategorySelection(category)}
+                  className={`category-button ${
+                    selectedCategory === category ? "selected-category" : ""
+                  }`}
+                  aria-label={`Seleccionar categoría ${category}`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {selectedCategory && adTypes[selectedAdType] && adTypes[selectedAdType][selectedCategory] && (
-        <div className="subcategory-section">
-          <div className="subcategory-section-inner scroll-container">
-            {adTypes[selectedAdType][selectedCategory].map((subCategory) => (
-              <button
-                key={subCategory}
-                onClick={() => handleSubCategorySelection(subCategory)}
-                className="subcategory-button"
-                aria-label={`Seleccionar subcategoría ${subCategory}`}
-              >
-                {subCategory}
-              </button>
-            ))}
+      {selectedCategory &&
+        adTypes[selectedAdType] &&
+        adTypes[selectedAdType][selectedCategory] && (
+          <div className="subcategory-section">
+            <div className="subcategory-section-inner scroll-container">
+              {adTypes[selectedAdType][selectedCategory].map((subCategory) => (
+                <button
+                  key={subCategory}
+                  onClick={() => handleSubCategorySelection(subCategory)}
+                  className="subcategory-button"
+                  aria-label={`Seleccionar subcategoría ${subCategory}`}
+                >
+                  {subCategory}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 }

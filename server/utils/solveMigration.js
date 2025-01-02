@@ -7,8 +7,8 @@ const Negocios = require("../models/businessModel"); // El modelo de negocios
 const Services = require("../models/serviceModel"); // El modelo de servicios
 const Products = require("../models/productModel"); // El modelo de productos
 
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, "../../.env") });
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -18,13 +18,13 @@ mongoose.connect(process.env.MONGODB_URI, {
 async function migrateAds() {
   try {
     const ads = await Ad.find();
-    console.log(`Total de anuncios a migrar: ${ads.length}`);
+    console.log(`Total de adisos a migrar: ${ads.length}`);
 
     let migratedCount = 0;
     let failedMigrations = [];
 
     for (let ad of ads) {
-      // Determina el modelo de destino según el tipo de anuncio
+      // Determina el modelo de destino según el tipo de adiso
       let targetModel;
       switch (ad.adType) {
         case "Empleos":
@@ -52,7 +52,7 @@ async function migrateAds() {
 
       const existingAd = await targetModel.findById(ad._id);
       if (existingAd) {
-        continue; // Omitir anuncios ya migrados
+        continue; // Omitir adisos ya migrados
       }
 
       // Conversión de valores en español a inglés, si es necesario
@@ -62,16 +62,18 @@ async function migrateAds() {
           normal: "normal",
           largo: "long",
           grande: "large",
-          gigante: "giant"
+          gigante: "giant",
         };
         ad.size = sizeMap[ad.size] || ad.size;
       }
 
       try {
-        await targetModel.create(ad.toObject()); // Migrar anuncio
+        await targetModel.create(ad.toObject()); // Migrar adiso
         migratedCount++;
         if (migratedCount % 100 === 0) {
-          console.log(`Progreso: ${migratedCount}/${ads.length} anuncios migrados`);
+          console.log(
+            `Progreso: ${migratedCount}/${ads.length} adisos migrados`
+          );
         }
       } catch (migrationError) {
         failedMigrations.push(ad._id);
@@ -79,9 +81,11 @@ async function migrateAds() {
     }
 
     console.log("Migración completada");
-    console.log(`Anuncios que no se migraron correctamente: ${failedMigrations.length}`);
+    console.log(
+      `Anuncios que no se migraron correctamente: ${failedMigrations.length}`
+    );
     if (failedMigrations.length > 0) {
-      console.log("IDs de anuncios que fallaron:", failedMigrations);
+      console.log("IDs de adisos que fallaron:", failedMigrations);
     }
   } catch (error) {
     console.error("Error durante la migración:", error);

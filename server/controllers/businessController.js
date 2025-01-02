@@ -5,8 +5,10 @@ const createBusiness = async (req, res) => {
   try {
     const business = new Business(req.body);
     await business.save();
-    await incrementPostCounter(); // Incrementar el contador de avisos
-    res.status(201).json({ message: "Business created successfully", business });
+    await incrementPostCounter(); // Incrementar el contador de adisos
+    res
+      .status(201)
+      .json({ message: "Business created successfully", business });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -14,7 +16,10 @@ const createBusiness = async (req, res) => {
 
 const getBusinesses = async (req, res) => {
   try {
-    const businesses = await Business.find().sort({ createdAt: -1 }).limit(300).exec();
+    const businesses = await Business.find()
+      .sort({ createdAt: -1 })
+      .limit(300)
+      .exec();
     res.status(200).json(businesses);
   } catch (error) {
     res.status(500).json({ error: "Error interno al obtener los negocios" });
@@ -41,7 +46,9 @@ const updateBusiness = async (req, res) => {
     }
     Object.assign(business, req.body);
     await business.save();
-    res.status(200).json({ message: "Business updated successfully", business });
+    res
+      .status(200)
+      .json({ message: "Business updated successfully", business });
   } catch (error) {
     res.status(500).json({ error: "Error interno al actualizar el negocio" });
   }

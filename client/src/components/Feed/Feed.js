@@ -1,12 +1,19 @@
 // Feed.js
-import React from 'react';
-import NavList from '../NavList/NavList';
-import AdList from '../AdList/AdList';
-import './Feed.css';
+import React from "react";
+import NavList from "../NavList/NavList";
+import AdList from "../AdList/AdList";
+import "./Feed.css";
 
-function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, toggleForm }) {
-
-    return (
+function Feed({
+  adisos,
+  setSelectedAd,
+  error,
+  isLoading,
+  loader,
+  setFilter,
+  toggleForm,
+}) {
+  return (
     <div className="feed">
       <NavList
         className="nav-list nav-list-top"
@@ -14,7 +21,7 @@ function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, to
         setFilter={setFilter}
       />
       <AdList
-        anuncios={anuncios}
+        adisos={adisos}
         setSelectedAd={setSelectedAd}
         error={error}
         isLoading={isLoading}
@@ -26,11 +33,9 @@ function Feed({ anuncios, setSelectedAd, error, isLoading, loader, setFilter, to
         setFilter={setFilter}
       /> */}
       {error && <div className="error">{error}</div>}
-            {isLoading && (
-              <div ref={loader}>
-                Cargando anuncios publicados en BuscAdis.com...
-              </div>
-            )}
+      {isLoading && (
+        <div ref={loader}>Cargando adisos publicados en BuscAdis.com...</div>
+      )}
     </div>
   );
 }

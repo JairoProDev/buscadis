@@ -6,35 +6,42 @@ import { QRCodeCanvas } from "qrcode.react";
 import ContactButtons from "../ContactButtons/ContactButtons";
 import "./modal.css";
 
-function Modal({ anuncio, onClose, onNext, onPrev }) {
+function Modal({ adiso, onClose, onNext, onPrev }) {
   const [isOpen, setIsOpen] = useState(false);
   const [iframeBlocked, setIframeBlocked] = useState(false);
   const [activeRightTab, setActiveRightTab] = useState("detalles");
-  const [viewCount, setViewCount] = useState(anuncio.viewCount || 0);
-  const [contactsCount, setContactsCount] = useState(anuncio.contactsCount || 0);
+  const [viewCount, setViewCount] = useState(adiso.viewCount || 0);
+  const [contactsCount, setContactsCount] = useState(adiso.contactsCount || 0);
   const [remainingTime, setRemainingTime] = useState("");
   const [viewedAnuncios, setViewedAnuncios] = useState({});
-  
+
   // Nuevo estado para la imagen ampliada
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     setIsOpen(true);
 
-    if (!viewedAnuncios[anuncio.id]) {
-      setViewedAnuncios((prev) => ({ ...prev, [anuncio.id]: true }));
+    if (!viewedAnuncios[adiso.id]) {
+      setViewedAnuncios((prev) => ({ ...prev, [adiso.id]: true }));
       setViewCount((prevCount) => prevCount + 1);
-      if (anuncio.id) {
-        fetch(`/api/anuncios/${anuncio.id}/increment-view`, {
+      if (adiso.id) {
+        fetch(`/api/adisos/${adiso.id}/increment-view`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-        }).then((response) => {
-          if (!response.ok) {
-            console.error("Error al incrementar vistas:", response.statusText);
-          }
-        }).catch((error) => console.error("Error incrementando vistas:", error));
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.error(
+                "Error al incrementar vistas:",
+                response.statusText
+              );
+            }
+          })
+          .catch((error) =>
+            console.error("Error incrementando vistas:", error)
+          );
       }
     }
 
@@ -57,11 +64,11 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
       clearInterval(intervalId);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [anuncio, onPrev, onNext]);
+  }, [adiso, onPrev, onNext]);
 
   const calculateRemainingTime = () => {
     const currentTime = new Date();
-    const createdAt = new Date(anuncio.createdAt);
+    const createdAt = new Date(adiso.createdAt);
     const timeElapsed = currentTime - createdAt;
     const totalDuration = 72 * 60 * 60;
     const remainingTimeSec = totalDuration - Math.floor(timeElapsed / 1000);
@@ -72,7 +79,9 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
       const remainingHours = Math.floor(remainingTimeSec / 3600);
       const remainingMinutes = Math.floor((remainingTimeSec % 3600) / 60);
       const remainingSeconds = remainingTimeSec % 60;
-      setRemainingTime(`${remainingHours}h ${remainingMinutes}m ${remainingSeconds}s`);
+      setRemainingTime(
+        `${remainingHours}h ${remainingMinutes}m ${remainingSeconds}s`
+      );
     }
   };
 
@@ -86,32 +95,31 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     setSelectedImage(null);
   };
 
-  
   const handleContactClick = (method) => {
     setContactsCount((prevCount) => prevCount + 1);
 
     // Enviar el click de contacto al backend
-    fetch(`/api/anuncios/${anuncio.id}/register-contact`, {
+    fetch(`/api/adisos/${adiso.id}/register-contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ method }),
     })
-    .then((response) => {
-      if (!response.ok) {
-        console.error("Error al registrar contacto:", response.statusText);
-      }
-    })
-    .catch((error) => console.error("Error registrando contacto:", error));
+      .then((response) => {
+        if (!response.ok) {
+          console.error("Error al registrar contacto:", response.statusText);
+        }
+      })
+      .catch((error) => console.error("Error registrando contacto:", error));
   };
 
-  const formattedDate = new Date(anuncio.createdAt).toLocaleDateString("es-ES", {
+  const formattedDate = new Date(adiso.createdAt).toLocaleDateString("es-ES", {
     day: "numeric",
     month: "short",
     year: "numeric",
   });
-  const formattedTime = new Date(anuncio.createdAt).toLocaleTimeString([], {
+  const formattedTime = new Date(adiso.createdAt).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });
@@ -121,38 +129,41 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
     return (
       userAgent.includes("wv") ||
       userAgent.includes("WebView") ||
-      (userAgent.includes("Android") && userAgent.includes("Chrome") && userAgent.includes("Version"))
+      (userAgent.includes("Android") &&
+        userAgent.includes("Chrome") &&
+        userAgent.includes("Version"))
     );
   };
 
   useEffect(() => {
-    if (isWebView() && anuncio.location) {
+    if (isWebView() && adiso.location) {
       const iframeCheckTimeout = setTimeout(() => {
         setIframeBlocked(true);
       }, 3000);
       return () => clearTimeout(iframeCheckTimeout);
     }
-  }, [anuncio.location]);
+  }, [adiso.location]);
 
   const shareUrl = window.location.href;
 
   const navigateToPrevImage = () => {
-    const currentIndex = anuncio.images.indexOf(selectedImage);
-    const prevIndex = (currentIndex - 1 + anuncio.images.length) % anuncio.images.length;
-    setSelectedImage(anuncio.images[prevIndex]);
+    const currentIndex = adiso.images.indexOf(selectedImage);
+    const prevIndex =
+      (currentIndex - 1 + adiso.images.length) % adiso.images.length;
+    setSelectedImage(adiso.images[prevIndex]);
   };
-  
+
   const navigateToNextImage = () => {
-    const currentIndex = anuncio.images.indexOf(selectedImage);
-    const nextIndex = (currentIndex + 1) % anuncio.images.length;
-    setSelectedImage(anuncio.images[nextIndex]);
+    const currentIndex = adiso.images.indexOf(selectedImage);
+    const nextIndex = (currentIndex + 1) % adiso.images.length;
+    setSelectedImage(adiso.images[nextIndex]);
   };
-  
+
   return (
     <div className={`modal-overlay ${isOpen ? "show" : ""}`} onClick={onClose}>
       <div
         id="modal-content"
-        className={`modal-content ${anuncio.adType.toLowerCase()} show`}
+        className={`modal-content ${adiso.adType.toLowerCase()} show`}
         role="dialog"
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
@@ -165,13 +176,13 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
               BuscAdis.com
             </a>
             <div className="modal-route">
-              {anuncio.adType} / {anuncio.category} / {anuncio.subCategory}
+              {adiso.adType} / {adiso.category} / {adiso.subCategory}
             </div>
           </div>
           <div className="modal-header-right">
             <div className="modal-date-time">
-              <p>{new Date(anuncio.createdAt).toLocaleDateString()}</p>
-              <p>{new Date(anuncio.createdAt).toLocaleTimeString()}</p>
+              <p>{new Date(adiso.createdAt).toLocaleDateString()}</p>
+              <p>{new Date(adiso.createdAt).toLocaleTimeString()}</p>
             </div>
             <ModalOptions />
           </div>
@@ -179,21 +190,25 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
         <div className="modal-body">
           <h2 id="modal-title" className="modal-title">
-            {anuncio.title}
+            {adiso.title}
           </h2>
           <div className="modal-description-map">
             <div className="modal-left">
               {/* <div className="modal-business-info">
                 <div className="business-logo">
-                  <img src={anuncio.logo ? anuncio.logo : "/images/logo192.png"} alt="Logo" className="business-logo-img" />
+                  <img src={adiso.logo ? adiso.logo : "/images/logo192.png"} alt="Logo" className="business-logo-img" />
                 </div>
                 <div className="business-name">
-                  <p>{anuncio.businessName ? anuncio.businessName : anuncio.adType} disponibles en Buscadis:</p>
+                  <p>{adiso.businessName ? adiso.businessName : adiso.adType} disponibles en Buscadis:</p>
                 </div>
               </div> */}
               <div className="modal-description" id="modal-description">
-                <QRCodeCanvas className="qr-code-description" value={window.location.href} size={100} />
-                <p>{anuncio.description.replace(/\d{9}/g, "")}</p>
+                <QRCodeCanvas
+                  className="qr-code-description"
+                  value={window.location.href}
+                  size={100}
+                />
+                <p>{adiso.description.replace(/\d{9}/g, "")}</p>
               </div>
             </div>
 
@@ -222,19 +237,23 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
               {activeRightTab === "mapa" && (
                 <div className="modal-map">
                   {!iframeBlocked ? (
-                  <iframe
-                    src={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}&output=embed`}
-                    width="100%"
-                    height="250"
-                    frameBorder="0"
-                    allowFullScreen=""
-                    aria-hidden="false"
-                    tabIndex="0"
-                    title={`Mapa de la ubicación: ${anuncio.location}`}
-                  ></iframe>
+                    <iframe
+                      src={`https://www.google.com/maps?q=${encodeURIComponent(
+                        adiso.location
+                      )}&output=embed`}
+                      width="100%"
+                      height="250"
+                      frameBorder="0"
+                      allowFullScreen=""
+                      aria-hidden="false"
+                      tabIndex="0"
+                      title={`Mapa de la ubicación: ${adiso.location}`}
+                    ></iframe>
                   ) : (
                     <a
-                      href={`https://www.google.com/maps?q=${encodeURIComponent(anuncio.location)}`}
+                      href={`https://www.google.com/maps?q=${encodeURIComponent(
+                        adiso.location
+                      )}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -246,8 +265,8 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
               {activeRightTab === "imagenes" && (
                 <div className="modal-images">
-                  {anuncio.images && anuncio.images.length > 0 ? (
-                    anuncio.images.map((imageUrl, index) => (
+                  {adiso.images && adiso.images.length > 0 ? (
+                    adiso.images.map((imageUrl, index) => (
                       <img
                         key={index}
                         src={imageUrl}
@@ -257,16 +276,20 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
                       />
                     ))
                   ) : (
-                    <p>Este anuncio no tiene imágenes.</p>
+                    <p>Este adiso no tiene imágenes.</p>
                   )}
                 </div>
               )}
 
               {activeRightTab === "detalles" && (
                 <div className="detalles-content">
-                  <p><strong>Estadísticas:</strong></p>
+                  <p>
+                    <strong>Estadísticas:</strong>
+                  </p>
                   <ul>
-                    <li>⌛ Tiempo restante: <span>{remainingTime}</span></li>
+                    <li>
+                      ⌛ Tiempo restante: <span>{remainingTime}</span>
+                    </li>
                   </ul>
                 </div>
               )}
@@ -276,37 +299,68 @@ function Modal({ anuncio, onClose, onNext, onPrev }) {
 
         <div className="modal-footer">
           <ContactButtons
-            phone={anuncio.phone}
-            phone2={anuncio.phone2}
-            adType={anuncio.adType}
+            phone={adiso.phone}
+            phone2={adiso.phone2}
+            adType={adiso.adType}
             url={window.location.href}
             onContactClick={handleContactClick}
           />
         </div>
       </div>
 
-      <div className="navigation-arrow navigation-arrow-left" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
+      <div
+        className="navigation-arrow navigation-arrow-left"
+        onClick={(e) => {
+          e.stopPropagation();
+          onPrev();
+        }}
+      >
         <FontAwesomeIcon icon={faArrowLeft} />
       </div>
-      <div className="navigation-arrow navigation-arrow-right" onClick={(e) => { e.stopPropagation(); onNext(); }}>
+      <div
+        className="navigation-arrow navigation-arrow-right"
+        onClick={(e) => {
+          e.stopPropagation();
+          onNext();
+        }}
+      >
         <FontAwesomeIcon icon={faArrowRight} />
       </div>
 
       {/* Modal para la imagen ampliada */}
       {selectedImage && (
         <div className="image-modal" onClick={closeImageModal}>
-          <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={selectedImage} alt="Imagen ampliada" className="ampliada-img" />
-            <button className="close-button" onClick={closeImageModal}>X</button>
+          <div
+            className="image-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={selectedImage}
+              alt="Imagen ampliada"
+              className="ampliada-img"
+            />
+            <button className="close-button" onClick={closeImageModal}>
+              X
+            </button>
             {/* Agrega los botones de navegación para cambiar de imagen */}
-            <button className="prev-image" onClick={(e) => {
-              e.stopPropagation();
-              navigateToPrevImage();
-            }}>←</button>
-            <button className="next-image" onClick={(e) => {
-              e.stopPropagation();
-              navigateToNextImage();
-            }}>→</button>
+            <button
+              className="prev-image"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigateToPrevImage();
+              }}
+            >
+              ←
+            </button>
+            <button
+              className="next-image"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigateToNextImage();
+              }}
+            >
+              →
+            </button>
           </div>
         </div>
       )}

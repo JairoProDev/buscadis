@@ -34,7 +34,7 @@ function ModalOptions() {
       navigator
         .share({
           title: "BuscAdis.com",
-          text: "Echa un vistazo a este anuncio en BuscAdis!",
+          text: "Echa un vistazo a este adiso en BuscAdis!",
           url: window.location.href,
         })
         .then(() => console.log("Anuncio compartido exitosamente"))
@@ -45,7 +45,7 @@ function ModalOptions() {
   };
 
   const reportAd = () => {
-    const message = "Hola, quiero reportar este anuncio:";
+    const message = "Hola, quiero reportar este adiso:";
     const phoneNumber = "937054328";
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;

@@ -13,12 +13,12 @@ import {
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 
-function AdModal({ anuncios }) {
+function AdModal({ adisos }) {
   const { adType, id } = useParams();
   const navigate = useNavigate();
   const modalRef = useRef();
 
-  const adIndex = anuncios.findIndex((anuncio) => anuncio._id === id);
+  const adIndex = adisos.findIndex((adiso) => adiso._id === id);
   const [prevAdIndex, setPrevAdIndex] = useState(adIndex);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function AdModal({ anuncios }) {
 
   const isForwardNavigation = adIndex > prevAdIndex;
 
-  const ad = anuncios[adIndex];
+  const ad = adisos[adIndex];
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ function AdModal({ anuncios }) {
     };
   }, [handleClickOutside]);
 
-  useAdNavigation(anuncios);
+  useAdNavigation(adisos);
 
   if (!ad) return null;
 

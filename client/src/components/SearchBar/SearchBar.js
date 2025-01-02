@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faMicrophone, faTimes } from '@fortawesome/free-solid-svg-icons';
-import './searchBar.css';
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSearch,
+  faMicrophone,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
+import "./searchBar.css";
 
 function SearchBar({ updateSearchTerm, inputRef }) {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     if (isListening) {
       // Simulate voice recognition
-      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      const recognition = new (window.SpeechRecognition ||
+        window.webkitSpeechRecognition)();
       recognition.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         setInputValue(transcript);
@@ -27,7 +32,9 @@ function SearchBar({ updateSearchTerm, inputRef }) {
     setInputValue(value);
     updateSearchTerm(value);
     // Simulate fetching suggestions
-    setSuggestions(value ? ['Suggestion 1', 'Suggestion 2', 'Suggestion 3'] : []);
+    setSuggestions(
+      value ? ["Suggestion 1", "Suggestion 2", "Suggestion 3"] : []
+    );
   };
 
   const handleSearchClick = () => {
@@ -35,8 +42,8 @@ function SearchBar({ updateSearchTerm, inputRef }) {
   };
 
   const clearInput = () => {
-    setInputValue('');
-    updateSearchTerm('');
+    setInputValue("");
+    updateSearchTerm("");
     setSuggestions([]);
   };
 
@@ -48,13 +55,21 @@ function SearchBar({ updateSearchTerm, inputRef }) {
         onChange={handleSearchChange}
         id="search-bar"
         className="search-input"
-        placeholder="Buscar avisos en PublicAdis"
+        placeholder="Buscar adisos en PublicAdis"
         ref={inputRef}
       />
       {inputValue && (
-        <FontAwesomeIcon icon={faTimes} className="clear-icon" onClick={clearInput} />
+        <FontAwesomeIcon
+          icon={faTimes}
+          className="clear-icon"
+          onClick={clearInput}
+        />
       )}
-      <FontAwesomeIcon icon={faSearch} className="search-icon" onClick={handleSearchClick} />
+      <FontAwesomeIcon
+        icon={faSearch}
+        className="search-icon"
+        onClick={handleSearchClick}
+      />
       {/* <button
         className="microphone-icon"
         onClick={() => setIsListening(!isListening)}

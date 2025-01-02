@@ -5,7 +5,7 @@ const createJob = async (req, res) => {
   try {
     const job = new Job(req.body);
     await job.save();
-    await incrementPostCounter(); // Incrementar el contador de avisos
+    await incrementPostCounter(); // Incrementar el contador de adisos
     res.status(201).json({ message: "Job created successfully", job });
   } catch (error) {
     res.status(500).json({ error: error.message });

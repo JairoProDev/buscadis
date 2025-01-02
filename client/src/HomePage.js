@@ -47,7 +47,7 @@ function HomePage() {
 
   useEffect(() => {
     if (!adType) {
-      navigate('/');
+      navigate("/");
     }
   }, [adType, navigate]);
 
@@ -57,11 +57,11 @@ function HomePage() {
       setIsAdTypeSelected(true);
       setPage(1);
 
-      // Si estamos en un modal de anuncio (cuando `id` está presente), no filtrar por subcategoría
+      // Si estamos en un modal de adiso (cuando `id` está presente), no filtrar por subcategoría
       if (id) {
         getAds(adType, category); // Solo filtrar por categoría
       } else {
-        getAds(adType, category, subcategory); // Filtrar por subcategoría solo si no hay anuncio seleccionado
+        getAds(adType, category, subcategory); // Filtrar por subcategoría solo si no hay adiso seleccionado
       }
     }
   }, [adType, category, subcategory, id, getAds]);
@@ -72,7 +72,7 @@ function HomePage() {
       if (ad) {
         setSelectedAd(ad);
       } else {
-        // Si el anuncio no se encuentra, intenta cargar más anuncios
+        // Si el adiso no se encuentra, intenta cargar más adisos
         setPage(1);
         getAds(adType, category, subcategory);
       }
@@ -104,7 +104,7 @@ function HomePage() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    const currentIndex = ads.findIndex(ad => ad._id === selectedAd._id);
+    const currentIndex = ads.findIndex((ad) => ad._id === selectedAd._id);
     if (currentIndex !== -1) {
       const nextIndex = (currentIndex + 1) % ads.length;
       setSelectedAd(ads[nextIndex]);
@@ -112,7 +112,7 @@ function HomePage() {
   };
 
   const handlePrev = () => {
-    const currentIndex = ads.findIndex(ad => ad._id === selectedAd._id);
+    const currentIndex = ads.findIndex((ad) => ad._id === selectedAd._id);
     if (currentIndex !== -1) {
       const prevIndex = (currentIndex - 1 + ads.length) % ads.length;
       setSelectedAd(ads[prevIndex]);
@@ -139,7 +139,7 @@ function HomePage() {
             ) : (
               <NewFeed
                 className="feed"
-                anuncios={filteredAds}
+                adisos={filteredAds}
                 setSelectedAd={setSelectedAd}
                 loader={loader}
                 setFilter={setFilter}
@@ -155,7 +155,7 @@ function HomePage() {
               className="publish-button"
               onClick={toggleFormVisibility}
             >
-              {isFormVisible ? "buscar avisos gratis" : "publicar aviso"}
+              {isFormVisible ? "buscar adisos gratis" : "publicar adiso"}
               <span></span>
               <span></span>
               <span></span>
@@ -167,21 +167,24 @@ function HomePage() {
                 addAdToTop={addAdToTop}
                 isVisible={isFormVisible}
                 hideForm={toggleFormVisibility}
-                anuncios={ads}
+                adisos={ads}
               />
             )}
-            <AdsColumn anuncios={filteredAds} selectedAdType={selectedAdType} />
+            <AdsColumn adisos={filteredAds} selectedAdType={selectedAdType} />
           </div>
           <SocialMedia />
         </div>
-        <BottomNavBar showForm={toggleFormVisibility} searchInputRef={searchInputRef} />
+        <BottomNavBar
+          showForm={toggleFormVisibility}
+          searchInputRef={searchInputRef}
+        />
       </div>
       <Routes>
         <Route path="/profile" element={<UserProfile />} />
       </Routes>
       {selectedAd && (
         <Modal
-          anuncio={selectedAd}
+          adiso={selectedAd}
           onClose={handleCloseModal}
           onNext={handleNext}
           onPrev={handlePrev}

@@ -2,7 +2,7 @@ import React from "react";
 
 const AdTypeSelect = ({ adTypeRef, setAdType }) => (
   <>
-    <label htmlFor="adType">Tipo de anuncio:</label>
+    <label htmlFor="adType">Tipo de adiso:</label>
     <select
       id="adType"
       name="adType"

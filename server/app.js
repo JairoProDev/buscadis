@@ -1,28 +1,34 @@
-const path = require('path');
+const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cloudinary = require("cloudinary").v2;
-const morgan = require('morgan');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
+const morgan = require("morgan");
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 
 const adRoutes = require("./routes/adRoutes");
 const imageRoutes = require("./routes/imageRoutes");
-const authRoutes = require('./routes/authRoutes');
-const pdfRoutes = require('./routes/pdfRoutes');
-const VisitorCount = require('./models/VisitorCount');
-const PostCounter = require('./models/postCounterModel');
-const { initializePostCounter } = require('./controllers/postCounterController');
+const authRoutes = require("./routes/authRoutes");
+const pdfRoutes = require("./routes/pdfRoutes");
+const VisitorCount = require("./models/VisitorCount");
+const PostCounter = require("./models/postCounterModel");
+const {
+  initializePostCounter,
+} = require("./controllers/postCounterController");
 
 // Verificar que las variables de entorno necesarias están definidas
-if (!process.env.CLOUDINARY_CLOUD_NAME || 
-    !process.env.CLOUDINARY_API_KEY || 
-    !process.env.CLOUDINARY_API_SECRET || 
-    !process.env.MONGODB_URI) {
-  console.error("Por favor configura todas las variables de entorno necesarias.");
+if (
+  !process.env.CLOUDINARY_CLOUD_NAME ||
+  !process.env.CLOUDINARY_API_KEY ||
+  !process.env.CLOUDINARY_API_SECRET ||
+  !process.env.MONGODB_URI
+) {
+  console.error(
+    "Por favor configura todas las variables de entorno necesarias."
+  );
   process.exit(1);
 }
 
@@ -44,17 +50,37 @@ if (!PORT) {
 
 // Middleware de seguridad
 app.use(helmet()); // Protege la aplicación estableciendo varias cabeceras HTTP
-app.set('trust proxy', 1); // Esto le dice a Express que confíe en el proxy
+app.set("trust proxy", 1); // Esto le dice a Express que confíe en el proxy
 // Configuración personalizada de CSP
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
       frameSrc: ["'self'", "https://www.google.com"],
-      scriptSrc: ["'self'", "https://maps.googleapis.com", "https://www.googletagmanager.com", "'unsafe-inline'"],
-      imgSrc: ["'self'", "https://res.cloudinary.com", "https://maps.googleapis.com", "https://maps.gstatic.com", "data:"],
-      styleSrc: ["'self'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com", "'unsafe-inline'"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
+      scriptSrc: [
+        "'self'",
+        "https://maps.googleapis.com",
+        "https://www.googletagmanager.com",
+        "'unsafe-inline'",
+      ],
+      imgSrc: [
+        "'self'",
+        "https://res.cloudinary.com",
+        "https://maps.googleapis.com",
+        "https://maps.gstatic.com",
+        "data:",
+      ],
+      styleSrc: [
+        "'self'",
+        "https://fonts.googleapis.com",
+        "https://cdnjs.cloudflare.com",
+        "'unsafe-inline'",
+      ],
+      fontSrc: [
+        "'self'",
+        "https://fonts.gstatic.com",
+        "https://cdnjs.cloudflare.com",
+      ],
       connectSrc: ["'self'", "https://www.google-analytics.com"],
     },
   })
@@ -63,7 +89,7 @@ app.use(
 // Limitador de solicitudes para prevenir ataques de fuerza bruta
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // Ventana de 15 minutos
-  max: 100 // Límite de 100 solicitudes por IP por ventana
+  max: 100, // Límite de 100 solicitudes por IP por ventana
 });
 app.use(limiter);
 
@@ -72,10 +98,10 @@ app.use(cors());
 app.use(express.json()); // Parsear solicitudes JSON
 
 // Configurar morgan dependiendo del entorno
-if (process.env.NODE_ENV === 'production') {
-  app.use(morgan('common')); // Logs simples en producción
+if (process.env.NODE_ENV === "production") {
+  app.use(morgan("common")); // Logs simples en producción
 } else {
-  app.use(morgan('dev')); // Logs detallados en desarrollo
+  app.use(morgan("dev")); // Logs detallados en desarrollo
 }
 
 // Contador para los intentos de conexión a la base de datos
@@ -83,17 +109,20 @@ let dbConnectionAttempts = 0;
 
 // Función para conectar a la base de datos
 const connectToDb = () => {
-  mongoose.connect(process.env.MONGODB_URI)
+  mongoose
+    .connect(process.env.MONGODB_URI)
     .then(() => {
       console.log("Connected to MongoDB");
-      initializePostCounter(); // Inicializar el contador de anuncios
+      initializePostCounter(); // Inicializar el contador de adisos
     })
     .catch((err) => {
       console.error("Error connecting to MongoDB", err);
 
       dbConnectionAttempts++;
       if (dbConnectionAttempts < 5) {
-        console.log(`Reintentando conectar a MongoDB (Intento ${dbConnectionAttempts}/5)...`);
+        console.log(
+          `Reintentando conectar a MongoDB (Intento ${dbConnectionAttempts}/5)...`
+        );
         setTimeout(connectToDb, 5000); // Reintenta después de 5 segundos
       } else {
         console.error("No se pudo conectar a MongoDB después de 5 intentos.");
@@ -108,11 +137,11 @@ connectToDb();
 // Rutas de la API
 app.use("/api", adRoutes);
 app.use("/api/images", imageRoutes);
-app.use('/api/auth', authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/pdf", pdfRoutes);
 
 // Contador de visitas
-app.get('/visitorCount', async (req, res) => {
+app.get("/visitorCount", async (req, res) => {
   try {
     let visitorCount = await VisitorCount.findOne();
     if (!visitorCount) {
@@ -122,20 +151,20 @@ app.get('/visitorCount', async (req, res) => {
     await visitorCount.save();
     res.json({ visitorCount: visitorCount.count });
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'An error occurred' });
+    console.error("Error:", error);
+    res.status(500).json({ error: "An error occurred" });
   }
 });
 
 // Contador de Avisos
-app.get('/postCount', async (req, res) => {
+app.get("/postCount", async (req, res) => {
   try {
     const postCounter = await PostCounter.findOne({ name: "postCounter" });
     const postCount = postCounter ? postCounter.count : 0;
     res.json({ postCount });
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'An error occurred' });
+    console.error("Error:", error);
+    res.status(500).json({ error: "An error occurred" });
   }
 });
 
@@ -151,13 +180,15 @@ app.get("*", (req, res) => {
 // Middleware para manejar errores
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(err.status || 500).json({ error: err.message || "Error interno del servidor" });
+  res
+    .status(err.status || 500)
+    .json({ error: err.message || "Error interno del servidor" });
 });
 
 // Middleware para manejar rutas no encontradas
 app.use((req, res, next) => {
   console.error(`Ruta no encontrada: ${req.originalUrl}`);
-  res.status(404).json({ message: 'Ruta no encontrada' });
+  res.status(404).json({ message: "Ruta no encontrada" });
 });
 
 // Iniciar el servidor

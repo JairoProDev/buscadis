@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const anuncioSchema = new mongoose.Schema(
+const adisoSchema = new mongoose.Schema(
   {
     // shortId: {
     //   type: Number,
@@ -19,14 +19,14 @@ const anuncioSchema = new mongoose.Schema(
         "Negocios",
         "Otros",
       ],
-      required: [true, "El tipo de anuncio es requerido"],
+      required: [true, "El tipo de adiso es requerido"],
       index: true,
     },
     category: {
       type: String,
       trim: true,
       index: true,
-      required: [true, "La categoría del anuncio es requerida"],
+      required: [true, "La categoría del adiso es requerida"],
     },
     subCategory: {
       type: String,
@@ -36,20 +36,20 @@ const anuncioSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: [true, "El título del anuncio es requerido"],
+      required: [true, "El título del adiso es requerido"],
       trim: true,
       maxlength: [
         100,
-        "El título del anuncio no puede tener más de 80 caracteres",
+        "El título del adiso no puede tener más de 80 caracteres",
       ],
     },
     description: {
       type: String,
-      required: [true, "La descripción del anuncio es requerida"],
+      required: [true, "La descripción del adiso es requerida"],
       trim: true,
       maxlength: [
         1800,
-        "La descripción del anuncio no puede tener más de 600 caracteres",
+        "La descripción del adiso no puede tener más de 600 caracteres",
       ],
     },
     location: {
@@ -97,7 +97,7 @@ const anuncioSchema = new mongoose.Schema(
       type: String,
       enum: ["miniatura", "normal", "largo", "grande", "gigante"],
       default: "normal",
-      required: [true, "El tamaño del anuncio es requerido"],
+      required: [true, "El tamaño del adiso es requerido"],
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -109,6 +109,6 @@ const anuncioSchema = new mongoose.Schema(
   }
 );
 
-const Anuncio = mongoose.model("Anuncio", anuncioSchema);
+const Anuncio = mongoose.model("Anuncio", adisoSchema);
 
 module.exports = Anuncio;

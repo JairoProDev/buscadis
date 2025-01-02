@@ -5,7 +5,7 @@ const createEvent = async (req, res) => {
   try {
     const event = new Event(req.body);
     await event.save();
-    await incrementPostCounter(); // Incrementar el contador de avisos
+    await incrementPostCounter(); // Incrementar el contador de adisos
     res.status(201).json({ message: "Event created successfully", event });
   } catch (error) {
     res.status(500).json({ error: error.message });
