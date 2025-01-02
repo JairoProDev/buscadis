@@ -1,4 +1,3 @@
-// models/counterModel.js
 const mongoose = require("mongoose");
 
 const adCounterSchema = new mongoose.Schema({
@@ -6,4 +5,6 @@ const adCounterSchema = new mongoose.Schema({
   sequenceValue: { type: Number, default: 0 }
 });
 
-module.exports = mongoose.model("Counter", adCounterSchema);
+const Counter = mongoose.model("Counter", adCounterSchema);
+
+module.exports = Counter;

@@ -1,5 +1,14 @@
 const Ad = require("../models/adModel");
-// const getNextShortId = require("../utils/getNextShortId");
+const Counter = require("../models/counterModel");
+
+const getNextSequenceValue = async (sequenceName) => {
+  const counter = await Counter.findByIdAndUpdate(
+    sequenceName,
+    { $inc: { sequenceValue: 1 } },
+    { new: true, upsert: true }
+  );
+  return counter.sequenceValue;
+};
 
 const createAd = async (req, res) => {
   try {
@@ -32,10 +41,10 @@ const createAd = async (req, res) => {
     }
 
     // Obtener el siguiente shortId
-    // const shortId = await getNextShortId();
+    const adId = await getNextSequenceValue('adId');
 
     const newAd = new Ad({
-      // shortId: shortId,
+      adId: adId,
       adType: adType,
       category: category,
       subCategory: subCategory,

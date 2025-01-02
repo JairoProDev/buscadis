@@ -59,4 +59,34 @@ router.get("/others/:id", otherController.getOtherById);
 router.put("/others/:id", otherController.updateOther);
 router.delete("/others/:id", otherController.deleteOther);
 
+const {
+  createAd,
+  getAds,
+  getAdById,
+  getAdsByAdType,
+  getAdsByAdTypeAndCategory,
+  updateAd,
+  deleteAd,
+} = require("../controllers/adController");
+const Counter = require('../models/counterModel');
+
+// Rutas para los anuncios
+router.post("/ads", createAd);
+router.get("/ads", getAds);
+router.get("/ads/:id", getAdById);
+router.get("/ads/adType/:adType", getAdsByAdType);
+router.get("/ads/adType/:adType/category/:category", getAdsByAdTypeAndCategory);
+router.put("/ads/:id", updateAd);
+router.delete("/ads/:id", deleteAd);
+
+// Ruta para obtener el contador de avisos
+router.get('/adCount', async (req, res) => {
+  try {
+    const counter = await Counter.findById('adId');
+    res.json({ adCount: counter ? counter.sequenceValue : 0 });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
