@@ -1,4 +1,3 @@
-// Header.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
@@ -34,7 +33,7 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
           <h1 className="header-title">BuscAdis</h1>
         </Link>
         <div className="counters">
-          <p className="advertisers"><span className="icon">📢</span> <span className="text">Avisos:</span> <span className="number">8654</span></p>
+          <p className="advertisers"><span className="icon">📢</span> <span className="text">Avisos:</span> <span className="number">{adCount}</span></p>
           <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitas:</span> <span className="number">{totalVisitors}</span></p>
         </div>
       </div>
