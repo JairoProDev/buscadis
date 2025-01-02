@@ -1,9 +1,11 @@
 const Product = require("../models/productModel");
+const { incrementPostCounter } = require("./postCounterController");
 
 const createProduct = async (req, res) => {
   try {
     const product = new Product(req.body);
     await product.save();
+    await incrementPostCounter(); // Incrementar el contador de avisos
     res.status(201).json({ message: "Product created successfully", product });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -12,13 +14,10 @@ const createProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
-    const products = await Product.find()
-      .sort({ createdAt: -1 })
-      .limit(100)
-      .exec();
+    const products = await Product.find().sort({ createdAt: -1 }).limit(300).exec();
     res.status(200).json(products);
   } catch (error) {
-    res.status(500).json({ error: "Internal error fetching products" });
+    res.status(500).json({ error: "Error interno al obtener los productos" });
   }
 };
 
@@ -30,7 +29,7 @@ const getProductById = async (req, res) => {
     }
     res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ error: "Internal error fetching product" });
+    res.status(500).json({ error: "Error interno al obtener el producto" });
   }
 };
 
@@ -44,7 +43,7 @@ const updateProduct = async (req, res) => {
     await product.save();
     res.status(200).json({ message: "Product updated successfully", product });
   } catch (error) {
-    res.status(500).json({ error: "Internal error updating product" });
+    res.status(500).json({ error: "Error interno al actualizar el producto" });
   }
 };
 
@@ -57,7 +56,7 @@ const deleteProduct = async (req, res) => {
     await product.deleteOne();
     res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Internal error deleting product" });
+    res.status(500).json({ error: "Error interno al eliminar el producto" });
   }
 };
 
