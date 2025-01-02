@@ -1,14 +1,5 @@
 const Ad = require("../models/adModel");
-const Counter = require("../models/counterModel");
-
-const getNextSequenceValue = async (sequenceName) => {
-  const counter = await Counter.findByIdAndUpdate(
-    sequenceName,
-    { $inc: { sequenceValue: 1 } },
-    { new: true, upsert: true }
-  );
-  return counter.sequenceValue;
-};
+const { incrementPostCounter } = require("./postCounterController");
 
 const createAd = async (req, res) => {
   try {
@@ -40,11 +31,7 @@ const createAd = async (req, res) => {
       return res.status(400).json({ error: "Faltan campos requeridos" });
     }
 
-    // Obtener el siguiente shortId
-    const adId = await getNextSequenceValue('adId');
-
     const newAd = new Ad({
-      adId: adId,
       adType: adType,
       category: category,
       subCategory: subCategory,
@@ -62,6 +49,7 @@ const createAd = async (req, res) => {
     console.log("New ad:", newAd);
     try {
       await newAd.save();
+      await incrementPostCounter(); // Incrementar el contador de avisos
       console.log("Ad saved successfully");
       res
         .status(201)

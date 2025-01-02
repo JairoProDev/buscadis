@@ -8,7 +8,6 @@ const vehicleController = require("../controllers/vehicleController");
 const serviceController = require("../controllers/serviceController");
 const productController = require("../controllers/productController");
 const businessController = require("../controllers/businessController");
-const otherController = require("../controllers/otherController");
 
 // Rutas para los anuncios de empleo
 router.post("/jobs", jobController.createJob);
@@ -52,13 +51,6 @@ router.get("/businesses/:id", businessController.getBusinessById);
 router.put("/businesses/:id", businessController.updateBusiness);
 router.delete("/businesses/:id", businessController.deleteBusiness);
 
-// Rutas para los anuncios de otros
-router.post("/others", otherController.createOther);
-router.get("/others", otherController.getOthers);
-router.get("/others/:id", otherController.getOtherById);
-router.put("/others/:id", otherController.updateOther);
-router.delete("/others/:id", otherController.deleteOther);
-
 const {
   createAd,
   getAds,
@@ -68,7 +60,7 @@ const {
   updateAd,
   deleteAd,
 } = require("../controllers/adController");
-const Counter = require('../models/counterModel');
+const Counter = require('../models/postCounterModel');
 
 // Rutas para los anuncios
 router.post("/ads", createAd);

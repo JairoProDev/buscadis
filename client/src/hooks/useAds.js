@@ -43,9 +43,6 @@ const useAds = () => {
         case 'Negocios':
           url = `/api/businesses?limit=${limit}&page=${page}`;
           break;
-        case 'Otros':
-          url = `/api/others?limit=${limit}&page=${page}`;
-          break;
         default:
           url = `/api/ads?limit=${limit}&page=${page}`; // Para cualquier otro caso, tal vez un tipo de anuncio genérico
           break;

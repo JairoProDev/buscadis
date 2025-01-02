@@ -14,7 +14,8 @@ const imageRoutes = require("./routes/imageRoutes");
 const authRoutes = require('./routes/authRoutes');
 const pdfRoutes = require('./routes/pdfRoutes');
 const VisitorCount = require('./models/VisitorCount');
-const adModel = require('./models/adModel');
+const PostCounter = require('./models/postCounterModel');
+const { initializePostCounter } = require('./controllers/postCounterController');
 
 // Verificar que las variables de entorno necesarias están definidas
 if (!process.env.CLOUDINARY_CLOUD_NAME || 
@@ -83,7 +84,10 @@ let dbConnectionAttempts = 0;
 // Función para conectar a la base de datos
 const connectToDb = () => {
   mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log("Connected to MongoDB"))
+    .then(() => {
+      console.log("Connected to MongoDB");
+      initializePostCounter(); // Inicializar el contador de anuncios
+    })
     .catch((err) => {
       console.error("Error connecting to MongoDB", err);
 
@@ -124,10 +128,11 @@ app.get('/visitorCount', async (req, res) => {
 });
 
 // Contador de Avisos
-app.get('/adCount', async (req, res) => {
+app.get('/postCount', async (req, res) => {
   try {
-    const adCount = await adModel.countDocuments();
-    res.json({ adCount });
+    const postCounter = await PostCounter.findOne({ name: "postCounter" });
+    const postCount = postCounter ? postCounter.count : 0;
+    res.json({ postCount });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred' });

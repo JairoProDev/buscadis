@@ -7,9 +7,9 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
   const isHidden = useScroll();
 
   const [visitorCount, setVisitorCount] = useState(0);
-  const [adCount, setAdCount] = useState(0);
+  const [postCount, setPostCount] = useState(0);
 
-  const totalVisitors = visitorCount + adCount;
+  const totalVisitors = visitorCount + postCount;
 
   useEffect(() => {
     fetch('/visitorCount')
@@ -19,9 +19,9 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
   }, []);
 
   useEffect(() => {
-    fetch('/adCount')
+    fetch('/postCount')
       .then(response => response.json())
-      .then(data => setAdCount(data.adCount))
+      .then(data => setPostCount(data.postCount))
       .catch(error => console.error('Error:', error));
   }, []);
 
@@ -33,7 +33,7 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
           <h1 className="header-title">BuscAdis</h1>
         </Link>
         <div className="counters">
-          <p className="advertisers"><span className="icon">📢</span> <span className="text">Avisos:</span> <span className="number">{adCount}</span></p>
+          <p className="advertisers"><span className="icon">📢</span> <span className="text">Avisos:</span> <span className="number">{postCount}</span></p>
           <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitas:</span> <span className="number">{totalVisitors}</span></p>
         </div>
       </div>
