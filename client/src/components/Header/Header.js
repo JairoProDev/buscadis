@@ -14,9 +14,15 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
   useEffect(() => {
     const fetchVisitorCount = async () => {
       try {
-        const response = await fetch('/visitorCount');
-        const data = await response.json();
-        setVisitorCount(data.visitorCount);
+        const cachedVisitorCount = sessionStorage.getItem('visitorCount');
+        if (cachedVisitorCount) {
+          setVisitorCount(JSON.parse(cachedVisitorCount));
+        } else {
+          const response = await fetch('/visitorCount');
+          const data = await response.json();
+          setVisitorCount(data.visitorCount);
+          sessionStorage.setItem('visitorCount', JSON.stringify(data.visitorCount));
+        }
       } catch (error) {
         console.error('Error:', error);
       }
@@ -24,9 +30,15 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
 
     const fetchPostCount = async () => {
       try {
-        const response = await fetch('/postCount');
-        const data = await response.json();
-        setPostCount(data.postCount);
+        const cachedPostCount = sessionStorage.getItem('postCount');
+        if (cachedPostCount) {
+          setPostCount(JSON.parse(cachedPostCount));
+        } else {
+          const response = await fetch('/postCount');
+          const data = await response.json();
+          setPostCount(data.postCount);
+          sessionStorage.setItem('postCount', JSON.stringify(data.postCount));
+        }
       } catch (error) {
         console.error('Error:', error);
       }
