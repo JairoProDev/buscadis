@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './AdTypeButtons.css';
 import JobsIcon from "../../assets/icons/jobs.png";
@@ -50,6 +50,18 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
   const navigate = useNavigate();
   const location = useLocation();
 
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setSelectedAdType('Todos');
+      setSelectedCategory(null);
+      setIsSelected(false);
+    } else if (adType) {
+      setSelectedAdType(adType);
+      setIsSelected(true);
+      setSelectedCategory(category || null);
+    }
+  }, [location.pathname, adType, category]);
+
   function handleAdTypeSelection(adTypeKey) {
     setSelectedAdType(adTypeKey);
     setIsSelected(true); // Activar la animación
@@ -82,6 +94,10 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
     navigate(-1); // Retroceder a la ruta anterior
   }
 
+  function handleHome() {
+    navigate('/'); // Ir al inicio
+  }
+
   // Generar breadcrumb
   const breadcrumbPath = [];
   breadcrumbPath.push('Inicio');
@@ -110,7 +126,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
         </button>
         {breadcrumbPath.map((item, index) => (
           <React.Fragment key={index}>
-            <span>{item}</span>
+            <span onClick={index === 0 ? handleHome : null}>{item}</span>
             {index < breadcrumbPath.length - 1 && <span className="breadcrumb-separator">/</span>}
           </React.Fragment>
         ))}
