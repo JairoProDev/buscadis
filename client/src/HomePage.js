@@ -45,28 +45,27 @@ function HomePage() {
     navigate(`/${adType}`);
   };
 
-    // Redirigir a /Empleos si el usuario está en la ruta raíz
-    useEffect(() => {
-      if (!adType) {
-        navigate('/Empleos');
+  // Redirigir a /Empleos si el usuario está en la ruta raíz
+  useEffect(() => {
+    if (!adType) {
+      navigate('/Empleos');
+    }
+  }, [adType, navigate]);
+
+  useEffect(() => {
+    if (adType) {
+      setSelectedAdType(adType);
+      setIsAdTypeSelected(true);
+      setPage(1);
+
+      // Si estamos en un modal de anuncio (cuando `id` está presente), no filtrar por subcategoría
+      if (id) {
+        getAds(adType, category); // Solo filtrar por categoría
+      } else {
+        getAds(adType, category, subcategory); // Filtrar por subcategoría solo si no hay anuncio seleccionado
       }
-    }, [adType, navigate]);
-    
-    useEffect(() => {
-      if (adType) {
-        setSelectedAdType(adType);
-        setIsAdTypeSelected(true);
-        setPage(1);
-    
-        // Si estamos en un modal de anuncio (cuando `id` está presente), no filtrar por subcategoría
-        if (id) {
-          getAds(adType, category); // Solo filtrar por categoría
-        } else {
-          getAds(adType, category, subcategory); // Filtrar por subcategoría solo si no hay anuncio seleccionado
-        }
-      }
-    }, [adType, category, subcategory, id, getAds]);
-    
+    }
+  }, [adType, category, subcategory, id, getAds]);
 
   useEffect(() => {
     if (id && ads.length > 0) {
@@ -102,7 +101,7 @@ function HomePage() {
     setSelectedAd(null);
     navigate(`/${adType}/${category || ""}`); // Redirige solo a la categoría
   };
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
@@ -112,7 +111,7 @@ function HomePage() {
       setSelectedAd(ads[nextIndex]);
     }
   };
-  
+
   const handlePrev = () => {
     const currentIndex = ads.findIndex(ad => ad._id === selectedAd._id);
     if (currentIndex !== -1) {
@@ -120,7 +119,6 @@ function HomePage() {
       setSelectedAd(ads[prevIndex]);
     }
   };
-  
 
   return (
     <Fragment>
@@ -147,6 +145,8 @@ function HomePage() {
                 loader={loader}
                 setFilter={setFilter}
                 toggleForm={toggleFormVisibility}
+                updateSearchTerm={updateSearchTerm} // Pasar updateSearchTerm a NewFeed
+                searchInputRef={searchInputRef}
               />
             )}
           </div>

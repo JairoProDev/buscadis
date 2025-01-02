@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
 import useScroll from "../../hooks/useScroll";
-import SearchBar from "../SearchBar/SearchBar";
 
 function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, updateSearchTerm, searchInputRef }) {
   const isHidden = useScroll();
@@ -34,7 +33,6 @@ function Header({ setFilter, toggleSidebar, openLoginForm, openRegisterForm, upd
           <img src="../../images/logo.ico" alt="Logo" className="logo" />
           <h1 className="header-title">BuscAdis</h1>
         </Link>
-        <SearchBar updateSearchTerm={updateSearchTerm} inputRef={searchInputRef} />
         <div className="counters">
           <p className="advertisers"><span className="icon">📢</span> <span className="text">Avisos:</span> <span className="number">8654</span></p>
           <p className="visitors"><span className="icon">🔎</span> <span className="text">Visitas:</span> <span className="number">{totalVisitors}</span></p>

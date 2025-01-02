@@ -1,54 +1,44 @@
-// SearchBar.js
-import React, { useState, useEffect, useRef } from "react";
-import "./searchbar.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faMicrophone } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faMicrophone, faTimes } from '@fortawesome/free-solid-svg-icons';
+import './searchBar.css';
 
 function SearchBar({ updateSearchTerm, inputRef }) {
-  // console.log('inputRef in SearchBar:', inputRef); // Log para verificar la referencia
-
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [isListening, setIsListening] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+
+  useEffect(() => {
+    if (isListening) {
+      // Simulate voice recognition
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setInputValue(transcript);
+        updateSearchTerm(transcript);
+      };
+      recognition.start();
+      recognition.onend = () => setIsListening(false);
+    }
+  }, [isListening, updateSearchTerm]);
 
   const handleSearchChange = (event) => {
-    const newValue = event.target.value;
-    setInputValue(newValue);
-    updateSearchTerm(newValue);
+    const value = event.target.value;
+    setInputValue(value);
+    updateSearchTerm(value);
+    // Simulate fetching suggestions
+    setSuggestions(value ? ['Suggestion 1', 'Suggestion 2', 'Suggestion 3'] : []);
   };
 
   const handleSearchClick = () => {
-    if (inputRef.current) {
-      inputRef.current.focus(); // Enfoca el campo de entrada cuando se hace clic en la lupa
-    }
+    updateSearchTerm(inputValue);
   };
 
-  useEffect(() => {
-    if (!("webkitSpeechRecognition" in window)) {
-      console.error("El navegador no soporta la API de reconocimiento de voz.");
-      return;
-    }
-
-    const recognition = new window.webkitSpeechRecognition();
-    recognition.interimResults = true;
-
-    recognition.onresult = (event) => {
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        if (event.results[i].isFinal) {
-          const newValue = event.results[i][0].transcript;
-          setInputValue(newValue);
-          updateSearchTerm(newValue);
-        }
-      }
-    };
-
-    if (isListening) {
-      recognition.start();
-    }
-
-    return () => {
-      recognition.stop();
-    };
-  }, [isListening, updateSearchTerm]);
+  const clearInput = () => {
+    setInputValue('');
+    updateSearchTerm('');
+    setSuggestions([]);
+  };
 
   return (
     <div className="search-bar">
@@ -57,16 +47,29 @@ function SearchBar({ updateSearchTerm, inputRef }) {
         value={inputValue}
         onChange={handleSearchChange}
         id="search-bar"
+        className="search-input"
         placeholder="Buscar avisos en PublicAdis"
-        ref={inputRef} // Asigna la referencia al campo de entrada
+        ref={inputRef}
       />
+      {inputValue && (
+        <FontAwesomeIcon icon={faTimes} className="clear-icon" onClick={clearInput} />
+      )}
       <FontAwesomeIcon icon={faSearch} className="search-icon" onClick={handleSearchClick} />
-      <button
+      {/* <button
         className="microphone-icon"
         onClick={() => setIsListening(!isListening)}
       >
         <FontAwesomeIcon icon={faMicrophone} />
-      </button>
+      </button> */}
+      {/* {suggestions.length > 0 && (
+        <ul className="suggestions">
+          {suggestions.map((suggestion, index) => (
+            <li key={index} onClick={() => setInputValue(suggestion)}>
+              {suggestion}
+            </li>
+          ))}
+        </ul>
+      )} */}
     </div>
   );
 }

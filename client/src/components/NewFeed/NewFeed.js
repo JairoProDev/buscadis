@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdList from '../AdList/AdList';
 import AdTypeButtons from '../AdTypeButtons/AdTypeButtons';
 import { adTypes } from '../AdTypeButtons/AdTypes';
+import SearchBar from '../SearchBar/SearchBar'; // Importar SearchBar
 
-function Feed({ anuncios = [], setSelectedAd, error, isLoading, loader, setFilter, toggleForm }) {
+function Feed({ anuncios = [], setSelectedAd, error, isLoading, loader, setFilter, toggleForm, updateSearchTerm }) {
   const { adType, category, subcategory } = useParams();
   const navigate = useNavigate();
   const [filteredAnuncios, setFilteredAnuncios] = useState([]);
+  const searchInputRef = useRef(null); // Crear una referencia para el SearchBar
 
   useEffect(() => {
     // Check if anuncios is not empty and is an array
@@ -54,6 +56,7 @@ function Feed({ anuncios = [], setSelectedAd, error, isLoading, loader, setFilte
         handleCategoryClick={handleCategoryClick}
         handleSubCategoryClick={handleSubCategoryClick}
       />
+      <SearchBar updateSearchTerm={updateSearchTerm} inputRef={searchInputRef} />
       <AdList
         anuncios={filteredAnuncios}
         setSelectedAd={setSelectedAd}
