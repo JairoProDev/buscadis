@@ -6,7 +6,7 @@
   align-items: center;
   width: 80%;
   max-width: 800px;
-  margin: 20px auto;
+  margin: 10px auto;
   height: 60px; /* Aumenta la altura para hacerla más prominente */
   border-radius: 30px; /* Asegura que la barra de búsqueda siga siendo redonda después de aumentar la altura */
   background: rgba(0, 0, 0, 0.75); /* Fondo oscuro semitransparente */
