@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './AdTypeButtons.css';
 import JobsIcon from "../../assets/icons/jobs.png";
 import EstateIcon from "../../assets/icons/estate.png";
@@ -46,25 +47,39 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
   const [selectedAdType, setSelectedAdType] = useState(adType || 'Todos');
   const [selectedCategory, setSelectedCategory] = useState(category || null);
   const [isSelected, setIsSelected] = useState(false); // Nuevo estado para la animación
+  const navigate = useNavigate();
+  const location = useLocation();
 
   function handleAdTypeSelection(adTypeKey) {
     setSelectedAdType(adTypeKey);
     setIsSelected(true); // Activar la animación
     setSelectedCategory(null);
     handleAdTypeClick(adTypeKey);
+    navigate(`/${adTypeKey}`);
     if (getAds) {
       getAds(adTypeKey, null, null);  // Cargar anuncios según el nuevo tipo seleccionado
     }
   }
 
-  function handleBack() {
-    setIsSelected(false);
-    setSelectedAdType('Todos');
-    setSelectedCategory(null); // Restablecer la categoría seleccionada
-    handleAdTypeClick('Todos');
+  function handleCategorySelection(categoryKey) {
+    setSelectedCategory(categoryKey);
+    handleCategoryClick(categoryKey);
+    navigate(`/${selectedAdType}/${categoryKey}`);
     if (getAds) {
-      getAds('Todos', null, null); // Cargar todos los anuncios
+      getAds(selectedAdType, categoryKey, null);  // Cargar anuncios de la categoría seleccionada
     }
+  }
+
+  function handleSubCategorySelection(subCategoryKey) {
+    handleSubCategoryClick(subCategoryKey);
+    navigate(`/${selectedAdType}/${selectedCategory}/${subCategoryKey}`);
+    if (getAds) {
+      getAds(selectedAdType, selectedCategory, subCategoryKey);  // Cargar anuncios de la subcategoría seleccionada
+    }
+  }
+
+  function handleBack() {
+    navigate(-1); // Retroceder a la ruta anterior
   }
 
   // Generar breadcrumb
@@ -153,13 +168,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
             {Object.keys(adTypes[selectedAdType]).map((category) => (
               <button
                 key={category}
-                onClick={() => {
-                  setSelectedCategory(category);
-                  handleCategoryClick(category);
-                  if (getAds) {
-                    getAds(selectedAdType, category, null);  // Cargar anuncios de la categoría seleccionada
-                  }
-                }}
+                onClick={() => handleCategorySelection(category)}
                 className={`category-button ${selectedCategory === category ? 'selected-category' : ''}`}
                 aria-label={`Seleccionar categoría ${category}`}
               >
@@ -176,12 +185,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
             {adTypes[selectedAdType][selectedCategory].map((subCategory) => (
               <button
                 key={subCategory}
-                onClick={() => {
-                  handleSubCategoryClick(subCategory);
-                  if (getAds) {
-                    getAds(selectedAdType, selectedCategory, subCategory);  // Cargar anuncios de la subcategoría seleccionada
-                  }
-                }}
+                onClick={() => handleSubCategorySelection(subCategory)}
                 className="subcategory-button"
                 aria-label={`Seleccionar subcategoría ${subCategory}`}
               >
