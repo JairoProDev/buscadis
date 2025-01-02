@@ -89,11 +89,10 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
 
   return (
     <div className='adType-container'>
-      <button className='back-button' onClick={handleBack} aria-label="Volver">
-        <FontAwesomeIcon icon={faArrowLeft} />
-        <span className="back-text">Volver</span>
-      </button>
       <div className="breadcrumb">
+        <button className='breadcrumb-back-button' onClick={handleBack} aria-label="Volver">
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
         {breadcrumbPath.map((item, index) => (
           <React.Fragment key={index}>
             <span>{item}</span>
@@ -124,7 +123,7 @@ function AdTypeButtons({ adType, category, subCategory, handleAdTypeClick, handl
                 <button
                   key={adTypeKey}
                   onClick={() => handleAdTypeSelection(adTypeKey)}
-                  className={`adType-button ${selectedAdType === adTypeKey ? `${adTypeKey.toLowerCase()}-selected` : ''}`}
+                  className={`adType-button ${selectedAdType === adTypeKey ? 'selected-adType' : ''}`}
                   data-ad-type={adTypeKey}
                   aria-label={`Seleccionar tipo de anuncio ${adTypeLabels[adTypeKey]}`}
                 >

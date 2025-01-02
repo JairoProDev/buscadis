@@ -4,50 +4,37 @@
   position: relative;
 }
 
-/* Botón de retroceso */
-.back-button-container {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 10px; /* Espacio entre el botón y el contenido */
-}
-
-.back-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background-color: #ff5252;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 10;
-}
-
-.back-button:hover {
-  background-color: #ff1744;
-  transform: translateY(-3px);
-}
-
-.back-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.5);
-}
-
 /* Ruta de navegación */
 .breadcrumb {
+  position: fixed; /* Mantener visible */
+  top: 70px;
+  left: 20px;
   display: flex;
   align-items: center;
-  gap: 5px;
-  margin-top: 50px; /* Espacio para el botón de retroceso */
   font-size: 1rem;
   color: #666;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.breadcrumb-back-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.breadcrumb-back-button:hover {
+  color: #0056b3;
+}
+
+.breadcrumb-separator {
+  margin: 0 5px;
 }
 
 .breadcrumb span {
@@ -57,6 +44,7 @@
 
 .breadcrumb span:hover {
   text-decoration: underline;
+  color: #0056b3;
 }
 
 /* Contenedor de botones */
@@ -66,7 +54,7 @@
   padding: 20px;
   gap: 15px;
   white-space: nowrap; /* Asegura que los botones se mantengan en una línea */
-  overflow-x: auto; /* Habilitar el scroll horizontal */
+  overflow-x: auto; /* Habilitar el scroll horizontal si es necesario */
 }
 
 /* Estilos de los botones principales */
@@ -128,18 +116,18 @@
   background-color: #e0e0e0;
   color: #666;
   border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
+  border-radius: 12px;
+  padding: 10px 20px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1rem;
   box-shadow: 2px 2px 4px #bebebe, -2px -2px 4px #ffffff;
   transition: transform 0.3s, box-shadow 0.3s;
   white-space: nowrap;
 }
 
 .scroll-container .category-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 1px 1px 3px #bebebe, -1px -1px 3px #ffffff;
+  background-color: #1cd7d4;
+  transform: scale(1.05);
 }
 
 .scroll-container .category-button:active {
@@ -150,6 +138,11 @@
 .scroll-container .category-button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+.selected-category {
+  background-color: #f9cc00;
+  color: #ffffff;
 }
 
 /* Botón de descarga de la App */
@@ -195,8 +188,8 @@ span.adType-label {
   background: rgba(37, 117, 252, 0.1);
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  padding: 20px;
+  margin: 16px;
+  padding: 16px;
   animation: fadeIn 0.6s forwards;
 }
 
@@ -225,7 +218,6 @@ span.adType-label {
 }
 
 /* Estilos para las secciones de categorías y subcategorías */
-
 .category-button, .subcategory-button {
   padding: 10px 20px;
   background-color: #b39ddb;
@@ -247,81 +239,13 @@ span.adType-label {
   color: #ffffff;
 }
 
-/* Estilos específicos para botones seleccionados según el tipo de anuncio */
-
-/* Clase genérica para todos los botones */
-.adType-button {
-  background-color: #f0f0f0;
-  color: #333;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* Clase para Empleos */
-.adType-button.empleos-selected {
-  background-color: #007bff; /* Azul para Empleos */
-  color: #ffffff;
-}
-
-/* Clase para Inmuebles */
-.adType-button.inmuebles-selected {
-  background-color: #28a745; /* Verde para Inmuebles */
-  color: #ffffff;
-}
-
-/* Clase para Vehicles */
-.adType-button.vehicles-selected {
-  background-color: #ff5722; /* Naranja para Vehículos */
-  color: #ffffff;
-}
-
-/* Clase para Servicios */
-.adType-button.servicios-selected {
-  background-color: #ffc107; /* Amarillo para Servicios */
-  color: #ffffff;
-}
-
-/* Clase para Productos */
-.adType-button.productos-selected {
-  background-color: #ff9800; /* Naranja oscuro para Productos */
-  color: #ffffff;
-}
-
-/* Clase para Negocios */
-.adType-button.negocios-selected {
-  background-color: #343a40; /* Gris oscuro para Negocios */
-  color: #ffffff;
-}
-
-/* Clase para Eventos */
-.adType-button.eventos-selected {
-  background-color: #ff4081; /* Rosa para Eventos */
-  color: #ffffff;
-}
-
-/* Clase para Turismo */
-.adType-button.turismo-selected {
-  background-color: #00bcd4; /* Cian para Turismo */
-  color: #ffffff;
-}
-
-/* Clase para Educación */
-.adType-button.educacion-selected {
-  background-color: #4caf50; /* Verde para Educación */
-  color: #ffffff;
-}
-
-/* Clase para Mascotas */
-.adType-button.mascotas-selected {
-  background-color: #ff9800; /* Naranja para Mascotas */
-  color: #ffffff;
-}
-
 /* Responsividad */
 @media (max-width: 768px) {
   .scroll-container {
     flex-wrap: nowrap; /* Cambiado de wrap a nowrap (no modificar esto) Asegura que los botones se mantengan en una línea */
     max-width: 100vw; /* Asegura que ocupe todo el ancho de la pantalla */
     overflow-x: scroll; /* Habilitar el scroll horizontal */
+    padding: 10px 10px 10px 10px; /* Ajustado para espacio de elementos fijos */
   }
 
   .adType-button {
@@ -332,10 +256,22 @@ span.adType-label {
 
   .selected-title {
     height: auto;
+    flex-direction: row;
+    text-align: center;
+    gap: 15px;
   }
 
-  .selected-title h1 {
-    font-size: 2rem;
+  .selected-title .selected-icon {
+    margin-right: 0;
+  }
+
+  .breadcrumb {
+    top: 70px; /* Ajuste para dispositivos móviles */
+    left: 10px;
+  }
+
+  .breadcrumb-back-button {
+    font-size: 1.2rem;
   }
 }
 
