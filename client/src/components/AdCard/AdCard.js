@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./adCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faMapMarkerAlt, faCalendarAlt, faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faMapMarkerAlt, faCalendarAlt, faStore, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 
 function AdCard({ adiso, setSelectedAd, viewMode }) {
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ function AdCard({ adiso, setSelectedAd, viewMode }) {
     images,
     businessName,
     businessLogo,
+    businessType,
   } = adiso;
   const adTypeLower = adType ? adType.toLowerCase() : "default";
   const adClass = `ad-card ${adTypeLower} ${viewMode}`;
@@ -65,6 +66,19 @@ function AdCard({ adiso, setSelectedAd, viewMode }) {
         </div>
       )}
       <div className="ad-card__content">
+        <div className="ad-card__business">
+          {businessLogo ? (
+            <img src={businessLogo} alt={businessName} className="ad-card__business-logo" />
+          ) : (
+            <div className="ad-card__business-logo-placeholder"></div>
+          )}
+          <div className="ad-card__business-info">
+            <p className="ad-card__business-name">
+              <FontAwesomeIcon icon={faStore} /> {businessName}
+            </p>
+            <p className="ad-card__business-type">{businessType}</p>
+          </div>
+        </div>
         <div className="ad-card__header">
           <div className="ad-card__type">{category} / {subCategory}</div>
           <div className="ad-card__date">
@@ -80,16 +94,12 @@ function AdCard({ adiso, setSelectedAd, viewMode }) {
             </p>
           )}
         </div>
-        <div className="ad-card__business">
-          {businessLogo && (
-            <img src={businessLogo} alt={businessName} className="ad-card__business-logo" />
-          )}
-          <p className="ad-card__business-name">
-            <FontAwesomeIcon icon={faBuilding} /> {businessName}
-          </p>
-        </div>
+        
         <button className="ad-card__save-button">
-          <FontAwesomeIcon icon={faHeart} />
+          <FontAwesomeIcon icon={faBookmark} />
+        </button>
+        <button className="ad-card__options-button">
+          <FontAwesomeIcon icon={faEllipsisV} />
         </button>
       </div>
     </div>

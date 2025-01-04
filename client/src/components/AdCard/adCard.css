@@ -118,19 +118,42 @@
 .ad-card__business {
   display: flex;
   align-items: center;
-  margin-top: 0.5rem;
+  margin-left: 1rem;
 }
 
 .ad-card__business-logo {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   margin-right: 0.5rem;
+}
+
+.ad-card__business-logo-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--light-text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--background-color);
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.ad-card__business-info {
+  display: flex;
+  flex-direction: column;
 }
 
 .ad-card__business-name {
   font-size: 0.9rem;
   color: var(--text-color);
+}
+
+.ad-card__business-type {
+  font-size: 0.8rem;
+  color: var(--light-text-color);
 }
 
 .ad-card__save-button {
@@ -146,6 +169,22 @@
 }
 
 .ad-card__save-button:hover {
+  color: var(--hover-color);
+}
+
+.ad-card__options-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color var(--transition-duration) ease;
+}
+
+.ad-card__options-button:hover {
   color: var(--hover-color);
 }
 
@@ -181,5 +220,8 @@
   .ad-card__price,
   .ad-card__location {
     font-size: 0.9rem;
+  }
+  .ad-card__business {
+    margin-left: 0.5rem;
   }
 }
