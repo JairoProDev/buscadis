@@ -9,23 +9,43 @@
   --button-hover-color: #46a049;
   --call-button-color: #007bff;
   --call-button-hover-color: #0056b3;
-  --background-color: #f8f9fa;
+  --background-color: #ffffff;
+  --border-radius: 10px;
+  --transition-duration: 0.3s;
 }
 
 .ad-card {
   background-color: var(--background-color);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   box-shadow: 0 4px 8px var(--shadow-color);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
 }
 
+.ad-card__image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--light-text-color);
+}
+
+.ad-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-duration) ease;
+}
+
+.ad-card:hover .ad-card__image {
+  transform: scale(1.05);
+}
+
 .ad-card__content {
-  padding: 0.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -41,25 +61,19 @@
   box-shadow: 0 4px 8px var(--shadow-color);
 }
 
-.ad-card__image {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-bottom: 1px solid var(--light-text-color);
-}
-
 .ad-card__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.9rem;
   color: var(--text-color);
+  margin-bottom: 0.5rem;
 }
 
 .ad-card__type {
-  font-weight: 300;
+  font-weight: 500;
   color: var(--primary-color);
-  font-size: 12px;
+  font-size: 0.9rem;
 }
 
 .ad-card__date {
@@ -68,30 +82,23 @@
 }
 
 .ad-card__title {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: var(--text-color);
   hyphens: auto;
   line-height: 1.3;
-}
-
-.ad-card__description {
-  color: var(--text-color);
-  font-size: 0.9rem;
-  line-height: 1.2;
-  /* mask-image: linear-gradient(180deg, #000 0, #000 75%, #0000); */
-  overflow: hidden;
-  padding: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 
 .ad-card__details {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  margin-top: auto;
 }
 
 .ad-card__price {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: var(--text-color);
 }
@@ -100,134 +107,45 @@
   color: var(--light-text-color);
 }
 
-.ad-card__content {
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative; /* Asegura que el overlay esté en la parte superior */
-}
-
 .ad-card.inmuebles {
-  background-color: #c8f7c5;
-  border-left: 4px solid #4caf50; /* Verde suave */
+  border-left: 4px solid #4caf50; /* Verde */
 }
 
 .ad-card.empleos {
-  background-color: #bfeff3;
-  border-left: 4px solid #007bff; /* Azul suave */
+  border-left: 4px solid #007bff; /* Azul */
 }
 
 .ad-card.vehicles {
-  background-color: #ffcccc;
-  border-left: 4px solid #ff5722; /* Rojo suave */
+  border-left: 4px solid #ff5722; /* Rojo */
 }
 
 .ad-card.servicios {
-  background-color: #fff5cc;
-  border-left: 4px solid #ffc107; /* Amarillo suave */
+  border-left: 4px solid #ffc107; /* Amarillo */
 }
 
 .ad-card.productos {
-  background-color: #f7f7f7;
-  border-left: 4px solid #ff9800; /* Orange suave */
+  border-left: 4px solid #ff9800; /* Naranja */
 }
+
 .ad-card.otros {
-  background-color: #e8e4f7;
-  border-left: 4px solid #9c27b0; /* Púrpura suave */
-}
-
-.ad-card--taken {
-  position: relative;
-  opacity: 0.6;
-}
-
-.ad-card__overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-  z-index: 1;
-  text-align: center;
-  padding: 1rem;
-}
-
-/* Colores translúcidos basados en los colores existentes */
-
-.ad-card.empleos .ad-card__overlay {
-  background-color: rgba(0, 123, 255, 0.6); /* Azul translúcido */
-}
-
-.ad-card.inmuebles .ad-card__overlay {
-  background-color: rgba(76, 175, 80, 0.6); /* Verde translúcido */
-}
-
-.ad-card.vehicles .ad-card__overlay {
-  background-color: rgba(255, 87, 34, 0.6); /* Rojo translúcido */
-}
-
-.ad-card.servicios .ad-card__overlay {
-  background-color: rgba(255, 193, 7, 0.6); /* Amarillo translúcido */
-}
-
-.ad-card.productos .ad-card__overlay {
-  background-color: rgba(255, 152, 0, 0.6); /* Naranja translúcido */
-}
-
-.ad-card.otros .ad-card__overlay {
-  background-color: rgba(156, 39, 176, 0.6); /* Púrpura translúcido */
-}
-
-/* Estilos para adisos caducados */
-
-.ad-card--expired {
-  position: relative;
-  opacity: 0.8;
-}
-
-.ad-card__expired-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(128, 128, 128, 0.7); /* Gris translúcido */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-  z-index: 1;
-}
-
-.ad-card__expired-text {
-  text-align: center;
-  padding: 1rem;
+  border-left: 4px solid #9c27b0; /* Púrpura */
 }
 
 @media (max-width: 768px) {
-  .ad-card__image {
-    height: 120px;
+  .ad-card__image-container {
+    height: 150px;
   }
 
   .ad-card__title {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
-  .ad-card__description {
-    font-size: 0.8rem;
+  .ad-card__details {
+    font-size: 0.9rem;
   }
 
   .ad-card__price,
   .ad-card__location {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
