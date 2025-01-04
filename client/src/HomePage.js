@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState, useEffect, useCallback } from "react";
+import React, { Fragment, useState, useEffect, useCallback, useRef } from "react";
 import { Route, Routes, useParams, useNavigate } from "react-router-dom";
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
@@ -6,7 +6,7 @@ import Header from "./components/Header/Header";
 import AdTypeButtons from "./components/AdTypeButtons/AdTypeButtons";
 import NewFeed from "./components/NewFeed/NewFeed";
 import AdForm from "./components/AdForm/AdForm";
-import Modal from "./components/Modal/Modal";
+import AdDetailView from "./components/AdDetailView/AdDetailView";
 import SocialMedia from "./components/SocialMedia/SocialMedia";
 import UserProfile from "./components/UserProfile/UserProfile";
 import AdsColumn from "./components/AdsColumn/AdsColumn";
@@ -96,7 +96,7 @@ function HomePage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  const handleCloseModal = () => {
+  const handleCloseDetailView = () => {
     setSelectedAd(null);
     navigate(`/${adType}/${category || ""}`); // Redirige solo a la categoría
   };
@@ -181,9 +181,9 @@ function HomePage() {
         <Route path="/profile" element={<UserProfile />} />
       </Routes>
       {selectedAd && (
-        <Modal
+        <AdDetailView
           adiso={selectedAd}
-          onClose={handleCloseModal}
+          onClose={handleCloseDetailView}
           onNext={handleNext}
           onPrev={handlePrev}
         />

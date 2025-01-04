@@ -3,9 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import AdCard from "../AdCard/AdCard";
 import "./adList.css";
 
-function AdList({ adisos }) {
+function AdList({ adisos, setSelectedAd }) {
   const [loading, setLoading] = useState(true);
-  const [setSelectedAd] = useState(null);
 
   const { id } = useParams(); // Captura el ID del adiso desde la URL
   const navigate = useNavigate();
