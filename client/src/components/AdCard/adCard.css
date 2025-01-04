@@ -21,11 +21,12 @@
   flex-direction: column;
   margin-bottom: 1rem;
   position: relative;
+  height: 300px; /* Fijar altura */
 }
 
 .ad-card__image-container {
   width: 100%;
-  height: 200px;
+  height: 150px; /* Fijar altura */
   overflow: hidden;
   border-bottom: 1px solid var(--light-text-color);
 }
@@ -190,11 +191,12 @@
 
 .ad-card.vertical {
   flex-direction: row;
+  height: 150px; /* Fijar altura */
 }
 
 .ad-card.vertical .ad-card__image-container {
   width: 150px;
-  height: auto;
+  height: 100%; /* Fijar altura */
   border-bottom: none;
   border-right: 1px solid var(--light-text-color);
 }
@@ -219,7 +221,7 @@
 
   .ad-card__price,
   .ad-card__location {
-    font-size: 0.9rem;
+    font-size: 0.6rem;
   }
   .ad-card__business {
     margin-left: 0.5rem;

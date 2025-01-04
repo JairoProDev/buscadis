@@ -12,7 +12,7 @@ import App from "./App";
 // Importa la función reportWebVitals, que se utiliza para medir el rendimiento de la aplicación
 import reportWebVitals from "./reportWebVitals";
 // Importa el archivo de registro del Service Worker
-import './serviceWorkerRegistration';
+// import './serviceWorkerRegistration';
 
 // Espera a que el DOM esté completamente cargado antes de renderizar la aplicación
 document.addEventListener("DOMContentLoaded", () => {

@@ -94,7 +94,6 @@ function AdCard({ adiso, setSelectedAd, viewMode }) {
             </p>
           )}
         </div>
-        
         <button className="ad-card__save-button">
           <FontAwesomeIcon icon={faBookmark} />
         </button>

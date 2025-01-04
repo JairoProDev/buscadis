@@ -1,14 +1,26 @@
+:root {
+  --primary-color: #007bff;
+  --hover-color: #0056b3;
+  --text-color: #312f30;
+  --light-text-color: #666;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hover-shadow-color: rgba(0, 0, 0, 0.2);
+  --background-color: #ffffff;
+  --border-radius: 10px;
+  --transition-duration: 0.3s;
+}
+
 .ad-detail-view {
   position: fixed;
   top: 0;
   right: 0;
   width: 400px;
   height: 100%;
-  background-color: #fff;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--background-color);
+  box-shadow: -2px 0 5px var(--shadow-color);
   z-index: 1000;
   overflow-y: auto;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-duration) ease;
 }
 
 .ad-detail-header {
@@ -25,7 +37,7 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color var(--transition-duration) ease;
 }
 
 .close-button:hover,
@@ -162,11 +174,11 @@
   right: 0;
   width: 400px;
   height: 100%;
-  background-color: #fff;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--background-color);
+  box-shadow: -2px 0 5px var(--shadow-color);
   z-index: 1000;
   overflow-y: auto;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-duration) ease;
 }
 
 .ad-detail-header {
@@ -183,7 +195,7 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color var(--transition-duration) ease;
 }
 
 .close-button:hover,

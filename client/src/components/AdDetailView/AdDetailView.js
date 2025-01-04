@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight, faTimes, faMapMarkerAlt, faCalendarAlt, faBuilding, faPhone, faEnvelope, faStar, faEye, faShareAlt, faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight, faTimes, faMapMarkerAlt, faCalendarAlt, faPhone, faEnvelope, faStar, faEye, faShareAlt, faBookmark,faStore, faFlag } from "@fortawesome/free-solid-svg-icons";
 import "./adDetailView.css";
 
 function AdDetailView({ adiso, onClose, onNext, onPrev }) {
@@ -16,6 +16,7 @@ function AdDetailView({ adiso, onClose, onNext, onPrev }) {
     phone,
     phone2,
     email,
+    businessType,
     views,
     contactsCount,
     adType,
@@ -29,16 +30,21 @@ function AdDetailView({ adiso, onClose, onNext, onPrev }) {
     year: "numeric",
   });
 
+  const formattedTime = new Date(createdAt).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   return (
     <div className="ad-detail-view">
       <div className="ad-detail-header">
+        <button className="nav-button" onClick={onPrev}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
         <button className="close-button" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
-        <button className="nav-button prev-button" onClick={onPrev}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </button>
-        <button className="nav-button next-button" onClick={onNext}>
+        <button className="nav-button" onClick={onNext}>
           <FontAwesomeIcon icon={faArrowRight} />
         </button>
       </div>
@@ -46,7 +52,7 @@ function AdDetailView({ adiso, onClose, onNext, onPrev }) {
         <div className="ad-detail-images">
           {images && images.length > 0 ? (
             images.map((image, index) => (
-              <img key={index} src={image} alt={`Imagen ${index + 1}`} className="ad-detail-image" />
+              <img key={index} src={image} alt={title} className="ad-detail-image" />
             ))
           ) : (
             <div className="ad-detail-image-placeholder">Sin imagen</div>
@@ -60,45 +66,24 @@ function AdDetailView({ adiso, onClose, onNext, onPrev }) {
             <FontAwesomeIcon icon={faMapMarkerAlt} /> {location}
           </p>
           <p className="ad-detail-date">
-            <FontAwesomeIcon icon={faCalendarAlt} /> {formattedDate}
+            <FontAwesomeIcon icon={faCalendarAlt} /> {formattedDate} {formattedTime}
           </p>
           <div className="ad-detail-business">
             {businessLogo ? (
               <img src={businessLogo} alt={businessName} className="ad-detail-business-logo" />
             ) : (
-              <div className="ad-detail-business-logo-placeholder">Logo</div>
+              <div className="ad-detail-business-logo-placeholder"></div>
             )}
             <div className="ad-detail-business-info">
               <p className="ad-detail-business-name">
-                <FontAwesomeIcon icon={faBuilding} /> {businessName}
+                <FontAwesomeIcon icon={faStore} /> {businessName}
               </p>
-              <p className="ad-detail-business-type">{adType}</p>
+              <p className="ad-detail-business-type">{businessType}</p>
             </div>
           </div>
-          <div className="ad-detail-contact">
-            {phone && (
-              <p>
-                <FontAwesomeIcon icon={faPhone} /> {phone}
-              </p>
-            )}
-            {phone2 && (
-              <p>
-                <FontAwesomeIcon icon={faPhone} /> {phone2}
-              </p>
-            )}
-            {email && (
-              <p>
-                <FontAwesomeIcon icon={faEnvelope} /> {email}
-              </p>
-            )}
-          </div>
           <div className="ad-detail-metrics">
-            <p>
-              <FontAwesomeIcon icon={faEye} /> {views} vistas
-            </p>
-            <p>
-              <FontAwesomeIcon icon={faStar} /> {contactsCount} contactos
-            </p>
+            <p>Vistas: {views}</p>
+            <p>Contactos: {contactsCount}</p>
           </div>
           <div className="ad-detail-actions">
             <button className="ad-detail-action-button">
@@ -106,6 +91,9 @@ function AdDetailView({ adiso, onClose, onNext, onPrev }) {
             </button>
             <button className="ad-detail-action-button">
               <FontAwesomeIcon icon={faShareAlt} /> Compartir
+            </button>
+            <button className="ad-detail-action-button">
+              <FontAwesomeIcon icon={faFlag} /> Reportar
             </button>
           </div>
         </div>
