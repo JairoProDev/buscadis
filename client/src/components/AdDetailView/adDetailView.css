@@ -4,12 +4,11 @@
   right: 0;
   width: 400px;
   height: 100%;
-  background: white;
+  background-color: #fff;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
 }
 
 .ad-detail-header {
@@ -20,104 +19,101 @@
   border-bottom: 1px solid #ddd;
 }
 
-.close-button {
+.close-button,
+.nav-button {
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.ad-detail-title {
-  flex-grow: 1;
-  text-align: center;
-}
-
-.ad-detail-body {
-  flex-grow: 1;
-  overflow-y: auto;
-}
-
-.ad-detail-tabs {
-  display: flex;
-  justify-content: space-around;
-  border-bottom: 1px solid #ddd;
-}
-
-.ad-detail-tabs button {
-  flex-grow: 1;
-  padding: 1rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.ad-detail-tabs button.active {
-  border-bottom: 2px solid #007bff;
-  font-weight: bold;
+.close-button:hover,
+.nav-button:hover {
+  color: var(--primary-color);
 }
 
 .ad-detail-content {
   padding: 1rem;
 }
 
-.ad-detail-info {
+.ad-detail-images {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ad-detail-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
+.ad-detail-image-placeholder {
+  width: 100%;
+  height: 200px;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  background-color: var(--light-text-color);
+  color: var(--background-color);
+  font-size: 1.5rem;
+  border-radius: var(--border-radius);
 }
 
-.ad-detail-map iframe {
-  width: 100%;
-  height: 250px;
+.ad-detail-info {
+  margin-top: 1rem;
 }
 
-.ad-detail-images img {
-  width: 100%;
+.ad-detail-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.ad-detail-description {
+  font-size: 1rem;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
 
-.image-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+.ad-detail-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.ad-detail-location,
+.ad-detail-date,
+.ad-detail-business-name,
+.ad-detail-contact p {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.ad-detail-business {
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1001;
+  margin-bottom: 1rem;
 }
 
-.image-modal-content {
-  position: relative;
-  background: white;
-  padding: 1rem;
-  border-radius: 5px;
+.ad-detail-business-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
 }
 
-.image-modal-content img {
-  max-width: 100%;
-  max-height: 80vh;
+.ad-detail-contact p {
+  display: flex;
+  align-items: center;
 }
 
-.navigation-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 0.5rem;
-  cursor: pointer;
-}
-
-.navigation-arrow-left {
-  left: 0;
-}
-
-.navigation-arrow-right {
-  right: 0;
+.ad-detail-contact p svg {
+  margin-right: 0.5rem;
 }
 
 @media (max-width: 768px) {

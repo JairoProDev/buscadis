@@ -1,36 +1,28 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { QRCodeCanvas } from "qrcode.react";
-import ContactButtons from "../ContactButtons/ContactButtons";
+import { faArrowLeft, faArrowRight, faTimes, faMapMarkerAlt, faCalendarAlt, faBuilding, faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import "./adDetailView.css";
 
 function AdDetailView({ adiso, onClose, onNext, onPrev }) {
-  const [activeTab, setActiveTab] = useState("detalles");
-  const [selectedImage, setSelectedImage] = useState(null);
+  const {
+    title,
+    description,
+    amount,
+    location,
+    createdAt,
+    images,
+    businessName,
+    businessLogo,
+    phone,
+    phone2,
+    email,
+  } = adiso;
 
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === "ArrowLeft") {
-      onPrev();
-    } else if (e.key === "ArrowRight") {
-      onNext();
-    }
-  }, [onPrev, onNext]);
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleKeyDown]);
-
-  const handleImageClick = (imageUrl) => {
-    setSelectedImage(imageUrl);
-  };
-
-  const closeImageModal = () => {
-    setSelectedImage(null);
-  };
+  const formattedDate = new Date(createdAt).toLocaleDateString("es-ES", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 
   return (
     <div className="ad-detail-view">
@@ -38,94 +30,59 @@ function AdDetailView({ adiso, onClose, onNext, onPrev }) {
         <button className="close-button" onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
-        <div className="ad-detail-title">
-          <h2>{adiso.title}</h2>
-          <p>{new Date(adiso.createdAt).toLocaleDateString()}</p>
-        </div>
+        <button className="nav-button prev-button" onClick={onPrev}>
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </button>
+        <button className="nav-button next-button" onClick={onNext}>
+          <FontAwesomeIcon icon={faArrowRight} />
+        </button>
       </div>
-      <div className="ad-detail-body">
-        <div className="ad-detail-tabs">
-          <button
-            className={activeTab === "detalles" ? "active" : ""}
-            onClick={() => setActiveTab("detalles")}
-          >
-            Detalles
-          </button>
-          <button
-            className={activeTab === "mapa" ? "active" : ""}
-            onClick={() => setActiveTab("mapa")}
-          >
-            Ubicación
-          </button>
-          <button
-            className={activeTab === "imagenes" ? "active" : ""}
-            onClick={() => setActiveTab("imagenes")}
-          >
-            Imágenes
-          </button>
-        </div>
-        <div className="ad-detail-content">
-          {activeTab === "detalles" && (
-            <div className="ad-detail-info">
-              <QRCodeCanvas value={window.location.href} size={100} />
-              <p>{adiso.description.replace(/\d{9}/g, "")}</p>
-              <ContactButtons
-                phone={adiso.phone}
-                phone2={adiso.phone2}
-                adType={adiso.adType}
-                url={window.location.href}
-                onContactClick={() => {}}
-              />
-            </div>
-          )}
-          {activeTab === "mapa" && (
-            <div className="ad-detail-map">
-              <iframe
-                src={`https://www.google.com/maps?q=${encodeURIComponent(adiso.location)}&output=embed`}
-                width="100%"
-                height="250"
-                frameBorder="0"
-                allowFullScreen=""
-                aria-hidden="false"
-                tabIndex="0"
-                title={`Mapa de la ubicación: ${adiso.location}`}
-              ></iframe>
-            </div>
-          )}
-          {activeTab === "imagenes" && (
-            <div className="ad-detail-images">
-              {adiso.images && adiso.images.length > 0 ? (
-                adiso.images.map((imageUrl, index) => (
-                  <img
-                    key={index}
-                    src={imageUrl}
-                    alt={`Imagen ${index + 1}`}
-                    onClick={() => handleImageClick(imageUrl)}
-                    style={{ cursor: "pointer" }}
-                  />
-                ))
-              ) : (
-                <p>Este adiso no tiene imágenes.</p>
-              )}
-            </div>
+      <div className="ad-detail-content">
+        <div className="ad-detail-images">
+          {images && images.length > 0 ? (
+            images.map((image, index) => (
+              <img key={index} src={image} alt={`Imagen ${index + 1}`} className="ad-detail-image" />
+            ))
+          ) : (
+            <div className="ad-detail-image-placeholder">Sin imagen</div>
           )}
         </div>
-      </div>
-      {selectedImage && (
-        <div className="image-modal" onClick={closeImageModal}>
-          <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={selectedImage} alt="Imagen ampliada" className="ampliada-img" />
-            <button className="close-button" onClick={closeImageModal}>
-              X
-            </button>
+        <div className="ad-detail-info">
+          <h2 className="ad-detail-title">{title}</h2>
+          <p className="ad-detail-description">{description}</p>
+          <p className="ad-detail-price">{amount}</p>
+          <p className="ad-detail-location">
+            <FontAwesomeIcon icon={faMapMarkerAlt} /> {location}
+          </p>
+          <p className="ad-detail-date">
+            <FontAwesomeIcon icon={faCalendarAlt} /> {formattedDate}
+          </p>
+          <div className="ad-detail-business">
+            {businessLogo && (
+              <img src={businessLogo} alt={businessName} className="ad-detail-business-logo" />
+            )}
+            <p className="ad-detail-business-name">
+              <FontAwesomeIcon icon={faBuilding} /> {businessName}
+            </p>
+          </div>
+          <div className="ad-detail-contact">
+            {phone && (
+              <p>
+                <FontAwesomeIcon icon={faPhone} /> {phone}
+              </p>
+            )}
+            {phone2 && (
+              <p>
+                <FontAwesomeIcon icon={faPhone} /> {phone2}
+              </p>
+            )}
+            {email && (
+              <p>
+                <FontAwesomeIcon icon={faEnvelope} /> {email}
+              </p>
+            )}
           </div>
         </div>
-      )}
-      <div className="navigation-arrow navigation-arrow-left" onClick={onPrev}>
-        <FontAwesomeIcon icon={faArrowLeft} />
-      </div>
-      <div className="navigation-arrow navigation-arrow-right" onClick={onNext}>
-        <FontAwesomeIcon icon={faArrowRight} />
       </div>
     </div>
   );

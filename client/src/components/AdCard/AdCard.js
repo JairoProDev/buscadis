@@ -1,8 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./adCard.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faMapMarkerAlt, faCalendarAlt, faBuilding } from "@fortawesome/free-solid-svg-icons";
 
-function AdCard({ adiso, setSelectedAd }) {
+function AdCard({ adiso, setSelectedAd, viewMode }) {
   const navigate = useNavigate();
 
   const handleAdClick = () => {
@@ -21,9 +23,11 @@ function AdCard({ adiso, setSelectedAd }) {
     location,
     createdAt,
     images,
+    businessName,
+    businessLogo,
   } = adiso;
   const adTypeLower = adType ? adType.toLowerCase() : "default";
-  const adClass = `ad-card ${adTypeLower}`;
+  const adClass = `ad-card ${adTypeLower} ${viewMode}`;
 
   const formattedDate = formatShortDistance(new Date(createdAt));
 
@@ -55,23 +59,38 @@ function AdCard({ adiso, setSelectedAd }) {
 
   return (
     <div className={adClass} onClick={handleAdClick}>
-      <div className="ad-card__image-container">
-        {images && images.length > 0 ? (
+      {images && images.length > 0 && (
+        <div className="ad-card__image-container">
           <img src={images[0]} alt={title} className="ad-card__image" />
-        ) : (
-          <div className="ad-card__image-placeholder">Sin imagen</div>
-        )}
-      </div>
+        </div>
+      )}
       <div className="ad-card__content">
         <div className="ad-card__header">
           <div className="ad-card__type">{category} / {subCategory}</div>
-          <div className="ad-card__date">{formattedDate}</div>
+          <div className="ad-card__date">
+            <FontAwesomeIcon icon={faCalendarAlt} /> {formattedDate}
+          </div>
         </div>
         <h3 className="ad-card__title">{title}</h3>
         <div className="ad-card__details">
           <p className="ad-card__price">{amount}</p>
-          {location && <p className="ad-card__location">{location}</p>}
+          {location && (
+            <p className="ad-card__location">
+              <FontAwesomeIcon icon={faMapMarkerAlt} /> {location}
+            </p>
+          )}
         </div>
+        <div className="ad-card__business">
+          {businessLogo && (
+            <img src={businessLogo} alt={businessName} className="ad-card__business-logo" />
+          )}
+          <p className="ad-card__business-name">
+            <FontAwesomeIcon icon={faBuilding} /> {businessName}
+          </p>
+        </div>
+        <button className="ad-card__save-button">
+          <FontAwesomeIcon icon={faHeart} />
+        </button>
       </div>
     </div>
   );
