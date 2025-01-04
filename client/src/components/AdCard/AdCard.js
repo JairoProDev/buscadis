@@ -20,7 +20,7 @@ function AdCard({ adiso, setSelectedAd }) {
     amount,
     location,
     createdAt,
-    image,
+    images,
   } = adiso;
   const adTypeLower = adType ? adType.toLowerCase() : "default";
   const adClass = `ad-card ${adTypeLower}`;
@@ -56,8 +56,8 @@ function AdCard({ adiso, setSelectedAd }) {
   return (
     <div className={adClass} onClick={handleAdClick}>
       <div className="ad-card__image-container">
-        {image ? (
-          <img src={image} alt={title} className="ad-card__image" />
+        {images && images.length > 0 ? (
+          <img src={images[0]} alt={title} className="ad-card__image" />
         ) : (
           <div className="ad-card__image-placeholder">Sin imagen</div>
         )}
