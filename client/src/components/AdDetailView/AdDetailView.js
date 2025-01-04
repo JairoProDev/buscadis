@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight, faTimes, faMapMarkerAlt, faCalendarAlt, faPhone, faEnvelope, faStar, faEye, faShareAlt, faBookmark,faStore, faFlag } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight, faTimes, faMapMarkerAlt, faCalendarAlt, faStore, faEye, faPhone, faEnvelope, faShareAlt, faBookmark, faFlag } from "@fortawesome/free-solid-svg-icons";
 import "./adDetailView.css";
 
 function AdDetailView({ adiso, onClose, onNext, onPrev }) {
@@ -13,11 +13,12 @@ function AdDetailView({ adiso, onClose, onNext, onPrev }) {
     images,
     businessName,
     businessLogo,
+    businessType,
     phone,
     phone2,
     email,
-    businessType,
-    views,
+
+    viewCount,
     contactsCount,
     adType,
     category,
@@ -60,8 +61,8 @@ function AdDetailView({ adiso, onClose, onNext, onPrev }) {
         </div>
         <div className="ad-detail-info">
           <h2 className="ad-detail-title">{title}</h2>
-          <p className="ad-detail-description">{description}</p>
           <p className="ad-detail-price">{amount}</p>
+          <p className="ad-detail-description">{description}</p>
           <p className="ad-detail-location">
             <FontAwesomeIcon icon={faMapMarkerAlt} /> {location}
           </p>
@@ -81,18 +82,39 @@ function AdDetailView({ adiso, onClose, onNext, onPrev }) {
               <p className="ad-detail-business-type">{businessType}</p>
             </div>
           </div>
+          <div className="ad-detail-contact">
+            {phone && (
+              <p>
+                <FontAwesomeIcon icon={faPhone} /> {phone}
+              </p>
+            )}
+            {phone2 && (
+              <p>
+                <FontAwesomeIcon icon={faPhone} /> {phone2}
+              </p>
+            )}
+            {email && (
+              <p>
+                <FontAwesomeIcon icon={faEnvelope} /> {email}
+              </p>
+            )}
+          </div>
           <div className="ad-detail-metrics">
-            <p>Vistas: {views}</p>
-            <p>Contactos: {contactsCount}</p>
+            <p>
+              <FontAwesomeIcon icon={faEye} /> {viewCount} vistas
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faPhone} /> {contactsCount} contactos
+            </p>
           </div>
           <div className="ad-detail-actions">
-            <button className="ad-detail-action-button">
+            <button className="action-button">
               <FontAwesomeIcon icon={faBookmark} /> Guardar
             </button>
-            <button className="ad-detail-action-button">
+            <button className="action-button">
               <FontAwesomeIcon icon={faShareAlt} /> Compartir
             </button>
-            <button className="ad-detail-action-button">
+            <button className="action-button">
               <FontAwesomeIcon icon={faFlag} /> Reportar
             </button>
           </div>
