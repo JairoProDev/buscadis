@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./adCard.css";
 
-function AdCard({ adiso, setSelectedAd, number }) {
+function AdCard({ adiso, setSelectedAd }) {
   const navigate = useNavigate();
 
   const handleAdClick = () => {
@@ -12,19 +12,18 @@ function AdCard({ adiso, setSelectedAd, number }) {
     setSelectedAd(adiso);
   };
 
-  const sizeClass = `ad-size-${adiso.size || "normal"}`;
   const {
     adType,
     category,
+    subCategory,
     title,
     amount,
     location,
     createdAt,
     image,
-    _id,
   } = adiso;
   const adTypeLower = adType ? adType.toLowerCase() : "default";
-  const adClass = `ad-card ${adTypeLower} ${sizeClass}`;
+  const adClass = `ad-card ${adTypeLower}`;
 
   const formattedDate = formatShortDistance(new Date(createdAt));
 
@@ -54,35 +53,24 @@ function AdCard({ adiso, setSelectedAd, number }) {
     return `${Math.floor(seconds)} seg`;
   }
 
-  const adTypeEmojis = {
-    empleos: "💼",
-    inmuebles: "🏠",
-    vehiculos: "🚗",
-    servicios: "🔧",
-    tecnologia: "📱",
-    hogar: "🏡",
-    moda: "👗",
-    deportes: "⚽",
-    mascotas: "🐶",
-    otros: "🔍",
-  };
-
   return (
-    <div className={`${adClass}`} onClick={handleAdClick}>
+    <div className={adClass} onClick={handleAdClick}>
       <div className="ad-card__image-container">
-        {image && <img src={image} alt={title} className="ad-card__image" />}
+        {image ? (
+          <img src={image} alt={title} className="ad-card__image" />
+        ) : (
+          <div className="ad-card__image-placeholder">Sin imagen</div>
+        )}
       </div>
       <div className="ad-card__content">
         <div className="ad-card__header">
-          <div className="ad-card__type">
-            {adTypeEmojis[adTypeLower] || adType} {category}
-          </div>
-          <div className="ad-card__date">⏰{formattedDate}</div>
+          <div className="ad-card__type">{category} / {subCategory}</div>
+          <div className="ad-card__date">{formattedDate}</div>
         </div>
         <h3 className="ad-card__title">{title}</h3>
         <div className="ad-card__details">
           <p className="ad-card__price">{amount}</p>
-          {location && <p className="ad-card__location">🌎{location}</p>}
+          {location && <p className="ad-card__location">{location}</p>}
         </div>
       </div>
     </div>

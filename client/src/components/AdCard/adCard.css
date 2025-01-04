@@ -5,10 +5,6 @@
   --light-text-color: #666;
   --shadow-color: rgba(0, 0, 0, 0.1);
   --hover-shadow-color: rgba(0, 0, 0, 0.2);
-  --button-color: #4caf50;
-  --button-hover-color: #46a049;
-  --call-button-color: #007bff;
-  --call-button-hover-color: #0056b3;
   --background-color: #ffffff;
   --border-radius: 10px;
   --transition-duration: 0.3s;
@@ -38,6 +34,17 @@
   height: 100%;
   object-fit: cover;
   transition: transform var(--transition-duration) ease;
+}
+
+.ad-card__image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-text-color);
+  color: var(--background-color);
+  font-size: 1.5rem;
 }
 
 .ad-card:hover .ad-card__image {
@@ -105,30 +112,6 @@
 
 .ad-card__location {
   color: var(--light-text-color);
-}
-
-.ad-card.inmuebles {
-  border-left: 4px solid #4caf50; /* Verde */
-}
-
-.ad-card.empleos {
-  border-left: 4px solid #007bff; /* Azul */
-}
-
-.ad-card.vehicles {
-  border-left: 4px solid #ff5722; /* Rojo */
-}
-
-.ad-card.servicios {
-  border-left: 4px solid #ffc107; /* Amarillo */
-}
-
-.ad-card.productos {
-  border-left: 4px solid #ff9800; /* Naranja */
-}
-
-.ad-card.otros {
-  border-left: 4px solid #9c27b0; /* Púrpura */
 }
 
 @media (max-width: 768px) {
