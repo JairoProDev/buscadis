@@ -26,6 +26,7 @@ function HomePage() {
   const navigate = useNavigate();
   const [isAdTypeSelected, setIsAdTypeSelected] = useState(!!adType);
   const [selectedAdType, setSelectedAdType] = useState(adType || null);
+  const [viewMode, setViewMode] = useState("vertical"); // Estado para el modo de vista
 
   const { ads, addAdToTop, isLoading, hasMore, getAds } = useAds();
   const { filteredAds, updateSearchTerm } = useSearch(ads, filter);
@@ -43,6 +44,10 @@ function HomePage() {
     setPage(1);
     getAds(adType);
     navigate(`/${adType}`);
+  };
+
+  const toggleViewMode = () => {
+    setViewMode((prevMode) => (prevMode === "vertical" ? "horizontal" : "vertical"));
   };
 
   useEffect(() => {
@@ -144,6 +149,8 @@ function HomePage() {
                 toggleForm={toggleFormVisibility}
                 updateSearchTerm={updateSearchTerm} // Pasar updateSearchTerm a NewFeed
                 searchInputRef={searchInputRef}
+                viewMode={viewMode} // Pasar el modo de vista a NewFeed
+                toggleViewMode={toggleViewMode} // Pasar toggleViewMode a NewFeed
               />
             )}
           </div>

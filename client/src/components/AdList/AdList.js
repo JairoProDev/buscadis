@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import AdCard from "../AdCard/AdCard";
 import "./adList.css";
 
-function AdList({ adisos, setSelectedAd }) {
+function AdList({ adisos, setSelectedAd, viewMode }) {
   const [loading, setLoading] = useState(true);
 
   const { id } = useParams(); // Captura el ID del adiso desde la URL
@@ -54,6 +54,7 @@ function AdList({ adisos, setSelectedAd }) {
                   adiso={adiso}
                   number={index + 1}
                   setSelectedAd={setSelectedAd}
+                  viewMode={viewMode} // Pasar el modo de vista a AdCard
                 />
               </div>
             </li>

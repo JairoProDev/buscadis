@@ -4,10 +4,12 @@ import {
   faSearch,
   faMicrophone,
   faTimes,
+  faThLarge,
+  faThList
 } from "@fortawesome/free-solid-svg-icons";
 import "./searchBar.css";
 
-function SearchBar({ updateSearchTerm, inputRef }) {
+function SearchBar({ updateSearchTerm, inputRef, toggleViewMode, viewMode }) {
   const [inputValue, setInputValue] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
@@ -85,6 +87,13 @@ function SearchBar({ updateSearchTerm, inputRef }) {
           ))}
         </ul>
       )} */}
+      <button 
+        className="view-toggle-button"
+        onClick={toggleViewMode}
+        title="Cambiar vista"
+      >
+        <FontAwesomeIcon icon={viewMode === 'vertical' ? faThList : faThLarge} />
+      </button>
     </div>
   );
 }

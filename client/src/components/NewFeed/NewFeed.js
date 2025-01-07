@@ -14,6 +14,8 @@ function Feed({
   setFilter,
   toggleForm,
   updateSearchTerm,
+  toggleViewMode,
+  viewMode, // Recibir el modo de vista
 }) {
   const { adType, category, subcategory } = useParams();
   const navigate = useNavigate();
@@ -70,6 +72,7 @@ function Feed({
       <SearchBar
         updateSearchTerm={updateSearchTerm}
         inputRef={searchInputRef}
+        toggleViewMode={toggleViewMode} // Pasar la función para alternar el modo de vista
       />
       <AdList
         adisos={filteredAnuncios}
@@ -77,6 +80,7 @@ function Feed({
         error={error}
         isLoading={isLoading}
         loader={loader}
+        viewMode={viewMode} // Pasar el modo de vista a AdList
       />
       {error && <div className="error">{error}</div>}
       {isLoading && (
