@@ -27,11 +27,7 @@ function BottomNavBar({ showForm, searchInputRef }) {
     } else if (item.isButton && showForm) {
       showForm();
     } else if (item.name === 'Perfil') {
-      if (user) {
-        navigate('/profile'); 
-      } else {
-        navigate('/auth/register'); 
-      }
+      navigate(user ? '/profile' : '/auth/register');
     } else {
       navigate(item.path); 
     }
