@@ -238,10 +238,10 @@
 }
 
 .ad-card__category {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--secondary-color);
   background: #dbeafe;
-  padding: 0.25rem 0.5rem;
+  padding: 0.125rem 0.25rem;
   border-radius: 1rem;
 }
 

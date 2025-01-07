@@ -73,14 +73,14 @@ function AdCard({ adiso, setSelectedAd, viewMode }) {
           )}
           <div className="ad-card__business-info">
             <p className="ad-card__business-name">{businessName}</p>
-            <p className="ad-card__business-type">{businessType}</p>
+            <p className="ad-card__business-type">{businessType} <span className="ad-card__category">{subCategory}</span></p>
           </div>
         </div>
   
-        <div className="ad-card__categories">
+        {/* <div className="ad-card__categories">
           <span className="ad-card__category">{category}</span>
           <span className="ad-card__category">{subCategory}</span>
-        </div>
+        </div> */}
   
         <h3 className="ad-card__title">{title}</h3>
         
