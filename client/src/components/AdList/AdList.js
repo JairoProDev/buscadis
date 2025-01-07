@@ -45,7 +45,10 @@ function AdList({ adisos, setSelectedAd, viewMode }) {
           <p>Cargando adisos...</p>
         ) : adisos.length > 0 ? (
           adisos.map((adiso, index) => (
-            <li key={adiso._id} className={`ad-size-${adiso.size || "normal"}`}>
+            <li
+              key={adiso._id}
+              className={`ad-size-${adiso.images && adiso.images.length > 0 ? "largo" : adiso.size || "normal"}`}
+            >
               <div
                 onClick={() => handleAdClick(adiso)}
                 style={{ cursor: "pointer" }}
