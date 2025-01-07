@@ -1,4 +1,13 @@
 /* SearchBar.css */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 
 .search-bar {
   position: relative;
@@ -94,18 +103,29 @@
 }
 
 .view-toggle-button {
-  background: white;
-  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 8px;
-  padding: 8px;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
-  transition: all var(--transition);
+  transition: all 0.3s ease;
 }
 
 .view-toggle-button:hover {
-  background: var(--background-hover);
-  color: var(--primary-color);
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-1px);
+}
+
+.view-toggle-button .icon {
+  font-size: 1.2rem;
+}
+
+.view-toggle-button .text {
+  font-size: 0.9rem;
 }
 
 @media (max-width: 600px) {

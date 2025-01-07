@@ -50,50 +50,37 @@ function SearchBar({ updateSearchTerm, inputRef, toggleViewMode, viewMode }) {
   };
 
   return (
-    <div className="search-bar">
-      <input
-        type="text"
-        value={inputValue}
-        onChange={handleSearchChange}
-        id="search-bar"
-        className="search-input"
-        placeholder="Buscar adisos en PublicAdis"
-        ref={inputRef}
-      />
-      {inputValue && (
-        <FontAwesomeIcon
-          icon={faTimes}
-          className="clear-icon"
-          onClick={clearInput}
+    <div className="search-container">
+      <div className="search-bar">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleSearchChange}
+          id="search-bar"
+          className="search-input"
+          placeholder="Buscar adisos en PublicAdis"
+          ref={inputRef}
         />
-      )}
-      <FontAwesomeIcon
-        icon={faSearch}
-        className="search-icon"
-        onClick={handleSearchClick}
-      />
-      {/* <button
-        className="microphone-icon"
-        onClick={() => setIsListening(!isListening)}
-      >
-        <FontAwesomeIcon icon={faMicrophone} />
-      </button> */}
-      {/* {suggestions.length > 0 && (
-        <ul className="suggestions">
-          {suggestions.map((suggestion, index) => (
-            <li key={index} onClick={() => setInputValue(suggestion)}>
-              {suggestion}
-            </li>
-          ))}
-        </ul>
-      )} */}
-      <button 
-        className="view-toggle-button"
-        onClick={toggleViewMode}
-        title="Cambiar vista"
-      >
-        <FontAwesomeIcon icon={viewMode === 'vertical' ? faThList : faThLarge} />
-      </button>
+        {inputValue && (
+          <FontAwesomeIcon
+            icon={faTimes}
+            className="clear-icon"
+            onClick={clearInput}
+          />
+        )}
+        <FontAwesomeIcon
+          icon={faSearch}
+          className="search-icon"
+          onClick={handleSearchClick}
+        />
+      </div>
+        <button 
+          className="view-toggle-button"
+          onClick={toggleViewMode}
+          title="Cambiar vista"
+        >
+          <FontAwesomeIcon icon={viewMode === 'vertical' ? faThLarge : faThList} />
+        </button>
     </div>
   );
 }
