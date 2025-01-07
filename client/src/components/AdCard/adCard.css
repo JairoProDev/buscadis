@@ -78,9 +78,6 @@
   font-size: 1.5rem;
 }
 
-.ad-card:hover .ad-card__image {
-  transform: scale(1.05);
-}
 
 /* Content */
 .ad-card__content {
@@ -275,23 +272,6 @@
 
 .ad-card__options-button:hover {
   color: var(--hover-color);
-}
-
-.ad-card.vertical {
-  flex-direction: row;
-  height: 150px; /* Fijar altura */
-}
-
-.ad-card.vertical .ad-card__image-container {
-  width: 150px;
-  height: 100%; /* Fijar altura */
-  border-bottom: none;
-  border-right: 1px solid var(--light-text-color);
-}
-
-.ad-card.vertical .ad-card__content {
-  padding: 1rem;
-  flex: 1;
 }
 
 /* Responsive */
