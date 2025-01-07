@@ -1,68 +1,99 @@
-const CACHE_NAME = "my-cache-v1";
-const OFFLINE_URL = "/offline.html";
-const urlsToCache = [
-  "/",
-  "/index.html",
-  "/static/js/main.js",
-  "/static/css/main.css",
-  "/static/media/",
-  OFFLINE_URL,
-  // Agrega aquí todos los demás recursos que quieras almacenar en caché
+const CACHE_VERSION = 'v1.0.0';
+const CACHE_NAME = `buscadis-cache-${CACHE_VERSION}`;
+const OFFLINE_URL = '/offline.html';
+
+const STATIC_RESOURCES = [
+  '/',
+  '/index.html',
+  '/offline.html',
+  '/manifest.json',
+  '/favicon.ico'
 ];
 
-// Evento de instalación del Service Worker
-self.addEventListener("install", function (event) {
+const DYNAMIC_RESOURCES = [
+  /\.js$/,
+  /\.css$/,
+  /\.png$/,
+  /\.jpg$/,
+  /\.svg$/
+];
+
+// Instalación: Caché inicial
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      return cache.addAll(urlsToCache);
-    })
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      await cache.addAll(STATIC_RESOURCES);
+      self.skipWaiting();
+    })()
   );
-  self.skipWaiting(); // Activa el Service Worker inmediatamente sin esperar a que los clientes actuales se cierren
 });
 
-// Evento de activación del Service Worker
-self.addEventListener("activate", function (event) {
-  const cacheWhitelist = [CACHE_NAME];
+// Activación: Limpieza de caché antiguo
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(function (cacheNames) {
-      return Promise.all(
-        cacheNames.map(function (cacheName) {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-          return Promise.resolve(); // Asegura que se devuelva un valor
-        })
+    (async () => {
+      const cacheNames = await caches.keys();
+      await Promise.all(
+        cacheNames
+          .filter(name => name.startsWith('buscadis-cache-') && name !== CACHE_NAME)
+          .map(name => caches.delete(name))
       );
-    })
+      await self.clients.claim();
+    })()
   );
-  self.clients.claim(); // Toma el control de las páginas abiertas sin necesidad de recargarlas
 });
 
-// Evento de fetch para interceptar las solicitudes de red
-self.addEventListener("fetch", (event) => {
-  if (
-    event.request.method === "GET" &&
-    event.request.url.startsWith("http") &&
-    !event.request.url.startsWith("chrome-extension")
-  ) {
-    event.respondWith(
-      caches.match(event.request).then(function (response) {
-        if (response) {
-          return response; // Si el recurso está en caché, lo devuelve
-        }
-        return fetch(event.request).then(function (response) {
-          if (!response || response.status !== 200 || response.type !== "basic") {
-            return response;
+// Estrategia de caché
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+  
+  // Ignorar solicitudes de desarrollo
+  if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
+    return;
+  }
+
+  event.respondWith(
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+
+      // Recursos estáticos: Cache First
+      if (STATIC_RESOURCES.includes(url.pathname)) {
+        const cachedResponse = await cache.match(event.request);
+        if (cachedResponse) return cachedResponse;
+      }
+
+      // Recursos dinámicos: Network First con fallback a caché
+      if (DYNAMIC_RESOURCES.some(pattern => pattern.test(url.pathname))) {
+        try {
+          const response = await fetch(event.request);
+          if (response.ok) {
+            cache.put(event.request, response.clone());
           }
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME).then(function (cache) {
-            cache.put(event.request, responseToCache);
-          });
           return response;
-        });
-      }).catch(function () {
-        return caches.match(OFFLINE_URL); // Si falla la solicitud, devuelve la página offline
-      })
-    );
+        } catch (error) {
+          const cachedResponse = await cache.match(event.request);
+          if (cachedResponse) return cachedResponse;
+          return cache.match(OFFLINE_URL);
+        }
+      }
+
+      // API calls: Network Only con fallback offline
+      try {
+        const response = await fetch(event.request);
+        return response;
+      } catch (error) {
+        return cache.match(OFFLINE_URL);
+      }
+    })()
+  );
+});
+
+// Manejo de actualizaciones
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') {
+    self.skipWaiting();
   }
 });
