@@ -28,7 +28,7 @@ function AdCard({ adiso, setSelectedAd, viewMode }) {
     businessType,
   } = adiso;
   const adTypeLower = adType ? adType.toLowerCase() : "default";
-  const adClass = `ad-card ${adTypeLower} ${viewMode}`;
+  const adClass = `ad-card ${adTypeLower} ${viewMode} ${images?.length ? 'has-image' : ''}`;
 
   const formattedDate = formatShortDistance(new Date(createdAt));
 
@@ -58,8 +58,8 @@ function AdCard({ adiso, setSelectedAd, viewMode }) {
     return `${Math.floor(seconds)} seg`;
   }
 
-    return (
-    <div className={`ad-card ${viewMode} ${images?.length ? 'has-image' : ''}`}>
+  return (
+    <div className={adClass} onClick={handleAdClick}>
       {images?.length > 0 && (
         <div className="ad-card__image-container">
           <img src={images[0]} alt={title} className="ad-card__image" />
@@ -76,11 +76,6 @@ function AdCard({ adiso, setSelectedAd, viewMode }) {
             <p className="ad-card__business-type">{businessType} <span className="ad-card__category">{subCategory}</span></p>
           </div>
         </div>
-  
-        {/* <div className="ad-card__categories">
-          <span className="ad-card__category">{category}</span>
-          <span className="ad-card__category">{subCategory}</span>
-        </div> */}
   
         <h3 className="ad-card__title">{title}</h3>
         
