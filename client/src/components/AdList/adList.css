@@ -9,16 +9,35 @@
   max-width: 100%;
   margin: 0 auto;
 }
+
 .ads-container {
-  margin: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2px;
+  width: 100%;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(820px, 1fr));
+  gap: 24px;
+  transition: all 0.3s ease;
 }
+
+.ads-container.horizontal {
+  grid-template-columns: 1fr;
+}
+
+.ad-item {
+  height: 100%;
+}
+
+.ad-item.with-image {
+  grid-row: span 2;
+}
+
 @media (max-width: 600px) {
   #ad-list {
     grid-template-columns: repeat(2, 180px); /* Siempre dos columnas de 150px */
+
+  }
+  .ads-container {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 
   }
 }

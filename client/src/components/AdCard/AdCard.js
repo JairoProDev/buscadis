@@ -58,48 +58,53 @@ function AdCard({ adiso, setSelectedAd, viewMode }) {
     return `${Math.floor(seconds)} seg`;
   }
 
-  return (
-    <div className={adClass} onClick={handleAdClick}>
-      {images && images.length > 0 && (
+    return (
+    <div className={`ad-card ${viewMode} ${images?.length ? 'has-image' : ''}`}>
+      {images?.length > 0 && (
         <div className="ad-card__image-container">
           <img src={images[0]} alt={title} className="ad-card__image" />
         </div>
       )}
+      
       <div className="ad-card__content">
         <div className="ad-card__business">
-          {businessLogo ? (
+          {businessLogo && (
             <img src={businessLogo} alt={businessName} className="ad-card__business-logo" />
-          ) : (
-            <div className="ad-card__business-logo-placeholder"></div>
           )}
           <div className="ad-card__business-info">
-            <p className="ad-card__business-name">
-              <FontAwesomeIcon icon={faStore} /> {businessName}
-            </p>
+            <p className="ad-card__business-name">{businessName}</p>
             <p className="ad-card__business-type">{businessType}</p>
           </div>
         </div>
-        <div className="ad-card__header">
-          <div className="ad-card__type">{category} / {subCategory}</div>
-          <div className="ad-card__date">
-            <FontAwesomeIcon icon={faCalendarAlt} /> {formattedDate}
-          </div>
+  
+        <div className="ad-card__categories">
+          <span className="ad-card__category">{category}</span>
+          <span className="ad-card__category">{subCategory}</span>
         </div>
+  
         <h3 className="ad-card__title">{title}</h3>
-        <div className="ad-card__details">
-          <p className="ad-card__price">{amount}</p>
+        
+        <p className="ad-card__price">{amount}</p>
+  
+        <div className="ad-card__metadata">
           {location && (
-            <p className="ad-card__location">
+            <span>
               <FontAwesomeIcon icon={faMapMarkerAlt} /> {location}
-            </p>
+            </span>
           )}
+          <span>
+            <FontAwesomeIcon icon={faCalendarAlt} /> {formattedDate}
+          </span>
         </div>
-        <button className="ad-card__save-button">
-          <FontAwesomeIcon icon={faBookmark} />
-        </button>
-        <button className="ad-card__options-button">
-          <FontAwesomeIcon icon={faEllipsisV} />
-        </button>
+  
+        <div className="ad-card__actions">
+          <button className="ad-card__action-button">
+            <FontAwesomeIcon icon={faBookmark} />
+          </button>
+          <button className="ad-card__action-button">
+            <FontAwesomeIcon icon={faEllipsisV} />
+          </button>
+        </div>
       </div>
     </div>
   );

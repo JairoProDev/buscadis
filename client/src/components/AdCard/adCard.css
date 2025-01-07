@@ -1,41 +1,70 @@
 :root {
-  --primary-color: #007bff;
-  --hover-color: #0056b3;
-  --text-color: #312f30;
-  --light-text-color: #666;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --hover-shadow-color: rgba(0, 0, 0, 0.2);
-  --background-color: #ffffff;
-  --border-radius: 10px;
-  --transition-duration: 0.3s;
+  --primary-color: #2563eb;
+  --secondary-color: #3b82f6;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --background-light: #ffffff;
+  --background-hover: #f8fafc;
+  --border-color: #e5e7eb;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --radius-md: 0.75rem;
+  --transition: 200ms ease-out;
 }
 
 .ad-card {
-  background-color: var(--background-color);
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 8px var(--shadow-color);
+  position: relative;
+  background: var(--background-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
-  transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
-  cursor: pointer;
+  transition: all var(--transition);
+  height: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
-  position: relative;
-  height: 300px; /* Fijar altura */
 }
 
+.ad-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Vertical Layout */
+.ad-card.vertical {
+  height: 420px;
+}
+
+.ad-card.vertical .ad-card__image-container {
+  height: 200px;
+}
+
+/* Horizontal Layout */
+.ad-card.horizontal {
+  flex-direction: row;
+  height: 200px;
+}
+
+.ad-card.horizontal .ad-card__image-container {
+  width: 200px;
+  height: 100%;
+}
+
+/* Image Container */
 .ad-card__image-container {
-  width: 100%;
-  height: 150px; /* Fijar altura */
+  position: relative;
   overflow: hidden;
-  border-bottom: 1px solid var(--light-text-color);
+  background: var(--background-hover);
 }
 
 .ad-card__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-duration) ease;
+  transition: transform var(--transition);
+}
+
+.ad-card:hover .ad-card__image {
+  transform: scale(1.05);
 }
 
 .ad-card__image-placeholder {
@@ -53,11 +82,13 @@
   transform: scale(1.05);
 }
 
+/* Content */
 .ad-card__content {
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  gap: 0.75rem;
+  flex: 1;
 }
 
 .ad-card:hover {
@@ -90,13 +121,16 @@
   color: var(--light-text-color);
 }
 
+/* Title & Details */
 .ad-card__title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--text-color);
-  hyphens: auto;
-  line-height: 1.3;
-  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .ad-card__details {
@@ -107,26 +141,35 @@
 }
 
 .ad-card__price {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: var(--text-color);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.ad-card__metadata {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
 }
 
 .ad-card__location {
   color: var(--light-text-color);
 }
 
+/* Business Section */
 .ad-card__business {
   display: flex;
   align-items: center;
-  margin-left: 1rem;
+  gap: 0.75rem;
 }
 
 .ad-card__business-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  margin-right: 0.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
 .ad-card__business-logo-placeholder {
@@ -145,16 +188,61 @@
 .ad-card__business-info {
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
 }
 
 .ad-card__business-name {
-  font-size: 0.9rem;
-  color: var(--text-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .ad-card__business-type {
-  font-size: 0.8rem;
-  color: var(--light-text-color);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Buttons */
+.ad-card__actions {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ad-card__action-button {
+  background: var(--background-light);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.ad-card__action-button:hover {
+  background: var(--secondary-color);
+  color: white;
+}
+
+/* Categories */
+.ad-card__categories {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ad-card__category {
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+  background: #dbeafe;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
 }
 
 .ad-card__save-button {
@@ -204,6 +292,21 @@
 .ad-card.vertical .ad-card__content {
   padding: 1rem;
   flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .ad-card.vertical {
+    height: 380px;
+  }
+  
+  .ad-card.horizontal {
+    height: 160px;
+  }
+  
+  .ad-card.horizontal .ad-card__image-container {
+    width: 160px;
+  }
 }
 
 @media (max-width: 768px) {
