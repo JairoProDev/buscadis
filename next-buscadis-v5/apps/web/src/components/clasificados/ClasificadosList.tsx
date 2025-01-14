@@ -1,39 +1,49 @@
 'use client';
 
-import { formatPrice } from '@/lib/utils';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useEffect, useState } from 'react'
+import { formatPrice } from '@/lib/utils'
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface Clasificado {
-  id: string;
-  titulo: string;
-  precio: number;
-  imagen: string;
-  ubicacion: string;
-  descripcion: string;
+  id: string
+  titulo: string
+  precio: number
+  imagen: string | null
+  ubicacion: string
+  descripcion: string
 }
 
-const MOCK_CLASIFICADOS: Clasificado[] = [
-  {
-    id: '1',
-    titulo: 'iPhone 13 Pro Max',
-    precio: 4500,
-    imagen: '/placeholder.png',
-    ubicacion: 'Lima',
-    descripcion: 'Excelente estado, poco uso'
-  },
-  // Añade más clasificados mock aquí
-];
-
 export function ClasificadosList() {
-  const clasificados = MOCK_CLASIFICADOS;
+  const [clasificados, setClasificados] = useState<Clasificado[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchClasificados() {
+      try {
+        const res = await fetch('/api/clasificados')
+        const data = await res.json()
+        setClasificados(data)
+      } catch (error) {
+        console.error('Error al cargar clasificados:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchClasificados()
+  }, [])
+
+  if (loading) {
+    return <div>Cargando clasificados...</div>
+  }
 
   if (!clasificados.length) {
     return (
       <div className="text-center py-10">
         <p className="text-gray-500">No hay clasificados publicados aún</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -48,7 +58,7 @@ export function ClasificadosList() {
             <div className="flex gap-4 p-4">
               <div className="relative w-32 h-32">
                 <Image
-                  src={clasificado.imagen}
+                  src={clasificado.imagen || '/placeholder.png'}
                   alt={clasificado.titulo}
                   fill
                   sizes="(max-width: 768px) 100vw, 128px"
@@ -68,5 +78,5 @@ export function ClasificadosList() {
         </Link>
       ))}
     </div>
-  );
+  )
 } 

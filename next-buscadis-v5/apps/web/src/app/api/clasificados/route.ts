@@ -1,44 +1,34 @@
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { clasificadoSchema } from '@/types/clasificado'
+import { NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
+import { ZodError } from 'zod'
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const formData = await request.formData();
+    const json = await req.json()
+    const data = clasificadoSchema.parse(json)
     
-    // Extraer los datos del FormData
-    const tipo = formData.get('tipo') as string;
-    const titulo = formData.get('titulo') as string;
-    const descripcion = formData.get('descripcion') as string;
-    const precio = formData.get('precio') ? Number(formData.get('precio')) : null;
-    const moneda = formData.get('moneda') as string;
-    const ciudad = formData.get('ciudad') as string;
-    const telefono = formData.get('telefono') as string;
-    const whatsapp = formData.get('whatsapp') as string;
-    const email = formData.get('email') as string;
-
-    // Por ahora, guardamos sin imágenes
     const clasificado = await prisma.clasificado.create({
       data: {
-        tipo,
-        titulo,
-        descripcion,
-        precio,
-        moneda,
-        ciudad,
-        telefono,
-        whatsapp,
-        email,
-        imagenes: [], // Implementaremos la subida de imágenes después
+        titulo: data.titulo,
+        descripcion: data.descripcion,
+        precio: data.precio,
+        ubicacion: data.ubicacion,
+        imagen: data.imagen,
       },
-    });
+    })
 
-    return NextResponse.json(clasificado, { status: 201 });
+    return NextResponse.json(clasificado)
   } catch (error) {
-    console.error('Error al crear clasificado:', error);
-    return NextResponse.json(
-      { message: 'Error al crear el clasificado' },
-      { status: 500 }
-    );
+    if (error instanceof ZodError) {
+      return new NextResponse(JSON.stringify({
+        error: 'Datos inválidos',
+        details: error.errors,
+      }), { status: 400 })
+    }
+    
+    console.error('Error al crear clasificado:', error)
+    return new NextResponse('Error al crear el clasificado', { status: 500 })
   }
 }
 
@@ -53,9 +43,6 @@ export async function GET() {
     return NextResponse.json(clasificados);
   } catch (error) {
     console.error('Error al obtener clasificados:', error);
-    return NextResponse.json(
-      { message: 'Error al obtener los clasificados' },
-      { status: 500 }
-    );
+    return new NextResponse('Error al obtener clasificados', { status: 500 });
   }
 } 

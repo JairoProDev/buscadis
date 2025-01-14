@@ -1,69 +1,26 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client";
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcrypt";
+import { createClient } from '@supabase/supabase-js'
+import { NextAuthOptions } from 'next-auth'
+import { PrismaAdapter } from '@auth/prisma-adapter'
+import { prisma } from './prisma'
+import GoogleProvider from 'next-auth/providers/google'
+import EmailProvider from 'next-auth/providers/email'
 
-const prisma = new PrismaClient();
-
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    CredentialsProvider({
-      name: "credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Contraseña", type: "password" }
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("Credenciales inválidas");
-        }
-
-        const user = await prisma.usuario.findUnique({
-          where: { email: credentials.email }
-        });
-
-        if (!user || !user.password) {
-          throw new Error("Usuario no encontrado");
-        }
-
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
-
-        if (!isPasswordValid) {
-          throw new Error("Contraseña incorrecta");
-        }
-
-        return user;
-      }
-    })
+    EmailProvider({
+      server: process.env.EMAIL_SERVER,
+      from: process.env.EMAIL_FROM,
+    }),
   ],
-  session: {
-    strategy: "jwt"
+  pages: {
+    signIn: '/auth/login',
+    signUp: '/auth/register',
+    error: '/auth/error',
+    verifyRequest: '/auth/verify',
   },
-  callbacks: {
-    async session({ session, token }) {
-      if (token.sub) {
-        session.user.id = token.sub;
-        session.user.role = token.role;
-      }
-      return session;
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.role = user.role;
-      }
-      return token;
-    }
-  }
-};
-
-export const handler = NextAuth(authOptions); 
+} 

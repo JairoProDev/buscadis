@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Clasificado {
+  id          String   @id @default(cuid())
+  titulo      String
+  descripcion String   @db.Text
+  precio      Float
+  moneda      String   @default("USD")
+  categoria   String
+  subcategoria String?
+  condicion   String   @default("nuevo")
+  imagenes    String[] @default([])
+  ubicacion   String
+  ciudad      String
+  estado      String?
+  pais        String   @default("Paraguay")
+  contacto    Contacto?
+  detalles    Json?    // Para campos dinámicos según categoría
+  visitas     Int      @default(0)
+  estado_publicacion String @default("activo")
+  destacado   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Contacto {
+  id            String     @id @default(cuid())
+  clasificadoId String     @unique
+  clasificado   Clasificado @relation(fields: [clasificadoId], references: [id])
+  nombre        String
+  email         String?
+  telefono      String?
+  whatsapp      String?
+  mostrarEmail  Boolean    @default(false)
+  mostrarTelefono Boolean  @default(true)
+  mostrarWhatsapp Boolean  @default(true)
+} 

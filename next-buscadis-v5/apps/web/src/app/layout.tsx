@@ -23,19 +23,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          {children}
-          <Analytics />
-          <SpeedInsights />
-        </ThemeProvider>
+    <html lang="es" className={GeistSans.variable}>
+      <body className="min-h-screen bg-gray-50">
+        <Header />
+        {children}
       </body>
     </html>
   )

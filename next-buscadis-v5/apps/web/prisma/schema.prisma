@@ -7,30 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
-  id            String        @id @default(cuid())
-  email         String        @unique
-  password      String
-  nombre        String
-  clasificados  Clasificado[] @relation("UsuarioClasificados")
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-}
-
 model Clasificado {
-  id          String    @id @default(cuid())
-  tipo        String
+  id          String   @id @default(cuid())
   titulo      String
-  descripcion String
-  precio      Float?
-  moneda      String?
-  ciudad      String
-  telefono    String?
-  whatsapp    String?
-  email       String?
-  imagenes    String[]
-  usuario     Usuario   @relation("UsuarioClasificados", fields: [usuarioId], references: [id])
-  usuarioId   String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  descripcion String   @db.Text
+  precio      Float
+  imagen      String?
+  ubicacion   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 } 

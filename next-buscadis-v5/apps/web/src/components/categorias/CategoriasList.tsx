@@ -17,16 +17,16 @@ interface Categoria {
 }
 
 const CATEGORIAS: Categoria[] = [
-  { id: 1, nombre: 'Empleos', icon: Briefcase, count: 2345, color: 'from-blue-500 to-blue-600' },
-  { id: 2, nombre: 'Inmuebles', icon: Home, count: 1876, color: 'from-green-500 to-green-600' },
-  { id: 3, nombre: 'Vehículos', icon: Car, count: 1234, color: 'from-red-500 to-red-600' },
-  { id: 4, nombre: 'Servicios', icon: Wrench, count: 890, color: 'from-purple-500 to-purple-600' },
-  { id: 5, nombre: 'Productos', icon: Smartphone, count: 765, color: 'from-yellow-500 to-yellow-600' },
-  { id: 6, nombre: 'Hogar', icon: Sofa, count: 654, color: 'from-pink-500 to-pink-600' },
-  { id: 7, nombre: 'Educación', icon: GraduationCap, count: 543, color: 'from-indigo-500 to-indigo-600' },
-  { id: 8, nombre: 'Turismo', icon: Plane, count: 432, color: 'from-cyan-500 to-cyan-600' },
-  { id: 9, nombre: 'Eventos', icon: PartyPopper, count: 321, color: 'from-orange-500 to-orange-600' },
-  { id: 10, nombre: 'Negocios', icon: Building2, count: 210, color: 'from-teal-500 to-teal-600' },
+  { id: 1, nombre: 'Empleos', icon: Briefcase, count: 2345, color: 'from-blue-400 to-blue-500' },
+  { id: 2, nombre: 'Inmuebles', icon: Home, count: 1876, color: 'from-green-400 to-green-500' },
+  { id: 3, nombre: 'Vehículos', icon: Car, count: 1234, color: 'from-red-400 to-red-500' },
+  { id: 4, nombre: 'Servicios', icon: Wrench, count: 890, color: 'from-purple-400 to-purple-500' },
+  { id: 5, nombre: 'Productos', icon: Smartphone, count: 765, color: 'from-yellow-400 to-yellow-500' },
+  { id: 6, nombre: 'Hogar', icon: Sofa, count: 654, color: 'from-pink-400 to-pink-500' },
+  { id: 7, nombre: 'Educación', icon: GraduationCap, count: 543, color: 'from-indigo-400 to-indigo-500' },
+  { id: 8, nombre: 'Turismo', icon: Plane, count: 432, color: 'from-cyan-400 to-cyan-500' },
+  { id: 9, nombre: 'Eventos', icon: PartyPopper, count: 321, color: 'from-orange-400 to-orange-500' },
+  { id: 10, nombre: 'Negocios', icon: Building2, count: 210, color: 'from-teal-400 to-teal-500' },
 ];
 
 const container = {
@@ -59,17 +59,17 @@ export function CategoriasList() {
             key={categoria.id}
             variants={item}
             whileHover={{ scale: 1.05 }}
-            className="group relative overflow-hidden rounded-xl bg-gradient-to-br p-px shadow-lg"
+            className="group relative overflow-hidden rounded-xl aspect-square bg-gradient-to-br p-px shadow-lg"
           >
-            <div className={`absolute inset-0 bg-gradient-to-br ${categoria.color} opacity-75 transition-opacity group-hover:opacity-100`} />
-            <div className="relative flex flex-col items-center bg-white p-6 dark:bg-gray-900">
-              <div className="rounded-full bg-gradient-to-br from-gray-100 to-gray-200 p-3 dark:from-gray-800 dark:to-gray-700">
-                <IconComponent className="h-8 w-8 text-gray-700 dark:text-gray-300" />
+            <div className={`absolute inset-0 bg-gradient-to-br ${categoria.color} opacity-85 transition-opacity group-hover:opacity-100`} />
+            <div className="relative flex flex-col items-center justify-center h-full bg-white/90">
+              <div className="rounded-full bg-white/80 p-4 shadow-md">
+                <IconComponent className="h-10 w-10 text-gray-800" />
               </div>
-              <h3 className="mt-4 font-semibold text-gray-900 dark:text-gray-100">
+              <h3 className="mt-4 font-semibold text-gray-900">
                 {categoria.nombre}
               </h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-gray-600">
                 {categoria.count.toLocaleString()} anuncios
               </p>
             </div>
