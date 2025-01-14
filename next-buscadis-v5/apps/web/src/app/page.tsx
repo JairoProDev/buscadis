@@ -12,7 +12,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-white">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Encuentra lo que buscas en Buscadis
+              Encuentra todo lo que necesitas en Buscadis
             </h1>
             <p className="text-xl mb-8">
               La plataforma líder de clasificados en línea
