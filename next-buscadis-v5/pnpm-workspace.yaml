@@ -1,0 +1,11 @@
+packages:
+  - 'packages/*'
+  - 'apps/*'
+  - 'packages/database'
+  - 'packages/shared'
+  - 'packages/ui'
+  - 'packages/utils'
+  - 'packages/hooks'
+  - 'packages/context'
+  - 'packages/lib'
+  - 'packages/components'

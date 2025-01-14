@@ -1,0 +1,14 @@
+{
+  "name": "buscadis",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --workspace=@buscadis/web",
+    "build": "npm run build --workspace=@buscadis/web",
+    "db:generate": "npm run db:generate --workspace=@buscadis/database",
+    "db:push": "npm run db:push --workspace=@buscadis/database"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
