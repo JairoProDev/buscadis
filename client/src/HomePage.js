@@ -28,27 +28,42 @@ function HomePage() {
   const [selectedAdType, setSelectedAdType] = useState(adType || null);
   const [viewMode, setViewMode] = useState("vertical"); // Estado para el modo de vista
 
-  const { ads, addAdToTop, isLoading, hasMore, getAds } = useAds();
+  const { 
+    ads, 
+    addAdToTop, 
+    isLoading, 
+    hasMore, 
+    getAds, 
+    error 
+  } = useAds();
+  
   const { filteredAds, updateSearchTerm } = useSearch(ads, filter);
   const [selectedAd, setSelectedAd] = useState(null);
-  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const loader = useRef(null);
   const searchInputRef = useRef(null);
 
-  const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
+  // Use custom intersection observer hook
+  const entry = useIntersectionObserver(loader, {
+    threshold: 0,
+    rootMargin: "100px",
+  });
 
-  const handleAdTypeClick = (adType) => {
+  const toggleFormVisibility = useCallback(() => {
+    setIsFormVisible(prev => !prev);
+  }, []);
+
+  const handleAdTypeClick = useCallback((adType) => {
     setSelectedAdType(adType);
     setIsAdTypeSelected(true);
     setPage(1);
     getAds(adType);
     navigate(`/${adType}`);
-  };
+  }, [getAds, navigate]);
 
-  const toggleViewMode = () => {
-    setViewMode((prevMode) => (prevMode === "vertical" ? "horizontal" : "vertical"));
-  };
+  const toggleViewMode = useCallback(() => {
+    setViewMode(prev => prev === "vertical" ? "horizontal" : "vertical");
+  }, []);
 
   useEffect(() => {
     if (!adType) {
@@ -72,8 +87,15 @@ function HomePage() {
   }, [adType, category, subcategory, id, getAds]);
 
   useEffect(() => {
+    if (entry?.isIntersecting && hasMore && !isLoading) {
+      setPage(prevPage => prevPage + 1);
+      getAds(selectedAdType, category, subcategory, page + 1);
+    }
+  }, [entry?.isIntersecting, hasMore, isLoading, selectedAdType, category, subcategory, page, getAds]);
+
+  useEffect(() => {
     if (id && ads.length > 0) {
-      const ad = ads.find((ad) => ad._id === id);
+      const ad = ads.find(ad => ad._id === id);
       if (ad) {
         setSelectedAd(ad);
       } else {
@@ -106,25 +128,51 @@ function HomePage() {
     navigate(`/${adType}/${category || ""}`); // Redirige solo a la categoría
   };
 
-  const handleNext = () => {
-    const currentIndex = ads.findIndex((ad) => ad._id === selectedAd._id);
+  const handleNext = useCallback(() => {
+    const currentIndex = ads.findIndex(ad => ad._id === selectedAd._id);
     if (currentIndex !== -1) {
       const nextIndex = (currentIndex + 1) % ads.length;
       setSelectedAd(ads[nextIndex]);
     }
-  };
+  }, [ads, selectedAd]);
 
-  const handlePrev = () => {
-    const currentIndex = ads.findIndex((ad) => ad._id === selectedAd._id);
+  const handlePrev = useCallback(() => {
+    const currentIndex = ads.findIndex(ad => ad._id === selectedAd._id);
     if (currentIndex !== -1) {
       const prevIndex = (currentIndex - 1 + ads.length) % ads.length;
       setSelectedAd(ads[prevIndex]);
     }
-  };
+  }, [ads, selectedAd]);
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <h2>Oops! Algo salió mal</h2>
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()}>Intentar de nuevo</button>
+      </div>
+    );
+  }
 
   return (
     <Fragment>
-      <div className="main-container">
+      <Helmet>
+        <title>Buscadis - Encuentra lo que buscas</title>
+        <meta name="description" content="Marketplace social para encontrar y publicar anuncios de forma fácil y rápida" />
+        <meta name="keywords" content="marketplace, anuncios, compra, venta, servicios" />
+        <meta property="og:title" content="Buscadis - Marketplace Social" />
+        <meta property="og:description" content="Encuentra y publica anuncios de forma fácil y rápida" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
+
+      <ErrorBoundary>
+        <motion.div 
+          className="main-container"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
         <Header
           toggleForm={toggleFormVisibility}
           setFilter={setFilter}
