@@ -2,6 +2,13 @@ import React, { Fragment, useState, useEffect, useCallback, useRef } from "react
 import { Route, Routes, useParams, useNavigate } from "react-router-dom";
 import useAds from "./hooks/useAds";
 import useSearch from "./hooks/useSearch";
+import useIntersectionObserver from './hooks/useIntersectionObserver';
+import { Helmet } from 'react-helmet';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Suspense } from 'react';
+import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
+
 import Header from "./components/Header/Header";
 import AdTypeButtons from "./components/AdTypeButtons/AdTypeButtons";
 import NewFeed from "./components/NewFeed/NewFeed";
@@ -27,6 +34,7 @@ function HomePage() {
   const [isAdTypeSelected, setIsAdTypeSelected] = useState(!!adType);
   const [selectedAdType, setSelectedAdType] = useState(adType || null);
   const [viewMode, setViewMode] = useState("vertical"); // Estado para el modo de vista
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const { 
     ads, 
@@ -123,10 +131,10 @@ function HomePage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  const handleCloseDetailView = () => {
+  const handleCloseDetailView = useCallback(() => {
     setSelectedAd(null);
-    navigate(`/${adType}/${category || ""}`); // Redirige solo a la categoría
-  };
+    navigate(`/${adType}/${category || ""}`);
+  }, [adType, category, navigate]);
 
   const handleNext = useCallback(() => {
     const currentIndex = ads.findIndex(ad => ad._id === selectedAd._id);
@@ -173,76 +181,127 @@ function HomePage() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-        <Header
-          toggleForm={toggleFormVisibility}
-          setFilter={setFilter}
-          updateSearchTerm={updateSearchTerm}
-          searchInputRef={searchInputRef}
-        />
-        <div className="container">
-          <div className="portal">
-            {!isAdTypeSelected ? (
-              <AdTypeButtons
-                adType={selectedAdType}
-                handleAdTypeClick={handleAdTypeClick}
-                getAds={getAds}
-              />
-            ) : (
-              <NewFeed
-                className="feed"
-                adisos={filteredAds}
-                setSelectedAd={setSelectedAd}
-                loader={loader}
-                setFilter={setFilter}
-                toggleForm={toggleFormVisibility}
-                updateSearchTerm={updateSearchTerm} // Pasar updateSearchTerm a NewFeed
-                searchInputRef={searchInputRef}
-                viewMode={viewMode} // Pasar el modo de vista a NewFeed
-                toggleViewMode={toggleViewMode} // Pasar toggleViewMode a NewFeed
-              />
-            )}
-          </div>
-          <div className="right-sidebar">
-            <button
-              type="button"
-              className="publish-button"
-              onClick={toggleFormVisibility}
-            >
-              {isFormVisible ? "buscar adisos gratis" : "publicar adiso"}
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
+          <Header
+            toggleForm={toggleFormVisibility}
+            setFilter={setFilter}
+            updateSearchTerm={updateSearchTerm}
+            searchInputRef={searchInputRef}
+          />
 
-            {isFormVisible && (
-              <AdForm
-                addAdToTop={addAdToTop}
-                isVisible={isFormVisible}
-                hideForm={toggleFormVisibility}
-                adisos={ads}
+          <div className="container">
+            <motion.div 
+              className="portal"
+              layout
+            >
+              <AnimatePresence mode="wait">
+                {!isAdTypeSelected ? (
+                  <motion.div
+                    key="adTypeButtons"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                  >
+                    <AdTypeButtons
+                      adType={selectedAdType}
+                      handleAdTypeClick={handleAdTypeClick}
+                      getAds={getAds}
+                    />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="newFeed"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                  >
+                    <NewFeed
+                      className="feed"
+                      adisos={filteredAds}
+                      setSelectedAd={setSelectedAd}
+                      loader={loader}
+                      setFilter={setFilter}
+                      toggleForm={toggleFormVisibility}
+                      updateSearchTerm={updateSearchTerm}
+                      searchInputRef={searchInputRef}
+                      viewMode={viewMode}
+                      toggleViewMode={toggleViewMode}
+                      isLoading={isLoading}
+                      hasMore={hasMore}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+
+            <motion.div 
+              className="right-sidebar"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <motion.button
+                type="button"
+                className="publish-button"
+                onClick={toggleFormVisibility}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {isFormVisible ? "buscar adisos gratis" : "publicar adiso"}
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </motion.button>
+
+              <AnimatePresence>
+                {isFormVisible && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                  >
+                    <AdForm
+                      addAdToTop={addAdToTop}
+                      isVisible={isFormVisible}
+                      hideForm={toggleFormVisibility}
+                      adisos={ads}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <AdsColumn 
+                adisos={filteredAds} 
+                selectedAdType={selectedAdType} 
               />
-            )}
-            <AdsColumn adisos={filteredAds} selectedAdType={selectedAdType} />
+            </motion.div>
+
+            <SocialMedia />
           </div>
-          <SocialMedia />
-        </div>
-        <BottomNavBar
-          showForm={toggleFormVisibility}
-          searchInputRef={searchInputRef}
-        />
-      </div>
-      <Routes>
-        <Route path="/profile" element={<UserProfile />} />
-      </Routes>
-      {selectedAd && (
-        <AdDetailView
-          adiso={selectedAd}
-          onClose={handleCloseDetailView}
-          onNext={handleNext}
-          onPrev={handlePrev}
-        />
-      )}
+
+          <BottomNavBar
+            showForm={toggleFormVisibility}
+            searchInputRef={searchInputRef}
+          />
+        </motion.div>
+
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            <Route path="/profile" element={<UserProfile />} />
+          </Routes>
+        </Suspense>
+
+        <AnimatePresence>
+          {selectedAd && (
+            <AdDetailView
+              adiso={selectedAd}
+              onClose={handleCloseDetailView}
+              onNext={handleNext}
+              onPrev={handlePrev}
+            />
+          )}
+        </AnimatePresence>
+      </ErrorBoundary>
     </Fragment>
   );
 }
