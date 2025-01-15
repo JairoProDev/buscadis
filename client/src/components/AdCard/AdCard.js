@@ -6,12 +6,24 @@ import { faBookmark, faMapMarkerAlt, faCalendarAlt, faStore, faEllipsisV } from 
 
 function AdCard({ adiso, setSelectedAd, viewMode }) {
   const navigate = useNavigate();
+  const [isLiked, setIsLiked] = React.useState(false);
+  const [isSaved, setIsSaved] = React.useState(false);
 
   const handleAdClick = () => {
     navigate(
       `/${adiso.adType}/${adiso.category}/${adiso.subCategory}/${adiso._id}`
     );
     setSelectedAd(adiso);
+  };
+
+  const handleLike = (e) => {
+    e.stopPropagation();
+    setIsLiked(!isLiked);
+  };
+
+  const handleSave = (e) => {
+    e.stopPropagation();
+    setIsSaved(!isSaved);
   };
 
   const {
