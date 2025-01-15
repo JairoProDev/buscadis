@@ -1,0 +1,112 @@
+:root {
+  /* Colors */
+  --primary-100: #E6F6FF;
+  --primary-200: #BAE3FF;
+  --primary-300: #7CC4FA;
+  --primary-400: #47A3F3;
+  --primary-500: #2186EB;
+  --primary-600: #0967D2;
+  --primary-700: #0552B5;
+  --primary-800: #03449E;
+  --primary-900: #01337D;
+
+  --neutral-100: #F5F7FA;
+  --neutral-200: #E4E7EB;
+  --neutral-300: #CBD2D9;
+  --neutral-400: #9AA5B1;
+  --neutral-500: #7B8794;
+  --neutral-600: #616E7C;
+  --neutral-700: #52606D;
+  --neutral-800: #3E4C59;
+  --neutral-900: #323F4B;
+
+  --success-100: #E3F9E5;
+  --success-500: #31C48D;
+  --success-900: #014737;
+
+  --error-100: #FFE3E3;
+  --error-500: #F05252;
+  --error-900: #7F1D1D;
+
+  /* Typography */
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-secondary: 'Playfair Display', serif;
+
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem;  /* 36px */
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2rem;      /* 32px */
+  --spacing-2xl: 3rem;     /* 48px */
+  --spacing-3xl: 4rem;     /* 64px */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Border Radius */
+  --radius-sm: 0.125rem;  /* 2px */
+  --radius-md: 0.25rem;   /* 4px */
+  --radius-lg: 0.5rem;    /* 8px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms;
+  --transition-normal: 250ms;
+  --transition-slow: 350ms;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Utility Classes */
+.text-primary { color: var(--primary-600); }
+.text-success { color: var(--success-500); }
+.text-error { color: var(--error-500); }
+
+.bg-primary { background-color: var(--primary-600); }
+.bg-success { background-color: var(--success-500); }
+.bg-error { background-color: var(--error-500); }
+
+.shadow-hover {
+  transition: box-shadow var(--transition-normal) var(--transition-timing);
+}
+
+.shadow-hover:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Responsive Breakpoints */
+@media (min-width: 640px) {
+  :root {
+    --container-padding: var(--spacing-md);
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-padding: var(--spacing-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --container-padding: var(--spacing-xl);
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --container-padding: var(--spacing-2xl);
+  }
+}
